@@ -32,6 +32,7 @@ theme = "hugo-book"
 
   # 대표이미지
   images = ["/images/og-default.png"]
+  BookDisableGoogleFonts = true
 
 # 5. 다국어 및 한국어 기본 설정
 [languages]

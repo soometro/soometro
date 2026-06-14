@@ -1,2 +1,0 @@
-C:\soometro\layouts\_default
-C:\soometro\layouts\_default\section.html

@@ -1,0 +1,11 @@
+/* 사이드바 메뉴 텍스트를 명조 이탤릭체로 고정 */
+.book-menu nav ul li a {
+    font-family: "Georgia", "Times New Roman", "바탕", serif !important;
+    font-style: italic !important;
+    font-weight: bold !important;
+}
+
+/* (선택) 만약 사이트 전체 폰트를 모두 이 명조체로 바꾸고 싶다면 아래 코드를 쓰세요 */
+:root {
+    --book-font-family: "Georgia", "Times New Roman", "바탕", serif;
+}
