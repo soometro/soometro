@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Bloodborne on soometro</title>
-		<link>http://localhost:1313/docs/bloodborne/</link>
+		<link>https://soometro.kr/docs/bloodborne/</link>
 		<description>Recent content in Bloodborne on soometro</description>
 		<generator>Hugo</generator>
 		<language>ko-kr</language>
@@ -10,6 +10,6 @@
 		
 		
 		
-			<atom:link href="http://localhost:1313/docs/bloodborne/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://soometro.kr/docs/bloodborne/index.xml" rel="self" type="application/rss+xml" />
 	</channel>
 </rss>
