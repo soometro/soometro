@@ -1,6 +1,6 @@
 ---
 title: "북두의권 전투력 TOP10"
-date: 2026-06-13
+date: 2026-06-12
 bookHidden: true
 weight: 1
 ---

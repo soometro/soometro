@@ -1,0 +1,44 @@
+{{ define "main" }}
+  <main class="book-page">
+    <article class="markdown">
+      {{ .Content }}
+
+      {{ $section := .Site.GetPage "section" "docs/manga" }}  {{ if $section }}
+        {{ $allPages := $section.RegularPages.ByWeight }}   {{ $currentIndex := -1 }}
+        {{ range $i, $p := $allPages }}
+          {{ if eq $p.RelPermalink $.RelPermalink }}
+            {{ $currentIndex = $i }}
+          {{ end }}
+        {{ end }}
+
+        {{ if ne $currentIndex -1 }}
+          <div class="book-navigation" style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #ddd;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+
+              {{ if gt $currentIndex 0 }}
+                {{ with index $allPages (sub $currentIndex 1) }}
+                  <a href="{{ .RelPermalink }}" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
+                    ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span>
+                  </a>
+                {{ end }}
+              {{ else }}
+                <div style="visibility: hidden;">←</div>
+              {{ end }}
+
+              {{ if lt $currentIndex (sub (len $allPages) 1) }}
+                {{ with index $allPages (add $currentIndex 1) }}
+                  <a href="{{ .RelPermalink }}" class="book-nav-link next" style="text-align: right; color: var(--color-link); text-decoration: none;">
+                    <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span> →
+                  </a>
+                {{ end }}
+              {{ else }}
+                <div style="visibility: hidden;">→</div>
+              {{ end }}
+
+            </div>
+          </div>
+        {{ end }}
+      {{ end }}
+      </article>
+  </main>
+{{ end }}

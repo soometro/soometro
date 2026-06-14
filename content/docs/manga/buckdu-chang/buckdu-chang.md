@@ -2,7 +2,7 @@
 title: "북두의권 vs 창천의권"
 date: 2026-06-13
 bookHidden: true
-weight: 1
+weight: 2
 ---
 
 북두신권의 주인공 **켄시로(제64대 전승자)**와 창천의 권의 주인공
