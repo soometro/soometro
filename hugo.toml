@@ -30,6 +30,9 @@ theme = "hugo-book"
   # 다크모드 전환 버튼 활성화
   BookPortableLinks = true
 
+  # 대표이미지
+  images = ["/images/og-default.png"]
+
 # 5. 다국어 및 한국어 기본 설정
 [languages]
   [languages.ko]
@@ -37,3 +40,4 @@ theme = "hugo-book"
     weight = 1
 
 enableRobotsTXT = true
+

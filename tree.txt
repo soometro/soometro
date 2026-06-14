@@ -1,0 +1,573 @@
+폴더 PATH의 목록입니다.
+볼륨 일련 번호는 3E73-01AB입니다.
+C:.
+│  .gitmodules
+│  .hugo_build.lock
+│  hugo.toml
+│  tree.txt
+│  
+├─archetypes
+│      default.md
+│      
+├─assets
+├─content
+│  │  _index.md
+│  │  
+│  └─docs
+│      ├─718-boxster
+│      │      _index.md
+│      │      
+│      ├─artist
+│      │      _index.md
+│      │      
+│      ├─bloodborne
+│      │      _index.md
+│      │      
+│      ├─downshifting
+│      │      _index.md
+│      │      
+│      ├─manga
+│      │  │  _index.md
+│      │  │  
+│      │  ├─buckdu
+│      │  │      buckdu.docx
+│      │  │      buckdu.md
+│      │  │      
+│      │  └─buckdu-chang
+│      │          buckdu-chang.md
+│      │          북두신권창천의권.docx
+│      │          
+│      ├─monograph
+│      │  │  _index.md
+│      │  │  
+│      │  ├─guyang-gueum
+│      │  │      guyang-gueum.md
+│      │  │      구양신공 vs 구음진경.docx
+│      │  │      
+│      │  └─guyang-jang
+│      │          guyang-jang.md
+│      │          장무기 곽정 양과 전투력 비교.docx
+│      │          
+│      └─whisky
+│              _index.md
+│              
+├─data
+├─i18n
+├─layouts
+│  └─_default
+│          section.html
+│          
+├─public
+│  │  404.html
+│  │  book.min.0db06fddbbd9eddb3c156a37cb571abcf14e4e7cab6927e2b7305c24f09a961d.css
+│  │  book.min.48f33d5a3eb3d0043703a18061032a2d9ba8b975a98e31188faf67aac93a8b44.css
+│  │  book.min.4bd97dce81455495d4471633650006cc9973a480f33f710f72c5b831d7763f7c.css
+│  │  book.min.58c72ed37799a5468c68a8e97bb285aec6cc82b76f3e32ad6f8c248a3c17dce1.css
+│  │  book.min.959fb6c8f2317c8a2f95ce9687660915217a308285f4ae2afd2e61c4886c7e34.css
+│  │  book.min.f3caff96a1bc2e84d3e34685874bd597ffe657f128b036b057e8df6dfd4f9ace.css
+│  │  favicon.png
+│  │  favicon.svg
+│  │  fuse.min.mjs
+│  │  index.html
+│  │  index.xml
+│  │  ko.search-data.min.93173318050db41d6876870212310fa0214d02998ad82e9d60111539a2326174.json
+│  │  ko.search.min.d7c3fbc0a8291523abe16b8f14560f017b79c375abc4453753ca53dda602c871.js
+│  │  manifest.json
+│  │  mermaid.min.js
+│  │  sitemap.xml
+│  │  
+│  ├─asciinema
+│  │      asciinema-auto.js
+│  │      asciinema-player.css
+│  │      asciinema-player.min.js
+│  │      
+│  ├─categories
+│  │      index.html
+│  │      index.xml
+│  │      
+│  ├─docs
+│  │  │  index.html
+│  │  │  index.xml
+│  │  │  
+│  │  ├─718-boxster
+│  │  │      index.html
+│  │  │      index.xml
+│  │  │      
+│  │  ├─artist
+│  │  │      index.html
+│  │  │      index.xml
+│  │  │      
+│  │  ├─bloodborne
+│  │  │      index.html
+│  │  │      index.xml
+│  │  │      
+│  │  ├─downshifting
+│  │  │      index.html
+│  │  │      index.xml
+│  │  │      
+│  │  ├─manga
+│  │  │  │  index.html
+│  │  │  │  index.xml
+│  │  │  │  
+│  │  │  ├─buckdu
+│  │  │  │  │  buckdu.docx
+│  │  │  │  │  
+│  │  │  │  └─buckdu
+│  │  │  │          index.html
+│  │  │  │          
+│  │  │  └─buckdu-chang
+│  │  │      │  북두신권창천의권.docx
+│  │  │      │  
+│  │  │      └─buckdu-chang
+│  │  │              index.html
+│  │  │              
+│  │  ├─monograph
+│  │  │  │  index.html
+│  │  │  │  index.xml
+│  │  │  │  
+│  │  │  ├─guyang-gueum
+│  │  │  │  │  구양신공 vs 구음진경.docx
+│  │  │  │  │  
+│  │  │  │  └─guyang-gueum
+│  │  │  │          index.html
+│  │  │  │          
+│  │  │  └─guyang-jang
+│  │  │      │  장무기 곽정 양과 전투력 비교.docx
+│  │  │      │  
+│  │  │      └─guyang-jang
+│  │  │              index.html
+│  │  │              
+│  │  └─whisky
+│  │          index.html
+│  │          index.xml
+│  │          
+│  ├─icons
+│  │      backward.svg
+│  │      forward.svg
+│  │      menu.svg
+│  │      toc.svg
+│  │      
+│  ├─katex
+│  │  │  auto-render.min.js
+│  │  │  katex.min.css
+│  │  │  katex.min.js
+│  │  │  
+│  │  └─fonts
+│  │          KaTeX_AMS-Regular.ttf
+│  │          KaTeX_AMS-Regular.woff
+│  │          KaTeX_AMS-Regular.woff2
+│  │          KaTeX_Caligraphic-Bold.ttf
+│  │          KaTeX_Caligraphic-Bold.woff
+│  │          KaTeX_Caligraphic-Bold.woff2
+│  │          KaTeX_Caligraphic-Regular.ttf
+│  │          KaTeX_Caligraphic-Regular.woff
+│  │          KaTeX_Caligraphic-Regular.woff2
+│  │          KaTeX_Fraktur-Bold.ttf
+│  │          KaTeX_Fraktur-Bold.woff
+│  │          KaTeX_Fraktur-Bold.woff2
+│  │          KaTeX_Fraktur-Regular.ttf
+│  │          KaTeX_Fraktur-Regular.woff
+│  │          KaTeX_Fraktur-Regular.woff2
+│  │          KaTeX_Main-Bold.ttf
+│  │          KaTeX_Main-Bold.woff
+│  │          KaTeX_Main-Bold.woff2
+│  │          KaTeX_Main-BoldItalic.ttf
+│  │          KaTeX_Main-BoldItalic.woff
+│  │          KaTeX_Main-BoldItalic.woff2
+│  │          KaTeX_Main-Italic.ttf
+│  │          KaTeX_Main-Italic.woff
+│  │          KaTeX_Main-Italic.woff2
+│  │          KaTeX_Main-Regular.ttf
+│  │          KaTeX_Main-Regular.woff
+│  │          KaTeX_Main-Regular.woff2
+│  │          KaTeX_Math-BoldItalic.ttf
+│  │          KaTeX_Math-BoldItalic.woff
+│  │          KaTeX_Math-BoldItalic.woff2
+│  │          KaTeX_Math-Italic.ttf
+│  │          KaTeX_Math-Italic.woff
+│  │          KaTeX_Math-Italic.woff2
+│  │          KaTeX_SansSerif-Bold.ttf
+│  │          KaTeX_SansSerif-Bold.woff
+│  │          KaTeX_SansSerif-Bold.woff2
+│  │          KaTeX_SansSerif-Italic.ttf
+│  │          KaTeX_SansSerif-Italic.woff
+│  │          KaTeX_SansSerif-Italic.woff2
+│  │          KaTeX_SansSerif-Regular.ttf
+│  │          KaTeX_SansSerif-Regular.woff
+│  │          KaTeX_SansSerif-Regular.woff2
+│  │          KaTeX_Script-Regular.ttf
+│  │          KaTeX_Script-Regular.woff
+│  │          KaTeX_Script-Regular.woff2
+│  │          KaTeX_Size1-Regular.ttf
+│  │          KaTeX_Size1-Regular.woff
+│  │          KaTeX_Size1-Regular.woff2
+│  │          KaTeX_Size2-Regular.ttf
+│  │          KaTeX_Size2-Regular.woff
+│  │          KaTeX_Size2-Regular.woff2
+│  │          KaTeX_Size3-Regular.ttf
+│  │          KaTeX_Size3-Regular.woff
+│  │          KaTeX_Size3-Regular.woff2
+│  │          KaTeX_Size4-Regular.ttf
+│  │          KaTeX_Size4-Regular.woff
+│  │          KaTeX_Size4-Regular.woff2
+│  │          KaTeX_Typewriter-Regular.ttf
+│  │          KaTeX_Typewriter-Regular.woff
+│  │          KaTeX_Typewriter-Regular.woff2
+│  │          
+│  └─tags
+│          index.html
+│          index.xml
+│          
+├─resources
+│  └─_gen
+│      └─assets
+│              book.scss_b807c86e8030af4cdc30edccea379f5f.content
+│              book.scss_b807c86e8030af4cdc30edccea379f5f.json
+│              
+├─static
+└─themes
+    └─hugo-book
+        │  .gitignore
+        │  go.mod
+        │  hugo.toml
+        │  LICENSE
+        │  README.md
+        │  theme.toml
+        │  
+        ├─.github
+        │  └─workflows
+        │          deploy.yml
+        │          main.yml
+        │          
+        ├─archetypes
+        │      book.md
+        │      docs.md
+        │      landing.md
+        │      posts.md
+        │      
+        ├─assets
+        │  │  book.scss
+        │  │  clipboard.js
+        │  │  katex.json
+        │  │  manifest.json
+        │  │  menu-reset.js
+        │  │  mermaid.json
+        │  │  normalize.css
+        │  │  search-data.json
+        │  │  search.js
+        │  │  sw-register.js
+        │  │  sw.js
+        │  │  _custom.scss
+        │  │  _defaults.scss
+        │  │  _fonts.scss
+        │  │  _main - 복사본.scss
+        │  │  _main.scss
+        │  │  _markdown.scss
+        │  │  _print.scss
+        │  │  _shortcodes.scss
+        │  │  _utils.scss
+        │  │  _variables.scss
+        │  │  
+        │  ├─icons
+        │  │      backward.svg
+        │  │      calendar.svg
+        │  │      chevron-right.svg
+        │  │      edit.svg
+        │  │      forward.svg
+        │  │      markdown.svg
+        │  │      menu.svg
+        │  │      toc.svg
+        │  │      translate.svg
+        │  │      
+        │  └─plugins
+        │          _numbered.scss
+        │          _scrollbars.scss
+        │          _themes.scss
+        │          
+        ├─exampleSite
+        │  │  hugo.toml
+        │  │  hugo.yaml
+        │  │  
+        │  ├─assets
+        │  │  │  asciinema-627097.cast
+        │  │  │  book-starter.cast
+        │  │  │  placeholder.svg
+        │  │  │  thumbnail.svg
+        │  │  │  tictactoe.json
+        │  │  │  _custom.scss
+        │  │  │  _variables.scss
+        │  │  │  
+        │  │  └─icons
+        │  │          apparel.svg
+        │  │          rocket.svg
+        │  │          
+        │  ├─content.en
+        │  │  │  showcases.md
+        │  │  │  _index.md
+        │  │  │  
+        │  │  ├─book
+        │  │  │      index.md
+        │  │  │      
+        │  │  ├─docs
+        │  │  │  │  _index.md
+        │  │  │  │  
+        │  │  │  ├─content
+        │  │  │  │  │  blog.md
+        │  │  │  │  │  menus.md
+        │  │  │  │  │  multilingual.md
+        │  │  │  │  │  organisation.md
+        │  │  │  │  │  pages.md
+        │  │  │  │  │  _index.md
+        │  │  │  │  │  
+        │  │  │  │  └─shortcodes
+        │  │  │  │      │  asciinema.md
+        │  │  │  │      │  buttons.md
+        │  │  │  │      │  columns.md
+        │  │  │  │      │  details.md
+        │  │  │  │      │  hints.md
+        │  │  │  │      │  katex.md
+        │  │  │  │      │  mermaid.md
+        │  │  │  │      │  section.md
+        │  │  │  │      │  steps.md
+        │  │  │  │      │  tabs.md
+        │  │  │  │      │  _index.md
+        │  │  │  │      │  
+        │  │  │  │      └─experimental
+        │  │  │  │              images.md
+        │  │  │  │              openapi.md
+        │  │  │  │              _index.md
+        │  │  │  │              
+        │  │  │  ├─customization
+        │  │  │  │      inject-partials.md
+        │  │  │  │      styles.md
+        │  │  │  │      _index.md
+        │  │  │  │      
+        │  │  │  └─getting-started
+        │  │  │          configuration.md
+        │  │  │          create-a-site.md
+        │  │  │          introduction.md
+        │  │  │          _index.md
+        │  │  │          
+        │  │  └─posts
+        │  │          example-post.md
+        │  │          _index.md
+        │  │          
+        │  ├─content.he
+        │  │  │  _index.md
+        │  │  │  
+        │  │  └─docs
+        │  │          _index.md
+        │  │          
+        │  └─content.zh
+        │      │  _index.md
+        │      │  
+        │      └─docs
+        │              _index.md
+        │              
+        ├─i18n
+        │      am.yaml
+        │      bg.yaml
+        │      bn.yaml
+        │      cn.yaml
+        │      cs.yaml
+        │      de.yaml
+        │      en.yaml
+        │      es.yaml
+        │      fa.yaml
+        │      fr.yaml
+        │      he.yaml
+        │      it.yaml
+        │      ja.yaml
+        │      jp.yaml
+        │      ko.yaml
+        │      nb.yaml
+        │      nl.yaml
+        │      oc.yaml
+        │      pl.yaml
+        │      pt-BR.yaml
+        │      pt.yaml
+        │      ru.yaml
+        │      sv.yaml
+        │      sw.yaml
+        │      tr.yaml
+        │      uk.yaml
+        │      zh-TW.yaml
+        │      zh.yaml
+        │      
+        ├─images
+        │      screenshot.png
+        │      tn.png
+        │      
+        ├─layouts
+        │  │  404.html
+        │  │  all.txt
+        │  │  baseof.html
+        │  │  book.html
+        │  │  book.txt
+        │  │  landing.html
+        │  │  list.html
+        │  │  single.html
+        │  │  term.html
+        │  │  
+        │  ├─posts
+        │  │      list.html
+        │  │      single.html
+        │  │      
+        │  ├─_markup
+        │  │      render-blockquote.html
+        │  │      render-codeblock-katex.html
+        │  │      render-codeblock-mermaid.html
+        │  │      render-codeblock.html
+        │  │      render-heading.html
+        │  │      render-image.html
+        │  │      render-link.html
+        │  │      
+        │  ├─_partials
+        │  │  └─docs
+        │  │      │  brand.html
+        │  │      │  comments.html
+        │  │      │  copyright.html
+        │  │      │  date.html
+        │  │      │  footer.html
+        │  │      │  header.html
+        │  │      │  html-attrs.html
+        │  │      │  html-head-favicon.html
+        │  │      │  html-head-title.html
+        │  │      │  html-head.html
+        │  │      │  icon.html
+        │  │      │  languages.html
+        │  │      │  menu-filetree.html
+        │  │      │  menu-hugo.html
+        │  │      │  menu-section-pages.html
+        │  │      │  menu-section.html
+        │  │      │  menu.html
+        │  │      │  pagination.html
+        │  │      │  post-meta.html
+        │  │      │  post-prev-next.html
+        │  │      │  prev-next.html
+        │  │      │  search.html
+        │  │      │  taxonomy.html
+        │  │      │  title.html
+        │  │      │  toc-show.html
+        │  │      │  toc.html
+        │  │      │  
+        │  │      ├─inject
+        │  │      │      body.html
+        │  │      │      content-after.html
+        │  │      │      content-before.html
+        │  │      │      footer.html
+        │  │      │      head.html
+        │  │      │      menu-after.html
+        │  │      │      menu-before.html
+        │  │      │      toc-after.html
+        │  │      │      toc-before.html
+        │  │      │      
+        │  │      ├─links
+        │  │      │      commit.html
+        │  │      │      edit.html
+        │  │      │      home.html
+        │  │      │      portable-image.html
+        │  │      │      portable-link.html
+        │  │      │      resource-precache.html
+        │  │      │      
+        │  │      └─text
+        │  │              i18n.html
+        │  │              mapper.html
+        │  │              shortcode-id.html
+        │  │              template.html
+        │  │              
+        │  └─_shortcodes
+        │          asciinema.html
+        │          button.html
+        │          columns.html
+        │          details.html
+        │          hint.html
+        │          html.html
+        │          i18n.html
+        │          image.html
+        │          katex.html
+        │          mermaid.html
+        │          openapi.html
+        │          section.html
+        │          steps.html
+        │          tab.html
+        │          tabs.html
+        │          
+        └─static
+            │  favicon.png
+            │  favicon.svg
+            │  fuse.min.mjs
+            │  mermaid.min.js
+            │  
+            ├─asciinema
+            │      asciinema-auto.js
+            │      asciinema-player.css
+            │      asciinema-player.min.js
+            │      
+            └─katex
+                │  auto-render.min.js
+                │  katex.min.css
+                │  katex.min.js
+                │  
+                └─fonts
+                        KaTeX_AMS-Regular.ttf
+                        KaTeX_AMS-Regular.woff
+                        KaTeX_AMS-Regular.woff2
+                        KaTeX_Caligraphic-Bold.ttf
+                        KaTeX_Caligraphic-Bold.woff
+                        KaTeX_Caligraphic-Bold.woff2
+                        KaTeX_Caligraphic-Regular.ttf
+                        KaTeX_Caligraphic-Regular.woff
+                        KaTeX_Caligraphic-Regular.woff2
+                        KaTeX_Fraktur-Bold.ttf
+                        KaTeX_Fraktur-Bold.woff
+                        KaTeX_Fraktur-Bold.woff2
+                        KaTeX_Fraktur-Regular.ttf
+                        KaTeX_Fraktur-Regular.woff
+                        KaTeX_Fraktur-Regular.woff2
+                        KaTeX_Main-Bold.ttf
+                        KaTeX_Main-Bold.woff
+                        KaTeX_Main-Bold.woff2
+                        KaTeX_Main-BoldItalic.ttf
+                        KaTeX_Main-BoldItalic.woff
+                        KaTeX_Main-BoldItalic.woff2
+                        KaTeX_Main-Italic.ttf
+                        KaTeX_Main-Italic.woff
+                        KaTeX_Main-Italic.woff2
+                        KaTeX_Main-Regular.ttf
+                        KaTeX_Main-Regular.woff
+                        KaTeX_Main-Regular.woff2
+                        KaTeX_Math-BoldItalic.ttf
+                        KaTeX_Math-BoldItalic.woff
+                        KaTeX_Math-BoldItalic.woff2
+                        KaTeX_Math-Italic.ttf
+                        KaTeX_Math-Italic.woff
+                        KaTeX_Math-Italic.woff2
+                        KaTeX_SansSerif-Bold.ttf
+                        KaTeX_SansSerif-Bold.woff
+                        KaTeX_SansSerif-Bold.woff2
+                        KaTeX_SansSerif-Italic.ttf
+                        KaTeX_SansSerif-Italic.woff
+                        KaTeX_SansSerif-Italic.woff2
+                        KaTeX_SansSerif-Regular.ttf
+                        KaTeX_SansSerif-Regular.woff
+                        KaTeX_SansSerif-Regular.woff2
+                        KaTeX_Script-Regular.ttf
+                        KaTeX_Script-Regular.woff
+                        KaTeX_Script-Regular.woff2
+                        KaTeX_Size1-Regular.ttf
+                        KaTeX_Size1-Regular.woff
+                        KaTeX_Size1-Regular.woff2
+                        KaTeX_Size2-Regular.ttf
+                        KaTeX_Size2-Regular.woff
+                        KaTeX_Size2-Regular.woff2
+                        KaTeX_Size3-Regular.ttf
+                        KaTeX_Size3-Regular.woff
+                        KaTeX_Size3-Regular.woff2
+                        KaTeX_Size4-Regular.ttf
+                        KaTeX_Size4-Regular.woff
+                        KaTeX_Size4-Regular.woff2
+                        KaTeX_Typewriter-Regular.ttf
+                        KaTeX_Typewriter-Regular.woff
+                        KaTeX_Typewriter-Regular.woff2
+                        
