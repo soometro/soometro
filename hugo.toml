@@ -16,6 +16,7 @@ theme = "hugo-book"
     [markup.goldmark.renderer]
       unsafe = true 
 
+
 # 4. hugo-book 테마 전용 매개변수 설정
 [params]
   BookTitle = "soometro"
@@ -33,6 +34,7 @@ theme = "hugo-book"
   # 대표이미지
   images = ["/images/og-default.png"]
   BookDisableGoogleFonts = true
+
 
 # 5. 다국어 및 한국어 기본 설정
 [languages]
