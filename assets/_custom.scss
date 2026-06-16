@@ -1,10 +1,12 @@
 /* 1. 사이드바 메뉴 스타일 */
 .book-menu nav ul li a {
     font-family: "Georgia", "Times New Roman", "바탕", serif !important;
-    font-style: italic !important;
+    font-style: normal !important;     /* 주석 대신 명시적으로 똑바로 세우는 속성 적용 */
+    font-synthesis: none !important;  /* 브라우저가 글자를 강제로 눕히는 변형 오류 방지 */
     font-weight: bold !important;
+
     /* 추가: 메뉴 글자 크기, 간격, 터치 영역 확대 */
-    font-size: 1.2rem !important;
+    font-size: 1.0rem !important;
     padding: 16px 0 !important;
     display: block !important;
     line-height: 1.2 !important;
@@ -19,9 +21,9 @@
 /* 3. 좌측 최상단 사이트 제목 스타일 */
 .book-brand a {
     font-family: "Georgia", "Times New Roman", "바탕", serif !important;
-    font-style: italic !important;
+    font-style: italic !important; 
     font-weight: bold !important;
-    font-size: 1.8rem !important;
+    font-size: 1.6rem !important;
 }
 
 /* 4. 검색창 스타일 */
