@@ -1,0 +1,16 @@
+<div class="flex align-center justify-between">
+  <!-- 1. 왼쪽 줄 3개 메뉴 버튼 -->
+  <label for="menu-control">
+    <img src="{{ partial "docs/icon" "menu" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Menu" }}" />
+  </label>
+
+  <!-- 2. 중앙 제목 (6번 스타일 코드가 숨겨주고 있으므로 안심하셔도 됩니다) -->
+  <h3>{{ partial "docs/title" . }}</h3>
+
+  <!-- 3. 오른쪽 줄 3개 목차 버튼 (그림 주소를 menu로 일치시킴) -->
+  <label for="toc-control">
+    {{ if partial "docs/toc-show" . }}
+    <img src="{{ partial "docs/icon" "menu" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Table of Contents" }}" />
+    {{ end }}
+  </label>
+</div>

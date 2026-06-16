@@ -29,3 +29,107 @@
     font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
 }
 
+
+/* ==========================================================================
+   5. 모바일 화면 오른쪽 줄 3개 버튼 클릭 시 목차(TOC) 우측 슬라이드 효과
+   ========================================================================== */
+@media screen and (max-width: 60rem) { 
+    
+    // 타이틀 밑으로 떨어지던 목차 박스를 화면 '오른쪽 바깥'에 완전히 밀봉 보관
+    .book-header aside {
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        width: 16rem !important; // 오른쪽 사이드바 너비
+        padding: 4rem 1.5rem 2rem 1.5rem !important;
+        background: var(--body-background) !important;
+        box-shadow: -0.1rem 0 0.5rem rgba(0, 0, 0, 0.15) !important;
+        z-index: 9999 !important; // 오버레이 마스크(9998)보다 무조건 위에 띄움
+        
+        // 화면 오른쪽 밖으로 100% 밀어서 완벽히 숨김
+        transform: translateX(100%) !important; 
+        transition: transform 0.2s ease-in-out !important; 
+        overflow-y: auto !important;
+
+        // 목차 링크 디자인
+        nav > ul {
+            padding-left: 0;
+            list-style: none;
+            li {
+                margin: 0.6rem 0;
+                a {
+                    color: var(--color-link) !important;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    display: block;
+                    &:hover { text-decoration: underline; }
+                }
+            }
+        }
+    }
+
+    // 오른쪽 버튼(#toc-control)이 선택되면 숨겨진 목차를 화면 안(0)으로 부드럽게 인출
+    #toc-control:checked ~ main {
+        .book-header aside {
+            transform: translateX(0) !important; 
+        }
+        
+        // [정밀 교정] 주르륵 스크롤이 내려가도 어두운 배경이 화면 전체를 항상 똑같이 따라다니며 차단 고정
+        .book-toc-overlay {
+            display: block !important;
+            position: fixed !important; 
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;  // 브라우저 뷰포트 창 가로 전체 크기
+            height: 100vh !important; // 브라우저 뷰포트 창 세로 전체 크기
+            background: rgba(0, 0, 0, 0.4) !important; // 어둡게 막아주는 투명 마스크 색상
+            z-index: 9998 !important; // 목차(9999) 바로 아래층에 배치
+            cursor: pointer;
+            
+            // 화면 내부 스크롤 이동에 구애받지 않도록 고정축 강제 처리
+            transform: none !important;
+            bottom: auto !important;
+            right: auto !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   6. 모바일 상단 바(Header) 중앙의 중복 제목 글자 완벽 숨기기
+   ========================================================================== */
+@media screen and (max-width: 60rem) { 
+    .book-header h3 {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   7. PC 화면(넓은 화면)일 때 본문 하단(LIST 밑)에 깔리는 중복 목차 완전 제거
+   ========================================================================== */
+@media screen and (min-width: 60rem) { 
+    // 원래 우측 고정 영역(.book-toc-content)에만 목차가 나와야 합니다.
+    // 본문 페이지 내부나 하단에 중복 출력되는 목차 구조를 완벽하게 삭제 처리합니다.
+    main .book-page .book-toc,
+    main .book-page aside {
+        display: none !important;
+    }
+}
+
+
+/* ==========================================================================
+   8. 모바일 화면 글 목록(LIST) 및 본문 양쪽 여백 축소 (함몰 현상 교정)
+   ========================================================================== */
+@media screen and (max-width: 60rem) {
+    // 2, 3번째 사진의 본문 영역 바깥 여백을 축소하여 메인 페이지 라인과 일치시킵니다.
+    .book-page {
+        padding: 1rem 0.5rem !important; // 상하 여백은 유지하고 좌우 여백을 대폭 축소
+    }
+    
+    // 본문 마크다운 내부 텍스트 영역의 2중 여백까지 완전히 제거하여 라인을 바깥으로 확장합니다.
+    .markdown {
+        padding: 0 !important;
+    }
+}
