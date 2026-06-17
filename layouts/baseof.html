@@ -3,13 +3,6 @@
 <head>
   {{ partial "docs/html-head" . }}
   {{ partial "docs/inject/head" . }}
-  
-  <!-- 옛날 찌꺼기 박스 원천 차단 -->
-  <style>
-    .book-menu-umami:not([data-live="true"]) {
-        display: none !important;
-    }
-  </style>
 </head>
 <body dir="{{ default "ltr" "ltr" }}" class="book-kind-{{ .Kind }} book-type-{{ .Type }}{{ with .Layout }} book-layout-{{ . }}{{ end }}">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
@@ -45,7 +38,7 @@
 
   {{ partial "docs/inject/body" . }}
 
-  <!-- 배경 클릭 시 화면이 위로 튕겨 올라가는 브라우저 초점 버그 차단 스크립트 -->
+  <!-- [최종 해결책] 배경 클릭 시 화면이 위로 튕겨 올라가는 브라우저 초점 버그를 완벽히 차단하는 스크립트 -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       var overlay = document.querySelector(".book-toc-overlay");
@@ -53,10 +46,10 @@
       
       if (overlay && tocControl) {
         overlay.addEventListener("click", function(e) {
-          e.preventDefault(); 
-          var currentScrollY = window.scrollY; 
-          tocControl.checked = false; 
-          window.scrollTo(0, currentScrollY); 
+          e.preventDefault(); // 브라우저의 기본 초점 이동 동작을 강제로 무력화
+          var currentScrollY = window.scrollY; // 현재 스크롤 높이를 기억
+          tocControl.checked = false; // 목차 스위치를 끔
+          window.scrollTo(0, currentScrollY); // 기억해둔 원래 높이로 스크롤을 단단히 고정
         });
       }
     });
@@ -74,34 +67,6 @@
 
 {{ define "menu" }}
   {{ partial "docs/menu" . }}
-  
-  <!-- 사용자 정의: 좌측 사이드바 최하단 방문자 통계 영역 (세로 줄 바꿈 강제 정렬) -->
-  <div class="book-menu-umami" data-live="true" style="margin-top: 2rem; padding: 1rem 0.5rem 0 0.5rem; border-top: 1px dashed #ccc; font-family: sans-serif; font-size: 0.85rem; line-height: 1.5; text-align: left;">
-      <!-- 클릭 시 전체 대시보드로 이동하는 링크 헤더 -->
-      <a href="https://umami.is" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
-          <span style="font-weight: bold; color: #555;">📊 Analytics</span>
-          <span style="font-size: 0.75rem; color: #2f8f9f; font-weight: bold;">Live ➔</span>
-      </a>
-      
-      <!-- 각각 독립된 세로 한 줄씩 확실하게 자리를 잡고 배치하는 박스 구조 -->
-      <div style="display: flex; flex-direction: column; gap: 0.4rem; color: #666; width: 100%;">
-          <!-- Today 영역 (양끝 정렬) -->
-          <div style="display: flex; justify-content: space-between; width: 100%;">
-              <span>Today</span>
-              <strong id="umami-today" style="color: #2f8f9f;">0</strong>
-          </div>
-          <!-- Month 영역 (양끝 정렬) -->
-          <div style="display: flex; justify-content: space-between; width: 100%;">
-              <span>Month</span>
-              <strong id="umami-month" style="color: #2f8f9f;">0</strong>
-          </div>
-          <!-- Total 영역 (경계선 배치 및 양끝 정렬) -->
-          <div style="display: flex; justify-content: space-between; width: 100%; border-top: 1px solid #eee; padding-top: 0.4rem; margin-top: 0.2rem;">
-              <span>Total</span>
-              <strong id="umami-total" style="color: #2f8f9f;">0</strong>
-          </div>
-      </div>
-  </div>
 {{ end }}
 
 {{ define "header" }}
