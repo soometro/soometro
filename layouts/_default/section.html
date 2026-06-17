@@ -4,8 +4,11 @@
 {{/* <h1>{{ .Title }}</h1> */}} 
       {{ .Content }}
       
+
+
+<br><br><br>
       {{ if .Pages }}
-        <h2>LIST</h2>
+        <h5>Product Inventory</h5>
         <ul>
           {{/* .ByDate.Reverse를 사용하여 작성일 기준 최신순으로 정렬합니다 */}}
           {{ range .Pages.ByDate.Reverse }}
