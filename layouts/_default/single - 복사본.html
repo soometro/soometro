@@ -11,9 +11,6 @@
           {{ end }}
         {{ end }}
 
-        <!-- 1. SNS 공유 버튼 주입 (본문 아래, 네비게이션 위에 배치) -->
-        {{ partial "sns-share.html" . }}
-
         {{ if ne $currentIndex -1 }}
           <div class="book-navigation" style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #ddd;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">

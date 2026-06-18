@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko-kr" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -13,7 +13,7 @@ https://github.com/alex-shpak/hugo-book
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://soometro.kr/docs/manga/buckdu/buckdu/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/manga/buckdu/buckdu/">
 	<meta property="og:site_name" content="soometro">
 	<meta property="og:title" content="북두의권 전투력 TOP10">
 	<meta property="og:description" content="만화 ‘북두의 권’ 세계관 내 등장인물 공식 설정인 궁극해설서 세기말패왕열전의 티어 등급과 원작 후반부(수라국 편)의 파워 밸런스를 종합적으로 반영한 전전투력 순위 TOP 10 분석 결과입니다.
@@ -23,7 +23,7 @@ https://github.com/alex-shpak/hugo-book
 		<meta property="article:section" content="docs">
 		<meta property="article:published_time" content="2026-06-12T00:00:00+00:00">
 		<meta property="article:modified_time" content="2026-06-12T00:00:00+00:00">
-		<meta property="og:image" content="https://soometro.kr/images/og-default.png">
+		<meta property="og:image" content="http://localhost:1313/images/og-default.png">
 
 
 	<meta itemprop="name" content="북두의권 전투력 TOP10">
@@ -32,13 +32,13 @@ https://github.com/alex-shpak/hugo-book
 	<meta itemprop="datePublished" content="2026-06-12T00:00:00+00:00">
 	<meta itemprop="dateModified" content="2026-06-12T00:00:00+00:00">
 	<meta itemprop="wordCount" content="543">
-	<meta itemprop="image" content="https://soometro.kr/images/og-default.png">
+	<meta itemprop="image" content="http://localhost:1313/images/og-default.png">
 
 <title>북두의권 전투력 TOP10 • soometro</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://soometro.kr/docs/manga/buckdu/buckdu/">
-<link rel="stylesheet" href="/book.min.caaedf89429645f32e46bede626fa731be7332d8a542299e2252c36c0389368f.css" integrity="sha256-yq7fiUKWRfMuRr7eYm&#43;nMb5zMtilQimeIlLDbAOJNo8=" crossorigin="anonymous">
+<link rel="canonical" href="http://localhost:1313/docs/manga/buckdu/buckdu/">
+<link rel="stylesheet" href="/book.min.dfe0d38462020030be2677ff068951b4f0ee284877331371e1e3aa52e5f05242.css" integrity="sha256-3&#43;DThGICADC&#43;Jnf/BolRtPDuKEh3MxNx4eOqUuXwUkI=" crossorigin="anonymous">
 
 
   <script defer type="module" src="/ko.search.min.1ad5fd2c16a839ddd13717deeef74e3e3ea8f7c0c40b2eb3397cd0541196bdc4.js" integrity="sha256-GtX9LBaoOd3RNxfe7vdOPj6o98DECy6zOXzQVBGWvcQ=" crossorigin="anonymous"></script>
@@ -457,6 +457,96 @@ TOP 10의 마지막 자리를 차지했습니다</p>
         
           
         
+
+        
+        <div class="sns-share-container">
+  <h4>이 문서 공유하기</h4>
+  <div class="sns-share-buttons">
+    
+    
+    <button class="share-btn copy-link" onclick="copyToClipboard()" title="URL 복사">
+      <span class="icon-text">LN</span>
+      <span class="label">URL 복사</span>
+    </button>
+
+    
+    <button class="share-btn kakaotalk" onclick="openShareWindow('kakao')" title="카카오톡 공유">
+      <span class="icon-text">KT</span>
+      <span class="label">카카오톡</span>
+    </button>
+
+    
+    <button class="share-btn naver-blog" onclick="openShareWindow('naver-blog')" title="네이버 블로그 공유">
+      <span class="icon-text">NB</span>
+      <span class="label">블로그</span>
+    </button>
+
+    
+    <button class="share-btn naver-keep" onclick="openShareWindow('naver-keep')" title="네이버 Keep 저장">
+      <span class="icon-text">NK</span>
+      <span class="label">Keep</span>
+    </button>
+
+    
+    <button class="share-btn x-twitter" onclick="openShareWindow('x')" title="X 공유">
+      <span class="icon-text">𝕏</span>
+      <span class="label">엑스</span>
+    </button>
+
+    
+    <button class="share-btn threads" onclick="openShareWindow('threads')" title="쓰레드 공유">
+      <span class="icon-text">🧵</span>
+      <span class="label">쓰레드</span>
+    </button>
+
+  </div>
+</div>
+
+<script>
+function copyToClipboard() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    alert("주소가 클립보드에 복사되었습니다!");
+  }).catch(err => {
+    console.error("복사 실패: ", err);
+  });
+}
+
+function openShareWindow(platform) {
+  const currentUrl = encodeURIComponent(window.location.href);
+  const currentTitle = encodeURIComponent(document.title.trim());
+  let shareUrl = "";
+
+  
+  switch (platform) {
+    case 'kakao':
+      shareUrl = "https://kakao.com" + currentUrl;
+      break;
+    case 'naver-blog':
+      shareUrl = "https://naver.com" + currentUrl + "&title=" + currentTitle;
+      break;
+    case 'naver-keep':
+      shareUrl = "https://naver.com" + currentUrl + "&title=" + currentTitle;
+      break;
+    case 'x':
+      shareUrl = "https://x.com" + currentTitle + "&url=" + currentUrl;
+      break;
+    case 'threads':
+      shareUrl = "https://threads.net" + currentTitle + "%20" + currentUrl;
+      break;
+  }
+
+  if (shareUrl) {
+    const width = 600;
+    const height = 550;
+    const left = (window.screen.width / 2) - (width / 2);
+    const top = (window.screen.height / 2) - (height / 2);
+    
+    window.open(shareUrl, 'shareWindow', `width=${width},height=${height},left=${left},top=${top},location=yes,resizable=yes,scrollbars=yes,status=yes`);
+  }
+}
+</script>
+
 
         
           <div class="book-navigation" style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #ddd;">
