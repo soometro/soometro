@@ -2,86 +2,41 @@
   <h4>이 문서 공유하기</h4>
   <div class="sns-share-buttons">
     
-    <!-- 1. URL 주소 복사 -->
-    <button class="share-btn copy-link" onclick="copyToClipboard()" title="URL 복사">
+    <!-- 1. URL 주소 복사 (브라우저 표준 클립보드 기능 직통 호출) -->
+    <a class="share-btn copy-link" href="#" onclick="navigator.clipboard.writeText(window.location.href); alert('주소가 클립보드에 복사되었습니다!'); return false;" title="URL 복사">
       <span class="icon-text">LN</span>
       <span class="label">URL 복사</span>
-    </button>
+    </a>
 
-    <!-- 2. 카카오톡 공유 (카카오스토리 연동 표준 API) -->
-    <button class="share-btn kakaotalk" onclick="openShareWindow('kakao')" title="카카오톡 공유">
+    <!-- 2. 카카오톡 공유 -->
+    <a class="share-btn kakaotalk" href="https://kakao.com{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="카카오톡 공유">
       <span class="icon-text">KT</span>
       <span class="label">카카오톡</span>
-    </button>
+    </a>
 
-    <!-- 3. 네이버 블로그 공식 공유 API -->
-    <button class="share-btn naver-blog" onclick="openShareWindow('naver-blog')" title="네이버 블로그 공유">
+    <!-- 3. 네이버 블로그 공유 -->
+    <a class="share-btn naver-blog" href="https://naver.com{{ .Permalink | urlquery }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer" title="네이버 블로그 공유">
       <span class="icon-text">NB</span>
       <span class="label">블로그</span>
-    </button>
+    </a>
 
-    <!-- 4. 네이버 Keep 공식 저장 API -->
-    <button class="share-btn naver-keep" onclick="openShareWindow('naver-keep')" title="네이버 Keep 저장">
+    <!-- 4. 네이버 Keep 저장 -->
+    <a class="share-btn naver-keep" href="https://naver.com{{ .Permalink | urlquery }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer" title="네이버 Keep 저장">
       <span class="icon-text">NK</span>
       <span class="label">Keep</span>
-    </button>
+    </a>
 
-    <!-- 5. 엑스 (구 트위터) 공식 공유 API -->
-    <button class="share-btn x-twitter" onclick="openShareWindow('x')" title="X 공유">
+    <!-- 5. 엑스 (구 트위터) 공유 -->
+    <a class="share-btn x-twitter" href="https://x.com{{ .Permalink | urlquery }}&text={{ .Title | urlquery }}" target="_blank" rel="noopener noreferrer" title="X 공유">
       <span class="icon-text">𝕏</span>
       <span class="label">엑스</span>
-    </button>
+    </a>
 
-    <!-- 6. 쓰레드 (Threads) 공식 공유 API -->
-    <button class="share-btn threads" onclick="openShareWindow('threads')" title="쓰레드 공유">
+    <!-- 6. 쓰레드 (Threads) 공유 -->
+    <a class="share-btn threads" href="https://threads.net{{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="쓰레드 공유">
       <span class="icon-text">🧵</span>
       <span class="label">쓰레드</span>
-    </button>
+    </a>
 
   </div>
 </div>
-
-<script>
-function copyToClipboard() {
-  const url = window.location.href;
-  navigator.clipboard.writeText(url).then(() => {
-    alert("주소가 클립보드에 복사되었습니다!");
-  }).catch(err => {
-    console.error("복사 실패: ", err);
-  });
-}
-
-function openShareWindow(platform) {
-  const currentUrl = encodeURIComponent(window.location.href);
-  const currentTitle = encodeURIComponent(document.title.trim());
-  let shareUrl = "";
-
-  // [정밀 교정] 각 회사별 공식 파라미터 매핑 주소 규격 적용
-  switch (platform) {
-    case 'kakao':
-      shareUrl = "https://kakao.com" + currentUrl;
-      break;
-    case 'naver-blog':
-      shareUrl = "https://naver.com" + currentUrl + "&title=" + currentTitle;
-      break;
-    case 'naver-keep':
-      shareUrl = "https://naver.com" + currentUrl + "&title=" + currentTitle;
-      break;
-    case 'x':
-      shareUrl = "https://x.com" + currentTitle + "&url=" + currentUrl;
-      break;
-    case 'threads':
-      shareUrl = "https://threads.net" + currentTitle + "%20" + currentUrl;
-      break;
-  }
-
-  if (shareUrl) {
-    const width = 600;
-    const height = 550;
-    const left = (window.screen.width / 2) - (width / 2);
-    const top = (window.screen.height / 2) - (height / 2);
-    
-    window.open(shareUrl, 'shareWindow', `width=${width},height=${height},left=${left},top=${top},location=yes,resizable=yes,scrollbars=yes,status=yes`);
-  }
-}
-</script>
