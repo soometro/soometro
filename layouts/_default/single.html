@@ -1,8 +1,25 @@
 {{ define "main" }}
   <main class="book-page">
     <article class="markdown">
+      
+      <!-- 게시물 우측 상단 날짜 표시 (적당한 상단 높이 밸런스 조정 완료) -->
+      <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: #444444 !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important;">
+        작성일 : 
+        {{ if .Date }}
+          {{ .Date.Format "2006-01-02" }}
+        {{ else }}
+          {{ .PublishDate.Format "2006-01-02" }}
+        {{ end }}
+      </div>
+      <style>
+        /* 날짜 요소(.book-post-date) 바로 다음에 오는 본문 첫 요소(h1 등)의 상단 여백을 강제로 제로화 */
+        .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
+      </style>
+
+      <!-- 게시물 본문 내용 -->
       {{ .Content }}
 
+      <!-- 하단 이전글/다음글 네비게이션 -->
       {{ if and (not .Pages) (eq .Section "docs") }}
         {{ $allPages := .Parent.RegularPages.ByDate }} {{ $currentIndex := -1 }}
         {{ range $i, $p := $allPages }}
@@ -39,6 +56,6 @@
           </div>
         {{ end }}
       {{ end }}
-      </article>
+    </article>
   </main>
 {{ end }}

@@ -1,0 +1,8 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $src := $u.String -}}
+{{- if not $u.IsAbs -}}
+  {{- /* 현재 md 파일이 위치한 콘텐츠 폴더 경로를 계산하여 이미지를 강제로 연결합니다 */ -}}
+  {{- $dir := path.Dir .Page.File.Path -}}
+  {{- $src = printf "/%s/%s" $dir $u.Path | relURL -}}
+{{- end -}}
+<img src="{{ $src }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }} />
