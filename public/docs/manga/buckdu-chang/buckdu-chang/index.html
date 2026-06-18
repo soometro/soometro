@@ -446,88 +446,43 @@ https://github.com/alex-shpak/hugo-book
   <div class="sns-share-buttons">
     
     
-    <button class="share-btn copy-link" onclick="copyToClipboard()" title="URL 복사">
+    <a class="share-btn copy-link" href="#" onclick="navigator.clipboard.writeText(window.location.href); alert('주소가 클립보드에 복사되었습니다!'); return false;" title="URL 복사">
       <span class="icon-text">LN</span>
       <span class="label">URL 복사</span>
-    </button>
+    </a>
 
     
-    <button class="share-btn kakaotalk" onclick="openShareWindow('kakao')" title="카카오톡 공유">
+    <a class="share-btn kakaotalk" href="https://kakao.comhttp%3A%2F%2Flocalhost%3A1313%2Fdocs%2Fmanga%2Fbuckdu-chang%2Fbuckdu-chang%2F" target="_blank" rel="noopener noreferrer" title="카카오톡 공유">
       <span class="icon-text">KT</span>
       <span class="label">카카오톡</span>
-    </button>
+    </a>
 
     
-    <button class="share-btn naver-blog" onclick="openShareWindow('naver-blog')" title="네이버 블로그 공유">
+    <a class="share-btn naver-blog" href="https://naver.comhttp%3A%2F%2Flocalhost%3A1313%2Fdocs%2Fmanga%2Fbuckdu-chang%2Fbuckdu-chang%2F&title=%EB%B6%81%EB%91%90%EC%9D%98%EA%B6%8C&#43;vs&#43;%EC%B0%BD%EC%B2%9C%EC%9D%98%EA%B6%8C" target="_blank" rel="noopener noreferrer" title="네이버 블로그 공유">
       <span class="icon-text">NB</span>
       <span class="label">블로그</span>
-    </button>
+    </a>
 
     
-    <button class="share-btn naver-keep" onclick="openShareWindow('naver-keep')" title="네이버 Keep 저장">
+    <a class="share-btn naver-keep" href="https://naver.comhttp%3A%2F%2Flocalhost%3A1313%2Fdocs%2Fmanga%2Fbuckdu-chang%2Fbuckdu-chang%2F&title=%EB%B6%81%EB%91%90%EC%9D%98%EA%B6%8C&#43;vs&#43;%EC%B0%BD%EC%B2%9C%EC%9D%98%EA%B6%8C" target="_blank" rel="noopener noreferrer" title="네이버 Keep 저장">
       <span class="icon-text">NK</span>
       <span class="label">Keep</span>
-    </button>
+    </a>
 
     
-    <button class="share-btn x-twitter" onclick="openShareWindow('x')" title="X 공유">
+    <a class="share-btn x-twitter" href="https://x.comhttp%3A%2F%2Flocalhost%3A1313%2Fdocs%2Fmanga%2Fbuckdu-chang%2Fbuckdu-chang%2F&text=%EB%B6%81%EB%91%90%EC%9D%98%EA%B6%8C&#43;vs&#43;%EC%B0%BD%EC%B2%9C%EC%9D%98%EA%B6%8C" target="_blank" rel="noopener noreferrer" title="X 공유">
       <span class="icon-text">𝕏</span>
       <span class="label">엑스</span>
-    </button>
+    </a>
 
     
-    <button class="share-btn threads" onclick="openShareWindow('threads')" title="쓰레드 공유">
+    <a class="share-btn threads" href="https://threads.net%EB%B6%81%EB%91%90%EC%9D%98%EA%B6%8C&#43;vs&#43;%EC%B0%BD%EC%B2%9C%EC%9D%98%EA%B6%8C%20http%3A%2F%2Flocalhost%3A1313%2Fdocs%2Fmanga%2Fbuckdu-chang%2Fbuckdu-chang%2F" target="_blank" rel="noopener noreferrer" title="쓰레드 공유">
       <span class="icon-text">🧵</span>
       <span class="label">쓰레드</span>
-    </button>
+    </a>
 
   </div>
 </div>
-
-<script>
-function copyToClipboard() {
-  const url = window.location.href;
-  navigator.clipboard.writeText(url).then(() => {
-    alert("주소가 클립보드에 복사되었습니다!");
-  }).catch(err => {
-    console.error("복사 실패: ", err);
-  });
-}
-
-function openShareWindow(platform) {
-  const currentUrl = encodeURIComponent(window.location.href);
-  const currentTitle = encodeURIComponent(document.title.trim());
-  let shareUrl = "";
-
-  
-  switch (platform) {
-    case 'kakao':
-      shareUrl = "https://kakao.com" + currentUrl;
-      break;
-    case 'naver-blog':
-      shareUrl = "https://naver.com" + currentUrl + "&title=" + currentTitle;
-      break;
-    case 'naver-keep':
-      shareUrl = "https://naver.com" + currentUrl + "&title=" + currentTitle;
-      break;
-    case 'x':
-      shareUrl = "https://x.com" + currentTitle + "&url=" + currentUrl;
-      break;
-    case 'threads':
-      shareUrl = "https://threads.net" + currentTitle + "%20" + currentUrl;
-      break;
-  }
-
-  if (shareUrl) {
-    const width = 600;
-    const height = 550;
-    const left = (window.screen.width / 2) - (width / 2);
-    const top = (window.screen.height / 2) - (height / 2);
-    
-    window.open(shareUrl, 'shareWindow', `width=${width},height=${height},left=${left},top=${top},location=yes,resizable=yes,scrollbars=yes,status=yes`);
-  }
-}
-</script>
 
 
         
