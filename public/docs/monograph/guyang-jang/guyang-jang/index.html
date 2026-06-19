@@ -49,15 +49,29 @@ https://github.com/alex-shpak/hugo-book
 
   <script defer type="module" src="/ko.search.min.b793f31dd2f0e920f6d284e213d2575c73909d4b6108ecb731571bd354d98c8f.js" integrity="sha256-t5PzHdLw6SD20oTiE9JXXHOQnUthCOy3MVcb01TZjI8=" crossorigin="anonymous"></script>
 
-  
-<meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
-
+  <meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
 
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        
+        const userAgent = navigator.userAgent.toLowerCase();
+        const botKeywords = [
+            'bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 
+            'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu',
+            'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver',
+            'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity'
+        ];
+        
+        
+        const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
+        if (isBot) {
+            console.log("[Counter] Bot traffic ignored.");
+            return;
+        }
+
+        
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
@@ -84,6 +98,7 @@ https://github.com/alex-shpak/hugo-book
         })
         .then(res => res.json())
         .then(data => {
+            
             if (data && data.length > 0) {
                 const stats = data[0];
                 
@@ -98,6 +113,17 @@ https://github.com/alex-shpak/hugo-book
 
                 
                 window.currentPageHit = stats.page_hit;
+            } else if (data && !Array.isArray(data)) {
+                
+                const todayEl = document.getElementById("counter-today");
+                const monthlyEl = document.getElementById("counter-monthly");
+                const totalEl = document.getElementById("counter-total");
+                
+                if (todayEl) todayEl.innerText = data.today_count.toLocaleString();
+                if (monthlyEl) monthlyEl.innerText = data.monthly_count.toLocaleString();
+                if (totalEl) totalEl.innerText = data.total_count.toLocaleString();
+
+                window.currentPageHit = data.page_hit;
             }
         })
         .catch(err => console.error("Counter Error:", err));

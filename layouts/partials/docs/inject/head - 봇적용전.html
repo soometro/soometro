@@ -1,30 +1,16 @@
+<!-- 네이버 사이트 소유권 인증 -->
 <meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
 
+<!-- Umami 분석 스크립트 -->
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
 
+<!-- Supabase 조회수 카운터 스크립트 -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // 1. 웹 크롤러 및 AI 봇 식별 필터
-        const userAgent = navigator.userAgent.toLowerCase();
-        const botKeywords = [
-            'bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 
-            'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu',
-            'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver',
-            'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity'
-        ];
-        
-        // 접속 대상이 봇이면 Supabase 통신을 원천 차단하고 종료
-        const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
-        if (isBot) {
-            console.log("[Counter] Bot traffic ignored.");
-            return;
-        }
-
-        // 2. Supabase 환경 설정
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
-        // 3. 현재 주소 및 고유 식별자(user_hash) 처리
+        // 1. 현재 주소 분석 (중복 방지를 위한 단순 암호화)
         const pageUrl = window.location.pathname;
         const rawIp = Math.random().toString(36).substring(2); 
         const ipHash = localStorage.getItem('user_hash') || rawIp;
@@ -32,7 +18,7 @@
             localStorage.setItem('user_hash', ipHash);
         }
 
-        // 4. Supabase 함수(RPC) 호출 - fetch 기반 라이브러리 프리 최적화
+        // 2. Supabase 함수(RPC) 호출
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
             headers: {
@@ -47,7 +33,6 @@
         })
         .then(res => res.json())
         .then(data => {
-            // Supabase RPC 리턴 형식이 배열 형태일 때 안전하게 바인딩
             if (data && data.length > 0) {
                 const stats = data[0];
                 
@@ -60,19 +45,8 @@
                 if (monthlyEl) monthlyEl.innerText = stats.monthly_count.toLocaleString();
                 if (totalEl) totalEl.innerText = stats.total_count.toLocaleString();
 
-                // 현재 페이지의 HIT 수 전역 변수 저장 (single.html 연동용)
+                // 현재 페이지의 HIT 수 저장
                 window.currentPageHit = stats.page_hit;
-            } else if (data && !Array.isArray(data)) {
-                // 단일 객체 형식으로 리턴될 경우를 위한 예외 처리(안전장치)
-                const todayEl = document.getElementById("counter-today");
-                const monthlyEl = document.getElementById("counter-monthly");
-                const totalEl = document.getElementById("counter-total");
-                
-                if (todayEl) todayEl.innerText = data.today_count.toLocaleString();
-                if (monthlyEl) monthlyEl.innerText = data.monthly_count.toLocaleString();
-                if (totalEl) totalEl.innerText = data.total_count.toLocaleString();
-
-                window.currentPageHit = data.page_hit;
             }
         })
         .catch(err => console.error("Counter Error:", err));
