@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -11,29 +11,80 @@ https://github.com/alex-shpak/hugo-book
 <meta name="description" content="">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://soometro.kr/404.html">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/404.html">
 	<meta property="og:site_name" content="soometro">
 	<meta property="og:title" content="404 Page not found">
 	<meta property="og:locale" content="ko_kr">
 	<meta property="og:type" content="website">
-		<meta property="og:image" content="https://soometro.kr/images/og-default.png">
+		<meta property="og:image" content="http://localhost:1313/images/og-default.png">
 
 
 	<meta itemprop="name" content="404 Page not found">
-	<meta itemprop="image" content="https://soometro.kr/images/og-default.png">
+	<meta itemprop="image" content="http://localhost:1313/images/og-default.png">
 
 <title>404 Page not found • soometro</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://soometro.kr/404.html">
+<link rel="canonical" href="http://localhost:1313/404.html">
 <link rel="stylesheet" href="/book.min.caaedf89429645f32e46bede626fa731be7332d8a542299e2252c36c0389368f.css" integrity="sha256-yq7fiUKWRfMuRr7eYm&#43;nMb5zMtilQimeIlLDbAOJNo8=" crossorigin="anonymous">
 
 
   <script defer type="module" src="/ko.search.min.b793f31dd2f0e920f6d284e213d2575c73909d4b6108ecb731571bd354d98c8f.js" integrity="sha256-t5PzHdLw6SD20oTiE9JXXHOQnUthCOy3MVcb01TZjI8=" crossorigin="anonymous"></script>
 
-  <meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
+  
+<meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
+
 
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+        const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+        
+        
+        const pageUrl = window.location.pathname;
+        const rawIp = Math.random().toString(36).substring(2); 
+        const ipHash = localStorage.getItem('user_hash') || rawIp;
+        if (!localStorage.getItem('user_hash')) {
+            localStorage.setItem('user_hash', ipHash);
+        }
+
+        
+        fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "apikey": supabaseKey,
+                "Authorization": `Bearer ${supabaseKey}`
+            },
+            body: JSON.stringify({
+                page_url: pageUrl,
+                user_ip_hash: ipHash
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                const stats = data[0];
+                
+                
+                const todayEl = document.getElementById("counter-today");
+                const monthlyEl = document.getElementById("counter-monthly");
+                const totalEl = document.getElementById("counter-total");
+                
+                if (todayEl) todayEl.innerText = stats.today_count.toLocaleString();
+                if (monthlyEl) monthlyEl.innerText = stats.monthly_count.toLocaleString();
+                if (totalEl) totalEl.innerText = stats.total_count.toLocaleString();
+
+                
+                window.currentPageHit = stats.page_hit;
+            }
+        })
+        .catch(err => console.error("Counter Error:", err));
+    });
+</script>
 
   <style>
     .not-found {
