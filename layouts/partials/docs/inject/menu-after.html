@@ -1,4 +1,21 @@
-<div class="book-menu-counter" style="margin-top: 2rem; padding: 0.5rem; border-top: 1px dashed #ccc; font-family: 'Georgia', 'Times New Roman', '바탕', serif; font-size: 0.85rem; color: #666;">
+<!-- 통합 사이드바 하단 위젯 (BGM 플레이어 + 조회수 카운터) -->
+<div class="book-menu-widgets" style="margin-top: 2rem; padding: 0.5rem; border-top: 1px dashed #ccc; font-family: 'Georgia', 'Times New Roman', '바탕', serif; font-size: 0.85rem; color: #666;">
+    
+    <!-- 1. 유튜브 BGM 플레이어 UI 영역 -->
+    <div class="bgm-container" style="margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.4rem;">
+        <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem; white-space: nowrap;">BACKGROUND MUSIC</span>
+        <div>
+            <!-- [교정] 버튼 색상을 우측 목차와 동일한 테마 링크 색상 변수(var(--color-link))로 강제 동기화 -->
+            <button id="bgm-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 1rem; color: var(--color-link) !important; font-weight: 800; letter-spacing: -0.04rem; padding: 0; text-decoration: none;">
+                🔊 BGM 켜기 / 끄기
+            </button>
+        </div>
+    </div>
+    
+    <!-- 보이지 않는 유튜브 플레이어 그릇 (크기 0으로 숨김) -->
+    <div id="youtube-audio-player" style="position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none;"></div>
+
+    <!-- 2. 기존 조회수 카운터 UI 영역 -->
     <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
         <span>TODAY:</span>
         <span id="counter-today" style="font-weight: bold; color: #333;">0</span>
@@ -12,3 +29,71 @@
         <span id="counter-total" style="font-weight: bold; color: #333;">0</span>
     </div>
 </div>
+
+<!-- 유튜브 Player API 비동기 로드 및 제어 스크립트 -->
+<script>
+    // 1. 유튜브 API 스크립트 동적 로드
+    if (!window.YT) {
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    } else {
+        onYouTubeIframeAPIReady();
+    }
+
+    let player;
+    const videoId = "mcvAZ5uFuxg"; // 슬레이어즈 TRY ED 일어 ver 고유 ID
+    const startSeconds = 0;       
+
+    // 2. API 로드가 완료되면 자동으로 실행되는 함수
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youtube-audio-player', {
+            height: '0',
+            width: '0',
+            videoId: videoId,
+            playerVars: {
+                'autoplay': 0,        
+                'controls': 0,        
+                'disablekb': 1,      
+                'fs': 0,             
+                'rel': 0,            
+                'modestbranding': 1, 
+                'start': startSeconds
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        // 볼륨 최대 100 중 20% 잔잔하게 설정
+        event.target.setVolume(20);
+
+        const toggleBtn = document.getElementById('bgm-toggle-btn');
+        if (!toggleBtn) return;
+
+        // 버튼 클릭 이벤트 리스너
+        toggleBtn.addEventListener('click', function () {
+            const playerState = player.getPlayerState();
+            
+            if (playerState !== YT.PlayerState.PLAYING) {
+                player.playVideo();
+                toggleBtn.innerText = "⏸ BGM 켜기 / 끄기";
+            } else {
+                player.pauseVideo();
+                toggleBtn.innerText = "🔊 BGM 켜기 / 끄기";
+            }
+        });
+    }
+
+    // 음악이 완전히 끝났을 때 처리
+    function onPlayerStateChange(event) {
+        const toggleBtn = document.getElementById('bgm-toggle-btn');
+        if (event.data === YT.PlayerState.ENDED) {
+            if (toggleBtn) toggleBtn.innerText = "🔊 BGM 켜기 / 끄기";
+        }
+    }
+</script>

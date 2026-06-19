@@ -13,18 +13,23 @@
             'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity'
         ];
         
-        // 접속 대상이 봇이면 Supabase 통신을 원천 차단하고 종료
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) {
             console.log("[Counter] Bot traffic ignored.");
             return;
         }
 
-        // 2. Supabase 환경 설정
+        // 2. 관리자(본인) 제외 필터
+        if (localStorage.getItem('my_admin') === 'true') {
+            console.log("[Counter] Admin access detected. Counting skipped.");
+            return;
+        }
+
+        // 3. Supabase 환경 설정
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
-        // 3. 현재 주소 및 고유 식별자(user_hash) 처리
+        // 4. 현재 주소 및 고유 식별자(user_hash) 처리
         const pageUrl = window.location.pathname;
         const rawIp = Math.random().toString(36).substring(2); 
         const ipHash = localStorage.getItem('user_hash') || rawIp;
@@ -32,7 +37,7 @@
             localStorage.setItem('user_hash', ipHash);
         }
 
-        // 4. Supabase 함수(RPC) 호출 - fetch 기반 라이브러리 프리 최적화
+        // 5. Supabase 함수(RPC) 호출
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
             headers: {
@@ -47,11 +52,8 @@
         })
         .then(res => res.json())
         .then(data => {
-            // Supabase RPC 리턴 형식이 배열 형태일 때 안전하게 바인딩
             if (data && data.length > 0) {
                 const stats = data[0];
-                
-                // 좌측 메뉴 엘리먼트 존재 여부 확인 후 숫자 대입
                 const todayEl = document.getElementById("counter-today");
                 const monthlyEl = document.getElementById("counter-monthly");
                 const totalEl = document.getElementById("counter-total");
@@ -60,10 +62,8 @@
                 if (monthlyEl) monthlyEl.innerText = stats.monthly_count.toLocaleString();
                 if (totalEl) totalEl.innerText = stats.total_count.toLocaleString();
 
-                // 현재 페이지의 HIT 수 전역 변수 저장 (single.html 연동용)
                 window.currentPageHit = stats.page_hit;
             } else if (data && !Array.isArray(data)) {
-                // 단일 객체 형식으로 리턴될 경우를 위한 예외 처리(안전장치)
                 const todayEl = document.getElementById("counter-today");
                 const monthlyEl = document.getElementById("counter-monthly");
                 const totalEl = document.getElementById("counter-total");

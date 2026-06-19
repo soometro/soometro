@@ -46,10 +46,15 @@ https://github.com/alex-shpak/hugo-book
             'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity'
         ];
         
-        
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) {
             console.log("[Counter] Bot traffic ignored.");
+            return;
+        }
+
+        
+        if (localStorage.getItem('my_admin') === 'true') {
+            console.log("[Counter] Admin access detected. Counting skipped.");
             return;
         }
 
@@ -80,11 +85,8 @@ https://github.com/alex-shpak/hugo-book
         })
         .then(res => res.json())
         .then(data => {
-            
             if (data && data.length > 0) {
                 const stats = data[0];
-                
-                
                 const todayEl = document.getElementById("counter-today");
                 const monthlyEl = document.getElementById("counter-monthly");
                 const totalEl = document.getElementById("counter-total");
@@ -93,10 +95,8 @@ https://github.com/alex-shpak/hugo-book
                 if (monthlyEl) monthlyEl.innerText = stats.monthly_count.toLocaleString();
                 if (totalEl) totalEl.innerText = stats.total_count.toLocaleString();
 
-                
                 window.currentPageHit = stats.page_hit;
             } else if (data && !Array.isArray(data)) {
-                
                 const todayEl = document.getElementById("counter-today");
                 const monthlyEl = document.getElementById("counter-monthly");
                 const totalEl = document.getElementById("counter-total");
