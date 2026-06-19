@@ -9,30 +9,38 @@
         {{ else }}
           {{ .PublishDate.Format "2006-01-02" }}
         {{ end }}
-        <span id="page-hit-display" style="margin-left: 6px !important; display: none;"> | 조회수 : <span id="page-hit-value">0</span></span>
+        <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
       </div>
+      
       <style>
-        /* 날짜 요소 바로 다음에 오는 본문 첫 요소(h1 등)의 상단 여백 강제 제로화 */
         .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
       </style>
 
       <script>
         (function() {
           function checkHitData() {
-            // head.html 스크립트가 Supabase 통신을 마치고 변수에 값을 담았는지 확인
-            if (typeof window.currentPageHit !== 'undefined') {
-              const displayWrap = document.getElementById('page-hit-display');
-              const valueEl = document.getElementById('page-hit-value');
-              if (displayWrap && valueEl) {
-                valueEl.innerText = window.currentPageHit.toLocaleString();
-                displayWrap.style.display = 'inline'; // 값이 준비되면 자연스럽게 노출
-              }
-            } else {
-              // 데이터 로딩 지연 시 0.05초 간격으로 재확인 (안전장치)
-              setTimeout(checkHitData, 50);
+            // window.currentPageHit 값이 있다면 가져오고, 없으면 0으로 처리하여 표시
+            const valueEl = document.getElementById('page-hit-value');
+            if (valueEl) {
+              const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
+              valueEl.innerText = hitCount.toLocaleString();
             }
           }
-          document.addEventListener("DOMContentLoaded", checkHitData);
+          
+          // 페이지 로드 시 즉시 확인 및 Supabase 데이터 로드 대기
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", checkHitData);
+          } else {
+            checkHitData();
+          }
+          
+          // 데이터가 비동기로 늦게 들어올 경우를 대비한 반복 확인
+          const interval = setInterval(() => {
+            if (typeof window.currentPageHit !== 'undefined') {
+              checkHitData();
+              clearInterval(interval);
+            }
+          }, 100);
         })();
       </script>
 

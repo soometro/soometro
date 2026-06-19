@@ -487,10 +487,10 @@ https://github.com/alex-shpak/hugo-book
         
           2026-06-18
         
-        <span id="page-hit-display" style="margin-left: 6px !important; display: none;"> | 조회수 : <span id="page-hit-value">0</span></span>
+        <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
       </div>
+      
       <style>
-         
         .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
       </style>
 
@@ -498,19 +498,27 @@ https://github.com/alex-shpak/hugo-book
         (function() {
           function checkHitData() {
             
-            if (typeof window.currentPageHit !== 'undefined') {
-              const displayWrap = document.getElementById('page-hit-display');
-              const valueEl = document.getElementById('page-hit-value');
-              if (displayWrap && valueEl) {
-                valueEl.innerText = window.currentPageHit.toLocaleString();
-                displayWrap.style.display = 'inline'; 
-              }
-            } else {
-              
-              setTimeout(checkHitData, 50);
+            const valueEl = document.getElementById('page-hit-value');
+            if (valueEl) {
+              const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
+              valueEl.innerText = hitCount.toLocaleString();
             }
           }
-          document.addEventListener("DOMContentLoaded", checkHitData);
+          
+          
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", checkHitData);
+          } else {
+            checkHitData();
+          }
+          
+          
+          const interval = setInterval(() => {
+            if (typeof window.currentPageHit !== 'undefined') {
+              checkHitData();
+              clearInterval(interval);
+            }
+          }, 100);
         })();
       </script>
 
