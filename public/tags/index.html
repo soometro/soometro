@@ -272,88 +272,62 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-
 <div class="book-menu-widgets" style="margin-top: 2rem; padding: 0.5rem; border-top: 1px dashed #ccc; font-family: 'Georgia', 'Times New Roman', '바탕', serif; font-size: 0.85rem; color: #666;">
-    
     
     <div class="bgm-container" style="margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.4rem;">
         <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem; white-space: nowrap;">BACKGROUND MUSIC</span>
         <div>
-            
             <button id="bgm-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 1rem; color: var(--color-link) !important; font-weight: 800; letter-spacing: -0.04rem; padding: 0; text-decoration: none;">
                 🔊 BGM 켜기 / 끄기
             </button>
         </div>
     </div>
     
-    
     <div id="youtube-audio-player" style="position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none;"></div>
 
-    
     <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
         <span>TODAY:</span>
-        <span id="counter-today" style="font-weight: bold; color: #333;">0</span>
+        <span id="counter-today" style="font-weight: bold; color: var(--color-text);">0</span>
     </div>
     <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
         <span>MONTHLY:</span>
-        <span id="counter-monthly" style="font-weight: bold; color: #333;">0</span>
+        <span id="counter-monthly" style="font-weight: bold; color: var(--color-text);">0</span>
     </div>
     <div style="display: flex; justify-content: space-between;">
         <span>TOTAL:</span>
-        <span id="counter-total" style="font-weight: bold; color: #333;">0</span>
+        <span id="counter-total" style="font-weight: bold; color: var(--color-text);">0</span>
     </div>
 </div>
-
 
 <script>
     
     if (!window.YT) {
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    } else {
-        onYouTubeIframeAPIReady();
+        document.head.appendChild(tag);
     }
 
     let player;
-    const videoId = "mcvAZ5uFuxg"; 
-    const startSeconds = 0;       
+    const videoId = "mcvAZ5uFuxg";
 
-    
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('youtube-audio-player', {
-            height: '0',
-            width: '0',
-            videoId: videoId,
-            playerVars: {
-                'autoplay': 0,        
-                'controls': 0,        
-                'disablekb': 1,      
-                'fs': 0,             
-                'rel': 0,            
-                'modestbranding': 1, 
-                'start': startSeconds
-            },
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
+            height: '0', width: '0', videoId: videoId,
+            playerVars: { 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'fs': 0, 'rel': 0, 'modestbranding': 1 },
+            events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
         });
     }
 
     function onPlayerReady(event) {
         
-        event.target.setVolume(20);
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        event.target.setVolume(isMobile ? 50 : 20);
 
         const toggleBtn = document.getElementById('bgm-toggle-btn');
         if (!toggleBtn) return;
 
-        
         toggleBtn.addEventListener('click', function () {
-            const playerState = player.getPlayerState();
-            
-            if (playerState !== YT.PlayerState.PLAYING) {
+            if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
                 player.playVideo();
                 toggleBtn.innerText = "⏸ BGM 켜기 / 끄기";
             } else {
@@ -363,11 +337,10 @@ https://github.com/alex-shpak/hugo-book
         });
     }
 
-    
     function onPlayerStateChange(event) {
         const toggleBtn = document.getElementById('bgm-toggle-btn');
         if (event.data === YT.PlayerState.ENDED) {
-            if (toggleBtn) toggleBtn.innerText = "🔊 BGM 켜기 / 끄기";
+            toggleBtn.innerText = "🔊 BGM 켜기 / 끄기";
         }
     }
 </script>
