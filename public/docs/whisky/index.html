@@ -276,9 +276,45 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
 <div class="book-menu-widgets" style="margin-top: 2rem; padding: 0.5rem 0.5rem 0.5rem 0; border-top: 1px dashed #ccc; font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif; font-size: 0.85rem; color: #666; font-weight: bold;">
     
-    <div class="theme-toggle-container" style="margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.4rem;">
+    
+    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+        <div style="display: flex; justify-content: space-between;">
+            <span>TOTAL POSTS:</span>
+            <span style="color: var(--color-text);">8</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>BOARDS:</span>
+            <span style="color: var(--color-text);">7</span>
+        </div>
+    </div>
+
+    
+    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
+
+    
+    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+        <div style="display: flex; justify-content: space-between;">
+            <span>TODAY:</span>
+            <span id="counter-today" style="color: var(--color-text);">0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>MONTHLY:</span>
+            <span id="counter-monthly" style="color: var(--color-text);">0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>TOTAL VISITS:</span>
+            <span id="counter-total" style="color: var(--color-text);">0</span>
+        </div>
+    </div>
+
+    
+    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
+
+    
+    <div class="theme-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem;">
         <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SITE THEME</span>
         <div>
             <button id="theme-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
@@ -286,20 +322,8 @@ https://github.com/alex-shpak/hugo-book
             </button>
         </div>
     </div>
-
-    <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
-        <span>TODAY:</span>
-        <span id="counter-today" style="color: var(--color-text);">0</span>
-    </div>
-    <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
-        <span>MONTHLY:</span>
-        <span id="counter-monthly" style="color: var(--color-text);">0</span>
-    </div>
-    <div style="display: flex; justify-content: space-between;">
-        <span>TOTAL:</span>
-        <span id="counter-total" style="color: var(--color-text);">0</span>
-    </div>
 </div>
+
 
 <style>
     html.forced-dark {
@@ -324,23 +348,18 @@ https://github.com/alex-shpak/hugo-book
 <script>
     (function() {
         
-        const htmlEl = document.documentElement;
-        const toggleBtn = document.getElementById('theme-toggle-btn');
+        var htmlEl = document.documentElement;
+        var toggleBtn = document.getElementById('theme-toggle-btn');
         
         if (toggleBtn) {
-            
-            const hasSaved = localStorage.getItem('forced_theme');
-            
-            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            
-            const initialTheme = hasSaved ? hasSaved : (isSystemDark ? 'dark' : 'light');
-            
+            var hasSaved = localStorage.getItem('forced_theme');
+            var isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var initialTheme = hasSaved ? hasSaved : (isSystemDark ? 'dark' : 'light');
             
             applyTheme(initialTheme);
 
             toggleBtn.addEventListener('click', function() {
-                const isDark = htmlEl.classList.contains('forced-dark');
+                var isDark = htmlEl.classList.contains('forced-dark');
                 applyTheme(isDark ? 'light' : 'dark');
             });
         }
@@ -361,22 +380,22 @@ https://github.com/alex-shpak/hugo-book
         }
 
         
-        const currentPath = window.location.pathname;
+        var currentPath = window.location.pathname;
         
         fetch('https://wggvjymwocgbtasclwre.supabase.co/functions/v1/page-vibe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ path: currentPath })
         })
-        .then(res => res.json())
-        .then(data => {
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
             if (data) {
                 document.getElementById('counter-today').innerText = (data.today || 0).toLocaleString();
                 document.getElementById('counter-monthly').innerText = (data.monthly || 0).toLocaleString();
                 document.getElementById('counter-total').innerText = (data.total || 0).toLocaleString();
             }
         })
-        .catch(err => console.error('Counter sync error:', err));
+        .catch(function(err) { console.error('Counter sync error:', err); });
     })();
 </script>
 </nav>

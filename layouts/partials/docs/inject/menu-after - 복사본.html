@@ -1,21 +1,129 @@
+<!-- 통합 사이드바 하단 위젯 (구분선 라이트모드 시인성 보정판) -->
 <div class="book-menu-widgets" style="margin-top: 2rem; padding: 0.5rem 0.5rem 0.5rem 0; border-top: 1px dashed #ccc; font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif; font-size: 0.85rem; color: #666; font-weight: bold;">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
-        <span>TODAY:</span>
-        <span id="counter-today" style="color: var(--color-text);">0</span>
+    
+    <!-- 1. 사이트 통계 영역 -->
+    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+        <div style="display: flex; justify-content: space-between;">
+            <span>TOTAL POSTS:</span>
+            <span style="color: var(--color-text);">{{ len .Site.RegularPages }}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>BOARDS:</span>
+            <span style="color: var(--color-text);">
+                {{- $docsSection := .Site.GetPage "section" "docs" -}}
+                {{- if $docsSection -}}
+                    {{- len $docsSection.Sections -}}
+                {{- else -}}
+                    0
+                {{- end -}}
+            </span>
+        </div>
     </div>
-    <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
-        <span>MONTHLY:</span>
-        <span id="counter-monthly" style="color: var(--color-text);">0</span>
+
+    <!-- 중간 구분선 1 (색상 보정) -->
+    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
+
+    <!-- 2. 조회수 카운터 영역 -->
+    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+        <div style="display: flex; justify-content: space-between;">
+            <span>TODAY:</span>
+            <span id="counter-today" style="color: var(--color-text);">0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>MONTHLY:</span>
+            <span id="counter-monthly" style="color: var(--color-text);">0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>TOTAL VISITS:</span>
+            <span id="counter-total" style="color: var(--color-text);">0</span>
+        </div>
     </div>
-    <div style="display: flex; justify-content: space-between;">
-        <span>TOTAL:</span>
-        <span id="counter-total" style="color: var(--color-text);">0</span>
+
+    <!-- 중간 구분선 2 (색상 보정) -->
+    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
+
+    <!-- 3. 수동 테마 토글 버튼 영역 (하단 배치) -->
+    <div class="theme-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SITE THEME</span>
+        <div>
+            <button id="theme-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
+                🌓 모드 전환하기
+            </button>
+        </div>
     </div>
 </div>
 
+<!-- 테마 스타일 오버라이드 -->
+<style>
+    html.forced-dark {
+        --color-diagram-bg: #fff;
+        --gray-100: #1e1e1e;
+        --gray-200: #2d2d2d;
+        --gray-500: #aaa;
+        --body-background: #111111 !important;
+        --color-text: #e0e0e0 !important;
+        --color-link: #8ab4f8 !important;
+        background-color: #111111 !important;
+        color: #e0e0e0 !important;
+    }
+    html.forced-dark .book-menu, 
+    html.forced-dark .book-page,
+    html.forced-dark aside {
+        background-color: #111111 !important;
+        color: #e0e0e0 !important;
+    }
+</style>
+
 <script>
-    // 조회수 통신 스크립트 영역
     (function() {
-        // 기존 카운터 로직 유지 구역
+        // --- [A] 테마 제어 로직 ---
+        var htmlEl = document.documentElement;
+        var toggleBtn = document.getElementById('theme-toggle-btn');
+        
+        if (toggleBtn) {
+            var hasSaved = localStorage.getItem('forced_theme');
+            var isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var initialTheme = hasSaved ? hasSaved : (isSystemDark ? 'dark' : 'light');
+            
+            applyTheme(initialTheme);
+
+            toggleBtn.addEventListener('click', function() {
+                var isDark = htmlEl.classList.contains('forced-dark');
+                applyTheme(isDark ? 'light' : 'dark');
+            });
+        }
+
+        function applyTheme(theme) {
+            if (!toggleBtn) return;
+            if (theme === 'dark') {
+                htmlEl.classList.add('forced-dark');
+                htmlEl.setAttribute('data-theme', 'dark');
+                localStorage.setItem('forced_theme', 'dark');
+                toggleBtn.innerText = "☀️ 라이트 모드로 보기";
+            } else {
+                htmlEl.classList.remove('forced-dark');
+                htmlEl.setAttribute('data-theme', 'light');
+                localStorage.setItem('forced_theme', 'light');
+                toggleBtn.innerText = "🌙 다크 모드로 보기";
+            }
+        }
+
+        // --- [B] 조회수 통신 로직 ---
+        var currentPath = window.location.pathname;
+        
+        fetch('https://wggvjymwocgbtasclwre.supabase.co/functions/v1/page-vibe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path: currentPath })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data) {
+                document.getElementById('counter-today').innerText = (data.today || 0).toLocaleString();
+                document.getElementById('counter-monthly').innerText = (data.monthly || 0).toLocaleString();
+                document.getElementById('counter-total').innerText = (data.total || 0).toLocaleString();
+            }
+        })
+        .catch(function(err) { console.error('Counter sync error:', err); });
     })();
 </script>
