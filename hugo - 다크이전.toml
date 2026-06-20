@@ -27,9 +27,6 @@ theme = "hugo-book"
   
   # 다크모드 설정: "auto"로 설정하면 테마가 자동으로 다크모드 지원
   BookTheme = "auto"
-
-  # 다크모드 수동 전환 제어 모듈 활성화 (★이 줄이 추가되었습니다)
-  BookDarkMode = true
   
   # 다크모드 전환 버튼 활성화
   BookPortableLinks = true
