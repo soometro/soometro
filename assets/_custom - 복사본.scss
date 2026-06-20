@@ -5,21 +5,22 @@ aside .book-menu nav ul li a,
     font-style: italic !important;     /* 기울임체 적용 */
     font-weight: bold !important;
     font-size: 1.0rem !important;
-    padding: 16px 0 !important;
+    padding: 12px 0 !important;
     display: block !important;
     line-height: 1.2 !important;
-    
-    /* 좁아 보이는 현상 교정: -0.1em을 0으로 변경하거나 살짝만 남김 */
-    letter-spacing: 0em !important; 
+    letter-spacing: 0em !important;    /* 좁아 보이는 현상 교정 */
 }
-
 
 /* 2. 사이트 전체 폰트 설정 */
 :root {
     --book-font-family: "Georgia", "Times New Roman", "바탕", serif;
 }
 
-/* 3. 좌측 최상단 사이트 제목 스타일 */
+/* 3. 좌측 최상단 사이트 제목 및 검색창 간격 설정 */
+.book-brand {
+    margin-bottom: 2.0rem !important;  /* 로고와 검색창 사이 간격 확보 */
+}
+
 .book-brand a {
     font-family: "Georgia", "Times New Roman", "바탕", serif !important;
     font-style: italic !important; 
@@ -28,6 +29,10 @@ aside .book-menu nav ul li a,
 }
 
 /* 4. 검색창 스타일 */
+.book-search {
+    margin-bottom: 1rem !important;    /* 검색창과 메뉴 사이 간격 확보 */
+}
+
 .book-search input {
     font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
 }
@@ -38,7 +43,6 @@ aside .book-menu nav ul li a,
    ========================================================================== */
 @media screen and (max-width: 60rem) { 
     
-    // 타이틀 밑으로 떨어지던 목차 박스를 화면 '오른쪽 바깥'에 완전히 밀봉 보관
     .book-header aside {
         display: block !important;
         position: fixed !important;
@@ -46,18 +50,16 @@ aside .book-menu nav ul li a,
         bottom: 0 !important;
         right: 0 !important;
         left: auto !important;
-        width: 16rem !important; // 오른쪽 사이드바 너비
+        width: 16rem !important;
         padding: 4rem 1.5rem 2rem 1.5rem !important;
         background: var(--body-background) !important;
         box-shadow: -0.1rem 0 0.5rem rgba(0, 0, 0, 0.15) !important;
-        z-index: 9999 !important; // 오버레이 마스크(9998)보다 무조건 위에 띄움
+        z-index: 9999 !important;
         
-        // 화면 오른쪽 밖으로 100% 밀어서 완벽히 숨김
         transform: translateX(100%) !important; 
         transition: transform 0.2s ease-in-out !important; 
         overflow-y: auto !important;
 
-        // 목차 링크 디자인
         nav > ul {
             padding-left: 0;
             list-style: none;
@@ -74,25 +76,22 @@ aside .book-menu nav ul li a,
         }
     }
 
-    // 오른쪽 버튼(#toc-control)이 선택되면 숨겨진 목차를 화면 안(0)으로 부드럽게 인출
     #toc-control:checked ~ main {
         .book-header aside {
             transform: translateX(0) !important; 
         }
         
-        // [정밀 교정] 주르륵 스크롤이 내려가도 어두운 배경이 화면 전체를 항상 똑같이 따라다니며 차단 고정
         .book-toc-overlay {
             display: block !important;
             position: fixed !important; 
             top: 0 !important;
             left: 0 !important;
-            width: 100vw !important;  // 브라우저 뷰포트 창 가로 전체 크기
-            height: 100vh !important; // 브라우저 뷰포트 창 세로 전체 크기
-            background: rgba(0, 0, 0, 0.4) !important; // 어둡게 막아주는 투명 마스크 색상
-            z-index: 9998 !important; // 목차(9999) 바로 아래층에 배치
+            width: 100vw !important; 
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.4) !important;
+            z-index: 9998 !important;
             cursor: pointer;
             
-            // 화면 내부 스크롤 이동에 구애받지 않도록 고정축 강제 처리
             transform: none !important;
             bottom: auto !important;
             right: auto !important;
@@ -113,25 +112,20 @@ aside .book-menu nav ul li a,
    7. PC 화면(넓은 화면)일 때 본문 하단(LIST 밑)에 깔리는 중복 목차 완전 제거
    ========================================================================== */
 @media screen and (min-width: 60rem) { 
-    // 원래 우측 고정 영역(.book-toc-content)에만 목차가 나와야 합니다.
-    // 본문 페이지 내부나 하단에 중복 출력되는 목차 구조를 완벽하게 삭제 처리합니다.
     main .book-page .book-toc,
     main .book-page aside {
         display: none !important;
     }
 }
 
-
 /* ==========================================================================
-   8. 모바일 화면 글 목록(LIST) 및 본문 양쪽 여백 축소 (함몰 현상 교정)
+   8. 모바일 화면 글 목록(LIST) 및 본문 양쪽 여백 축소
    ========================================================================== */
 @media screen and (max-width: 60rem) {
-    // 2, 3번째 사진의 본문 영역 바깥 여백을 축소하여 메인 페이지 라인과 일치시킵니다.
     .book-page {
-        padding: 1rem 0.5rem !important; // 상하 여백은 유지하고 좌우 여백을 대폭 축소
+        padding: 1rem 0.5rem !important;
     }
     
-    // 본문 마크다운 내부 텍스트 영역의 2중 여백까지 완전히 제거하여 라인을 바깥으로 확장합니다.
     .markdown {
         padding: 0 !important;
     }

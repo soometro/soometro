@@ -2,7 +2,7 @@
   <main class="book-page">
     <article class="markdown" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
       
-      <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: var(--body-font-color) !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
+      <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
         작성일 : 
         {{ if .Date }}
           {{ .Date.Format "2006-01-02" }}
@@ -19,22 +19,17 @@
       <script>
         (function() {
           function checkHitData() {
-            // window.currentPageHit 값이 있다면 가져오고, 없으면 0으로 처리하여 표시
             const valueEl = document.getElementById('page-hit-value');
             if (valueEl) {
               const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
               valueEl.innerText = hitCount.toLocaleString();
             }
           }
-          
-          // 페이지 로드 시 즉시 확인 및 Supabase 데이터 로드 대기
           if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", checkHitData);
           } else {
             checkHitData();
           }
-          
-          // 데이터가 비동기로 늦게 들어올 경우를 대비한 반복 확인
           const interval = setInterval(() => {
             if (typeof window.currentPageHit !== 'undefined') {
               checkHitData();
