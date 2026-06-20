@@ -13,7 +13,6 @@ aside .book-menu nav ul li a,
     letter-spacing: 0em !important;
 }
 
-/* 2. 사이트 전체 폰트 기본값 */
 :root {
     --book-font-family: "Georgia", "Times New Roman", "바탕", serif;
 }
@@ -30,20 +29,19 @@ aside .book-menu nav ul li a,
 .book-search input { font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important; }
 
 /* ==========================================================================
-   4. 다크/라이트 모드 강제 보정 (군청색 제거 및 종이 질감 연동)
+   4. 다크/라이트 모드 강제 보정 (가독성 및 테마 전환 동기화)
    ========================================================================== */
-/* [핵심] 라이트 모드 시 강제 배경색 동기화 및 군청색 틴트 무효화 */
+/* [핵심] 라이트 모드일 때 배경을 흰색, 글자를 검정색으로 강제 고정 */
 html:not(.forced-dark) {
     --body-background-tint: transparent !important;
 }
 
-html:not(.forced-dark) body {
+html:not(.forced-dark) body,
+html:not(.forced-dark) .book-page,
+html:not(.forced-dark) .markdown,
+html:not(.forced-dark) .book-header aside {
     background-color: #ffffff !important;
-}
-
-/* 게시물 본문(markdown)의 배경을 투명하게 만들어 메인 배경 질감이 보이게 함 */
-.book-page, .markdown {
-    background-color: transparent !important;
+    color: #000000 !important;
 }
 
 /* 다크 모드 시 가독성 보정 */
@@ -66,7 +64,7 @@ html.forced-dark .book-post-date { border-bottom: 1px solid #444 !important; }
         top: 0 !important; bottom: 0 !important; right: 0 !important; left: auto !important;
         width: 16rem !important;
         padding: 4rem 1.5rem 2rem 1.5rem !important;
-        background: var(--body-background) !important;
+        background-color: #ffffff !important; /* 모바일 사이드바 강제 흰색 */
         box-shadow: -0.1rem 0 0.5rem rgba(0, 0, 0, 0.15) !important;
         z-index: 9999 !important;
         transform: translateX(100%) !important; 
@@ -79,7 +77,7 @@ html.forced-dark .book-post-date { border-bottom: 1px solid #444 !important; }
             li {
                 margin: 0.6rem 0;
                 a {
-                    color: var(--color-link) !important;
+                    color: #000000 !important; /* 모바일 링크색 강제 검정 */
                     text-decoration: none;
                     font-size: 1rem;
                     display: block;
