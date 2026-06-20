@@ -30,14 +30,20 @@ aside .book-menu nav ul li a,
 .book-search input { font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important; }
 
 /* ==========================================================================
-   4. 다크/라이트 모드 강제 보정 (가독성 및 테마 전환 동기화)
+   4. 다크/라이트 모드 강제 보정 (군청색 제거 및 종이 질감 연동)
    ========================================================================== */
-/* [중요] 라이트 모드 전환 시 강제 배경/글자색 동기화 */
-html:not(.forced-dark) .book-page,
-html:not(.forced-dark) .markdown,
-html:not(.forced-dark) .book-header aside {
-    background-color: var(--body-background) !important;
-    color: var(--body-font-color) !important;
+/* [핵심] 라이트 모드 시 강제 배경색 동기화 및 군청색 틴트 무효화 */
+html:not(.forced-dark) {
+    --body-background-tint: transparent !important;
+}
+
+html:not(.forced-dark) body {
+    background-color: #ffffff !important;
+}
+
+/* 게시물 본문(markdown)의 배경을 투명하게 만들어 메인 배경 질감이 보이게 함 */
+.book-page, .markdown {
+    background-color: transparent !important;
 }
 
 /* 다크 모드 시 가독성 보정 */
@@ -51,7 +57,7 @@ html.forced-dark .nav-title {
 html.forced-dark .book-post-date { border-bottom: 1px solid #444 !important; }
 
 /* ==========================================================================
-   5. 모바일 화면 오른쪽 줄 3개 버튼 클릭 시 목차(TOC) 우측 슬라이드 효과
+   5. 모바일 화면 슬라이드 효과
    ========================================================================== */
 @media screen and (max-width: 60rem) { 
     .book-header aside {
@@ -95,7 +101,7 @@ html.forced-dark .book-post-date { border-bottom: 1px solid #444 !important; }
 }
 
 /* ==========================================================================
-   6. 레이아웃 정리 및 모바일 여백 최적화
+   6. 레이아웃 및 여백 최적화
    ========================================================================== */
 @media screen and (max-width: 60rem) { 
     .book-header h3 { display: none !important; }
