@@ -65,10 +65,8 @@ https://github.com/alex-shpak/hugo-book
                 "Authorization": `Bearer ${supabaseKey}`
             },
             body: JSON.stringify({
-            body: JSON.stringify({
                 page_url: pageUrl,
-                
-                user_ip_hash: (isAdmin || ipHash === 'af3zsouui59') ? "ADMIN_SKIP" : ipHash
+                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash 
             })
         })
         .then(res => res.json())

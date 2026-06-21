@@ -1,0 +1,224 @@
+{{ define "main" }}
+  <!-- ==========================================
+       [상단 영역] 게시글 작성일 및 실시간 조회수 표시
+       ========================================== -->
+  <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
+    작성일 : 
+    {{ if .Date }}
+      {{ .Date.Format "2006-01-02" }}
+    {{ else }}
+      {{ .PublishDate.Format "2006-01-02" }}
+    {{ end }}
+    <!-- 실시간으로 불러온 조회수 데이터가 주입되는 공간 -->
+    <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
+  </div>
+  
+  <!-- 작성일 표시 레이아웃 여백 제어 스타일 -->
+  <style>
+    .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
+  </style>
+
+  <!-- 전역 객체(window.currentPageHit)에 로드된 조회수 값을 상단 레이아웃에 매핑하는 스크립트 -->
+  <script>
+    (function() {
+      function checkHitData() {
+        const valueEl = document.getElementById('page-hit-value');
+        if (valueEl) {
+          const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
+          valueEl.innerText = hitCount.toLocaleString();
+        }
+      }
+      // DOM 로드 완료 상태에 맞춰 초기화 실행
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", checkHitData);
+      } else {
+        checkHitData();
+      }
+      // Supabase 비동기 통신 완료 시점을 캐치하기 위한 주기적 확인 인터벌 (100ms)
+      const interval = setInterval(() => {
+        if (typeof window.currentPageHit !== 'undefined') {
+          checkHitData();
+          clearInterval(interval);
+        }
+      }, 100);
+    })();
+  </script>
+
+
+  <!-- ==========================================
+       [중단 영역] 마크다운 본문 콘텐츠 렌더링
+       ========================================== -->
+  {{ .Content }}
+
+
+  <!-- ==========================================
+       [하단 영역 1] 좋아요 / 싫어요 반응형 이모지 컴포넌트
+       ========================================== -->
+  <div class="page-reactions-container" style="margin-top: 2.5rem !important; margin-bottom: 1rem !important; text-align: center !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important;">
+    <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold;">이 글이 도움이 되었나요?</p>
+    <div style="display: inline-flex; gap: 1rem; justify-content: center; align-items: center;">
+      <!-- 긍정적 반응 (좋아요 버튼) -->
+      <button id="btn-reaction-like" style="background: #f8f9fa; border: 1px solid #e5e5e5; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="sendReaction('like')">
+        👍 <span id="count-reaction-like">0</span>
+      </button>
+      <!-- 부정적 반응 (싫어요 버튼) -->
+      <button id="btn-reaction-dislike" style="background: #f8f9fa; border: 1px solid #e5e5e5; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="sendReaction('dislike')">
+        👎 <span id="count-reaction-dislike">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Supabase REST API 통신 및 DOM 상태 동적 제어 스크립트 -->
+  <script>
+    // 현재 브라우저 방문자의 고유 해시값을 판별 및 발급 (관리자 계정은 예외 문자열 처리)
+    function getReactionUserHash() {
+      let userHash = localStorage.getItem('user_hash');
+      if (!userHash) {
+        userHash = Math.random().toString(36).substring(2);
+        localStorage.setItem('user_hash', userHash);
+      }
+      return localStorage.getItem('my_admin') === 'true' ? 'ADMIN_SKIP' : userHash;
+    }
+
+    // 초기 화면 로드 시점: 해당 포스트의 누적 반응수 및 로그인 사용자의 기투표 상태 조회
+    function loadReactions() {
+      const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co"; // 주소 정밀 수정 완료
+      const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
+
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: "get"
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Load Error:", err));
+    }
+
+    // 사용자가 이모지 버튼을 수동으로 클릭했을 때 비동기 트랜잭션 요청 (등록 / 취소 / 변경)
+    function sendReaction(actionType) {
+      const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co"; // 주소 정밀 수정 완료
+      const supabaseKey = "sb_publishable_JDKL8SsX9JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+      // 주의: 기존 제공해주신 단독 키 값 "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte" 유지
+      const validKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
+
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": validKey,
+          "Authorization": `Bearer ${validKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: actionType
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Action Error:", err));
+    }
+
+    // 데이터베이스 반환값(JSON)을 가공하여 화면 인터페이스 실시간 동기화
+    function updateReactionDOM(data) {
+      if (!data) return;
+      
+      const btnLike = document.getElementById('btn-reaction-like');
+      const btnDislike = document.getElementById('btn-reaction-dislike');
+      const countLike = document.getElementById('count-reaction-like');
+      const countDislike = document.getElementById('count-reaction-dislike');
+
+      // 누적 카운트 정수 매핑
+      if (countLike) countLike.innerText = data.like_count || 0;
+      if (countDislike) countDislike.innerText = data.dislike_count || 0;
+
+      // 사용자의 이전 선택 유무를 판별하여 활성화 상태에 맞는 스타일(색상 피드백) 부여
+      if (btnLike && btnDislike) {
+        if (data.my_reaction === 'like') {
+          btnLike.style.background = '#e3faf2';      /* 활성화: 연한 에메랄드 배경 */
+          btnLike.style.borderColor = '#20c997';     /* 활성화: 테두리 포인트 컬러 */
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        } else if (data.my_reaction === 'dislike') {
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#ffe3e3';   /* 활성화: 연한 장미빛 배경 */
+          btnDislike.style.borderColor = '#ff6b6b';  /* 활성화: 테두리 포인트 컬러 */
+        } else {
+          // 미선택 상태: 시스템 기본 뉴트럴 스타일셋 적용
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        }
+      }
+    }
+
+    // 페이지 레이아웃 로딩과 동시에 초기화 트리거 실행
+    document.addEventListener("DOMContentLoaded", loadReactions);
+  </script>
+
+
+  <!-- ==========================================
+       [하단 영역 2] 휴고 엔진 기반 이전글 / 다음글 네비게이션 바
+       ========================================== -->
+  {{ if and (not .Pages) (eq .Section "docs") }}
+    <!-- 현재 문서가 속한 부모 디렉토리 안의 하위 일반 게시글리스트를 발행일 순 정렬 -->
+    {{ $allPages := .Parent.RegularPages.ByDate }} 
+    {{ $currentIndex := -1 }}
+    
+    <!-- 루프 순회 알고리즘을 이용해 현재 열려있는 페이지의 정렬 인덱스 산출 -->
+    {{ range $i, $p := $allPages }}
+      {{ if eq $p.RelPermalink $.RelPermalink }}
+        {{ $currentIndex = $i }}
+      {{ end }}
+    {{ end }}
+
+    <!-- 현재 포스트 위치 판별 알고리즘 성공 시 내비게이션 바 레이아웃 분기 처리 -->
+    {{ if ne $currentIndex -1 }}
+      <div class="book-navigation" style="margin-top: 1.5rem !important; padding-top: 1rem !important; border-top: 1px solid #e5e5e5 !important; margin-bottom: 0 !important; padding-bottom: 0 !important;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+
+          <!-- 첫 번째 글이 아닐 경우 활성화: 왼쪽 화살표 및 이전 포스트 타이틀 링크 매핑 -->
+          {{ if gt $currentIndex 0 }}
+            {{ with index $allPages (sub $currentIndex 1) }}
+              <a href="{{ .RelPermalink }}" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
+                ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span>
+              </a>
+            {{ end }}
+          {{ else }}
+            <!-- 첫 번째 글인 경우 레이아웃 대칭 유지를 위한 더미 히든 블록 생성 -->
+            <div style="visibility: hidden;">←</div>
+          {{ end }}
+
+          <!-- 마지막 글이 아닐 경우 활성화: 오른쪽 화살표 및 다음 포스트 타이틀 링크 매핑 -->
+          {{ if lt $currentIndex (sub (len $allPages) 1) }}
+            {{ with index $allPages (add $currentIndex 1) }}
+              <a href="{{ .RelPermalink }}" class="book-nav-link next" style="text-align: right; color: var(--color-link); text-decoration: none;">
+                <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span> →
+              </a>
+            {{ end }}
+          {{ else }}
+            <!-- 마지막 글인 경우 레이아웃 대칭 유지를 위한 더미 히든 블록 생성 -->
+            <div style="visibility: hidden;">→</div>
+          {{ end }}
+
+        </div>
+      </div>
+    {{ end }}
+  {{ end }}
+
+{{ end }}

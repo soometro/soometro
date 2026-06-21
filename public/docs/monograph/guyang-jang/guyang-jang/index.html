@@ -467,50 +467,45 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  
-  <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
-    작성일 : 
-    
-      2026-06-13
-    
-    
-    <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
-  </div>
-  
-  
-  <style>
-    .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
-  </style>
-
-  
-  <script>
-    (function() {
-      function checkHitData() {
-        const valueEl = document.getElementById('page-hit-value');
-        if (valueEl) {
-          const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
-          valueEl.innerText = hitCount.toLocaleString();
-        }
-      }
+  <main class="book-page">
+    <article class="markdown" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
       
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", checkHitData);
-      } else {
-        checkHitData();
-      }
+      <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
+        작성일 : 
+        
+          2026-06-13
+        
+        <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
+      </div>
       
-      const interval = setInterval(() => {
-        if (typeof window.currentPageHit !== 'undefined') {
-          checkHitData();
-          clearInterval(interval);
-        }
-      }, 100);
-    })();
-  </script>
+      <style>
+        .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
+      </style>
 
+      <script>
+        (function() {
+          function checkHitData() {
+            const valueEl = document.getElementById('page-hit-value');
+            if (valueEl) {
+              const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
+              valueEl.innerText = hitCount.toLocaleString();
+            }
+          }
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", checkHitData);
+          } else {
+            checkHitData();
+          }
+          const interval = setInterval(() => {
+            if (typeof window.currentPageHit !== 'undefined') {
+              checkHitData();
+              clearInterval(interval);
+            }
+          }, 100);
+        })();
+      </script>
 
-  
-  <h1 id="장무기-곽정-양과-전투력-비교">장무기 곽정 양과 전투력 비교<a class="anchor" href="#%ec%9e%a5%eb%ac%b4%ea%b8%b0-%ea%b3%bd%ec%a0%95-%ec%96%91%ea%b3%bc-%ec%a0%84%ed%88%ac%eb%a0%a5-%eb%b9%84%ea%b5%90">#</a></h1>
+      <h1 id="장무기-곽정-양과-전투력-비교">장무기 곽정 양과 전투력 비교<a class="anchor" href="#%ec%9e%a5%eb%ac%b4%ea%b8%b0-%ea%b3%bd%ec%a0%95-%ec%96%91%ea%b3%bc-%ec%a0%84%ed%88%ac%eb%a0%a5-%eb%b9%84%ea%b5%90">#</a></h1>
 <p>구양신공으로 태극권, 건곤대나이까지 마스터 한 장무기가 구음진경을
 어느정도 익힌 곽정, 양과보다 강할까?</p>
 <p>장무기의 무공 구성(구양신공 + 건곤대나이 + 태극권·태극검)이 김용 소설 속
@@ -562,166 +557,38 @@ https://github.com/alex-shpak/hugo-book
 &quot;훨씬 강하다&quot;고 보기는 어렵습니다.</p>
 
 
-
-  
-  <div class="page-reactions-container" style="margin-top: 2.5rem !important; margin-bottom: 1rem !important; text-align: center !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important;">
-    <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold;">이 글이 도움이 되었나요?</p>
-    <div style="display: inline-flex; gap: 1rem; justify-content: center; align-items: center;">
       
-      <button id="btn-reaction-like" style="background: #f8f9fa; border: 1px solid #e5e5e5; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="sendReaction('like')">
-        👍 <span id="count-reaction-like">0</span>
-      </button>
-      
-      <button id="btn-reaction-dislike" style="background: #f8f9fa; border: 1px solid #e5e5e5; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="sendReaction('dislike')">
-        👎 <span id="count-reaction-dislike">0</span>
-      </button>
-    </div>
-  </div>
-
-  
-  <script>
-    
-    function getReactionUserHash() {
-      let userHash = localStorage.getItem('user_hash');
-      if (!userHash) {
-        userHash = Math.random().toString(36).substring(2);
-        localStorage.setItem('user_hash', userHash);
-      }
-      return localStorage.getItem('my_admin') === 'true' ? 'ADMIN_SKIP' : userHash;
-    }
-
-    
-    function loadReactions() {
-      const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co"; 
-      const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-      const pageUrl = window.location.pathname;
-      const userHash = getReactionUserHash();
-
-      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": supabaseKey,
-          "Authorization": `Bearer ${supabaseKey}`
-        },
-        body: JSON.stringify({
-          p_page_url: pageUrl,
-          p_user_hash: userHash,
-          p_action: "get"
-        })
-      })
-      .then(res => res.json())
-      .then(data => updateReactionDOM(data))
-      .catch(err => console.error("Reaction Load Error:", err));
-    }
-
-    
-    function sendReaction(actionType) {
-      const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co"; 
-      const supabaseKey = "sb_publishable_JDKL8SsX9JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-      
-      const validKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-      const pageUrl = window.location.pathname;
-      const userHash = getReactionUserHash();
-
-      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": validKey,
-          "Authorization": `Bearer ${validKey}`
-        },
-        body: JSON.stringify({
-          p_page_url: pageUrl,
-          p_user_hash: userHash,
-          p_action: actionType
-        })
-      })
-      .then(res => res.json())
-      .then(data => updateReactionDOM(data))
-      .catch(err => console.error("Reaction Action Error:", err));
-    }
-
-    
-    function updateReactionDOM(data) {
-      if (!data) return;
-      
-      const btnLike = document.getElementById('btn-reaction-like');
-      const btnDislike = document.getElementById('btn-reaction-dislike');
-      const countLike = document.getElementById('count-reaction-like');
-      const countDislike = document.getElementById('count-reaction-dislike');
-
-      
-      if (countLike) countLike.innerText = data.like_count || 0;
-      if (countDislike) countDislike.innerText = data.dislike_count || 0;
-
-      
-      if (btnLike && btnDislike) {
-        if (data.my_reaction === 'like') {
-          btnLike.style.background = '#e3faf2';       
-          btnLike.style.borderColor = '#20c997';      
-          btnDislike.style.background = '#f8f9fa';
-          btnDislike.style.borderColor = '#e5e5e5';
-        } else if (data.my_reaction === 'dislike') {
-          btnLike.style.background = '#f8f9fa';
-          btnLike.style.borderColor = '#e5e5e5';
-          btnDislike.style.background = '#ffe3e3';    
-          btnDislike.style.borderColor = '#ff6b6b';   
-        } else {
+         
+        
           
-          btnLike.style.background = '#f8f9fa';
-          btnLike.style.borderColor = '#e5e5e5';
-          btnDislike.style.background = '#f8f9fa';
-          btnDislike.style.borderColor = '#e5e5e5';
-        }
-      }
-    }
+        
+          
+            
+          
+        
 
-    
-    document.addEventListener("DOMContentLoaded", loadReactions);
-  </script>
+        
+          <div class="book-navigation" style="margin-top: 1.5rem !important; padding-top: 1rem !important; border-top: 1px solid #e5e5e5 !important; margin-bottom: 0 !important; padding-bottom: 0 !important;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
 
+              
+                
+                  <a href="/docs/monograph/guyang-gueum/guyang-gueum/" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
+                    ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">구양신공 vs 구음진경</span>
+                  </a>
+                
+              
 
-  
-  
-    
-     
-    
-    
-    
-    
-      
-    
-      
+              
+                <div style="visibility: hidden;">→</div>
+              
+
+            </div>
+          </div>
         
       
-    
-
-    
-    
-      <div class="book-navigation" style="margin-top: 1.5rem !important; padding-top: 1rem !important; border-top: 1px solid #e5e5e5 !important; margin-bottom: 0 !important; padding-bottom: 0 !important;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-
-          
-          
-            
-              <a href="/docs/monograph/guyang-gueum/guyang-gueum/" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
-                ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">구양신공 vs 구음진경</span>
-              </a>
-            
-          
-
-          
-          
-            
-            <div style="visibility: hidden;">→</div>
-          
-
-        </div>
-      </div>
-    
-  
-
+    </article>
+  </main>
  
       
 

@@ -73,10 +73,8 @@ https://github.com/alex-shpak/hugo-book
                 "Authorization": `Bearer ${supabaseKey}`
             },
             body: JSON.stringify({
-            body: JSON.stringify({
                 page_url: pageUrl,
-                
-                user_ip_hash: (isAdmin || ipHash === 'af3zsouui59') ? "ADMIN_SKIP" : ipHash
+                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash 
             })
         })
         .then(res => res.json())
@@ -472,50 +470,45 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  
-  <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
-    작성일 : 
-    
-      2026-06-20
-    
-    
-    <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
-  </div>
-  
-  
-  <style>
-    .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
-  </style>
-
-  
-  <script>
-    (function() {
-      function checkHitData() {
-        const valueEl = document.getElementById('page-hit-value');
-        if (valueEl) {
-          const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
-          valueEl.innerText = hitCount.toLocaleString();
-        }
-      }
+  <main class="book-page">
+    <article class="markdown" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
       
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", checkHitData);
-      } else {
-        checkHitData();
-      }
+      <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
+        작성일 : 
+        
+          2026-06-20
+        
+        <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
+      </div>
       
-      const interval = setInterval(() => {
-        if (typeof window.currentPageHit !== 'undefined') {
-          checkHitData();
-          clearInterval(interval);
-        }
-      }, 100);
-    })();
-  </script>
+      <style>
+        .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
+      </style>
 
+      <script>
+        (function() {
+          function checkHitData() {
+            const valueEl = document.getElementById('page-hit-value');
+            if (valueEl) {
+              const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
+              valueEl.innerText = hitCount.toLocaleString();
+            }
+          }
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", checkHitData);
+          } else {
+            checkHitData();
+          }
+          const interval = setInterval(() => {
+            if (typeof window.currentPageHit !== 'undefined') {
+              checkHitData();
+              clearInterval(interval);
+            }
+          }, 100);
+        })();
+      </script>
 
-  
-  <h2 id="냉정하게-뜯어본-세상의-시선과-그-속의-진짜-가치는-다음과-같습니다">질문자님께서 족집게처럼 짚으셨듯이, AI로서 양쪽의 장점을 다 늘어놓고 싶은 유혹이 생기지만, 요청하신 대로 철저하게 냉정하고 현실적인 세상의 시선으로만 답변드리겠습니다.
+      <h2 id="냉정하게-뜯어본-세상의-시선과-그-속의-진짜-가치는-다음과-같습니다">질문자님께서 족집게처럼 짚으셨듯이, AI로서 양쪽의 장점을 다 늘어놓고 싶은 유혹이 생기지만, 요청하신 대로 철저하게 냉정하고 현실적인 세상의 시선으로만 답변드리겠습니다.
 세상 사람들의 보편적인 기준으로 볼 때, 나이 들어 퇴사한 후 글을 쓰기 위해 마크다운, 옵시디언, VS Code를 배우는 것은 &ldquo;취미로서 가성비가 떨어지고 사서 고생하는 일&quot;에 가깝습니다.
 냉정하게 뜯어본 세상의 시선과 그 속의 진짜 가치는 다음과 같습니다.<a class="anchor" href="#%eb%83%89%ec%a0%95%ed%95%98%ea%b2%8c-%eb%9c%af%ec%96%b4%eb%b3%b8-%ec%84%b8%ec%83%81%ec%9d%98-%ec%8b%9c%ec%84%a0%ea%b3%bc-%ea%b7%b8-%ec%86%8d%ec%9d%98-%ec%a7%84%ec%a7%9c-%ea%b0%80%ec%b9%98%eb%8a%94-%eb%8b%a4%ec%9d%8c%ea%b3%bc-%ea%b0%99%ec%8a%b5%eb%8b%88%eb%8b%a4">#</a></h2>
 <h2 id="1-냉정한-세상의-시선-주객전도이자-시간-낭비">1. 냉정한 세상의 시선: &ldquo;주객전도이자 시간 낭비&rdquo;<a class="anchor" href="#1-%eb%83%89%ec%a0%95%ed%95%9c-%ec%84%b8%ec%83%81%ec%9d%98-%ec%8b%9c%ec%84%a0-%ec%a3%bc%ea%b0%9d%ec%a0%84%eb%8f%84%ec%9d%b4%ec%9e%90-%ec%8b%9c%ea%b0%84-%eb%82%ad%eb%b9%84">#</a></h2>
@@ -568,172 +561,44 @@ https://github.com/alex-shpak/hugo-book
 이제 멋진 디지털 만년필(옵시디언 환경)을 손에 쥐셨으니, 첫 페이지를 채울 차례입니다. 혹시 이 완벽한 환경에서 가장 먼저 끄적여보고 싶은 첫 문장이나 주제는 무엇인가요? 거창하지 않아도 좋습니다.</p>
 
 
-
-  
-  <div class="page-reactions-container" style="margin-top: 2.5rem !important; margin-bottom: 1rem !important; text-align: center !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important;">
-    <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold;">이 글이 도움이 되었나요?</p>
-    <div style="display: inline-flex; gap: 1rem; justify-content: center; align-items: center;">
       
-      <button id="btn-reaction-like" style="background: #f8f9fa; border: 1px solid #e5e5e5; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="sendReaction('like')">
-        👍 <span id="count-reaction-like">0</span>
-      </button>
-      
-      <button id="btn-reaction-dislike" style="background: #f8f9fa; border: 1px solid #e5e5e5; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="sendReaction('dislike')">
-        👎 <span id="count-reaction-dislike">0</span>
-      </button>
-    </div>
-  </div>
-
-  
-  <script>
-    
-    function getReactionUserHash() {
-      let userHash = localStorage.getItem('user_hash');
-      if (!userHash) {
-        userHash = Math.random().toString(36).substring(2);
-        localStorage.setItem('user_hash', userHash);
-      }
-      return localStorage.getItem('my_admin') === 'true' ? 'ADMIN_SKIP' : userHash;
-    }
-
-    
-    function loadReactions() {
-      const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co"; 
-      const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-      const pageUrl = window.location.pathname;
-      const userHash = getReactionUserHash();
-
-      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": supabaseKey,
-          "Authorization": `Bearer ${supabaseKey}`
-        },
-        body: JSON.stringify({
-          p_page_url: pageUrl,
-          p_user_hash: userHash,
-          p_action: "get"
-        })
-      })
-      .then(res => res.json())
-      .then(data => updateReactionDOM(data))
-      .catch(err => console.error("Reaction Load Error:", err));
-    }
-
-    
-    function sendReaction(actionType) {
-      const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co"; 
-      const supabaseKey = "sb_publishable_JDKL8SsX9JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-      
-      const validKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-      const pageUrl = window.location.pathname;
-      const userHash = getReactionUserHash();
-
-      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": validKey,
-          "Authorization": `Bearer ${validKey}`
-        },
-        body: JSON.stringify({
-          p_page_url: pageUrl,
-          p_user_hash: userHash,
-          p_action: actionType
-        })
-      })
-      .then(res => res.json())
-      .then(data => updateReactionDOM(data))
-      .catch(err => console.error("Reaction Action Error:", err));
-    }
-
-    
-    function updateReactionDOM(data) {
-      if (!data) return;
-      
-      const btnLike = document.getElementById('btn-reaction-like');
-      const btnDislike = document.getElementById('btn-reaction-dislike');
-      const countLike = document.getElementById('count-reaction-like');
-      const countDislike = document.getElementById('count-reaction-dislike');
-
-      
-      if (countLike) countLike.innerText = data.like_count || 0;
-      if (countDislike) countDislike.innerText = data.dislike_count || 0;
-
-      
-      if (btnLike && btnDislike) {
-        if (data.my_reaction === 'like') {
-          btnLike.style.background = '#e3faf2';       
-          btnLike.style.borderColor = '#20c997';      
-          btnDislike.style.background = '#f8f9fa';
-          btnDislike.style.borderColor = '#e5e5e5';
-        } else if (data.my_reaction === 'dislike') {
-          btnLike.style.background = '#f8f9fa';
-          btnLike.style.borderColor = '#e5e5e5';
-          btnDislike.style.background = '#ffe3e3';    
-          btnDislike.style.borderColor = '#ff6b6b';   
-        } else {
+         
+        
           
-          btnLike.style.background = '#f8f9fa';
-          btnLike.style.borderColor = '#e5e5e5';
-          btnDislike.style.background = '#f8f9fa';
-          btnDislike.style.borderColor = '#e5e5e5';
-        }
-      }
-    }
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
 
-    
-    document.addEventListener("DOMContentLoaded", loadReactions);
-  </script>
+        
+          <div class="book-navigation" style="margin-top: 1.5rem !important; padding-top: 1rem !important; border-top: 1px solid #e5e5e5 !important; margin-bottom: 0 !important; padding-bottom: 0 !important;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
 
+              
+                
+                  <a href="/docs/%EC%A0%9C%EB%AF%B8%EB%82%98%EC%9D%B4-%EB%B9%84%EA%B5%90/" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
+                    ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">제목을 입력하세요</span>
+                  </a>
+                
+              
 
-  
-  
-    
-     
-    
-    
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
+              
+                <div style="visibility: hidden;">→</div>
+              
+
+            </div>
+          </div>
         
       
-    
-
-    
-    
-      <div class="book-navigation" style="margin-top: 1.5rem !important; padding-top: 1rem !important; border-top: 1px solid #e5e5e5 !important; margin-bottom: 0 !important; padding-bottom: 0 !important;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-
-          
-          
-            
-              <a href="/docs/%EC%A0%9C%EB%AF%B8%EB%82%98%EC%9D%B4-%EB%B9%84%EA%B5%90/" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
-                ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">제목을 입력하세요</span>
-              </a>
-            
-          
-
-          
-          
-            
-            <div style="visibility: hidden;">→</div>
-          
-
-        </div>
-      </div>
-    
-  
-
+    </article>
+  </main>
  
       
 
