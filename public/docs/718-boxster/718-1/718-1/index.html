@@ -480,18 +480,20 @@ https://github.com/alex-shpak/hugo-book
   <main class="book-page">
     <article class="markdown" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
       
+      
       <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
-        작성일 : 
+        작성일 :
         
           2026-06-18
         
         <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
       </div>
-      
+
       <style>
         .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
       </style>
 
+      
       <script>
         (function() {
           function checkHitData() {
@@ -515,7 +517,9 @@ https://github.com/alex-shpak/hugo-book
         })();
       </script>
 
-      <h1 id="718-gts40과-s-normal-그리고-제네시스-g70과의-차이점">718 GTS4.0과 S, NORMAL 그리고 제네시스 G70과의 차이점.<a class="anchor" href="#718-gts40%ea%b3%bc-s-normal-%ea%b7%b8%eb%a6%ac%ea%b3%a0-%ec%a0%9c%eb%84%a4%ec%8b%9c%ec%8a%a4-g70%ea%b3%bc%ec%9d%98-%ec%b0%a8%ec%9d%b4%ec%a0%90">#</a></h1>
+      
+      <div class="post-content">
+        <h1 id="718-gts40과-s-normal-그리고-제네시스-g70과의-차이점">718 GTS4.0과 S, NORMAL 그리고 제네시스 G70과의 차이점.<a class="anchor" href="#718-gts40%ea%b3%bc-s-normal-%ea%b7%b8%eb%a6%ac%ea%b3%a0-%ec%a0%9c%eb%84%a4%ec%8b%9c%ec%8a%a4-g70%ea%b3%bc%ec%9d%98-%ec%b0%a8%ec%9d%b4%ec%a0%90">#</a></h1>
 <p><img src="/docs/718-boxster/718-1/images/image1.jpeg" alt="포르쉐 718 GTS4.0"  />
 </p>
 <p>포르쉐 718 카이맨/박스터 GTS 4.0은 단순히 엔진(4.0L 6기통 자연흡기)만 커진 것이 아니라, 하위 모델인 노멀(2.0)이나 S(2.5)에서 유료 옵션으로 넣어야 하거나 아예 선택할 수 없는 퍼포먼스 사양들이 대거 기본 적용된 모델이다.</p>
@@ -597,9 +601,26 @@ https://github.com/alex-shpak/hugo-book
 	</tbody>
 </table>
 
+      </div>
 
       
-         
+      <div class="page-reactions-container">
+        <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold; text-align: center;">이 글이 도움이 되었나요?</p>
+        <div style="display: inline-flex; gap: 1rem; justify-content: center; align-items: center;">
+          <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
+            👍 <span id="count-reaction-like">0</span>
+          </button>
+          <button id="btn-reaction-dislike" class="reaction-btn" onclick="sendReaction('dislike')">
+            👎 <span id="count-reaction-dislike">0</span>
+          </button>
+        </div>
+      </div>
+
+      
+      
+        
+        
+        
         
           
             
@@ -607,15 +628,14 @@ https://github.com/alex-shpak/hugo-book
         
           
         
-
         
-          <div class="book-navigation" style="margin-top: 1.5rem !important; padding-top: 1rem !important; border-top: 1px solid #e5e5e5 !important; margin-bottom: 0 !important; padding-bottom: 0 !important;">
+        
+          <div class="book-navigation">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-
               
                 <div style="visibility: hidden;">←</div>
               
-
+              
               
                 
                   <a href="/docs/718-boxster/718-2/718-2/" class="book-nav-link next" style="text-align: right; color: var(--color-link); text-decoration: none;">
@@ -623,13 +643,141 @@ https://github.com/alex-shpak/hugo-book
                   </a>
                 
               
-
             </div>
           </div>
         
       
+
     </article>
   </main>
+
+  
+  <script>
+    
+    function getReactionUserHash() {
+      let userHash = localStorage.getItem('user_hash');
+      if (!userHash) {
+        userHash = Math.random().toString(36).substring(2);
+        localStorage.setItem('user_hash', userHash);
+      }
+      return localStorage.getItem('my_admin') === 'true' ? 'ADMIN_SKIP' : userHash;
+    }
+
+    const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+    const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+
+    function loadReactions() {
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
+
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: "get"
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Load Error:", err));
+    }
+
+    function sendReaction(actionType) {
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
+
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: actionType
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Action Error:", err));
+    }
+
+    function updateReactionDOM(data) {
+      if (!data) return;
+
+      const btnLike = document.getElementById('btn-reaction-like');
+      const btnDislike = document.getElementById('btn-reaction-dislike');
+      const countLike = document.getElementById('count-reaction-like');
+      const countDislike = document.getElementById('count-reaction-dislike');
+
+      if (countLike) countLike.innerText = data.like_count || 0;
+      if (countDislike) countDislike.innerText = data.dislike_count || 0;
+
+      if (btnLike && btnDislike) {
+        if (data.my_reaction === 'like') {
+          btnLike.style.background = '#e3faf2';
+          btnLike.style.borderColor = '#20c997';
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        } else if (data.my_reaction === 'dislike') {
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#ffe3e3';
+          btnDislike.style.borderColor = '#ff6b6b';
+        } else {
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        }
+      }
+    }
+
+    
+    document.addEventListener("DOMContentLoaded", loadReactions);
+  </script>
+
+  
+  <style>
+    .post-content {
+      margin-bottom: 2rem !important;
+    }
+
+    .page-reactions-container {
+      margin: 2.5rem 0 2rem 0;
+      padding: 1.5rem 0;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      text-align: center;
+    }
+
+    .reaction-btn {
+      background: #f8f9fa;
+      border: 1px solid #e5e5e5;
+      border-radius: 20px;
+      padding: 0.5rem 1.4rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .book-navigation {
+      margin-top: 1.5rem !important;
+      padding-top: 1rem !important;
+      border-top: 1px solid #e5e5e5 !important;
+    }
+  </style>
  
       
 

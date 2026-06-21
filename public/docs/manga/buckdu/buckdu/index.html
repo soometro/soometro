@@ -462,18 +462,20 @@ https://github.com/alex-shpak/hugo-book
   <main class="book-page">
     <article class="markdown" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
       
+      
       <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
-        작성일 : 
+        작성일 :
         
           2026-06-12
         
         <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
       </div>
-      
+
       <style>
         .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
       </style>
 
+      
       <script>
         (function() {
           function checkHitData() {
@@ -497,7 +499,9 @@ https://github.com/alex-shpak/hugo-book
         })();
       </script>
 
-      <h1 id="북두의권-전투력-top10">북두의권 전투력 TOP10<a class="anchor" href="#%eb%b6%81%eb%91%90%ec%9d%98%ea%b6%8c-%ec%a0%84%ed%88%ac%eb%a0%a5-top10">#</a></h1>
+      
+      <div class="post-content">
+        <h1 id="북두의권-전투력-top10">북두의권 전투력 TOP10<a class="anchor" href="#%eb%b6%81%eb%91%90%ec%9d%98%ea%b6%8c-%ec%a0%84%ed%88%ac%eb%a0%a5-top10">#</a></h1>
 <p>만화 &lsquo;북두의 권&rsquo; 세계관 내 등장인물 공식 설정인 궁극해설서
 세기말패왕열전의 티어 등급과 원작 후반부(수라국 편)의 파워 밸런스를
 종합적으로 반영한 <strong>전전투력 순위 TOP 10</strong> 분석 결과입니다.</p>
@@ -657,9 +661,26 @@ https://github.com/alex-shpak/hugo-book
 된 후에도 집념을 발휘하여 남두홍학권의 유다를 꺾는 명장면을 만들어내며
 TOP 10의 마지막 자리를 차지했습니다</p>
 
+      </div>
 
       
-         
+      <div class="page-reactions-container">
+        <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold; text-align: center;">이 글이 도움이 되었나요?</p>
+        <div style="display: inline-flex; gap: 1rem; justify-content: center; align-items: center;">
+          <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
+            👍 <span id="count-reaction-like">0</span>
+          </button>
+          <button id="btn-reaction-dislike" class="reaction-btn" onclick="sendReaction('dislike')">
+            👎 <span id="count-reaction-dislike">0</span>
+          </button>
+        </div>
+      </div>
+
+      
+      
+        
+        
+        
         
           
             
@@ -667,15 +688,14 @@ TOP 10의 마지막 자리를 차지했습니다</p>
         
           
         
-
         
-          <div class="book-navigation" style="margin-top: 1.5rem !important; padding-top: 1rem !important; border-top: 1px solid #e5e5e5 !important; margin-bottom: 0 !important; padding-bottom: 0 !important;">
+        
+          <div class="book-navigation">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-
               
                 <div style="visibility: hidden;">←</div>
               
-
+              
               
                 
                   <a href="/docs/manga/buckdu-chang/buckdu-chang/" class="book-nav-link next" style="text-align: right; color: var(--color-link); text-decoration: none;">
@@ -683,13 +703,141 @@ TOP 10의 마지막 자리를 차지했습니다</p>
                   </a>
                 
               
-
             </div>
           </div>
         
       
+
     </article>
   </main>
+
+  
+  <script>
+    
+    function getReactionUserHash() {
+      let userHash = localStorage.getItem('user_hash');
+      if (!userHash) {
+        userHash = Math.random().toString(36).substring(2);
+        localStorage.setItem('user_hash', userHash);
+      }
+      return localStorage.getItem('my_admin') === 'true' ? 'ADMIN_SKIP' : userHash;
+    }
+
+    const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+    const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+
+    function loadReactions() {
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
+
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: "get"
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Load Error:", err));
+    }
+
+    function sendReaction(actionType) {
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
+
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: actionType
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Action Error:", err));
+    }
+
+    function updateReactionDOM(data) {
+      if (!data) return;
+
+      const btnLike = document.getElementById('btn-reaction-like');
+      const btnDislike = document.getElementById('btn-reaction-dislike');
+      const countLike = document.getElementById('count-reaction-like');
+      const countDislike = document.getElementById('count-reaction-dislike');
+
+      if (countLike) countLike.innerText = data.like_count || 0;
+      if (countDislike) countDislike.innerText = data.dislike_count || 0;
+
+      if (btnLike && btnDislike) {
+        if (data.my_reaction === 'like') {
+          btnLike.style.background = '#e3faf2';
+          btnLike.style.borderColor = '#20c997';
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        } else if (data.my_reaction === 'dislike') {
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#ffe3e3';
+          btnDislike.style.borderColor = '#ff6b6b';
+        } else {
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        }
+      }
+    }
+
+    
+    document.addEventListener("DOMContentLoaded", loadReactions);
+  </script>
+
+  
+  <style>
+    .post-content {
+      margin-bottom: 2rem !important;
+    }
+
+    .page-reactions-container {
+      margin: 2.5rem 0 2rem 0;
+      padding: 1.5rem 0;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      text-align: center;
+    }
+
+    .reaction-btn {
+      background: #f8f9fa;
+      border: 1px solid #e5e5e5;
+      border-radius: 20px;
+      padding: 0.5rem 1.4rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .book-navigation {
+      margin-top: 1.5rem !important;
+      padding-top: 1rem !important;
+      border-top: 1px solid #e5e5e5 !important;
+    }
+  </style>
  
       
 
