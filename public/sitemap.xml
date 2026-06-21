@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/docs/cdmp3/</loc>
+    <lastmod>2026-06-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/docs/%EB%A7%8C%ED%99%94%EB%B0%A9-%EB%8C%80%EB%B3%B8%EC%86%8C/</loc>
+    <lastmod>2026-06-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/docs/%EC%97%86%EC%96%B4%EC%A7%84-%EB%B8%94%EB%A1%9C%EA%B7%B8/</loc>
+    <lastmod>2026-06-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/docs/%EC%A0%9C%EB%AF%B8%EB%82%98%EC%9D%B4-%EB%B9%84%EA%B5%90/</loc>
+    <lastmod>2026-06-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/docs/%EC%B7%A8%EB%AF%B8%EC%9D%B8%EA%B0%80-%EA%B4%80%EC%84%B1%EC%9D%B8%EA%B0%80/</loc>
+    <lastmod>2026-06-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/docs/718-boxster/718-1/718-1/</loc>
     <lastmod>2026-06-18T00:00:00+00:00</lastmod>
   </url><url>
@@ -46,10 +61,10 @@
     <loc>http://localhost:1313/docs/artist/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/</loc>
-    <lastmod>2026-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2026-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2026-06-18T00:00:00+00:00</lastmod>
+    <lastmod>2026-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ko-kr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="옛날 만화방을 ‘대본소’라고 불렀었나요?
+당시엔 동네마다 벽면에 만화책이 가득 진열되어 있었고, 권당 12백원씩 내고 의자에 앉아 열심히 읽곤 했습니다. 실내 흡연도 자유로웠고 양은냄비에 끓여주는 라면도 먹을 수 있어서, 5060대 아저씨들도 참 많았던 기억이 납니다. 그러다 PC방이 생길 무렵부터 시설이 조금씩 개선되더니 시간당 1천원 정도의 요금제와 야간 정액 할인이 생겨났습니다. 한국 만화보다 일본 코믹스 비중이 늘어난 것도 이때쯤이었던 것 같아요. 형식적이나마 뚫려 있는 흡연 부스가 생기기 시작한 시기까지가 제가 자주 가던 만화방의 모습이었습니다. 그 후로는 아파트 주민들을 타깃으로 한 비디오방 형태의 도서대여점이 동네에 생겨나며 주로 거기서 코믹스를 빌려 보곤 했습니다. 요즘은 동네 만화방이 많이 사라진 대신, 대학가에 찜질방 토굴처럼 방에 앉아 볼 수 있는 깨끗한 ‘만화카페’들이 생겼더군요. 요즘도 예전만큼 대학생이나 20~30대들이 만화방을 많이 이용하는지 문득 궁금해집니다. 정작 제가 가장 궁금한 점은 다음의 세 가지입니다.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/%EB%A7%8C%ED%99%94%EB%B0%A9-%EB%8C%80%EB%B3%B8%EC%86%8C/">
+	<meta property="og:site_name" content="soometro">
+	<meta property="og:title" content="제목을 입력하세요">
+	<meta property="og:description" content="옛날 만화방을 ‘대본소’라고 불렀었나요?
+당시엔 동네마다 벽면에 만화책이 가득 진열되어 있었고, 권당 12백원씩 내고 의자에 앉아 열심히 읽곤 했습니다. 실내 흡연도 자유로웠고 양은냄비에 끓여주는 라면도 먹을 수 있어서, 5060대 아저씨들도 참 많았던 기억이 납니다. 그러다 PC방이 생길 무렵부터 시설이 조금씩 개선되더니 시간당 1천원 정도의 요금제와 야간 정액 할인이 생겨났습니다. 한국 만화보다 일본 코믹스 비중이 늘어난 것도 이때쯤이었던 것 같아요. 형식적이나마 뚫려 있는 흡연 부스가 생기기 시작한 시기까지가 제가 자주 가던 만화방의 모습이었습니다. 그 후로는 아파트 주민들을 타깃으로 한 비디오방 형태의 도서대여점이 동네에 생겨나며 주로 거기서 코믹스를 빌려 보곤 했습니다. 요즘은 동네 만화방이 많이 사라진 대신, 대학가에 찜질방 토굴처럼 방에 앉아 볼 수 있는 깨끗한 ‘만화카페’들이 생겼더군요. 요즘도 예전만큼 대학생이나 20~30대들이 만화방을 많이 이용하는지 문득 궁금해집니다. 정작 제가 가장 궁금한 점은 다음의 세 가지입니다.">
+	<meta property="og:locale" content="ko_kr">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="docs">
+		<meta property="article:published_time" content="2026-06-20T00:00:00+00:00">
+		<meta property="article:modified_time" content="2026-06-20T00:00:00+00:00">
+		<meta property="og:image" content="http://localhost:1313/images/og-default.png">
+
+
+	<meta itemprop="name" content="제목을 입력하세요">
+	<meta itemprop="description" content="옛날 만화방을 ‘대본소’라고 불렀었나요?
+당시엔 동네마다 벽면에 만화책이 가득 진열되어 있었고, 권당 12백원씩 내고 의자에 앉아 열심히 읽곤 했습니다. 실내 흡연도 자유로웠고 양은냄비에 끓여주는 라면도 먹을 수 있어서, 5060대 아저씨들도 참 많았던 기억이 납니다. 그러다 PC방이 생길 무렵부터 시설이 조금씩 개선되더니 시간당 1천원 정도의 요금제와 야간 정액 할인이 생겨났습니다. 한국 만화보다 일본 코믹스 비중이 늘어난 것도 이때쯤이었던 것 같아요. 형식적이나마 뚫려 있는 흡연 부스가 생기기 시작한 시기까지가 제가 자주 가던 만화방의 모습이었습니다. 그 후로는 아파트 주민들을 타깃으로 한 비디오방 형태의 도서대여점이 동네에 생겨나며 주로 거기서 코믹스를 빌려 보곤 했습니다. 요즘은 동네 만화방이 많이 사라진 대신, 대학가에 찜질방 토굴처럼 방에 앉아 볼 수 있는 깨끗한 ‘만화카페’들이 생겼더군요. 요즘도 예전만큼 대학생이나 20~30대들이 만화방을 많이 이용하는지 문득 궁금해집니다. 정작 제가 가장 궁금한 점은 다음의 세 가지입니다.">
+	<meta itemprop="datePublished" content="2026-06-20T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2026-06-20T00:00:00+00:00">
+	<meta itemprop="wordCount" content="1144">
+	<meta itemprop="image" content="http://localhost:1313/images/og-default.png">
+
+<title>제목을 입력하세요 • soometro</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/%EB%A7%8C%ED%99%94%EB%B0%A9-%EB%8C%80%EB%B3%B8%EC%86%8C/">
+<link rel="stylesheet" href="/book.min.0c051519dd7bf22797e76a474f6f0a062b35a1dd3dd4091581a910de75003c29.css" integrity="sha256-DAUVGd178ieX52pHT28KBis1od091AkVgakQ3nUAPCk=" crossorigin="anonymous">
+
+
+  <script defer type="module" src="/ko.search.min.43e12e942e6b7d44d92cc1f81aa4fb8e6fe827787304bbaa995121a591e07be3.js" integrity="sha256-Q&#43;EulC5rfUTZLMH4GqT7jm/oJ3hzBLuqmVEhpZHge&#43;M=" crossorigin="anonymous"></script>
+
+  <meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
+<script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userAgent = navigator.userAgent.toLowerCase();
+        const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity'];
+        
+        const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
+        if (isBot) return;
+
+        
+        const isAdmin = localStorage.getItem('my_admin') === 'true';
+
+        const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+        const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+        
+        const pageUrl = window.location.pathname;
+        const rawIp = Math.random().toString(36).substring(2); 
+        const ipHash = localStorage.getItem('user_hash') || rawIp;
+        if (!localStorage.getItem('user_hash')) {
+            localStorage.setItem('user_hash', ipHash);
+        }
+
+        
+        fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "apikey": supabaseKey,
+                "Authorization": `Bearer ${supabaseKey}`
+            },
+            body: JSON.stringify({
+            body: JSON.stringify({
+                page_url: pageUrl,
+                
+                user_ip_hash: (isAdmin || ipHash === 'af3zsouui59') ? "ADMIN_SKIP" : ipHash
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            const result = Array.isArray(data) ? data[0] : data;
+            if (result) {
+                const todayEl = document.getElementById("counter-today");
+                const monthlyEl = document.getElementById("counter-monthly");
+                const totalEl = document.getElementById("counter-total");
+                
+                if (todayEl) todayEl.innerText = (result.today_count || 0).toLocaleString();
+                if (monthlyEl) monthlyEl.innerText = (result.monthly_count || 0).toLocaleString();
+                if (totalEl) totalEl.innerText = (result.total_count || 0).toLocaleString();
+
+                window.currentPageHit = result.page_hit || 0;
+            }
+        })
+        .catch(err => console.error("Counter Error:", err));
+    });
+</script>
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>soometro</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/monograph/" class="">
+      Monograph</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/downshifting/" class="">
+      Downshifting</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/718-boxster/" class="">
+      718 Boxster</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/whisky/" class="">
+      Whisky</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/manga/" class="">
+      Manga</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/bloodborne/" class="">
+      Bloodborne</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/artist/" class="">
+      Artist</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="book-menu-widgets" style="margin-top: 2rem; padding: 0.5rem 0.5rem 0.5rem 0; border-top: 1px dashed #ccc; font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif; font-size: 0.85rem; color: #666; font-weight: bold;">
+    
+    
+    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+        <div style="display: flex; justify-content: space-between;">
+            <span>TOTAL POSTS:</span>
+            <span style="color: var(--color-text);">13</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>BOARDS:</span>
+            <span style="color: var(--color-text);">7</span>
+        </div>
+    </div>
+
+    
+    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
+
+    
+    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+        <div style="display: flex; justify-content: space-between;">
+            <span>TODAY:</span>
+            <span id="counter-today" style="color: var(--color-text);">0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>MONTHLY:</span>
+            <span id="counter-monthly" style="color: var(--color-text);">0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>TOTAL VISITS:</span>
+            <span id="counter-total" style="color: var(--color-text);">0</span>
+        </div>
+    </div>
+
+    
+    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
+
+    
+    <div class="theme-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SITE THEME</span>
+        <div>
+            <button id="theme-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
+                🌓 모드 전환하기
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    html.forced-dark {
+        --color-diagram-bg: #fff;
+        --gray-100: #1e1e1e;
+        --gray-200: #2d2d2d;
+        --gray-500: #aaa;
+        --body-background: #111111 !important;
+        --color-text: #e0e0e0 !important;
+        --color-link: #8ab4f8 !important;
+        background-color: #111111 !important;
+        color: #e0e0e0 !important;
+    }
+    html.forced-dark .book-menu, 
+    html.forced-dark .book-page,
+    html.forced-dark aside {
+        background-color: #111111 !important;
+        color: #e0e0e0 !important;
+    }
+</style>
+
+<script>
+    (function() {
+        
+        var htmlEl = document.documentElement;
+        var toggleBtn = document.getElementById('theme-toggle-btn');
+        
+        if (toggleBtn) {
+            var hasSaved = localStorage.getItem('forced_theme');
+            var isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var initialTheme = hasSaved ? hasSaved : (isSystemDark ? 'dark' : 'light');
+            
+            applyTheme(initialTheme);
+
+            toggleBtn.addEventListener('click', function() {
+                var isDark = htmlEl.classList.contains('forced-dark');
+                applyTheme(isDark ? 'light' : 'dark');
+            });
+        }
+
+        function applyTheme(theme) {
+            if (!toggleBtn) return;
+            if (theme === 'dark') {
+                htmlEl.classList.add('forced-dark');
+                htmlEl.setAttribute('data-theme', 'dark');
+                localStorage.setItem('forced_theme', 'dark');
+                toggleBtn.innerText = "☀️ 라이트 모드로 보기";
+            } else {
+                htmlEl.classList.remove('forced-dark');
+                htmlEl.setAttribute('data-theme', 'light');
+                localStorage.setItem('forced_theme', 'light');
+                toggleBtn.innerText = "🌙 다크 모드로 보기";
+            }
+        }
+
+        
+        var currentPath = window.location.pathname;
+        
+        fetch('https://wggvjymwocgbtasclwre.supabase.co/functions/v1/page-vibe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path: currentPath })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data) {
+                document.getElementById('counter-today').innerText = (data.today || 0).toLocaleString();
+                document.getElementById('counter-monthly').innerText = (data.monthly || 0).toLocaleString();
+                document.getElementById('counter-total').innerText = (data.total || 0).toLocaleString();
+            }
+        })
+        .catch(function(err) { console.error('Counter sync error:', err); });
+    })();
+</script>
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  
+  <h3>제목을 입력하세요</h3>
+
+  
+  <label for="toc-control">
+    
+    <img src="/icons/menu.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside>
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  
+  <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
+    작성일 : 
+    
+      2026-06-20
+    
+    
+    <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
+  </div>
+  
+  
+  <style>
+    .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
+  </style>
+
+  
+  <script>
+    (function() {
+      function checkHitData() {
+        const valueEl = document.getElementById('page-hit-value');
+        if (valueEl) {
+          const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
+          valueEl.innerText = hitCount.toLocaleString();
+        }
+      }
+      
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", checkHitData);
+      } else {
+        checkHitData();
+      }
+      
+      const interval = setInterval(() => {
+        if (typeof window.currentPageHit !== 'undefined') {
+          checkHitData();
+          clearInterval(interval);
+        }
+      }, 100);
+    })();
+  </script>
+
+
+  
+  <p>옛날 만화방을 ‘대본소’라고 불렀었나요?</p>
+<p>당시엔 동네마다 벽면에 만화책이 가득 진열되어 있었고, 권당 1<del>2백원씩 내고 의자에 앉아 열심히 읽곤 했습니다. 실내 흡연도 자유로웠고 양은냄비에 끓여주는 라면도 먹을 수 있어서, 50</del>60대 아저씨들도 참 많았던 기억이 납니다.
+그러다 PC방이 생길 무렵부터 시설이 조금씩 개선되더니 시간당 1천원 정도의 요금제와 야간 정액 할인이 생겨났습니다. 한국 만화보다 일본 코믹스 비중이 늘어난 것도 이때쯤이었던 것 같아요. 형식적이나마 뚫려 있는 흡연 부스가 생기기 시작한 시기까지가 제가 자주 가던 만화방의 모습이었습니다. 그 후로는 아파트 주민들을 타깃으로 한 비디오방 형태의 도서대여점이 동네에 생겨나며 주로 거기서 코믹스를 빌려 보곤 했습니다.
+요즘은 동네 만화방이 많이 사라진 대신, 대학가에 찜질방 토굴처럼 방에 앉아 볼 수 있는 깨끗한 ‘만화카페’들이 생겼더군요. 요즘도 예전만큼 대학생이나 20~30대들이 만화방을 많이 이용하는지 문득 궁금해집니다.
+정작 제가 가장 궁금한 점은 다음의 세 가지입니다.</p>
+<ol>
+<li>1980년대부터 현재까지 5년 단위의 만화방 이용자 수 증감 추이가 어떻게 되나요?</li>
+<li>과거 대본소 스타일의 만화방이 아직도 존재하나요? 어두컴컴한 분위기에서 나이 지긋한 아저씨가 끓여주는 라면을 먹을 수 있는 그런 곳이 남아있는지, 있다면 여전히 50~60대 분들이 주 고객인지 궁금합니다.</li>
+<li>만약 지금도 50<del>60대가 주류라면, 예전의 50</del>60대분들은 이제 안 오시는 거고 과거(제 20대 시절)의 3<del>40대 단골들이 나이를 먹어 그대로 50</del>60대 단골이 된 것인가요? 그리고 이런 옛날 만화방이 현재 얼마나 남아있나요?</li>
+</ol>
+<p>말씀하신 만화방의 변천사는 한국 현대 대중문화의 흐름을 그대로 관통하고 있습니다. 질문자님이 기억하시는 그 시절의 향수와 공간의 변화, 그리고 궁금해하시는 통계와 이용자층의 이동을 정확한 역사적 사실을 바탕으로 정리해 드립니다. [1, 2]</p>
+<hr>
+<ol>
+<li>옛날 만화방을 &lsquo;대본소&rsquo;라고 불렀던 게 맞나요?
+네, 맞습니다. 다만 &lsquo;대본소(貸本所)&lsquo;라는 명칭은 책을 빌려준다는 뜻의 일본식 한자어 잔재입니다. 1950<del>60년대 만화책 보급 초기에는 &lsquo;만화가게&rsquo;, &lsquo;만화방&rsquo;으로 불리다가, 70</del>80년대 출판사들이 서점 판매용이 아닌 &lsquo;만화방 대여 전용(일일만화 등)&rsquo; 책을 찍어내며 유통망을 장악하면서 장르와 공간을 뜻하는 &lsquo;대본소&rsquo;라는 말이 굳어졌습니다. [3, 4, 5, 6]
+당시 권당 100~200원을 내고 빽빽한 소파나 플라스틱 의자에 앉아 만화를 보던 풍경, 자욱한 담배 연기와 양은냄비 라면은 그 시절 대본소의 상징이었습니다. [7]</li>
+</ol>
+<hr>
+<ol start="2">
+<li>만화방 이용자 수 및 점포 수의 5년 단위 증감 추이
+80년대부터 지금까지 만화방(대본소·대여점·만화카페 포함)의 점포 수는 한국 콘텐츠 시장의 격변과 함께 극적인 흥망성쇠를 겪었습니다. 역사적 기록을 바탕으로 한 5년 단위 추이는 다음과 같습니다. [8, 9, 10]
+•	1980<del>1985년 (대본소의 황금기 시작): 이현세 화백의 《공포의 외인구단》(1983년) 등의 폭발적 히트로 성인 극화 만화방이 전성기를 맞이합니다. 전국에 약 15,000</del>18,000여 개의 대본소가 성업했습니다. [9, 11]
+•	1990년 (대중화와 만화잡지의 등장): 80년대 후반 《아이큐점프》, 《보물섬》 등 주간·월간 만화잡지가 창간되며 어린이부터 청소년까지 독자층이 크게 확장되었습니다. 전국 점포 수는 약 12,000<del>15,000개 선을 유지했습니다. [9, 12, 13]
+•	1995</del>1996년 (과도기와 도서대여점의 탄생): PC방이 싹을 틔우기 직전, 말씀하신 아파트 단지 중심의 &lsquo;도서/비디오 대여점&rsquo;이 폭발적으로 늘어납니다. 이때 대본소와 대여점을 합친 점포 수는 약 10,000<del>12,000개로 조사되었습니다. 슬램덩크, 드래곤볼 등 일본 코믹스 단행본의 점유율이 국산 만화를 앞지르기 시작한 때이기도 합니다. [10]
+•	2000년 (PC방의 습격과 쇠퇴기): 스타크래프트 열풍과 초고속 인터넷으로 PC방이 급증하면서 만화방이 직격탄을 맞습니다. 시간당 요금제(1천 원)와 야간 정액제가 도입되며 생존을 도모했으나 점포 수는 약 6,000</del>7,000개로 반토막이 났습니다.
+•	2005년 (웹툰의 등장과 몰락): 강풀, 조석 등 1세대 웹툰이 포털 사이트에 무료로 연재되면서 &lsquo;책을 돈 주고 빌려보는&rsquo; 패러다임이 무너지기 시작합니다. 대여점들이 연쇄 폐업하며 약 4,000개 이하로 급감합니다. [2]
+•	2010<del>2015년 (암흑기에서 만화카페로의 환골탈태): 기존 동네 대여점들이 거의 전멸하며 순수 만화방은 전국에 800</del>900여 개 수준으로 떨어졌습니다. 그러나 2010년대 중반부터 대기업 프랜차이즈 기반의 깨끗한 &lsquo;만화카페(벌집방 형태)&lsquo;가 등장하며 부활의 신호탄을 쏩니다. [1, 2, 10]
+•	현재: 전국에 &lsquo;만화카페&rsquo; 형태로 운영되는 곳은 프랜차이즈를 포함해 안정적인 규모를 유지하고 있으며, 이용자 수는 과거 대본소 시절만큼 압도적이지는 않지만 20·30대의 이색 데이트 코스 및 휴식 공간으로 완전히 정착했습니다. [14]</li>
+</ol>
+<hr>
+<ol start="3">
+<li>요즘도 &lsquo;옛날 스타일&rsquo; 음침한 대본소가 존재하나요?
+네, 여전히 존재합니다. 다만 전국을 다 뒤져도 수백 곳 남짓밖에 남지 않은 &lsquo;천연기념물&rsquo; 같은 공간입니다. [8, 9]
+•	어디에 있나요?: 주로 서울의 종로, 을지로, 영등포, 청량리, 용산 등 오래된 구도심 인근이나 재래시장 주변 지하에 남아 있습니다. (예: 서울역 근처의 &lsquo;용산 제일만화방&rsquo; 등은 빛바랜 가죽 소파와 옛날 아저씨가 끓여주는 양은냄비 라면 감성을 그대로 유지하고 있습니다.) [7]
+•	분위기는 어떤가요?: 인테리어는 80<del>90년대에 멈춰 있습니다. 예전처럼 담배 연기가 가득하지는 않지만(국민건강증진법상 실내 흡연 전면 금지), 특유의 꿉꿉한 종이 냄새와 어두컴컴한 조명은 그대로입니다. 요금은 시간당 1,500원</del>2,000원 선으로 만화카페보다 저렴합니다. [7]</li>
+</ol>
+<hr>
+<ol start="4">
+<li>이용 연령대의 미스터리: 그 시절 아저씨들이 늙어서도 오는 걸까?
+질문자님의 날카로운 추론이 정확히 맞습니다.
+•	예전 50대들은 어디로?: 질문자님이 20대이던 시절(90년대<del>2000년대 초) 만화방에 앉아 계시던 50</del>60대 어르신들은 1930<del>40년대생 분들입니다. 이분들은 만화방이 점차 디지털화되고 사라지면서 자연스럽게 이용을 중단하셨거나 세상을 떠나셨습니다.
+•	지금의 50</del>60대 아저씨들은 누구?: 현재 구도심 대본소 소파를 지키고 계시는 50<del>60대(1960</del>70년대생) 분들은, 과거 80~90년대 청춘 시절에 이현세, 박봉성, 고행석의 성인 극화와 무협 만화를 보며 열광했던 바로 그 세대입니다. 즉, &lsquo;만화방을 이용하던 젊은이들이 그대로 나이를 먹어 노년층이 되어서도 같은 공간을 소비&rsquo;하고 있는 것입니다. 이분들은 지금도 만화카페의 깔끔한 웹툰 단행본 대신, 옛날 무협지나 묵직한 일일만화(황성, 사마달, 야설록 등)를 보러 이곳을 찾습니다. [4, 7, 11, 15]
+[^1]</li>
+</ol>
+<hr>
+<p>💡 요약
+•	옛날 만화방을 대본소라고 부른 것이 맞습니다.
+•	PC방과 웹툰의 등장으로 만화방 수는 90년대 수만 개에서 현재 수백 개 수준으로 급감했으나, &lsquo;만화카페&rsquo;라는 세련된 형태로 부활했습니다.
+•	옛날 감성의 음침한 대본소는 구도심 지하 등에 여전히 소수 존재합니다.
+•	현재 그곳에 앉아 계신 50·60대 아저씨들은 질문자님이 젊은 시절 함께 만화를 보던 그 세대가 그대로 나이를 먹은 분들이 맞습니다. [4, 7, 8, 9, 10, 11, 15]</p>
+<p>[1] <a href="https://kmas.or.kr">https://kmas.or.kr</a>
+[2] <a href="https://webzine.nfm.go.kr">https://webzine.nfm.go.kr</a>
+[3] <a href="https://namu.wiki">https://namu.wiki</a>
+[4] <a href="https://encykorea.aks.ac.kr">https://encykorea.aks.ac.kr</a>
+[5] <a href="https://namu.wiki">https://namu.wiki</a>
+[6] <a href="https://encykorea.aks.ac.kr">https://encykorea.aks.ac.kr</a>
+[7] <a href="https://blog.naver.com">https://blog.naver.com</a>
+[8] <a href="https://namu.wiki">https://namu.wiki</a>
+[9] <a href="https://namu.wiki">https://namu.wiki</a>
+[10] <a href="https://www.mediaus.co.kr">https://www.mediaus.co.kr</a>
+[11] <a href="https://magazine.contenta.co">https://magazine.contenta.co</a>
+[12] <a href="https://www.youtube.com">https://www.youtube.com</a>
+[13] <a href="https://magazine.contenta.co">https://magazine.contenta.co</a>
+[14] <a href="https://m.joongdo.co.kr">https://m.joongdo.co.kr</a>
+[15] <a href="https://m.blog.naver.com">https://m.blog.naver.com</a></p>
+<p>옛날 느낌 확인 : <a href="https://blog.naver.com/djdonggu/223398568105">https://blog.naver.com/djdonggu/223398568105</a></p>
+<p>용호동 봐라봐라만화(부산은행 사거리) : <a href="https://blog.naver.com/lkh50000/224296654034">https://blog.naver.com/lkh50000/224296654034</a></p>
+<p>궁금해하시는 두 가지 질문에 대해 명쾌하게 답변해 드립니다.</p>
+<ol>
+<li>경성대 &lsquo;허니툰&rsquo;과 &lsquo;벌툰&rsquo;은 다른 곳인가요?
+원래는 &lsquo;벌툰&rsquo;이었으나 현재는 상호를 바꾼 &lsquo;같은 자리의 매장&rsquo;입니다. [1]
+원래 해당 위치(남구 용소로13번길 26 지하 1층)는 대형 프랜차이즈인 &lsquo;벌툰 인더스트리얼 부경대점&rsquo;으로 운영되던 곳이었습니다. 그러다가 업주분이 가맹 계약을 종료하고 개인 브랜드인 &lsquo;허니툰&rsquo;으로 상호를 변경하여 독자적으로 운영하고 계십니다. [1, 2]
+브랜드 이름과 귀여운 벌 캐릭터 로고는 새롭게 바뀌었지만, 질문자님이 찾으시던 노란색 벌집 모양의 아늑한 토굴방 인테리어와 시설은 그대로 유지되어 있으니 안심하고 찾아가셔도 됩니다. [1, 3]</li>
+</ol>
+<hr>
+<ol start="2">
+<li>라면을 시키면 벌집 방 안에서 먹나요, 밖에서 먹나요?
+자리를 옮길 필요 없이, 내가 찜한 벌집 방(토굴방) 안에서 만화를 보며 편하게 드시면 됩니다. [4]
+요즘 만화카페에서 음식을 먹는 과정은 아주 편리하게 시스템화되어 있습니다.</li>
+<li>음식 주문: 책을 보다가 출출해지면 입장할 때 받은 &lsquo;요금 카드&rsquo;를 들고 카운터로 갑니다. (혹은 방 안에 있는 키오스크나 QR코드로 주문하기도 합니다.) [5]</li>
+<li>진동벨 수령: 양은냄비 라면, 짜장라면, 볶음밥 등 메뉴를 주문하면 카페처럼 진동벨을 줍니다.</li>
+<li>방 안으로 배달: 벨이 울리면 카운터에서 음식을 받아 내 방(토굴방)으로 가지고 들어옵니다. 방마다 미니 밥상(좌식 테이블)이 기본으로 비치되어 있어, 이를 펴고 침대처럼 누운 자세나 엎드린 자세로 라면을 드실 수 있습니다. [6]</li>
+<li>반납: 다 드신 그릇은 방 구석에 치워두었다가, 나갈 때 카운터 반납대에 한 번에 반납하시면 됩니다.</li>
+</ol>
+<hr>
+<p>💡 옛날 만화방과의 소소한 차이점
+•	옛날 대본소에서는 아저씨가 소파 앞 탁자에 라면을 쟁반째 툭 얹어주고 가셨지만, 요즘 만화카페는 진동벨이 울리면 직접 받아와야 한다는 점이 다릅니다.
+•	대신 방 안에 커튼을 쳐두고 있으면 온전히 나만의 독립된 캡슐룸 안에서 눈치 볼 필요 없이 &lsquo;라면 먹으면서 만화책 보기&rsquo;라는 최고의 호사를 누리실 수 있습니다. [5]
+이번 주말에 허니툰(구 벌툰) 부경대점에 가시게 된다면, 입장하자마자 아늑한 1층 벌집 방을 하나 잡으신 뒤 얼큰한 라면 한 그릇 주문해서 옛 추억을 현대적인 시설에서 한껏 즐겨보시는 것을 추천합니다. [1]
+혹시 매장에 들어설 때 당황하지 않으시도록 입장부터 퇴실까지의 전체적인 결제/이용 순서를 간략하게 요약해 드릴까요?</p>
+<p>[1] <a href="https://m.blog.naver.com">https://m.blog.naver.com</a>
+[2] <a href="https://www.google.com">https://www.google.com</a>
+[3] <a href="https://m.blog.naver.com">https://m.blog.naver.com</a>
+[4] <a href="https://m.blog.naver.com">https://m.blog.naver.com</a>
+[5] <a href="https://blog.naver.com">https://blog.naver.com</a>
+[6] <a href="https://www.google.com">https://www.google.com</a></p>
+<ol>
+<li>
+<p>sfsdfsd</p>
+<ol>
+<li>dfsdf</li>
+</ol>
+<p>1- sfds</p>
+<ol start="2">
+<li>dfs</li>
+</ol>
+</li>
+<li>
+<p>sfsdf</p>
+</li>
+</ol>
+<blockquote class='book-hint '>
+<p>sdljfsdljfsdfsdf
+그래서 뭐
+하지말라고</p>
+</blockquote><blockquote class='book-hint '>
+<p>나는</p>
+</blockquote><p>김연수</p>
+
+
+
+  
+  <div class="page-reactions-container" style="margin-top: 2.5rem !important; margin-bottom: 1rem !important; text-align: center !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important;">
+    <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold;">이 글이 도움이 되었나요?</p>
+    <div style="display: inline-flex; gap: 1rem; justify-content: center; align-items: center;">
+      
+      <button id="btn-reaction-like" style="background: #f8f9fa; border: 1px solid #e5e5e5; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="sendReaction('like')">
+        👍 <span id="count-reaction-like">0</span>
+      </button>
+      
+      <button id="btn-reaction-dislike" style="background: #f8f9fa; border: 1px solid #e5e5e5; border-radius: 20px; padding: 0.4rem 1.2rem; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onclick="sendReaction('dislike')">
+        👎 <span id="count-reaction-dislike">0</span>
+      </button>
+    </div>
+  </div>
+
+  
+  <script>
+    
+    function getReactionUserHash() {
+      let userHash = localStorage.getItem('user_hash');
+      if (!userHash) {
+        userHash = Math.random().toString(36).substring(2);
+        localStorage.setItem('user_hash', userHash);
+      }
+      return localStorage.getItem('my_admin') === 'true' ? 'ADMIN_SKIP' : userHash;
+    }
+
+    
+    function loadReactions() {
+      const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co"; 
+      const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
+
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: "get"
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Load Error:", err));
+    }
+
+    
+    function sendReaction(actionType) {
+      const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co"; 
+      const supabaseKey = "sb_publishable_JDKL8SsX9JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+      
+      const validKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
+
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": validKey,
+          "Authorization": `Bearer ${validKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: actionType
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Action Error:", err));
+    }
+
+    
+    function updateReactionDOM(data) {
+      if (!data) return;
+      
+      const btnLike = document.getElementById('btn-reaction-like');
+      const btnDislike = document.getElementById('btn-reaction-dislike');
+      const countLike = document.getElementById('count-reaction-like');
+      const countDislike = document.getElementById('count-reaction-dislike');
+
+      
+      if (countLike) countLike.innerText = data.like_count || 0;
+      if (countDislike) countDislike.innerText = data.dislike_count || 0;
+
+      
+      if (btnLike && btnDislike) {
+        if (data.my_reaction === 'like') {
+          btnLike.style.background = '#e3faf2';       
+          btnLike.style.borderColor = '#20c997';      
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        } else if (data.my_reaction === 'dislike') {
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#ffe3e3';    
+          btnDislike.style.borderColor = '#ff6b6b';   
+        } else {
+          
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        }
+      }
+    }
+
+    
+    document.addEventListener("DOMContentLoaded", loadReactions);
+  </script>
+
+
+  
+  
+    
+     
+    
+    
+    
+    
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+    
+      <div class="book-navigation" style="margin-top: 1.5rem !important; padding-top: 1rem !important; border-top: 1px solid #e5e5e5 !important; margin-bottom: 0 !important; padding-bottom: 0 !important;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+
+          
+          
+            
+              <a href="/docs/cdmp3/" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
+                ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">제목을 입력하세요</span>
+              </a>
+            
+          
+
+          
+          
+            
+              <a href="/docs/%EC%97%86%EC%96%B4%EC%A7%84-%EB%B8%94%EB%A1%9C%EA%B7%B8/" class="book-nav-link next" style="text-align: right; color: var(--color-link); text-decoration: none;">
+                <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">제목을 입력하세요</span> →
+              </a>
+            
+          
+
+        </div>
+      </div>
+    
+  
+
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; font-size: 0.85rem; line-height: 1.8; color: #666; text-align: center;">
+    
+    <p style="margin: 0 0 4px 0;"><b>본 내용의 저작권 및 법적 책임은 글쓴이에게 없으며, 출처 표기 없는 자유로운 공유를 환영합니다.</b></p>
+    
+    
+    <p style="margin: 0 0 8px 0;">
+        문의 및 제보는 
+        <a href="https://www.instagram.com/soo.metro/" target="_blank" rel="noopener noreferrer" style="color: ##2f8f9f; font-weight: bold; text-decoration: underline; text-underline-offset: 3px;">
+            Instagram DM (@soo.metro)
+        </a>으로 부탁드립니다.
+    </p>
+    
+    
+    <p style="margin: 0; color: #999; font-size: 0.8rem;">
+        Copyleft &copy; 2026 www.soometro.kr. All wrongs reserved.
+    </p>
+</div>
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents"></nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+
+    <label for="toc-control" class="hidden book-toc-overlay"></label>
+  </main>
+
+  
+
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var overlay = document.querySelector(".book-toc-overlay");
+      var tocControl = document.getElementById("toc-control");
+      
+      if (overlay && tocControl) {
+        overlay.addEventListener("click", function(e) {
+          e.preventDefault(); 
+          var currentScrollY = window.scrollY; 
+          tocControl.checked = false; 
+          window.scrollTo(0, currentScrollY); 
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
