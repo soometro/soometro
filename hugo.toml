@@ -1,5 +1,5 @@
 # 1. 사이트 기본 정보 설정
-baseURL = "https://soometro.kr/"
+baseURL = "https://soometro.kr/" 
 defaultContentLanguage = "ko"
 locale = "ko-kr"                # languageCode 대신 locale 사용 (최신 규격)
 title = "soometro"
