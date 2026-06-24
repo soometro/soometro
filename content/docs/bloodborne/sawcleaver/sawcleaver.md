@@ -1,5 +1,5 @@
 ---
-title: "제목을 입력하세요"
+title: "톱단창과 톱창에 대해 알아보자."
 date: 2026-06-21
 bookHidden: true
 weight: 1
