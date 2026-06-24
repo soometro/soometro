@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>718 Boxster on soometro</title>
-		<link>https://soometro.kr/docs/718-boxster/</link>
+		<link>http://localhost:1313/docs/718-boxster/</link>
 		<description>Recent content in 718 Boxster on soometro</description>
 		<generator>Hugo</generator>
 		<language>ko-kr</language>
@@ -12,20 +12,20 @@
 		
 			<lastBuildDate>Thu, 18 Jun 2026 00:00:00 +0000</lastBuildDate>
 		
-			<atom:link href="https://soometro.kr/docs/718-boxster/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/docs/718-boxster/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>718 GTS4.0과 S, NORMAL 그리고 제네시스 G70과의 차이점</title>
-				<link>https://soometro.kr/docs/718-boxster/718-1/718-1/</link>
+				<link>http://localhost:1313/docs/718-boxster/718-1/718-1/</link>
 				<pubDate>Thu, 18 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://soometro.kr/docs/718-boxster/718-1/718-1/</guid>
-				<description>&lt;h1 id=&#34;718-gts40과-s-normal-그리고-제네시스-g70과의-차이점&#34;&gt;718 GTS4.0과 S, NORMAL 그리고 제네시스 G70과의 차이점.&lt;a class=&#34;anchor&#34; href=&#34;#718-gts40%ea%b3%bc-s-normal-%ea%b7%b8%eb%a6%ac%ea%b3%a0-%ec%a0%9c%eb%84%a4%ec%8b%9c%ec%8a%a4-g70%ea%b3%bc%ec%9d%98-%ec%b0%a8%ec%9d%b4%ec%a0%90&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;img src=&#34;https://soometro.kr/docs/718-boxster/718-1/images/image1.jpeg&#34; alt=&#34;포르쉐 718 GTS4.0&#34;  /&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;포르쉐 718 카이맨/박스터 GTS 4.0은 단순히 엔진(4.0L 6기통 자연흡기)만 커진 것이 아니라, 하위 모델인 노멀(2.0)이나 S(2.5)에서 유료 옵션으로 넣어야 하거나 아예 선택할 수 없는 퍼포먼스 사양들이 대거 기본 적용된 모델이다.&lt;/p&gt;&#xA;&lt;p&gt;노멀과 S에서는 추가 비용을 내야 하는 옵션들이 GTS 4.0에는 &amp;lsquo;기본&amp;rsquo;으로 들어간다..&lt;/p&gt;&#xA;&lt;h2 id=&#34;1-기본사양&#34;&gt;1. 기본사양&lt;a class=&#34;anchor&#34; href=&#34;#1-%ea%b8%b0%eb%b3%b8%ec%82%ac%ec%96%91&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;1-하체-및-주행-성능-기본-탑재-사양&#34;&gt;1. 하체 및 주행 성능 (기본 탑재 사양)&lt;a class=&#34;anchor&#34; href=&#34;#1-%ed%95%98%ec%b2%b4-%eb%b0%8f-%ec%a3%bc%ed%96%89-%ec%84%b1%eb%8a%a5-%ea%b8%b0%eb%b3%b8-%ed%83%91%ec%9e%ac-%ec%82%ac%ec%96%91&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;1) PASM 스포츠 서스펜션: 스포츠모드 시 차고가 노멀 대비 20mm 더 낮아집니다. (S는 기본이 10mm이며, 20mm는 옵션) 훨씬 단단하고 날렵한 거동을 보여줍니다.&lt;/p&gt;</description>
+				<guid>http://localhost:1313/docs/718-boxster/718-1/718-1/</guid>
+				<description>&lt;h1 id=&#34;718-gts40과-s-normal-그리고-제네시스-g70과의-차이점&#34;&gt;718 GTS4.0과 S, NORMAL 그리고 제네시스 G70과의 차이점.&lt;a class=&#34;anchor&#34; href=&#34;#718-gts40%ea%b3%bc-s-normal-%ea%b7%b8%eb%a6%ac%ea%b3%a0-%ec%a0%9c%eb%84%a4%ec%8b%9c%ec%8a%a4-g70%ea%b3%bc%ec%9d%98-%ec%b0%a8%ec%9d%b4%ec%a0%90&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/docs/718-boxster/718-1/images/image1.jpeg&#34; alt=&#34;포르쉐 718 GTS4.0&#34;  /&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;포르쉐 718 카이맨/박스터 GTS 4.0은 단순히 엔진(4.0L 6기통 자연흡기)만 커진 것이 아니라, 하위 모델인 노멀(2.0)이나 S(2.5)에서 유료 옵션으로 넣어야 하거나 아예 선택할 수 없는 퍼포먼스 사양들이 대거 기본 적용된 모델이다.&lt;/p&gt;&#xA;&lt;p&gt;노멀과 S에서는 추가 비용을 내야 하는 옵션들이 GTS 4.0에는 &amp;lsquo;기본&amp;rsquo;으로 들어간다..&lt;/p&gt;&#xA;&lt;h2 id=&#34;1-기본사양&#34;&gt;1. 기본사양&lt;a class=&#34;anchor&#34; href=&#34;#1-%ea%b8%b0%eb%b3%b8%ec%82%ac%ec%96%91&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;1-하체-및-주행-성능-기본-탑재-사양&#34;&gt;1. 하체 및 주행 성능 (기본 탑재 사양)&lt;a class=&#34;anchor&#34; href=&#34;#1-%ed%95%98%ec%b2%b4-%eb%b0%8f-%ec%a3%bc%ed%96%89-%ec%84%b1%eb%8a%a5-%ea%b8%b0%eb%b3%b8-%ed%83%91%ec%9e%ac-%ec%82%ac%ec%96%91&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;1) PASM 스포츠 서스펜션: 스포츠모드 시 차고가 노멀 대비 20mm 더 낮아집니다. (S는 기본이 10mm이며, 20mm는 옵션) 훨씬 단단하고 날렵한 거동을 보여줍니다.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>로드스터 VS GT</title>
-				<link>https://soometro.kr/docs/718-boxster/718-2/718-2/</link>
+				<link>http://localhost:1313/docs/718-boxster/718-2/718-2/</link>
 				<pubDate>Thu, 18 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://soometro.kr/docs/718-boxster/718-2/718-2/</guid>
-				<description>&lt;h1 id=&#34;로드스터-vs-gt&#34;&gt;로드스터 VS GT&lt;a class=&#34;anchor&#34; href=&#34;#%eb%a1%9c%eb%93%9c%ec%8a%a4%ed%84%b0-vs-gt&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;img src=&#34;https://soometro.kr/docs/718-boxster/718-2/images/image1.jpeg&#34; alt=&#34;포르쉐 718 GTS4.0&#34;  /&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;&amp;ldquo;로드스터와 GT는 겹치는 부분이 있지만, 기본적으로 추구하는 방향이 다른 개념&amp;quot;이다.&lt;/p&gt;&#xA;&lt;p&gt;718 박스터 GTS 4.0은 &amp;lsquo;로드스터&amp;rsquo;이면서 동시에 &amp;lsquo;GT(그랜드 투어러)&amp;lsquo;의 성격을 어느 정도 커버하진, 엄밀히 따지면 퓨어 스포츠카에 더 가깝다.&lt;/p&gt;&#xA;&lt;h2 id=&#34;1-로드스터와-gt의-정의&#34;&gt;1. 로드스터와 GT의 정의&lt;a class=&#34;anchor&#34; href=&#34;#1-%eb%a1%9c%eb%93%9c%ec%8a%a4%ed%84%b0%ec%99%80-gt%ec%9d%98-%ec%a0%95%ec%9d%98&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;로드스터-roadster의-정의-오픈-에어링과-경량화&#34;&gt;로드스터 (Roadster)의 정의: &amp;ldquo;오픈 에어링과 경량화&amp;rdquo;&lt;a class=&#34;anchor&#34; href=&#34;#%eb%a1%9c%eb%93%9c%ec%8a%a4%ed%84%b0-roadster%ec%9d%98-%ec%a0%95%ec%9d%98-%ec%98%a4%ed%94%88-%ec%97%90%ec%96%b4%eb%a7%81%ea%b3%bc-%ea%b2%bd%eb%9f%89%ed%99%94&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;로드스터는 기본적으로 &amp;lsquo;운전의 재미&amp;rsquo;에 올인한 차다.&#xA;구조: 2인승이며 지붕을 열 수 있는(오픈톱) 구조다.&#xA;특징: 차체가 작고 가벼우며 핸들링이 날카롭다. 718 박스터처럼 엔진을 가운데 두는(MR) 등&#xA;학적인 밸런스를 극대화하여 코너를 타는 즐거움을 위해 만든다.&#xA;한계: 짐 공간이 좁고 장거리 주행 시 피로감이 GT보다는 클 수 있다.&lt;/p&gt;</description>
+				<guid>http://localhost:1313/docs/718-boxster/718-2/718-2/</guid>
+				<description>&lt;h1 id=&#34;로드스터-vs-gt&#34;&gt;로드스터 VS GT&lt;a class=&#34;anchor&#34; href=&#34;#%eb%a1%9c%eb%93%9c%ec%8a%a4%ed%84%b0-vs-gt&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/docs/718-boxster/718-2/images/image1.jpeg&#34; alt=&#34;포르쉐 718 GTS4.0&#34;  /&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;&amp;ldquo;로드스터와 GT는 겹치는 부분이 있지만, 기본적으로 추구하는 방향이 다른 개념&amp;quot;이다.&lt;/p&gt;&#xA;&lt;p&gt;718 박스터 GTS 4.0은 &amp;lsquo;로드스터&amp;rsquo;이면서 동시에 &amp;lsquo;GT(그랜드 투어러)&amp;lsquo;의 성격을 어느 정도 커버하진, 엄밀히 따지면 퓨어 스포츠카에 더 가깝다.&lt;/p&gt;&#xA;&lt;h2 id=&#34;1-로드스터와-gt의-정의&#34;&gt;1. 로드스터와 GT의 정의&lt;a class=&#34;anchor&#34; href=&#34;#1-%eb%a1%9c%eb%93%9c%ec%8a%a4%ed%84%b0%ec%99%80-gt%ec%9d%98-%ec%a0%95%ec%9d%98&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;로드스터-roadster의-정의-오픈-에어링과-경량화&#34;&gt;로드스터 (Roadster)의 정의: &amp;ldquo;오픈 에어링과 경량화&amp;rdquo;&lt;a class=&#34;anchor&#34; href=&#34;#%eb%a1%9c%eb%93%9c%ec%8a%a4%ed%84%b0-roadster%ec%9d%98-%ec%a0%95%ec%9d%98-%ec%98%a4%ed%94%88-%ec%97%90%ec%96%b4%eb%a7%81%ea%b3%bc-%ea%b2%bd%eb%9f%89%ed%99%94&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;로드스터는 기본적으로 &amp;lsquo;운전의 재미&amp;rsquo;에 올인한 차다.&#xA;구조: 2인승이며 지붕을 열 수 있는(오픈톱) 구조다.&#xA;특징: 차체가 작고 가벼우며 핸들링이 날카롭다. 718 박스터처럼 엔진을 가운데 두는(MR) 등&#xA;학적인 밸런스를 극대화하여 코너를 타는 즐거움을 위해 만든다.&#xA;한계: 짐 공간이 좁고 장거리 주행 시 피로감이 GT보다는 클 수 있다.&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>
