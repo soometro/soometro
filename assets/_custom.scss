@@ -141,10 +141,12 @@ html.forced-dark .book-post-date {
 }
 
 /* ==========================================================================
-   8. PC 창 축소 시 다크모드 삼선(햄버거) 메뉴 아이콘 가시성 보정
+   8. PC 창 축소 시 다크모드 삼선(햄버거) 메뉴 아이콘 가시성 보정 (모바일 제외)
    ========================================================================== */
-html.forced-dark .book-header label {
-    filter: invert(1) !important;
+@media screen and (max-width: 60rem) {
+    html.forced-dark .book-header label {
+        filter: invert(1) !important;
+    }
 }
 
 /* ==========================================================================
