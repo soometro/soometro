@@ -14,13 +14,6 @@
 		
 			<atom:link href="https://soometro.kr/docs/index.xml" rel="self" type="application/rss+xml" />
 			<item>
-				<title>마크다운에 대해 알아보자. </title>
-				<link>https://soometro.kr/docs/cdmp3/</link>
-				<pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://soometro.kr/docs/cdmp3/</guid>
-				<description>&lt;h1 id=&#34;마크다운에-대해-알아보자&#34;&gt;마크다운에 대해 알아보자.&lt;a class=&#34;anchor&#34; href=&#34;#%eb%a7%88%ed%81%ac%eb%8b%a4%ec%9a%b4%ec%97%90-%eb%8c%80%ed%95%b4-%ec%95%8c%ec%95%84%eb%b3%b4%ec%9e%90&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;1-docx-hwpx-pptx-xlsx-pdf&#34;&gt;1. docx, hwpx, pptx, xlsx, pdf&lt;a class=&#34;anchor&#34; href=&#34;#1-docx-hwpx-pptx-xlsx-pdf&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;워드, 한글, 파워포인트, 엑셀, 아크로뱃등 이 프로그램들의 공통점은 화면에 &amp;lsquo;A4 종이 테두리&amp;rsquo;가 보인다는 점이다.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;인쇄를 목적으로 태어났기 때문이다. 글자 크기, 여백, 줄 바꿈이 종이 한 장 안에 딱 맞게 들어가는 &amp;lsquo;&lt;strong&gt;완결성&lt;/strong&gt;&amp;lsquo;이 핵심이다. 회사에서 기안서나 대외 문서를 만들 때 여전히 워드프로세서(워드,한글)를 쓰는 이유도 &amp;ldquo;누가 어디서 열든 인쇄했을 때 똑같이 보여야 하기 때문&amp;quot;이다.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;PDF(디지털 박제): 워드로 만든 완결성 있는 결과물을 &amp;ldquo;인쇄하지 않고 디지털 상태로 굳혀서(박제)&amp;rdquo; 배포하고 보안을 걸기 위한 완벽한 포맷이다.&lt;/p&gt;</description>
-			</item>
-			<item>
 				<title>제목을 입력하세요</title>
 				<link>https://soometro.kr/docs/%EB%A7%8C%ED%99%94%EB%B0%A9-%EB%8C%80%EB%B3%B8%EC%86%8C/</link>
 				<pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate>
