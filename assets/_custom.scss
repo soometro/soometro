@@ -141,17 +141,15 @@ html.forced-dark .book-post-date {
 }
 
 /* ==========================================================================
-   8. PC 및 모바일 다크모드 삼선(햄버거) 메뉴 아이콘 가시성 통합 보정
+   8. PC 및 모바일 다크모드 삼선(햄버거) 메뉴 이미지 아이콘 가시성 보정
    ========================================================================== */
-@media screen and (max-width: 60rem) {
-    html.forced-dark .book-header label,
-    body.forced-dark .book-header label,
-    .dark .book-header label,
-    [data-theme="dark"] .book-header label {
-        filter: invert(1) !important;
-        -webkit-filter: invert(1) !important; /* 모바일 브라우저용 엔진 호환성 추가 */
-    }
+html.forced-dark main img.book-icon,
+body.forced-dark main img.book-icon,
+html[data-theme="dark"] main img.book-icon {
+    filter: invert(1) !important;
+    -webkit-filter: invert(1) !important; /* 아이폰 Safari 및 안드로이드 크롬 엔진 강제 대응 */
 }
+
 
 
 /* ==========================================================================
