@@ -139,19 +139,3 @@ html.forced-dark .book-post-date {
     .book-page { padding: 1rem 0.5rem !important; }
     .markdown { padding: 0 !important; }
 }
-
-/* ==========================================================================
-   8. PC 창 축소 시 다크모드 삼선(햄버거) 메뉴 아이콘 가시성 보정
-   ========================================================================== */
-html.forced-dark .book-header label {
-    filter: invert(1) !important;
-}
-
-/* ==========================================================================
-   9. PC 창 최대화 시 다크모드 가장자리 여백 블랙 강제 적용
-   ========================================================================= */
-html.forced-dark,
-html.forced-dark body {
-    background: #000000 !important; /* 다크모드 시 바깥 여백을 완벽한 블랙으로 채움 */
-    background-image: none !important; /* 종이질감 배경 이미지가 있다면 강제로 제거 */
-}
