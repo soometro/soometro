@@ -1,79 +1,70 @@
 /* ==========================================================================
-   1. 사이드바 메뉴 및 폰트 스타일
+   1. 사이드바 메뉴 및 폰트 스타일 
    ========================================================================== */
 aside .book-menu nav ul li a,
 .book-menu nav ul li a {
     font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-    font-style: italic !important;
+    font-style: italic !important;     /* 메뉴 글자 기울임 */
     font-weight: bold !important;
     font-size: 1.0rem !important;
-    padding: 12px 0 !important;
+    padding: 12px 0 !important;        /* 메뉴 항목 간격 */
     display: block !important;
     line-height: 1.2 !important;
-    letter-spacing: 0em !important;
+    letter-spacing: 0em !important;    /* 자간 정상화 */
 }
 
-/* ==========================================================================
-   2. 사이트 전체 폰트 기본값
-   ========================================================================== */
+/* 2. 사이트 전체 폰트 기본값 */
 :root {
     --book-font-family: "Georgia", "Times New Roman", "바탕", serif;
-    
-    /* 라이트 모드 기본 색상 (모바일에서 군청색 나오는 문제 해결) */
-    --body-background: #ffffff;
-    --color-text: #222222;
-    --color-link: #0066cc;
 }
 
-/* ==========================================================================
-   3. 다크모드 강제 색상 정의
-   ========================================================================== */
-html.forced-dark {
-    --body-background: #111111;
-    --color-text: #e0e0e0;
-    --color-link: #8ab4f8;
-}
-
-/* ==========================================================================
-   4. 사이트 브랜드(로고) 및 검색창 간격
-   ========================================================================== */
+/* 3. 사이트 브랜드(로고) 및 검색창 간격 */
 .book-brand {
-    margin-bottom: 2.0rem !important;
+    margin-bottom: 2.0rem !important;  /* 로고와 검색창 사이 간격 */
 }
+
 .book-brand a {
     font-family: "Georgia", "Times New Roman", "바탕", serif !important;
-    font-style: italic !important;
+    font-style: italic !important; 
     font-weight: bold !important;
     font-size: 1.6rem !important;
 }
+
 .book-search {
-    margin-bottom: 1rem !important;
+    margin-bottom: 1rem !important;    /* 검색창과 메뉴 사이 간격 */
 }
+
 .book-search input {
     font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
 }
 
 /* ==========================================================================
-   5. 다크 모드 시 가독성 보정 (날짜, 조회수, 아카이브)
+   4. 다크 모드 시 가독성 보정 (날짜, 조회수, 아카이브)
    ========================================================================== */
 html.forced-dark .book-post-date,
 html.forced-dark .book-post-date span,
 html.forced-dark #archive,
 html.forced-dark #archive a,
 html.forced-dark .nav-title {
-    color: #b0b0b0 !important;
+    color: #b0b0b0 !important; /* 밝은 회색 강제 지정 */
 }
 
 /* 게시물 상단 날짜 영역 테두리 다크모드 대응 */
 html.forced-dark .book-post-date {
     border-bottom: 1px solid #444 !important;
+}
+
+/* 게시물 상단 날짜 영역의 인라인 스타일(style="color: ...") 무시 */
+html.forced-dark .book-post-date {
     color: #b0b0b0 !important;
+    border-bottom: 1px solid #444 !important; /* 다크모드에 맞춰 테두리 색도 완화 */
 }
 
 /* ==========================================================================
-   6. 모바일 사이드바 및 TOC(목차) 슬라이드 효과
+   5. 모바일 사이드바 및 TOC(목차) 슬라이드 효과
    ========================================================================== */
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 60rem) { 
+    
     .book-header aside {
         display: block !important;
         position: fixed !important;
@@ -86,42 +77,63 @@ html.forced-dark .book-post-date {
         background: var(--body-background) !important;
         box-shadow: -0.1rem 0 0.5rem rgba(0, 0, 0, 0.15) !important;
         z-index: 9999 !important;
-        transform: translateX(100%) !important;
-        transition: transform 0.2s ease-in-out !important;
+        
+        transform: translateX(100%) !important; 
+        transition: transform 0.2s ease-in-out !important; 
         overflow-y: auto !important;
+
+        nav > ul {
+            padding-left: 0;
+            list-style: none;
+            li {
+                margin: 0.6rem 0;
+                a {
+                    color: var(--color-link) !important;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    display: block;
+                    &:hover { text-decoration: underline; }
+                }
+            }
+        }
     }
-    
-    #toc-control:checked ~ main .book-header aside {
-        transform: translateX(0) !important;
-    }
-    
-    #toc-control:checked ~ main .book-toc-overlay {
-        display: block !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        background: rgba(0, 0, 0, 0.4) !important;
-        z-index: 9998 !important;
-        cursor: pointer;
+
+    #toc-control:checked ~ main {
+        .book-header aside {
+            transform: translateX(0) !important; 
+        }
+        
+        .book-toc-overlay {
+            display: block !important;
+            position: fixed !important; 
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important; 
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.4) !important;
+            z-index: 9998 !important;
+            cursor: pointer;
+            transform: none !important;
+            bottom: auto !important;
+            right: auto !important;
+        }
     }
 }
 
 /* ==========================================================================
-   7. 레이아웃 정리 (헤더 중복 제거 및 불필요한 목차 숨김)
+   6. 레이아웃 정리 (헤더 중복 제거 및 불필요한 목차 숨김)
    ========================================================================== */
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 60rem) { 
     .book-header h3 { display: none !important; }
 }
 
-@media screen and (min-width: 60rem) {
+@media screen and (min-width: 60rem) { 
     main .book-page .book-toc,
     main .book-page aside { display: none !important; }
 }
 
 /* ==========================================================================
-   8. 모바일 여백 최적화
+   7. 모바일 여백 최적화 (본문 확장)
    ========================================================================== */
 @media screen and (max-width: 60rem) {
     .book-page { padding: 1rem 0.5rem !important; }
@@ -129,29 +141,22 @@ html.forced-dark .book-post-date {
 }
 
 /* ==========================================================================
-   9. PC 및 모바일 다크모드 삼선(햄버거) 메뉴 이미지 아이콘 가시성 보정
+   8. PC 및 모바일 다크모드 삼선(햄버거) 메뉴 이미지 아이콘 가시성 보정
    ========================================================================== */
 html.forced-dark main img.book-icon,
 body.forced-dark main img.book-icon,
 html[data-theme="dark"] main img.book-icon {
     filter: invert(1) !important;
-    -webkit-filter: invert(1) !important;
+    -webkit-filter: invert(1) !important; /* 아이폰 Safari 및 안드로이드 크롬 엔진 강제 대응 */
 }
+
+
 
 /* ==========================================================================
-   10. PC 창 최대화 시 다크모드 가장자리 여백 + 전체 배경 보정
-   ========================================================================== */
-html.forced-dark,
-html.forced-dark body,
-html.forced-dark main,
-html.forced-dark .book-page,
-html.forced-dark .book-menu,
-html.forced-dark aside {
-    background: #111111 !important;
-    color: #e0e0e0 !important;
-}
-
+   9. PC 창 최대화 시 다크모드 가장자리 여백 블랙 강제 적용
+   ========================================================================= */
 html.forced-dark,
 html.forced-dark body {
-    background: #000000 !important;
+    background: #000000 !important; /* 다크모드 시 바깥 여백을 완벽한 블랙으로 채움 */
+    background-image: none !important; /* 종이질감 배경 이미지가 있다면 강제로 제거 */
 }
