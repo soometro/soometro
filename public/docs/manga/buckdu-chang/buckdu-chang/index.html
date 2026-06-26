@@ -357,6 +357,16 @@ https://github.com/alex-shpak/hugo-book
             </button>
         </div>
     </div>
+
+    
+    <div class="rss-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
+        <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SUBSCRIBE FEED</span>
+        <div>
+            <a id="rss-link-btn" href="/index.xml" target="_blank" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none;">
+                🧡 RSS FEED
+            </a>
+        </div>
+    </div>
 </div>
 
 
@@ -385,7 +395,8 @@ https://github.com/alex-shpak/hugo-book
     }
 
      
-    #bgm-toggle-btn:hover {
+    #bgm-toggle-btn:hover,
+    #rss-link-btn:hover {
         color: var(--color-link) !important;
         text-decoration: underline !important;
     }
@@ -427,7 +438,7 @@ https://github.com/alex-shpak/hugo-book
         
         var currentPath = window.location.pathname;
        
-        fetch('https://wggvjymwocgbtasclwre.supabase.co/functions/v1/page-vibe', {
+        fetch('https://supabase.co', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ path: currentPath })
@@ -496,6 +507,7 @@ https://github.com/alex-shpak/hugo-book
         });
     });
 </script>
+
 </nav>
 
 

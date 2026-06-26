@@ -57,6 +57,16 @@
             </button>
         </div>
     </div>
+
+    <!-- 5. RSS 구독 버튼 영역 -->
+    <div class="rss-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
+        <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SUBSCRIBE FEED</span>
+        <div>
+            <a id="rss-link-btn" href="/index.xml" target="_blank" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none;">
+                🧡 RSS FEED
+            </a>
+        </div>
+    </div>
 </div>
 
 <!-- BGM 오디오 요소 -->
@@ -84,8 +94,9 @@
         color: #e0e0e0 !important;
     }
 
-    /* BGM 버튼 호버 효과 */
-    #bgm-toggle-btn:hover {
+    /* 버튼 호버 효과 통합 */
+    #bgm-toggle-btn:hover,
+    #rss-link-btn:hover {
         color: var(--color-link) !important;
         text-decoration: underline !important;
     }
@@ -127,7 +138,7 @@
         // === [B] 조회수 통신 로직 ===
         var currentPath = window.location.pathname;
        
-        fetch('https://wggvjymwocgbtasclwre.supabase.co/functions/v1/page-vibe', {
+        fetch('https://supabase.co', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ path: currentPath })
