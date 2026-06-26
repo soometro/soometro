@@ -57,3 +57,18 @@
         .catch(err => console.error("Counter Error:", err));
     });
 </script>
+<!-- 다크모드 Flash of White 방지 -->
+<script>
+    // 페이지 로드 전에 테마 미리 적용
+    (function() {
+        const savedTheme = localStorage.getItem('forced_theme');
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        const themeToApply = savedTheme || (isSystemDark ? 'dark' : 'light');
+        
+        if (themeToApply === 'dark') {
+            document.documentElement.classList.add('forced-dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    })();
+</script>
