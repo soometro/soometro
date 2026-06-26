@@ -280,7 +280,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 <div class="book-menu-widgets" style="margin-top: 2rem; padding: 0.5rem 0.5rem 0.5rem 0; border-top: 1px dashed #ccc; font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif; font-size: 0.85rem; color: #666; font-weight: bold;">
-    
+   
     
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
         <div style="display: flex; justify-content: space-between;">
@@ -292,10 +292,8 @@ https://github.com/alex-shpak/hugo-book
             <span style="color: var(--color-text);">7</span>
         </div>
     </div>
-
     
     <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
-
     
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
         <div style="display: flex; justify-content: space-between;">
@@ -311,10 +309,8 @@ https://github.com/alex-shpak/hugo-book
             <span id="counter-total" style="color: var(--color-text);">0</span>
         </div>
     </div>
-
     
     <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
-
     
     <div class="theme-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem;">
         <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SITE THEME</span>
@@ -324,7 +320,22 @@ https://github.com/alex-shpak/hugo-book
             </button>
         </div>
     </div>
+
+    
+    <div class="bgm-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
+        <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">BACKGROUND MUSIC</span>
+        <div>
+            <button id="bgm-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
+                🎵 BGM ON
+            </button>
+        </div>
+    </div>
 </div>
+
+
+<audio id="bgm-audio" loop preload="auto">
+    <source src="/music/somewhere.mp3" type="audio/mpeg">
+</audio>
 
 
 <style>
@@ -339,27 +350,32 @@ https://github.com/alex-shpak/hugo-book
         background-color: #111111 !important;
         color: #e0e0e0 !important;
     }
-    html.forced-dark .book-menu, 
+    html.forced-dark .book-menu,
     html.forced-dark .book-page,
     html.forced-dark aside {
         background-color: #111111 !important;
         color: #e0e0e0 !important;
     }
+
+     
+    #bgm-toggle-btn:hover {
+        color: var(--color-link) !important;
+        text-decoration: underline !important;
+    }
 </style>
 
 <script>
-    (function() {
+    document.addEventListener("DOMContentLoaded", function() {
         
         var htmlEl = document.documentElement;
         var toggleBtn = document.getElementById('theme-toggle-btn');
-        
+       
         if (toggleBtn) {
             var hasSaved = localStorage.getItem('forced_theme');
             var isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             var initialTheme = hasSaved ? hasSaved : (isSystemDark ? 'dark' : 'light');
-            
+           
             applyTheme(initialTheme);
-
             toggleBtn.addEventListener('click', function() {
                 var isDark = htmlEl.classList.contains('forced-dark');
                 applyTheme(isDark ? 'light' : 'dark');
@@ -383,7 +399,7 @@ https://github.com/alex-shpak/hugo-book
 
         
         var currentPath = window.location.pathname;
-        
+       
         fetch('https://wggvjymwocgbtasclwre.supabase.co/functions/v1/page-vibe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -398,7 +414,60 @@ https://github.com/alex-shpak/hugo-book
             }
         })
         .catch(function(err) { console.error('Counter sync error:', err); });
-    })();
+
+        
+        const audio = document.getElementById('bgm-audio');
+        const bgmBtn = document.getElementById('bgm-toggle-btn');
+
+        if (!audio || !bgmBtn) return;
+
+        const DEFAULT_VOLUME = 0.7;
+
+        let isPlaying = localStorage.getItem('bgm_playing') === 'true';
+        let savedTime = parseFloat(localStorage.getItem('bgm_time')) || 0;
+        let savedVolume = parseFloat(localStorage.getItem('bgm_volume')) || DEFAULT_VOLUME;
+
+        function updateButton() {
+            bgmBtn.innerText = isPlaying ? '🔇 BGM OFF' : '🎵 BGM ON';
+        }
+
+        function toggleBGM() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                if (savedTime > 0) audio.currentTime = savedTime;
+                audio.volume = savedVolume;
+                audio.play().catch(err => console.warn("Play blocked:", err));
+                isPlaying = true;
+            }
+            localStorage.setItem('bgm_playing', isPlaying);
+            updateButton();
+        }
+
+        bgmBtn.addEventListener('click', toggleBGM);
+        updateButton();
+
+        
+        if (isPlaying) {
+            audio.volume = savedVolume;
+            audio.currentTime = savedTime;
+            audio.play().catch(() => {});
+        }
+
+        
+        audio.addEventListener('timeupdate', () => {
+            if (isPlaying && audio.currentTime > 1) {
+                localStorage.setItem('bgm_time', audio.currentTime.toFixed(1));
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            if (isPlaying && audio) {
+                localStorage.setItem('bgm_time', audio.currentTime.toFixed(1));
+            }
+        });
+    });
 </script>
 </nav>
 
