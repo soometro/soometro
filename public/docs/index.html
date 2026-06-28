@@ -31,7 +31,7 @@ https://github.com/alex-shpak/hugo-book
 <link rel="stylesheet" href="/book.min.e7c9d929928f07aac907cbbaa3be8619c3784f138ab73ef0295b0b52482db39c.css" integrity="sha256-58nZKZKPB6rJB8u6o76GGcN4TxOKtz7wKVsLUkgts5w=" crossorigin="anonymous">
 
 
-  <script defer type="module" src="/ko.search.min.39bc52208c32da6e86704abebfff2cb2b9b59f5a35b967db92a04f9fe655338c.js" integrity="sha256-ObxSIIwy2m6GcEq&#43;v/8ssrm1n1o1uWfbkqBPn&#43;ZVM4w=" crossorigin="anonymous"></script>
+  <script defer type="module" src="/ko.search.min.3c3d598d592ebed4bd416c0eb6c771839866b7c01845cdd574deed9e633b38ee.js" integrity="sha256-PD1ZjVkuvtS9QWwOtsdxg5hmt8AYRc3VdN7tnmM7OO4=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://soometro.kr/docs/index.xml" title="Docs" />
 
   <link rel="icon" type="image/png" sizes="1254x1254" href="/images/google-touch-icon.png">
@@ -300,7 +300,7 @@ https://github.com/alex-shpak/hugo-book
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
         <div style="display: flex; justify-content: space-between;">
             <span>TOTAL POSTS:</span>
-            <span style="color: var(--color-text);">13</span>
+            <span style="color: var(--color-text);">15</span>
         </div>
         <div style="display: flex; justify-content: space-between;">
             <span>BOARDS:</span>
@@ -350,7 +350,8 @@ https://github.com/alex-shpak/hugo-book
     <div class="rss-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
         <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SUBSCRIBE FEED</span>
         <div>
-            <a id="rss-link-btn" href="/index.xml" target="_blank" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none;">
+            
+            <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none; cursor: pointer;">
                 🧡 RSS FEED
             </a>
         </div>
@@ -493,6 +494,19 @@ https://github.com/alex-shpak/hugo-book
                 localStorage.setItem('bgm_time', audio.currentTime.toFixed(1));
             }
         });
+
+        
+        window.copyRssLink = function(event) {
+            if (event) event.preventDefault(); 
+            
+            const rssUrl = window.location.origin + "/index.xml"; 
+            
+            navigator.clipboard.writeText(rssUrl).then(function() {
+                alert("RSS 주소가 클립보드에 복사되었습니다!\n리더기(Feedly 등)에 등록하여 구독해 보세요. 👍");
+            }).catch(function(err) {
+                alert("RSS 주소: " + rssUrl + "\n이 주소를 수동으로 복사하여 사용해 주세요.");
+            });
+        };
     });
 </script>
 

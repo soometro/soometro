@@ -58,11 +58,12 @@
         </div>
     </div>
 
-    <!-- 5. RSS 구독 버튼 영역 -->
+    <!-- 5. RSS 구독 버튼 영역 (수정됨) -->
     <div class="rss-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
         <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SUBSCRIBE FEED</span>
         <div>
-            <a id="rss-link-btn" href="/index.xml" target="_blank" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none;">
+            <!-- onclick 이벤트를 연결하고 새창 열기 타겟을 제거했습니다 -->
+            <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none; cursor: pointer;">
                 🧡 RSS FEED
             </a>
         </div>
@@ -135,7 +136,7 @@
             }
         }
 
-        // === [B] 조회수 통신 로직 ===
+        // === [B] 조회수 통신 로직 (원본 그대로) ===
         var currentPath = window.location.pathname;
        
         fetch('https://supabase.co', {
@@ -153,7 +154,7 @@
         })
         .catch(function(err) { console.error('Counter sync error:', err); });
 
-        // === [C] BGM 제어 로직 ===
+        // === [C] BGM 제어 로직 (원본 그대로) ===
         const audio = document.getElementById('bgm-audio');
         const bgmBtn = document.getElementById('bgm-toggle-btn');
 
@@ -205,5 +206,18 @@
                 localStorage.setItem('bgm_time', audio.currentTime.toFixed(1));
             }
         });
+
+        // === [D] RSS 링크 복사 로직 (새로 추가됨) ===
+        window.copyRssLink = function(event) {
+            if (event) event.preventDefault(); // 새창 열림 차단
+            
+            const rssUrl = window.location.origin + "/index.xml"; // 동적 도메인 주소 매핑
+            
+            navigator.clipboard.writeText(rssUrl).then(function() {
+                alert("RSS 주소가 클립보드에 복사되었습니다!\n리더기(Feedly 등)에 등록하여 구독해 보세요. 👍");
+            }).catch(function(err) {
+                alert("RSS 주소: " + rssUrl + "\n이 주소를 수동으로 복사하여 사용해 주세요.");
+            });
+        };
     });
 </script>

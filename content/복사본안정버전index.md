@@ -1,21 +1,19 @@
 +++
-title = "독립 아카이브 — 718 박스터, 위스키, 만화, 블러드본"
-og_title = "시간을 거친 안목을 남기는 아카이브"
-description = "명품과 연출된 과시에 동참하지 않고 자동차, 위스키, 만화, 게임에 관한 깊이 있는 시선과 가치를 남기는 개인 독립 저장소입니다."
+title = "Home"
 draft = false
 +++
 
 
-<h1 dir="ltr" style="color: inherit !important;">soometro Archive of Tastes</h1>
+# archive
 
 <div class="home-columns">
   <div class="home-box">
 
-<p style="font-size: 1.5em; font-weight: bold; margin: 0.83em 0;">Starting Point</p>
+## <strong>Starting Point</strong>
 
-&nbsp;&nbsp;&nbsp;<b><i>"우연한 연결의 시대가 끝나며, 무대는 사라졌다."</i></b>
+><b><i>"우연한 연결의 시대가 끝나며, 무대는 사라졌다."</i></b>
 
-&nbsp;&nbsp;&nbsp;거리에서 친구들과 밤새 몰려다니던 시절의 활기, 누군가의 로그인에 설레던 시절이 있었다...
+>거리에서 친구들과 밤새 몰려다니던 시절의 활기, 누군가의 로그인에 설레던 시절이 있었다...
 거리는 비었고, 24시간 연결된 세상에서 대화는 단절되었다. 
   </div>
 </div>
@@ -23,11 +21,11 @@ draft = false
 <div class="home-columns">
   <div class="home-box">
 
-<p style="font-size: 1.5em; font-weight: bold; margin: 0.83em 0;">Current Focus</p>
+## <strong>Current Focus</strong>
 
-&nbsp;&nbsp;&nbsp;<b><i>“좋아했던 것을 다시 들여다보는 일."</i></b>
+><b><i>“좋아했던 것을 다시 들여다보는 일."</i></b>
 
-&nbsp;&nbsp;&nbsp;피드를 채우는 명품, 여행, 연출된 과시에 동참하지 않고, 시간을 거친 안목을 남길 뿐이다.
+>피드를 채우는 명품, 여행, 연출된 과시에 동참하지 않고, 시간을 거친 안목을 남길 뿐이다.
 무엇을 보았는가가 아닌, 우리는 무엇을 남겼는가?</i>
   </div>
 </div>

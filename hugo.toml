@@ -46,4 +46,7 @@ theme = "hugo-book"
     weight = 1
 
 enableRobotsTXT = true
+
+# 6. 고유 주소(URL) 자동 영자 변환 설정
+removePathAccents = true
  
