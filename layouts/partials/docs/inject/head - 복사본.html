@@ -1,3 +1,7 @@
+<link rel="icon" type="image/png" sizes="1254x1254" href="/images/google-touch-icon.png">
+<link rel="apple-touch-icon" sizes="1254x1254" href="/images/google-touch-icon.png">
+
+
 <meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
 
@@ -52,4 +56,19 @@
         })
         .catch(err => console.error("Counter Error:", err));
     });
+</script>
+<!-- 다크모드 Flash of White 방지 -->
+<script>
+    // 페이지 로드 전에 테마 미리 적용
+    (function() {
+        const savedTheme = localStorage.getItem('forced_theme');
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        const themeToApply = savedTheme || (isSystemDark ? 'dark' : 'light');
+        
+        if (themeToApply === 'dark') {
+            document.documentElement.classList.add('forced-dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    })();
 </script>

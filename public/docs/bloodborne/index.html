@@ -354,7 +354,6 @@ https://github.com/alex-shpak/hugo-book
     <div class="rss-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
         <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SUBSCRIBE FEED</span>
         <div>
-            
             <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none; cursor: pointer;">
                 🧡 RSS FEED
             </a>
@@ -429,24 +428,6 @@ https://github.com/alex-shpak/hugo-book
         }
 
         
-        var currentPath = window.location.pathname;
-       
-        fetch('https://supabase.co', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ path: currentPath })
-        })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-            if (data) {
-                document.getElementById('counter-today').innerText = (data.today || 0).toLocaleString();
-                document.getElementById('counter-monthly').innerText = (data.monthly || 0).toLocaleString();
-                document.getElementById('counter-total').innerText = (data.total || 0).toLocaleString();
-            }
-        })
-        .catch(function(err) { console.error('Counter sync error:', err); });
-
-        
         const audio = document.getElementById('bgm-audio');
         const bgmBtn = document.getElementById('bgm-toggle-btn');
 
@@ -479,14 +460,12 @@ https://github.com/alex-shpak/hugo-book
         bgmBtn.addEventListener('click', toggleBGM);
         updateButton();
 
-        
         if (isPlaying) {
             audio.volume = savedVolume;
             audio.currentTime = savedTime;
             audio.play().catch(() => {});
         }
 
-        
         audio.addEventListener('timeupdate', () => {
             if (isPlaying && audio.currentTime > 1) {
                 localStorage.setItem('bgm_time', audio.currentTime.toFixed(1));
@@ -501,9 +480,9 @@ https://github.com/alex-shpak/hugo-book
 
         
         window.copyRssLink = function(event) {
-            if (event) event.preventDefault(); 
+            if (event) event.preventDefault();
             
-            const rssUrl = window.location.origin + "/index.xml"; 
+            const rssUrl = window.location.origin + "/index.xml";
             
             navigator.clipboard.writeText(rssUrl).then(function() {
                 alert("RSS 주소가 클립보드에 복사되었습니다!\n리더기(Feedly 등)에 등록하여 구독해 보세요. 👍");
@@ -513,7 +492,6 @@ https://github.com/alex-shpak/hugo-book
         };
     });
 </script>
-
 </nav>
 
 
