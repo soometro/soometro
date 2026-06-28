@@ -127,7 +127,7 @@ html.forced-dark .book-post-date {
     .book-header h3 { display: none !important; }
 }
 
-@media screen and (min-width: 60rem) { 
+@media screen and (min-width: 54rem) { 
     main .book-page .book-toc,
     main .book-page aside { display: none !important; }
 }
@@ -192,3 +192,19 @@ html.forced-dark body {
 .book-brand a span {
   display: none !important;
 }
+
+/* ==========================================================================
+   12. 게시물 하단 여백 조정
+   ========================================================================== */
+
+/* 좋아요 영역 위쪽 여백 축소 */
+.book-reaction {
+    margin-top: 0.5rem !important;  /* 기본값보다 줄임, 필요시 조정 */
+}
+
+/* 이전글/다음글 아래쪽 여백 40% 축소 */
+.book-nav {
+    margin-bottom: 1.5rem !important;  /* 기본 ~2.5rem → 약 60% 수준 */
+    padding-bottom: 0.6rem !important;
+}
+
