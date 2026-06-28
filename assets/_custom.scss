@@ -160,3 +160,35 @@ html.forced-dark body {
     background: #000000 !important; /* 다크모드 시 바깥 여백을 완벽한 블랙으로 채움 */
     background-image: none !important; /* 종이질감 배경 이미지가 있다면 강제로 제거 */
 }
+
+
+/* ==========================================================================
+   10. 로고 이미지 크기 및 여백 최적화 
+   ========================================================================== */
+.book-brand img {
+  width: 250px !important;      /* 💡 가로형 공간에 맞춰 좌우 폭을 시원하게 확장 */
+  max-width: 100% !important;   
+  height: auto !important;      
+  margin-top: 0px !important;   /* 상단 여백 최소화 */
+  margin-bottom: 0px !important;/* 💡 이미지 자체의 하단 마진을 완전히 제거 */
+}
+
+/* 로고를 감싸는 부모 태그(h1/div)의 기본 하단 여백까지 압축 */
+.book-brand {
+  margin-bottom: 0px !important; /* 💡 음수 마진으로 밑에 있는 검색창을 위로 바짝 끌어올림 */
+  padding-bottom: 0px !important;
+}
+
+/* ==========================================================================
+   11. 다크 모드 전용: 검은 배경에서 로고를 하얗게 반전 
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  .book-brand img {
+    filter: invert(1) !important;
+  }
+}
+
+/* 로고 이미지 옆에 붙는 사이트 타이틀 텍스트 숨기기 */
+.book-brand a span {
+  display: none !important;
+}
