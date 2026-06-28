@@ -1,0 +1,26 @@
+{{ define "main" }}
+  <main class="book-page">
+    <article class="markdown">
+{{/* <h1>{{ .Title }}</h1> */}} 
+      {{ .Content }}
+      
+<br><br>
+      {{ if .Pages }}
+        <h5>Product Inventory</h5>
+        <ul>
+          {{ range .Pages.ByDate.Reverse }}
+            <li style="display: flex; justify-content: space-between; align-items: center;">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              <span style="font-size: 0.9rem; color: inherit; opacity: 0.9; margin-left: 0.8rem; white-space: nowrap; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;">{{ .Date.Format "2006-01-02" }}</span>
+            </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    </article>
+    {{ if .TableOfContents }}
+      <aside class="book-toc">
+        <nav>{{ .TableOfContents }}</nav>
+      </aside>
+    {{ end }}
+  </main>
+{{ end }}
