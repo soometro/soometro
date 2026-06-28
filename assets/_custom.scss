@@ -194,17 +194,26 @@ html.forced-dark body {
 }
 
 /* ==========================================================================
-   12. 게시물 하단 여백 조정
+   12. 게시물 하단 여백 조정 (푸터 인라인 강제 오버라이드)
    ========================================================================== */
 
-/* 좋아요 영역 위쪽 여백 축소 */
-.book-reaction {
-    margin-top: 0.5rem !important;  /* 기본값보다 줄임, 필요시 조정 */
+/* 1) 본문 마크다운 영역 내부의 좋아요 컨테이너 여백 강제 축소 */
+main.book-page .markdown .page-reactions-container {
+    margin-top: 0.8rem !important;     /* 본문 글 끝나는 지점과 좋아요 사이 간격 축소 */
+    margin-bottom: 0.8rem !important;  /* 좋아요와 이전글/다음글 선 사이 간격 축소 */
+    padding: 0.6rem 0 !important;      /* 안쪽 위아래 여백 압축 */
 }
 
-/* 이전글/다음글 아래쪽 여백 40% 축소 */
-.book-nav {
-    margin-bottom: 1.5rem !important;  /* 기본 ~2.5rem → 약 60% 수준 */
-    padding-bottom: 0.6rem !important;
+/* 2) 이전글 / 다음글 네비게이션 영역 및 밑 공간 완전히 축소 */
+main.book-page .markdown .book-navigation {
+    margin-top: 0.5rem !important;     /* 좋아요 밑단 선과의 간격 */
+    margin-bottom: 0px !important;     /* 하단 마진 삭제 */
+    padding-bottom: 0px !important;    /* 하단 패딩 삭제 */
 }
 
+/* 3) 푸터 파일 내부 첫 번째 div의 인라인 여백(40px, 20px)을 강제로 축소 */
+footer.book-footer > div,
+.book-footer > div {
+    margin-top: 10px !important;       /* 기존 40px 강제 무시하고 10px로 압축 */
+    padding-top: 10px !important;      /* 기존 20px 강제 무시하고 10px로 압축 */
+}
