@@ -1,12 +1,12 @@
 +++
 title = "독립 아카이브 — 718 박스터, 위스키, 만화, 블러드본"
 og_title = "시간을 거친 안목을 남기는 아카이브"
-description = "명품과 연출된 과시에 동참하지 않고 자동차, 위스키, 만화, 게임에 관한 깊이 있는 시선과 가치를 남기는 개인 독립 저장소입니다."
+description = "명품과 연출된 과시에 동참하지 않고 718 Boxter, 위스키, 만화, 게임 등 관심 가지는 취미에 관한 깊이 있는 고찰과 가치를 남기는 개인 독립 저장소입니다."
 draft = false
 +++
 
 
-<h1 dir="ltr" style="color: inherit !important;">soometro Archive of Tastes</h1>
+<h1 dir="ltr" style="color: inherit !important;">soometro Archive</h1>
 
 <div class="home-columns">
   <div class="home-box">
