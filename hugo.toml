@@ -20,7 +20,7 @@ theme = "hugo-book"
 # 4. hugo-book 테마 전용 매개변수 설정
 [params]
   # BookTitle = "soometro"
-  BookLogo = "logo.png"
+  BookLogo = "logo.webp"
   BookSearch = true           # 로컬 검색창 활성화
   
   # 메뉴 접기/펼치기 기능 활성화
