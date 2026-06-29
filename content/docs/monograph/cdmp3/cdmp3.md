@@ -7,7 +7,7 @@ weight: 1
 
 # 마크다운에 대해 알아보자.  
 
-![alt text](images/markdown-1.png)
+![마크다운 홍보 이미지](images/markdown-1.png)
 
 
 ## 1. docx, hwpx, pptx, xlsx, pdf

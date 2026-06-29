@@ -9,7 +9,7 @@ weight: 1
 
 ## 1. 서론
 
-![bloodborne](images/image1.gif)  
+![bloodborne 첫판 보스 성직자 야수 Cleric Beast](images/image1.gif)  
 
 ### 1. 블러드본 이란?
 

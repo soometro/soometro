@@ -6,7 +6,7 @@ weight: 1
 ---
 
 # 톱단창과 톱창에 대해 알아보자.
-![alt text](images/sawcreaver.jpg)
+![금단의숲 이벤트 무서운야수](images/sawcreaver.jpg)
 
 ## 1. 블러드본 기본 무기
 
