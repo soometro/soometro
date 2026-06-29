@@ -127,7 +127,7 @@ html.forced-dark .book-post-date {
     .book-header h3 { display: none !important; }
 }
 
-@media screen and (min-width: 60rem) { 
+@media screen and (min-width: 54rem) { 
     main .book-page .book-toc,
     main .book-page aside { display: none !important; }
 }
@@ -138,4 +138,82 @@ html.forced-dark .book-post-date {
 @media screen and (max-width: 60rem) {
     .book-page { padding: 1rem 0.5rem !important; }
     .markdown { padding: 0 !important; }
+}
+
+/* ==========================================================================
+   8. PC 및 모바일 다크모드 삼선(햄버거) 메뉴 이미지 아이콘 가시성 보정
+   ========================================================================== */
+html.forced-dark main img.book-icon,
+body.forced-dark main img.book-icon,
+html[data-theme="dark"] main img.book-icon {
+    filter: invert(1) !important;
+    -webkit-filter: invert(1) !important; /* 아이폰 Safari 및 안드로이드 크롬 엔진 강제 대응 */
+}
+
+
+
+/* ==========================================================================
+   9. PC 창 최대화 시 다크모드 가장자리 여백 블랙 강제 적용
+   ========================================================================= */
+html.forced-dark,
+html.forced-dark body {
+    background: #000000 !important; /* 다크모드 시 바깥 여백을 완벽한 블랙으로 채움 */
+    background-image: none !important; /* 종이질감 배경 이미지가 있다면 강제로 제거 */
+}
+
+
+/* ==========================================================================
+   10. 로고 이미지 크기 및 여백 최적화 
+   ========================================================================== */
+.book-brand img {
+  width: 250px !important;      /* 💡 가로형 공간에 맞춰 좌우 폭을 시원하게 확장 */
+  max-width: 100% !important;   
+  height: auto !important;      
+  margin-top: 0px !important;   /* 상단 여백 최소화 */
+  margin-bottom: 0px !important;/* 💡 이미지 자체의 하단 마진을 완전히 제거 */
+}
+
+/* 로고를 감싸는 부모 태그(h1/div)의 기본 하단 여백까지 압축 */
+.book-brand {
+  margin-bottom: 0px !important; /* 💡 음수 마진으로 밑에 있는 검색창을 위로 바짝 끌어올림 */
+  padding-bottom: 0px !important;
+}
+
+/* ==========================================================================
+   11. 다크 모드 전용: 검은 배경에서 로고를 하얗게 반전 
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  .book-brand img {
+    filter: invert(1) !important;
+  }
+}
+
+/* 로고 이미지 옆에 붙는 사이트 타이틀 텍스트 숨기기 */
+.book-brand a span {
+  display: none !important;
+}
+
+/* ==========================================================================
+   12. 게시물 하단 여백 조정 (푸터 인라인 강제 오버라이드)
+   ========================================================================== */
+
+/* 1) 본문 마크다운 영역 내부의 좋아요 컨테이너 여백 강제 축소 */
+main.book-page .markdown .page-reactions-container {
+    margin-top: 0.8rem !important;     /* 본문 글 끝나는 지점과 좋아요 사이 간격 축소 */
+    margin-bottom: 0.8rem !important;  /* 좋아요와 이전글/다음글 선 사이 간격 축소 */
+    padding: 0.6rem 0 !important;      /* 안쪽 위아래 여백 압축 */
+}
+
+/* 2) 이전글 / 다음글 네비게이션 영역 및 밑 공간 완전히 축소 */
+main.book-page .markdown .book-navigation {
+    margin-top: 0.5rem !important;     /* 좋아요 밑단 선과의 간격 */
+    margin-bottom: 0px !important;     /* 하단 마진 삭제 */
+    padding-bottom: 0px !important;    /* 하단 패딩 삭제 */
+}
+
+/* 3) 푸터 파일 내부 첫 번째 div의 인라인 여백(40px, 20px)을 강제로 축소 */
+footer.book-footer > div,
+.book-footer > div {
+    margin-top: 10px !important;       /* 기존 40px 강제 무시하고 10px로 압축 */
+    padding-top: 10px !important;      /* 기존 20px 강제 무시하고 10px로 압축 */
 }

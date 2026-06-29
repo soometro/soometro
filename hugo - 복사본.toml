@@ -1,7 +1,7 @@
 # 1. 사이트 기본 정보 설정
-baseURL = "https://soometro.kr/"
+baseURL = "https://soometro.kr/" 
 defaultContentLanguage = "ko"
-locale = "ko-kr"                # languageCode 대신 locale 사용 (최신 규격)
+locale = "ko-KR"                # languageCode 대신 locale 사용 (최신 규격)
 title = "soometro"
 theme = "hugo-book"
 
@@ -19,7 +19,8 @@ theme = "hugo-book"
 
 # 4. hugo-book 테마 전용 매개변수 설정
 [params]
-  BookTitle = "soometro"
+  # BookTitle = "soometro"
+  BookLogo = "logo.webp"
   BookSearch = true           # 로컬 검색창 활성화
   
   # 메뉴 접기/펼치기 기능 활성화
@@ -27,6 +28,9 @@ theme = "hugo-book"
   
   # 다크모드 설정: "auto"로 설정하면 테마가 자동으로 다크모드 지원
   BookTheme = "auto"
+
+  # 다크모드 수동 전환 제어 모듈 활성화 (★이 줄이 추가되었습니다)
+  BookDarkMode = true
   
   # 다크모드 전환 버튼 활성화
   BookPortableLinks = true
@@ -43,4 +47,7 @@ theme = "hugo-book"
     weight = 1
 
 enableRobotsTXT = true
+
+# 6. 고유 주소(URL) 자동 영자 변환 설정
+removePathAccents = true
  

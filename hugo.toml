@@ -51,3 +51,7 @@ enableRobotsTXT = true
 # 6. 고유 주소(URL) 자동 영자 변환 설정
 removePathAccents = true
  
+
+# 7. 수정일(Lastmod) 자동 감지 설정 (실제 파일 저장 시간 기준)
+[frontmatter]
+  lastmod = [":fileModTime", "lastmod", "date", "publishDate"]
