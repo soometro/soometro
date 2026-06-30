@@ -1,0 +1,95 @@
+{{ "<!--" | safeHTML }}
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+{{ "-->" | safeHTML }}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
+<!-- Robots & Twitter Cards 최적화 -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
+<meta name="twitter:image" content="{{ .Site.BaseURL }}images/og-default.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark">
+{{- with .Page.Params.BookHref -}}
+  <meta http-equiv="Refresh" content="0; url='{{ . }}'" />
+{{- end }}
+<!-- Open Graph 수동 제어 (줄바꿈 제거 및 150자 제한) -->
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ .Site.BaseURL }}images/og-default.png">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{- if not .Lastmod.IsZero }}
+<meta property="og:updated_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+{{- if .IsPage }}
+{{- if .Section }}
+<meta property="article:section" content="{{ .Section }}">
+{{- end }}
+{{- if not .PublishDate.IsZero }}
+<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+{{- if not .Lastmod.IsZero }}
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+{{- end }}
+<!-- Schema Microdata 수동 제어 (줄바꿈 제거 및 150자 제한) -->
+<meta itemprop="name" content="{{ .Title }}">
+<meta itemprop="description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
+<meta itemprop="image" content="{{ .Site.BaseURL }}images/og-default.png">
+{{- if not .PublishDate.IsZero }}
+<meta itemprop="datePublished" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+{{- if not .Lastmod.IsZero }}
+<meta itemprop="dateModified" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+{{- if gt .WordCount 0 }}
+<meta itemprop="wordCount" content="{{ .WordCount }}">
+{{- end }}
+
+<title>{{ partial "docs/html-head-title" . }}</title>
+{{ partial "docs/html-head-favicon" . }}
+
+{{- $manifest := resources.Get "manifest.json" | resources.ExecuteAsTemplate "manifest.json" . }}
+<link rel="manifest" href="{{ $manifest.RelPermalink }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- range .Translations }}
+  <link rel="alternate" hreflang="{{ default .Site.Language.Locale .Language.Name }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
+{{- end -}}
+
+<!-- Theme stylesheet, you can customize scss by creating `assets/custom.scss` in your website -->
+{{- $styles := resources.Get "book.scss" | resources.ExecuteAsTemplate "book.scss" . | css.Sass | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ partial "docs/links/resource-precache" $styles }}" {{ template "integrity" $styles }}>
+
+<!-- Search -->
+{{- if default true .Site.Params.BookSearch -}}
+  {{- $searchJSFile := printf "%s.search.js" .Language.Name }}
+  {{- $searchJS := resources.Get "search.js" | resources.ExecuteAsTemplate $searchJSFile . | resources.Minify | resources.Fingerprint }}
+  <script defer type="module" src="{{ partial "docs/links/resource-precache" $searchJS }}" {{ template "integrity" $searchJS }}></script>
+{{ end -}}
+
+<!-- Service Worker -->
+{{- if .Site.Params.BookServiceWorker -}}
+  {{- $swJS := resources.Get "sw-register.js" | resources.ExecuteAsTemplate "sw.js" . | resources.Minify | resources.Fingerprint }}
+  <script defer src="{{ $swJS.RelPermalink }}" {{ template "integrity" $swJS }}></script>
+{{ end -}}
+
+{{ partial "google_analytics.html" . }}
+
+{{- range .AlternativeOutputFormats -}}
+  {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Title | safeHTML }}
+{{ end -}}
+
+{{- define "integrity" -}}
+  {{- if (urls.Parse .Permalink).Host -}}
+    integrity="{{ .Data.Integrity }}" crossorigin="anonymous"
+  {{- end -}}
+{{- end -}}
