@@ -76,37 +76,31 @@
 
 <!-- ====================== 구글 검색 로봇용 구조화 데이터 (Schema.org JSON-LD) ====================== -->
 {{ if or (eq .Kind "page") (eq .Section "docs") }}
-  {{/* 1. 본문에서 첫 번째 이미지 경로 추출 로직 */}}
-  {{ $imgUrl := "https://soometro.kr" }}
-  {{ $images := findRE `<img[^>]+src=["']([^"']+)["']` .Content 1 }}
-  {{ if gt (len $images) 0 }}
-    {{ $src := index $images 0 | replaceRE `<img[^>]+src=["']([^"']+)["'].*` "$1" }}
-    {{/* 상대 경로를 절대 주소로 안전하게 변환 */}}
-    {{ $imgUrl = $src | absURL }}
-  {{ end }}
-
-  {{/* 2. 발행 및 수정일 포맷 설정 */}}
-  {{ $datePub := "" }}
-  {{ if .Date }}{{ $datePub = .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ $datePub = .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}
-  
-  {{ $dateMod := $datePub }}
-  {{ if .Lastmod }}{{ $dateMod = .Lastmod.Format "2006-01-02T15:04:05-07:00" }}{{ else if .Date }}{{ $dateMod = .Date.Format "2006-01-02T15:04:05-07:00" }}{{ end }}
-
-  {{/* 3. 구조화 데이터 딕셔너리 구성 및 JSON 변환 */}}
-  {{ $schema := dict 
-    "@context" "https://schema.org"
-    "@type" "BlogPosting"
-    "headline" (.Title | plainify)
-    "description" (or .Description .Summary | plainify | htmlUnescape)
-    "url" .Permalink
-    "image" $imgUrl
-    "datePublished" $datePub
-    "dateModified" $dateMod
-    "author" (dict "@type" "Person" "name" .Site.Title "sameAs" (slice "https://github.com" "https://instagram.com" "https://youtube.com" "https://facebook.com" "https://twitch.tv" "https://speedrun.com"))
-    "publisher" (dict "@type" "Organization" "name" "soometro archive" "logo" (dict "@type" "ImageObject" "url" ("logo.webp" | absURL)))
-    "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
-  }}
-  <script type="application/ld+json">
-    {{ $schema | jsonify | safeJS }}
-  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title | plainify }}",
+  "description": "{{ or .Description .Summary | plainify | htmlUnescape }}",
+  "url": "{{ .Permalink }}",
+  "datePublished": "{{ if .Date }}{{ .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}",
+  "dateModified": "{{ if .Lastmod }}{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}{{ else if .Date }}{{ .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Title }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ "logo.webp" | absURL }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  }
+}
+</script>
 {{ end }}
