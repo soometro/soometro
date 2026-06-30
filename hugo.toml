@@ -46,7 +46,7 @@ theme = "hugo-book"
     label = "Korean"          # languageName 대신 label 사용 (최신 규격)
     weight = 1
 
-enableRobotsTXT = true
+enableRobotsTXT = false
 
 # 6. 고유 주소(URL) 자동 영자 변환 설정
 removePathAccents = true
