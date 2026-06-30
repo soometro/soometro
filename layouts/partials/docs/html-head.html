@@ -6,12 +6,16 @@ https://github.com/alex-shpak/hugo-book
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
+<meta name="author" content="soometro">
+<meta name="creator" content="soometro">
+<meta name="publisher" content="soometro archive">
 <!-- Robots & Twitter Cards 최적화 -->
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ .Title }}">
 <meta name="twitter:description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
 <meta name="twitter:image" content="{{ .Site.BaseURL }}images/og-default.png">
+<meta name="twitter:image:alt" content="{{ .Title }}">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
 <meta name="color-scheme" content="light dark">
@@ -25,6 +29,9 @@ https://github.com/alex-shpak/hugo-book
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:image" content="{{ .Site.BaseURL }}images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ .Title }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 {{- if not .Lastmod.IsZero }}
 <meta property="og:updated_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">

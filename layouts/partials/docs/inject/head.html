@@ -78,13 +78,16 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
+  "@type": "Article",
   "headline": {{ .Title | plainify | jsonify (dict "noHTMLEscape" true) | safeJS }},
   "description": {{ $desc := (or .Description .Summary) | plainify | htmlUnescape | replaceRE `&#?[0-9a-zA-Z]+;` "" | replaceRE `[\r\n\t\f]+` " " | replaceRE `\s+` " " | truncate 150 }}{{ $desc | replaceRE `["\\]` `\\$0` | jsonify (dict "noHTMLEscape" true) | safeJS }},
   "url": {{ .Permalink | jsonify | safeJS }},
   "image": {{ "images/og-default.png" | absURL | jsonify | safeJS }},
   "datePublished": "{{ if .Date }}{{ .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}",
   "dateModified": "{{ if .Lastmod }}{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}{{ else if .Date }}{{ .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}",
+  "inLanguage": "ko-KR",
+  "articleSection": {{ .Section | jsonify | safeJS }},
+  "wordCount": {{ .WordCount }},
   "author": {
     "@type": "Person",
     "name": "soometro",
@@ -111,4 +114,62 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ .Site.Title | jsonify | safeJS }},
+  "url": {{ site.BaseURL | jsonify | safeJS }},
+  "inLanguage": "ko-KR",
+  "publisher": {
+    "@type": "Organization",
+    "name": "soometro archive"
+  }
+}
+</script>
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {
+      "@type":"ListItem",
+      "position":1,
+      "name":"Home",
+      "item":{{ site.BaseURL | jsonify | safeJS }}
+    },
+    {
+      "@type":"ListItem",
+      "position":2,
+      "name":{{ .Section | title | jsonify | safeJS }},
+      "item":{{ printf "%s%s/" site.BaseURL .Section | jsonify | safeJS }}
+    },
+    {
+      "@type":"ListItem",
+      "position":3,
+      "name":{{ .Title | plainify | jsonify | safeJS }},
+      "item":{{ .Permalink | jsonify | safeJS }}
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"soometro",
+  "url":{{ site.BaseURL | jsonify | safeJS }},
+  "image":{{ "images/og-default.png" | absURL | jsonify | safeJS }},
+  "sameAs":[
+    "https://github.com/soometro",
+    "https://www.instagram.com/soometro.kr",
+    "https://www.youtube.com/c/soometro",
+    "https://www.facebook.com/soometro",
+    "https://www.twitch.tv/soometro",
+    "https://www.speedrun.com/users/soometro"
+  ]
+}
+</script>
+{{ end }}
 {{ end }}
