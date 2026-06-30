@@ -1,7 +1,6 @@
 <link rel="icon" type="image/png" sizes="1254x1254" href="/images/google-touch-icon.png">
 <link rel="apple-touch-icon" sizes="1254x1254" href="/images/google-touch-icon.png">
 
-
 <meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
 
@@ -13,7 +12,7 @@
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
 
-        // [수정] 관리자 여부 확인 (카운팅 제외 여부만 판단)
+        // 관리자 여부 확인 (카운팅 제외 여부만 판단)
         const isAdmin = localStorage.getItem('my_admin') === 'true';
 
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
@@ -26,7 +25,7 @@
             localStorage.setItem('user_hash', ipHash);
         }
 
-        // [수정] 조회수는 관리자여도 무조건 가져오도록 변경 (카운팅+1은 관리자만 제외)
+        // 조회수는 관리자여도 무조건 가져오도록 변경 (카운팅+1은 관리자만 제외)
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
             headers: {
@@ -57,6 +56,7 @@
         .catch(err => console.error("Counter Error:", err));
     });
 </script>
+
 <!-- 다크모드 Flash of White 방지 -->
 <script>
     // 페이지 로드 전에 테마 미리 적용
@@ -73,34 +73,103 @@
     })();
 </script>
 
-
 <!-- ====================== 구글 검색 로봇용 구조화 데이터 (Schema.org JSON-LD) ====================== -->
 {{ if or (eq .Kind "page") (eq .Section "docs") }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "{{ .Title | plainify }}",
-  "description": "{{ or .Description .Summary | plainify | htmlUnescape }}",
-  "url": "{{ .Permalink }}",
+  "@type": "Article",
+  "headline": {{ .Title | plainify | jsonify (dict "noHTMLEscape" true) | safeJS }},
+  "description": {{ $desc := (or .Description .Summary) | plainify | htmlUnescape | replaceRE `&#?[0-9a-zA-Z]+;` "" | replaceRE `[\r\n\t\f]+` " " | replaceRE `\s+` " " | truncate 150 }}{{ $desc | replaceRE `["\\]` `\\$0` | jsonify (dict "noHTMLEscape" true) | safeJS }},
+  "url": {{ .Permalink | jsonify | safeJS }},
+  "image": {{ "images/og-default.png" | absURL | jsonify | safeJS }},
   "datePublished": "{{ if .Date }}{{ .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}",
   "dateModified": "{{ if .Lastmod }}{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}{{ else if .Date }}{{ .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}",
+  "inLanguage": "ko-KR",
+  "articleSection": {{ .Section | jsonify | safeJS }},
+  "wordCount": {{ .WordCount }},
   "author": {
     "@type": "Person",
-    "name": "{{ .Site.Title }}"
+    "name": "soometro",
+    "sameAs": [
+      "https://github.com/soometro",
+      "https://www.instagram.com/soometro.kr",
+      "https://www.youtube.com/c/soometro",
+      "https://www.facebook.com/soometro",
+      "https://www.twitch.tv/soometro",
+      "https://www.speedrun.com/users/soometro"
+    ]
   },
   "publisher": {
     "@type": "Organization",
-    "name": "{{ .Site.Title }}",
+    "name": "soometro archive",
     "logo": {
       "@type": "ImageObject",
-      "url": "{{ "logo.webp" | absURL }}"
+      "url": {{ "logo.webp" | absURL | jsonify | safeJS }}
     }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "{{ .Permalink }}"
+    "@id": {{ .Permalink | jsonify | safeJS }}
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ .Site.Title | jsonify | safeJS }},
+  "url": {{ site.BaseURL | jsonify | safeJS }},
+  "inLanguage": "ko-KR",
+  "publisher": {
+    "@type": "Organization",
+    "name": "soometro archive"
+  }
+}
+</script>
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {
+      "@type":"ListItem",
+      "position":1,
+      "name":"Home",
+      "item":{{ site.BaseURL | jsonify | safeJS }}
+    },
+    {
+      "@type":"ListItem",
+      "position":2,
+      "name":{{ .Section | title | jsonify | safeJS }},
+      "item":{{ printf "%s%s/" site.BaseURL .Section | jsonify | safeJS }}
+    },
+    {
+      "@type":"ListItem",
+      "position":3,
+      "name":{{ .Title | plainify | jsonify | safeJS }},
+      "item":{{ .Permalink | jsonify | safeJS }}
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"soometro",
+  "url":{{ site.BaseURL | jsonify | safeJS }},
+  "image":{{ "images/og-default.png" | absURL | jsonify | safeJS }},
+  "sameAs":[
+    "https://github.com/soometro",
+    "https://www.instagram.com/soometro.kr",
+    "https://www.youtube.com/c/soometro",
+    "https://www.facebook.com/soometro",
+    "https://www.twitch.tv/soometro",
+    "https://www.speedrun.com/users/soometro"
+  ]
+}
+</script>
+{{ end }}
 {{ end }}

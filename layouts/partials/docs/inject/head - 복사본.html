@@ -72,3 +72,35 @@
         }
     })();
 </script>
+
+
+<!-- ====================== 구글 검색 로봇용 구조화 데이터 (Schema.org JSON-LD) ====================== -->
+{{ if or (eq .Kind "page") (eq .Section "docs") }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title | plainify }}",
+  "description": "{{ or .Description .Summary | plainify | htmlUnescape }}",
+  "url": "{{ .Permalink }}",
+  "datePublished": "{{ if .Date }}{{ .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}",
+  "dateModified": "{{ if .Lastmod }}{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}{{ else if .Date }}{{ .Date.Format "2006-01-02T15:04:05-07:00" }}{{ else }}{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}{{ end }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Title }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ "logo.webp" | absURL }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  }
+}
+</script>
+{{ end }}
