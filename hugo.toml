@@ -54,4 +54,5 @@ removePathAccents = true
 
 # 7. 수정일(Lastmod) 자동 감지 설정 (실제 파일 저장 시간 기준)
 [frontmatter]
-  lastmod = [":fileModTime", "lastmod", "date", "publishDate"]
+  lastmod = ["lastmod", ":fileModTime", "date", "publishDate"]
+
