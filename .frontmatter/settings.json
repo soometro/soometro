@@ -1,7 +1,0 @@
-{
-  "frontMatter.framework.id": "hugo",
-  "frontMatter.content.autoUpdateLastmod": true,
-  "frontMatter.content.autoUpdateDate": false,
-  "frontMatter.content.updateLastmodOnSave": true,
-  "frontMatter.content.frontmatterType": "yaml"
-}
