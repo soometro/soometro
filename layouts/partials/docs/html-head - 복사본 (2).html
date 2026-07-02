@@ -3,9 +3,11 @@ Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 {{ "-->" | safeHTML -}}
 {{- $featured := "" -}}
+
 {{- with findRE `!\[.*?\]\((.*?)\)` .RawContent 1 -}}
   {{- $featured = replaceRE `!\[.*?\]\((.*?)\)` "$1" (index . 0) -}}
 {{- end -}}
+
 {{- if $featured -}}
   {{ $featured = absURL $featured -}}
 {{- else -}}
@@ -13,37 +15,35 @@ https://github.com/alex-shpak/hugo-book
 {{- end }}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
-{{- with .Page.Params.BookHref -}}
-  <meta http-equiv="Refresh" content="0; url='{{ . }}'" />
-{{- end }}
 <title>{{ partial "docs/html-head-title" . }}</title>
-<!-- ★ [GROUP A] 표준 메타 태그 (name 속성 그룹) ★ -->
-<meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
 <meta name="description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="soometro">
 <meta name="creator" content="soometro">
 <meta name="publisher" content="soometro archive">
-<!-- 트위터 카드 (name 속성을 사용하므로 표준 메타 하단에 배치) -->
+<!-- Robots & Twitter Cards 최적화 -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ .Title }}">
 <meta name="twitter:description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
 <meta name="twitter:image" content="{{ $featured }}">
 <meta name="twitter:image:alt" content="{{ .Title }}">
-<!-- ★ [GROUP B] 소셜 공유 태그 (property 속성 그룹) ★ -->
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark">
+{{- with .Page.Params.BookHref -}}
+  <meta http-equiv="Refresh" content="0; url='{{ . }}'" />
+{{- end }}
+<!-- Open Graph 수동 제어 (줄바꿈 제거 및 150자 제한) -->
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:site_name" content="{{ .Site.Title }}">
-<meta property="og:title" content="{{ .Title }}">
-<meta property="og:description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
 <meta property="og:image" content="{{ $featured }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{{ .Title }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
 {{- if not .Lastmod.IsZero }}
 <meta property="og:updated_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
 {{- end }}
@@ -74,6 +74,7 @@ https://github.com/alex-shpak/hugo-book
 {{- range .Translations }}
   <link rel="alternate" hreflang="{{ default .Site.Language.Locale .Language.Name }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
 {{- end -}}
+
 <!-- Theme stylesheet, you can customize scss by creating `assets/custom.scss` in your website -->
 {{- $styles := resources.Get "book.scss" | resources.ExecuteAsTemplate "book.scss" . | css.Sass | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ partial "docs/links/resource-precache" $styles }}" {{ template "integrity" $styles }}>
