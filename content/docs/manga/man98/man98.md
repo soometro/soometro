@@ -1,6 +1,7 @@
 ---
 title: "만화방을 기억한다."
-date: 2026-06-15
+date: 2026-06-03
+lastmod: 2026-07-03
 bookHidden: true
 weight: 1
 ---
