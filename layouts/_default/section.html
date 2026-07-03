@@ -18,7 +18,8 @@
           {{/* 하위 페이지들을 날짜 최신순(역순)으로 정렬하여 순회 처리 */}}
           {{ range .Pages.ByDate.Reverse }}
             {{/* 각 게시물 줄 바꿈 및 좌우 끝 배치 (게시물 명은 왼쪽, 날짜는 오른쪽 자동 밀착) */}}
-            <li style="display: flex; justify-content: space-between; align-items: center;">
+            <li style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(127, 127, 127, 0.2); padding: 0.5rem 0;">
+
               {{/* 게시물 제목 클릭 시 해당 상세 게시글로 이동하는 링크 생성 */}}
               <a href="{{ .RelPermalink }}">{{ .Title }}</a>
               
