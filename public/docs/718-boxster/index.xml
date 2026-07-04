@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>718 Boxster on soometro</title>
-		<link>https://soometro.kr/docs/718-boxster/</link>
+		<link>http://localhost:1313/docs/718-boxster/</link>
 		<description>Recent content in 718 Boxster on soometro</description>
 		<generator>Hugo</generator>
 		<language>ko-KR</language>
@@ -10,27 +10,27 @@
 		
 		
 		
-			<atom:link href="https://soometro.kr/docs/718-boxster/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/docs/718-boxster/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>718 GTS4.0과 S, NORMAL 그리고 제네시스 G70과의 차이점</title>
-				<link>https://soometro.kr/docs/718-boxster/718-1/718-1/</link>
-				<pubDate>Thu, 18 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://soometro.kr/docs/718-boxster/718-1/718-1/</guid>
-				<description>&lt;h1 id=&#34;718-gts40과-s-normal-그리고-제네시스-g70과의-차이점&#34;&gt;718 GTS4.0과 S, NORMAL 그리고 제네시스 G70과의 차이점.&lt;a class=&#34;anchor&#34; href=&#34;#718-gts40%ea%b3%bc-s-normal-%ea%b7%b8%eb%a6%ac%ea%b3%a0-%ec%a0%9c%eb%84%a4%ec%8b%9c%ec%8a%a4-g70%ea%b3%bc%ec%9d%98-%ec%b0%a8%ec%9d%b4%ec%a0%90&#34;&gt;&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;img src=&#34;https://soometro.kr/docs/718-boxster/718-1/images/image1.jpeg&#34; alt=&#34;포르쉐 718 Boxster GTS4.0&#34;  /&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;포르쉐 718 카이맨/박스터 GTS 4.0은 단순히 엔진(4.0L 6기통 자연흡기)만 커진 것이 아니라, 하위 모델인 노멀(2.0)이나 S(2.5)에서 유료 옵션으로 넣어야 하거나 아예 선택할 수 없는 퍼포먼스 사양들이 대거 기본 적용된 모델이다.&lt;/p&gt;&#xA;&lt;p&gt;노멀과 S에서는 추가 비용을 내야 하는 옵션들이 GTS 4.0에는 &amp;lsquo;기본&amp;rsquo;으로 들어간다..&lt;/p&gt;&#xA;&lt;h2 id=&#34;1-기본사양&#34;&gt;1. 기본사양&lt;a class=&#34;anchor&#34; href=&#34;#1-%ea%b8%b0%eb%b3%b8%ec%82%ac%ec%96%91&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;1-하체-및-주행-성능-기본-탑재-사양&#34;&gt;1. 하체 및 주행 성능 (기본 탑재 사양)&lt;a class=&#34;anchor&#34; href=&#34;#1-%ed%95%98%ec%b2%b4-%eb%b0%8f-%ec%a3%bc%ed%96%89-%ec%84%b1%eb%8a%a5-%ea%b8%b0%eb%b3%b8-%ed%83%91%ec%9e%ac-%ec%82%ac%ec%96%91&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;PASM 스포츠 서스펜션: 스포츠모드 시 차고가 노멀 대비 20mm 더 낮아집니다. (S는 기본이 10mm이며, 20mm는 옵션) 훨씬 단단하고 날렵한 거동을 보여줍니다.&lt;/p&gt;</description>
+				<link>http://localhost:1313/docs/718-boxster/718-1/718-1/</link>
+				<pubDate>Sat, 06 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/docs/718-boxster/718-1/718-1/</guid>
+				<description>&lt;h1 id=&#34;718-gts40과-s-normal-그리고-제네시스-g70과의-차이점&#34;&gt;718 GTS4.0과 S, NORMAL 그리고 제네시스 G70과의 차이점.&lt;a class=&#34;anchor&#34; href=&#34;#718-gts40%ea%b3%bc-s-normal-%ea%b7%b8%eb%a6%ac%ea%b3%a0-%ec%a0%9c%eb%84%a4%ec%8b%9c%ec%8a%a4-g70%ea%b3%bc%ec%9d%98-%ec%b0%a8%ec%9d%b4%ec%a0%90&#34;&gt;&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/docs/718-boxster/718-1/images/image1.jpeg&#34; alt=&#34;포르쉐 718 Boxster GTS4.0&#34;  /&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;포르쉐 718 카이맨/박스터 GTS 4.0은 단순히 엔진(4.0L 6기통 자연흡기)만 커진 것이 아니라, 하위 모델인 노멀(2.0)이나 S(2.5)에서 유료 옵션으로 넣어야 하거나 아예 선택할 수 없는 퍼포먼스 사양들이 대거 기본 적용된 모델이다.&lt;/p&gt;&#xA;&lt;p&gt;노멀과 S에서는 추가 비용을 내야 하는 옵션들이 GTS 4.0에는 &amp;lsquo;기본&amp;rsquo;으로 들어간다..&lt;/p&gt;&#xA;&lt;h2 id=&#34;1-기본사양&#34;&gt;1. 기본사양&lt;a class=&#34;anchor&#34; href=&#34;#1-%ea%b8%b0%eb%b3%b8%ec%82%ac%ec%96%91&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;h3 id=&#34;1-하체-및-주행-성능-기본-탑재-사양&#34;&gt;1. 하체 및 주행 성능 (기본 탑재 사양)&lt;a class=&#34;anchor&#34; href=&#34;#1-%ed%95%98%ec%b2%b4-%eb%b0%8f-%ec%a3%bc%ed%96%89-%ec%84%b1%eb%8a%a5-%ea%b8%b0%eb%b3%b8-%ed%83%91%ec%9e%ac-%ec%82%ac%ec%96%91&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;PASM 스포츠 서스펜션: 스포츠모드 시 차고가 노멀 대비 20mm 더 낮아집니다. (S는 기본이 10mm이며, 20mm는 옵션) 훨씬 단단하고 날렵한 거동을 보여줍니다.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>포르쉐 718 GTS 4.0은 정말로 911을 위협하는 하극상 모델일까?</title>
-				<link>https://soometro.kr/docs/718-boxster/718vs911/718vs911/</link>
-				<pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-				<guid>https://soometro.kr/docs/718-boxster/718vs911/718vs911/</guid>
+				<link>http://localhost:1313/docs/718-boxster/718vs911/718vs911/</link>
+				<pubDate>Fri, 19 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/docs/718-boxster/718vs911/718vs911/</guid>
 				<description>&lt;h1 id=&#34;포르쉐-718-gts-40은-정말로-911을-위협하는-하극상-모델일까&#34;&gt;포르쉐 718 GTS 4.0은 정말로 911을 위협하는 하극상 모델일까?&lt;a class=&#34;anchor&#34; href=&#34;#%ed%8f%ac%eb%a5%b4%ec%89%90-718-gts-40%ec%9d%80-%ec%a0%95%eb%a7%90%eb%a1%9c-911%ec%9d%84-%ec%9c%84%ed%98%91%ed%95%98%eb%8a%94-%ed%95%98%ea%b7%b9%ec%83%81-%eb%aa%a8%eb%8d%b8%ec%9d%bc%ea%b9%8c&#34;&gt;&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;포르쉐 718 GTS 4.0과 911의 제원을 비교하고 엔진 아키텍처의 기술적 차이와 구조적 내구성 및 하극상 논란의 실체를 공학적 관점에서 철저하게 분석한다.&lt;/p&gt;&#xA;&lt;p&gt;많은 자동차 마니아들은 미드십 구조를 채택한 718 GTS 4.0이 포르쉐의 플래그십인 911의 영역을 침범했다고 주장하곤 한다.&lt;br&gt;&#xA;실제로 출력을 비교해 보면 하위 라인업이 상위 라인업을 역전하는 기현상이 관찰되기도 한다.&lt;/p&gt;&#xA;&lt;p&gt;하지만 포르쉐는 브랜드 서열을 지키기 위해 눈에 보이지 않는 물리적 족쇄와 디튠을 영리하게 활용했다.  이 글에서는 두 모델의 제원표 이면에 숨겨진 공학적 배경과 실제 엔진 부품의 차이점을 상세히 살펴본다.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>로드스터 vs GT 뭐가 더 나은 선택지?</title>
-				<link>https://soometro.kr/docs/718-boxster/718-2/718-2/</link>
-				<pubDate>Thu, 18 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://soometro.kr/docs/718-boxster/718-2/718-2/</guid>
-				<description>&lt;h1 id=&#34;로드스터-vs-gt-뭐가-더-나은-선택지&#34;&gt;로드스터 vs GT 뭐가 더 나은 선택지?&lt;a class=&#34;anchor&#34; href=&#34;#%eb%a1%9c%eb%93%9c%ec%8a%a4%ed%84%b0-vs-gt-%eb%ad%90%ea%b0%80-%eb%8d%94-%eb%82%98%ec%9d%80-%ec%84%a0%ed%83%9d%ec%a7%80&#34;&gt;&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;img src=&#34;https://soometro.kr/docs/718-boxster/718-2/images/image1.jpeg&#34; alt=&#34;포르쉐 718 GTS4.0&#34;  /&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;로드스터와 GT는 모두 운전의 즐거움을 추구하는 자동차지만, 만들어진 목적은 분명하게 다르다. 많은 사람들이 오픈카면 모두 로드스터라고 생각하거나, 빠른 차는 모두 GT라고 생각하지만 실제 자동차 업계에서 두 용어는 서로 다른 철학을 의미한다. 특히 포르쉐 718 박스터 GTS 4.0처럼 두 성격이 일부 겹치는 모델은 더욱 헷갈리기 쉽다. 이 글에서는 로드스터와 GT의 차이, 각각의 특징, 그리고 718 박스터 GTS 4.0이 어떤 성격의 자동차인지 차근차근 알아본다.&lt;/p&gt;</description>
+				<link>http://localhost:1313/docs/718-boxster/718-2/718-2/</link>
+				<pubDate>Mon, 08 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/docs/718-boxster/718-2/718-2/</guid>
+				<description>&lt;h1 id=&#34;로드스터-vs-gt-뭐가-더-나은-선택지&#34;&gt;로드스터 vs GT 뭐가 더 나은 선택지?&lt;a class=&#34;anchor&#34; href=&#34;#%eb%a1%9c%eb%93%9c%ec%8a%a4%ed%84%b0-vs-gt-%eb%ad%90%ea%b0%80-%eb%8d%94-%eb%82%98%ec%9d%80-%ec%84%a0%ed%83%9d%ec%a7%80&#34;&gt;&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/docs/718-boxster/718-2/images/image1.jpeg&#34; alt=&#34;포르쉐 718 GTS4.0&#34;  /&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;로드스터와 GT는 모두 운전의 즐거움을 추구하는 자동차지만, 만들어진 목적은 분명하게 다르다. 많은 사람들이 오픈카면 모두 로드스터라고 생각하거나, 빠른 차는 모두 GT라고 생각하지만 실제 자동차 업계에서 두 용어는 서로 다른 철학을 의미한다. 특히 포르쉐 718 박스터 GTS 4.0처럼 두 성격이 일부 겹치는 모델은 더욱 헷갈리기 쉽다. 이 글에서는 로드스터와 GT의 차이, 각각의 특징, 그리고 718 박스터 GTS 4.0이 어떤 성격의 자동차인지 차근차근 알아본다.&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>

@@ -1,6 +1,6 @@
 ---
 title: "당신이 만약 글을 쓰고 싶다면? 이 글을 읽고 시작해보라."
-date: 2026-06-12
+date: 2026-06-01
 lastmod: 2026-06-25
 bookHidden: true
 weight: 1
