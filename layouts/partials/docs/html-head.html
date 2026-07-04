@@ -7,9 +7,16 @@ https://github.com/alex-shpak/hugo-book
   {{- $featured = replaceRE `!\[.*?\]\((.*?)\)` "$1" (index . 0) -}}
 {{- end -}}
 {{- if $featured -}}
-  {{ $featured = absURL $featured -}}
+  {{- if findRE `^https?://` $featured -}}
+    {{/* 이미 외부 절대경로인 경우 그대로 유지 */}}
+  {{- else if $.File -}}
+    {{/* 마크다운 파일이 위치한 디렉토리 경로와 파일명을 조합하여 절대 URL 생성 */}}
+    {{- $featured = printf "%s%s" $.File.Dir (strings.TrimPrefix "./" $featured) | absURL -}}
+  {{- else -}}
+    {{- $featured = absURL $featured -}}
+  {{- end -}}
 {{- else -}}
-  {{ $featured = absURL "images/og-default.png" }}
+  {{- $featured = absURL "images/og-default.png" -}}
 {{- end }}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
