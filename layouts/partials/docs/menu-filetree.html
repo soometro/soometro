@@ -29,7 +29,7 @@
       <a {{ if .Page.Content }}href="{{ .Page.RelPermalink }}"{{ else }}role="button"{{ end }} class="{{ if $current }}active{{ end }}" style="display: block; width: 100%; overflow: hidden;">
         {{ template "book-icon-title" .Page -}}
         {{ if .Page.IsSection }}
-          <span style="display: inline-block; float: right; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.8rem !important; color: #666 !important; font-weight: bold !important; font-style: normal !important; margin-right: 0.6rem;">{{ len .Page.RegularPages }}</span>
+          <span class="book-menu-post-count">{{ len .Page.RegularPages }}</span>
         {{ end }}
       </a>
       <img src="{{ partial "docs/icon" "chevron-right" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Expand" }}" />
@@ -38,21 +38,21 @@
     <a href="{{ .Page.Params.BookHref }}" class="{{ if $current }}active{{ end }}" target="_blank" rel="noopener" style="display: block; width: 100%; overflow: hidden;">
       {{ template "book-icon-title" .Page -}}
       {{ if .Page.IsSection }}
-        <span style="display: inline-block; float: right; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.8rem !important; color: #666 !important; font-weight: bold !important; font-style: normal !important; margin-right: 0.6rem;">{{ len .Page.RegularPages }}</span>
+        <span class="book-menu-post-count">{{ len .Page.RegularPages }}</span>
       {{ end }}
     </a>
   {{ else if .Page.Content }}
     <a href="{{ .Page.RelPermalink }}" class="{{ if $current }}active{{ end }}" style="display: block; width: 100%; overflow: hidden;">
       {{ template "book-icon-title" .Page -}}
       {{ if .Page.IsSection }}
-        <span style="display: inline-block; float: right; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.8rem !important; color: #666 !important; font-weight: bold !important; font-style: normal !important; margin-right: 0.6rem;">{{ len .Page.RegularPages }}</span>
+        <span class="book-menu-post-count">{{ len .Page.RegularPages }}</span>
       {{ end }}
     </a>
   {{ else }}
     <a style="display: block; width: 100%; overflow: hidden;">
       {{ template "book-icon-title" .Page -}}
       {{ if .Page.IsSection }}
-        <span style="display: inline-block; float: right; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.8rem !important; color: #666 !important; font-weight: bold !important; font-style: normal !important; margin-right: 0.6rem;">{{ len .Page.RegularPages }}</span>
+        <span class="book-menu-post-count">{{ len .Page.RegularPages }}</span>
       {{ end }}
     </a>
   {{ end }}
