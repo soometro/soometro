@@ -438,7 +438,7 @@ AI가 결과 중심 정보 처리를 담당하는 시대일수록, 인간은 “
 *지속적 집중력을 회복하고 삶의 속도를 늦추는 만화 독서 이야기입니다.*
 
 * **1부:** [팝콘브레인 시대, 현대인이 만화를 읽어야 하는 이유 (만화인문학 ①)](https://soometro.kr/docs/manga/series01/series01/)
-* **2부:** [미니멀리즘 취미 추천, 삶의 속도를 늦추는 만화 독서 (만화인문학 ②)](https://soometro.kr/docs/manga/series01/series02/)
-* **3부:** [종이책부터 아이패드까지, 완벽한 만화 감상 환경 구축법 (만화인문학 ③)](https://soometro.kr/docs/manga/series01/series03/)
+* **2부:** [미니멀리즘 취미 추천, 삶의 속도를 늦추는 만화 독서 (만화인문학 ②)](https://soometro.kr/docs/manga/series02/series02/)
+* **3부:** [종이책부터 아이패드까지, 완벽한 만화 감상 환경 구축법 (만화인문학 ③)](https://soometro.kr/docs/manga/series03/series03/)
 
 ---
