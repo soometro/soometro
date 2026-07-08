@@ -61,10 +61,8 @@ https://github.com/alex-shpak/hugo-book
         
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
-
         
         const isAdmin = localStorage.getItem('my_admin') === 'true';
-
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
@@ -74,7 +72,6 @@ https://github.com/alex-shpak/hugo-book
         if (!localStorage.getItem('user_hash')) {
             localStorage.setItem('user_hash', ipHash);
         }
-
         
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
@@ -85,7 +82,7 @@ https://github.com/alex-shpak/hugo-book
             },
             body: JSON.stringify({
                 page_url: pageUrl,
-                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash 
+                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash
             })
         })
         .then(res => res.json())
@@ -99,7 +96,6 @@ https://github.com/alex-shpak/hugo-book
                 if (todayEl) todayEl.innerText = (result.today_count || 0).toLocaleString();
                 if (monthlyEl) monthlyEl.innerText = (result.monthly_count || 0).toLocaleString();
                 if (totalEl) totalEl.innerText = (result.total_count || 0).toLocaleString();
-
                 window.currentPageHit = result.page_hit || 0;
             }
         })
@@ -108,7 +104,6 @@ https://github.com/alex-shpak/hugo-book
 </script>
 
 <script>
-    
     (function() {
         const savedTheme = localStorage.getItem('forced_theme');
         const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -124,6 +119,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
   
 
 
@@ -131,7 +127,6 @@ https://github.com/alex-shpak/hugo-book
 {
   "@context": "https://schema.org",
   "@graph": [
-
     {
       "@type": "Article",
       "@id": "https:\/\/soometro.kr\/docs\/media\/#article",
@@ -139,21 +134,34 @@ https://github.com/alex-shpak/hugo-book
       "description": "Media 미디어 이 공간에는 영화, 드라마, 소설 등의 작품에 관련된 감상, 개인 상상 등을 편하게 담아봅니다. ",
       "image": "https://soometro.kr/images/og-default.png",
       "url": "https://soometro.kr/docs/media/",
+      "mainEntityOfPage": {
+        "@id": "https:\/\/soometro.kr\/docs\/media\/#webpage"
+      },
       "datePublished": "0001-01-01T00:00:00\u002b00:00",
       "dateModified": "2026-07-04T13:19:19\u002b09:00",
       "inLanguage": "ko-KR",
       "articleSection": "docs",
       "wordCount":  16 ,
-
       "author": {
         "@id": "https:\/\/soometro.kr\/#person"
       },
-
       "publisher": {
         "@id": "https:\/\/soometro.kr\/#organization"
       }
     },
-
+    {
+      "@type": "WebPage",
+      "@id": "https:\/\/soometro.kr\/docs\/media\/#webpage",
+      "url": "https://soometro.kr/docs/media/",
+      "name": "Media",
+      "inLanguage": "ko-KR",
+      "isPartOf": {
+        "@id": "https:\/\/soometro.kr\/#website"
+      },
+      "mainEntity": {
+        "@id": "https:\/\/soometro.kr\/docs\/media\/#article"
+      }
+    },
     {
       "@type": "Person",
       "@id": "https:\/\/soometro.kr\/#person",
@@ -180,7 +188,6 @@ https://github.com/alex-shpak/hugo-book
         "@id": "https:\/\/soometro.kr\/#organization"
       }
     },
-
     {
       "@type": "Organization",
       "@id": "https:\/\/soometro.kr\/#organization",
@@ -191,7 +198,6 @@ https://github.com/alex-shpak/hugo-book
         "url": "https://soometro.kr/logo.webp"
       }
     },
-
     {
       "@type": "BreadcrumbList",
       "@id": "https:\/\/soometro.kr\/docs\/media\/#breadcrumb",
@@ -216,7 +222,6 @@ https://github.com/alex-shpak/hugo-book
         }
       ]
     }
-
   ]
 }
 </script>
@@ -704,7 +709,7 @@ https://github.com/alex-shpak/hugo-book
               
               
               <span style="font-size: 0.9rem; color: inherit; opacity: 0.9; margin-left: 0.8rem; white-space: nowrap; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;">
-                2026-07-07 
+                2026-07-01 
               </span>
             </li>
           

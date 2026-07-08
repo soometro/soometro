@@ -63,10 +63,8 @@ https://github.com/alex-shpak/hugo-book
         
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
-
         
         const isAdmin = localStorage.getItem('my_admin') === 'true';
-
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
@@ -76,7 +74,6 @@ https://github.com/alex-shpak/hugo-book
         if (!localStorage.getItem('user_hash')) {
             localStorage.setItem('user_hash', ipHash);
         }
-
         
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
@@ -87,7 +84,7 @@ https://github.com/alex-shpak/hugo-book
             },
             body: JSON.stringify({
                 page_url: pageUrl,
-                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash 
+                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash
             })
         })
         .then(res => res.json())
@@ -101,7 +98,6 @@ https://github.com/alex-shpak/hugo-book
                 if (todayEl) todayEl.innerText = (result.today_count || 0).toLocaleString();
                 if (monthlyEl) monthlyEl.innerText = (result.monthly_count || 0).toLocaleString();
                 if (totalEl) totalEl.innerText = (result.total_count || 0).toLocaleString();
-
                 window.currentPageHit = result.page_hit || 0;
             }
         })
@@ -110,7 +106,6 @@ https://github.com/alex-shpak/hugo-book
 </script>
 
 <script>
-    
     (function() {
         const savedTheme = localStorage.getItem('forced_theme');
         const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -126,9 +121,9 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
   
   
-    
     
   
 
@@ -137,7 +132,6 @@ https://github.com/alex-shpak/hugo-book
 {
   "@context": "https://schema.org",
   "@graph": [
-
     {
       "@type": "Article",
       "@id": "https:\/\/soometro.kr\/docs\/manga\/kaiju8\/kaiju8\/#article",
@@ -145,21 +139,34 @@ https://github.com/alex-shpak/hugo-book
       "description": "괴수 8호에서 히비노 카프카 몸속으로 들어간 소형 괴수의 정체와 메이레키 대괴수와의 관계, &#39;찾았다&#39;의 의미, 최종 결전까지 공식 설정을 중심으로 정리했다.",
       "image": "https://soometro.kr/docs%5Cmanga%5CKaiju8%5Cimages/Kaiju8.jpg",
       "url": "https://soometro.kr/docs/manga/kaiju8/kaiju8/",
+      "mainEntityOfPage": {
+        "@id": "https:\/\/soometro.kr\/docs\/manga\/kaiju8\/kaiju8\/#webpage"
+      },
       "datePublished": "2026-06-15T00:00:00\u002b00:00",
       "dateModified": "2026-07-03T00:00:00\u002b00:00",
       "inLanguage": "ko-KR",
       "articleSection": "docs",
       "wordCount":  726 ,
-
       "author": {
         "@id": "https:\/\/soometro.kr\/#person"
       },
-
       "publisher": {
         "@id": "https:\/\/soometro.kr\/#organization"
       }
     },
-
+    {
+      "@type": "WebPage",
+      "@id": "https:\/\/soometro.kr\/docs\/manga\/kaiju8\/kaiju8\/#webpage",
+      "url": "https://soometro.kr/docs/manga/kaiju8/kaiju8/",
+      "name": "괴수 8호 정체는 무엇일까? 카프카를 선택한 소형 괴수의 비밀",
+      "inLanguage": "ko-KR",
+      "isPartOf": {
+        "@id": "https:\/\/soometro.kr\/#website"
+      },
+      "mainEntity": {
+        "@id": "https:\/\/soometro.kr\/docs\/manga\/kaiju8\/kaiju8\/#article"
+      }
+    },
     {
       "@type": "Person",
       "@id": "https:\/\/soometro.kr\/#person",
@@ -186,7 +193,6 @@ https://github.com/alex-shpak/hugo-book
         "@id": "https:\/\/soometro.kr\/#organization"
       }
     },
-
     {
       "@type": "Organization",
       "@id": "https:\/\/soometro.kr\/#organization",
@@ -197,7 +203,6 @@ https://github.com/alex-shpak/hugo-book
         "url": "https://soometro.kr/logo.webp"
       }
     },
-
     {
       "@type": "BreadcrumbList",
       "@id": "https:\/\/soometro.kr\/docs\/manga\/kaiju8\/kaiju8\/#breadcrumb",
@@ -222,7 +227,6 @@ https://github.com/alex-shpak/hugo-book
         }
       ]
     }
-
   ]
 }
 </script>

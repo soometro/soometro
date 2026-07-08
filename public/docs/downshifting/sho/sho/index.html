@@ -63,10 +63,8 @@ https://github.com/alex-shpak/hugo-book
         
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
-
         
         const isAdmin = localStorage.getItem('my_admin') === 'true';
-
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
@@ -76,7 +74,6 @@ https://github.com/alex-shpak/hugo-book
         if (!localStorage.getItem('user_hash')) {
             localStorage.setItem('user_hash', ipHash);
         }
-
         
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
@@ -87,7 +84,7 @@ https://github.com/alex-shpak/hugo-book
             },
             body: JSON.stringify({
                 page_url: pageUrl,
-                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash 
+                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash
             })
         })
         .then(res => res.json())
@@ -101,7 +98,6 @@ https://github.com/alex-shpak/hugo-book
                 if (todayEl) todayEl.innerText = (result.today_count || 0).toLocaleString();
                 if (monthlyEl) monthlyEl.innerText = (result.monthly_count || 0).toLocaleString();
                 if (totalEl) totalEl.innerText = (result.total_count || 0).toLocaleString();
-
                 window.currentPageHit = result.page_hit || 0;
             }
         })
@@ -110,7 +106,6 @@ https://github.com/alex-shpak/hugo-book
 </script>
 
 <script>
-    
     (function() {
         const savedTheme = localStorage.getItem('forced_theme');
         const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -126,9 +121,9 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
   
   
-    
     
   
 
@@ -137,7 +132,6 @@ https://github.com/alex-shpak/hugo-book
 {
   "@context": "https://schema.org",
   "@graph": [
-
     {
       "@type": "Article",
       "@id": "https:\/\/soometro.kr\/docs\/downshifting\/sho\/sho\/#article",
@@ -145,21 +139,34 @@ https://github.com/alex-shpak/hugo-book
       "description": "현대인들이 쇼츠, 릴스 중독에 대해 알아보자. 1. 스마트폰이 주는 건강학적 피해 스마트폰이 있기 전, 조금 더 디테일하게 인터넷이 없던 시절에는 밤이 되면 할 게 없어서 찾아오는 “적당한 지루함&#34;이 방 안에 가득했습니다. 그 지루함을 달래기 위해 인간은 능동적으로 라 …",
       "image": "https://soometro.kr/docs%5Cdownshifting%5Csho%5Cimages/image1.jpg",
       "url": "https://soometro.kr/docs/downshifting/sho/sho/",
+      "mainEntityOfPage": {
+        "@id": "https:\/\/soometro.kr\/docs\/downshifting\/sho\/sho\/#webpage"
+      },
       "datePublished": "2026-06-18T00:00:00\u002b00:00",
       "dateModified": "2026-06-30T19:42:01\u002b09:00",
       "inLanguage": "ko-KR",
       "articleSection": "docs",
       "wordCount":  536 ,
-
       "author": {
         "@id": "https:\/\/soometro.kr\/#person"
       },
-
       "publisher": {
         "@id": "https:\/\/soometro.kr\/#organization"
       }
     },
-
+    {
+      "@type": "WebPage",
+      "@id": "https:\/\/soometro.kr\/docs\/downshifting\/sho\/sho\/#webpage",
+      "url": "https://soometro.kr/docs/downshifting/sho/sho/",
+      "name": "현대인들이 쇼츠, 릴스 중독에 대해 알아보자.",
+      "inLanguage": "ko-KR",
+      "isPartOf": {
+        "@id": "https:\/\/soometro.kr\/#website"
+      },
+      "mainEntity": {
+        "@id": "https:\/\/soometro.kr\/docs\/downshifting\/sho\/sho\/#article"
+      }
+    },
     {
       "@type": "Person",
       "@id": "https:\/\/soometro.kr\/#person",
@@ -186,7 +193,6 @@ https://github.com/alex-shpak/hugo-book
         "@id": "https:\/\/soometro.kr\/#organization"
       }
     },
-
     {
       "@type": "Organization",
       "@id": "https:\/\/soometro.kr\/#organization",
@@ -197,7 +203,6 @@ https://github.com/alex-shpak/hugo-book
         "url": "https://soometro.kr/logo.webp"
       }
     },
-
     {
       "@type": "BreadcrumbList",
       "@id": "https:\/\/soometro.kr\/docs\/downshifting\/sho\/sho\/#breadcrumb",
@@ -222,7 +227,6 @@ https://github.com/alex-shpak/hugo-book
         }
       ]
     }
-
   ]
 }
 </script>

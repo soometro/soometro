@@ -61,10 +61,8 @@ https://github.com/alex-shpak/hugo-book
         
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
-
         
         const isAdmin = localStorage.getItem('my_admin') === 'true';
-
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
@@ -74,7 +72,6 @@ https://github.com/alex-shpak/hugo-book
         if (!localStorage.getItem('user_hash')) {
             localStorage.setItem('user_hash', ipHash);
         }
-
         
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
@@ -85,7 +82,7 @@ https://github.com/alex-shpak/hugo-book
             },
             body: JSON.stringify({
                 page_url: pageUrl,
-                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash 
+                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash
             })
         })
         .then(res => res.json())
@@ -99,7 +96,6 @@ https://github.com/alex-shpak/hugo-book
                 if (todayEl) todayEl.innerText = (result.today_count || 0).toLocaleString();
                 if (monthlyEl) monthlyEl.innerText = (result.monthly_count || 0).toLocaleString();
                 if (totalEl) totalEl.innerText = (result.total_count || 0).toLocaleString();
-
                 window.currentPageHit = result.page_hit || 0;
             }
         })
@@ -108,7 +104,6 @@ https://github.com/alex-shpak/hugo-book
 </script>
 
 <script>
-    
     (function() {
         const savedTheme = localStorage.getItem('forced_theme');
         const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -124,6 +119,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
   
 
 
@@ -131,7 +127,6 @@ https://github.com/alex-shpak/hugo-book
 {
   "@context": "https://schema.org",
   "@graph": [
-
     {
       "@type": "Article",
       "@id": "https:\/\/soometro.kr\/docs\/manga\/#article",
@@ -139,21 +134,34 @@ https://github.com/alex-shpak/hugo-book
       "description": "Manga 책장을 넘기는 찰나의 침묵과 기대감은 오직 만화책만이 줄 수 있다. 현대 사회에서 가장 결핍되어 가는 ‘시각적 문해력(Visual Literacy)‘의 정점 ",
       "image": "https://soometro.kr/images/og-default.png",
       "url": "https://soometro.kr/docs/manga/",
+      "mainEntityOfPage": {
+        "@id": "https:\/\/soometro.kr\/docs\/manga\/#webpage"
+      },
       "datePublished": "0001-01-01T00:00:00\u002b00:00",
       "dateModified": "2026-07-04T13:24:15\u002b09:00",
       "inLanguage": "ko-KR",
       "articleSection": "docs",
       "wordCount":  20 ,
-
       "author": {
         "@id": "https:\/\/soometro.kr\/#person"
       },
-
       "publisher": {
         "@id": "https:\/\/soometro.kr\/#organization"
       }
     },
-
+    {
+      "@type": "WebPage",
+      "@id": "https:\/\/soometro.kr\/docs\/manga\/#webpage",
+      "url": "https://soometro.kr/docs/manga/",
+      "name": "Manga",
+      "inLanguage": "ko-KR",
+      "isPartOf": {
+        "@id": "https:\/\/soometro.kr\/#website"
+      },
+      "mainEntity": {
+        "@id": "https:\/\/soometro.kr\/docs\/manga\/#article"
+      }
+    },
     {
       "@type": "Person",
       "@id": "https:\/\/soometro.kr\/#person",
@@ -180,7 +188,6 @@ https://github.com/alex-shpak/hugo-book
         "@id": "https:\/\/soometro.kr\/#organization"
       }
     },
-
     {
       "@type": "Organization",
       "@id": "https:\/\/soometro.kr\/#organization",
@@ -191,7 +198,6 @@ https://github.com/alex-shpak/hugo-book
         "url": "https://soometro.kr/logo.webp"
       }
     },
-
     {
       "@type": "BreadcrumbList",
       "@id": "https:\/\/soometro.kr\/docs\/manga\/#breadcrumb",
@@ -216,7 +222,6 @@ https://github.com/alex-shpak/hugo-book
         }
       ]
     }
-
   ]
 }
 </script>
