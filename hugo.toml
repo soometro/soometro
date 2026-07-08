@@ -1,14 +1,14 @@
 # 1. 사이트 기본 정보 설정
 baseURL = "https://soometro.kr/" 
 defaultContentLanguage = "ko"
+languageCode = "ko-KR"          # (★ 추가) 시스템 내장 템플릿 언어 지정
 locale = "ko-KR"                # languageCode 대신 locale 사용 (최신 규격)
 title = "soometro"
 theme = "hugo-book"
 
 # 2. 고유 주소(Permalinks) 깔끔하게 정리..
 [permalinks]
-  posts = "/:section/:title/"
-  page = "/:section/:title/"
+  docs = "/:section/:title/"
 
 # 3. 마크다운 렌더러 설정 (HTML 및 div 태그 허용)
 [markup]
