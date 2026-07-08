@@ -1,7 +1,6 @@
 # 1. 사이트 기본 정보 설정
 baseURL = "https://soometro.kr/" 
 defaultContentLanguage = "ko"
-languageCode = "ko-KR"          # (★ 추가) 시스템 내장 템플릿 언어 지정
 locale = "ko-KR"                # languageCode 대신 locale 사용 (최신 규격)
 title = "soometro"
 theme = "hugo-book"
