@@ -62,7 +62,6 @@ https://github.com/alex-shpak/hugo-book
         
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
-        
         const isAdmin = localStorage.getItem('my_admin') === 'true';
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
@@ -73,7 +72,6 @@ https://github.com/alex-shpak/hugo-book
         if (!localStorage.getItem('user_hash')) {
             localStorage.setItem('user_hash', ipHash);
         }
-        
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
             headers: {
@@ -170,7 +168,7 @@ https://github.com/alex-shpak/hugo-book
       "@type": "Person",
       "@id": "https:\/\/soometro.kr\/#person",
       "name": "soometro",
-      "url": "https:\/\/soometro.kr\/",
+      "url": "https://soometro.kr/",
       "sameAs": [
         "https://www.wikidata.org/wiki/Q140453737",
         "https://github.com/soometro",
@@ -196,7 +194,7 @@ https://github.com/alex-shpak/hugo-book
       "@type": "Organization",
       "@id": "https:\/\/soometro.kr\/#organization",
       "name": "soometro archive",
-      "url": "https:\/\/soometro.kr\/",
+      "url": "https://soometro.kr/",
       "logo": {
         "@type": "ImageObject",
         "url": "https://soometro.kr/logo.webp"
