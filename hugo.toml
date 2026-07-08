@@ -7,7 +7,7 @@ theme = "hugo-book"
 
 # 2. 고유 주소(Permalinks) 깔끔하게 정리..
 [permalinks]
-  docs = "/:section/:path/"   # (★ :title에서 :path로 수정)
+ # docs = "/:section/:path/"   # (★ :title에서 :path로 수정)
 
 # 3. 마크다운 렌더러 설정 (HTML 및 div 태그 허용)
 [markup]
