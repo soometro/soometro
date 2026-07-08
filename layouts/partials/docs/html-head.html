@@ -18,6 +18,7 @@ https://github.com/alex-shpak/hugo-book
 {{- else -}}
   {{- $featured = absURL "images/og-default.png" -}}
 {{- end }}
+{{- $description := (or .Description .Summary) | plainify | htmlUnescape | replaceRE `[\r\n\t\f]+` " " | replaceRE `\s+` " " | truncate 150 -}}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
@@ -29,7 +30,7 @@ https://github.com/alex-shpak/hugo-book
 <title>{{ partial "docs/html-head-title" . }}</title>
 <!-- ★ [GROUP A] 표준 메타 태그 (name 속성 그룹) ★ -->
 <meta name="naver-site-verification" content="84a9fd61366f559b8187e5863f8a16b70fedafee" />
-<meta name="description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
+<meta name="description" content="{{ $description }}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="soometro">
 <meta name="creator" content="soometro">
@@ -37,7 +38,7 @@ https://github.com/alex-shpak/hugo-book
 <!-- 트위터 카드 (name 속성을 사용하므로 표준 메타 하단에 배치) -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ .Title }}">
-<meta name="twitter:description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
+<meta name="twitter:description" content="{{ $description }}">
 <meta name="twitter:image" content="{{ $featured }}">
 <meta name="twitter:image:alt" content="{{ .Title }}">
 <!-- ★ [GROUP B] 소셜 공유 태그 (property 속성 그룹) ★ -->
@@ -46,7 +47,7 @@ https://github.com/alex-shpak/hugo-book
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" content="{{ .Title }}">
-<meta property="og:description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\\r\\n]+" " " | truncate 150 }}">
+<meta property="og:description" content="{{ $description }}">
 <meta property="og:image" content="{{ $featured }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -67,7 +68,7 @@ https://github.com/alex-shpak/hugo-book
 {{- end }}
 <!-- Schema Microdata 수동 제어 (줄바꿈 제거 및 150자 제한) -->
 <meta itemprop="name" content="{{ .Title }}">
-<meta itemprop="description" content="{{ or .Description .Summary | plainify | htmlUnescape | replaceRE "[\r\n]+" " " | truncate 150 }}">
+<meta itemprop="description" content="{{ $description }}">
 <meta itemprop="image" content="{{ $featured }}">
 <meta itemprop="datePublished" content="{{ if .PublishDate }}{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}{{ end }}">
 <meta itemprop="dateModified" content="{{ if .Lastmod }}{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}{{ end }}">
