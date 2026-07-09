@@ -3,8 +3,11 @@ Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 {{ "-->" | safeHTML -}}
 {{- $featured := "" -}}
+{{- $featured_alt := "" -}}
 {{- with findRE `!\[.*?\]\((.*?)\)` .RawContent 1 -}}
-  {{- $featured = replaceRE `!\[.*?\]\((.*?)\)` "$1" (index . 0) -}}
+  {{- $match := index . 0 -}}
+  {{- $featured = replaceRE `!\[(.*?)\]\((.*?)\)` "$2" $match -}}
+  {{- $featured_alt = replaceRE `!\[(.*?)\]\((.*?)\)` "$1" $match | plainify -}}
 {{- end -}}
 {{- if $featured -}}
   {{- if findRE `^https?://` $featured -}}
@@ -12,11 +15,10 @@ https://github.com/alex-shpak/hugo-book
   {{- else if $.File -}}
     {{/* 마크다운 파일이 위치한 디렉토리 경로와 파일명을 조합하여 절대 URL 생성 */}}
     {{- $featured = printf "%s%s" $.File.Dir (strings.TrimPrefix "./" $featured) | absURL -}}
-  {{- else -}}
-    {{- $featured = absURL $featured -}}
   {{- end -}}
 {{- else -}}
   {{- $featured = absURL "images/og-default.png" -}}
+  {{- $featured_alt = printf "%s 대표 이미지" .Site.Title -}}
 {{- end }}
 {{- $description := (or .Description .Summary) | plainify | htmlUnescape | replaceRE `[\r\n\t\f]+` " " | replaceRE `\s+` " " | truncate 150 -}}
 <meta charset="UTF-8">
