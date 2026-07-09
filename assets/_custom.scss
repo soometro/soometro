@@ -92,13 +92,13 @@ html.forced-dark body {
   }
 }
 
-/* 3-5) 다크 모드 본문 및 제목 눈부심 방지 (적용 확인용 강제 톤 다운) */
+/* 3-5) 다크 모드 본문 및 제목 눈부심 방지 (소프트 화이트 적용) */
 html.forced-dark, 
 body.forced-dark, 
 html[data-theme="dark"],
 .book-dark {
-    --body-font-color: #8a8a8a !important; /* 본문: 확실히 어두운 쥐색 */
-    --heading-color: #a0a0a0 !important;   /* 제목: 톤 다운된 회색 */
+    --body-font-color: #e0e0e0 !important; /* 본문: 눈이 편안한 밝은 회색 (명도 대비 최적화) */
+    --heading-color: #f0f0f0 !important;   /* 제목: 본문보다 가독성을 높인 약간 더 밝은 회색 */
 }
 
 /* 3-5-1) 변수가 먹지 않는 일반 마크다운 본문 텍스트 색상 강제 보정 */
@@ -107,7 +107,8 @@ html.forced-dark .markdown,
 html.forced-dark p,
 html.forced-dark li,
 html[data-theme="dark"] .markdown p {
-    color: #8a8a8a !important;
+    color: #e0e0e0 !important;
+}
 }
 
 /* ==========================================================================
