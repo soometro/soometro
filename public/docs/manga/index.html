@@ -117,10 +117,6 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  
-
-
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -130,7 +126,11 @@ https://github.com/alex-shpak/hugo-book
       "@id": "https://soometro.kr/docs/manga/#article",
       "headline": "Manga",
       "description": "Manga\r책장을 넘기는 찰나의 침묵과 기대감은 오직 만화책만이 줄 수 있다.\n현대 사회에서 가장 결핍되어 가는 &lsquo;시각적 문해력(Visual Literacy)&lsquo;의 정점\n",
-      "image": "https://soometro.kr/images/og-default.png",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://soometro.kr/images/og-default.png",
+        "caption": "soometro 대표 이미지"
+      },
       "url": "https://soometro.kr/docs/manga/",
       "mainEntityOfPage": {
         "@id": "https://soometro.kr/docs/manga/#webpage"

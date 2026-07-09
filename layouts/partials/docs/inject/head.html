@@ -61,21 +61,24 @@
 </script>
 
 {{/* ====================== SEO IMAGE ====================== */}}
-{{ $featured := "" }}
-{{ with findRE `!\[.*?\]\((.*?)\)` .RawContent 1 }}
-  {{ $featured = replaceRE `!\[.*?\]\((.*?)\)` "$1" (index . 0) }}
+{{- $featured := "" -}}
+{{- $featured_alt := "" -}}
+{{- with findRE `!\[.*?\]\((.*?)\)` .RawContent 1 -}}
+  {{- $match := index . 0 -}}
+  {{- $featured = replaceRE `!\[(.*?)\]\((.*?)\)` "$2" $match -}}
+  {{- $featured_alt = replaceRE `!\[(.*?)\]\((.*?)\)` "$1" $match | plainify -}}
 {{- end -}}
-{{ if $featured }}
-  {{ if findRE `^https?://` $featured }}
+{{- if $featured -}}
+  {{- if findRE `^https?://` $featured -}}
     {{/* 이미 외부 절대경로인 경우 그대로 유지 */}}
-  {{ else if $.File }}
-    {{ $featured = printf "%s%s" $.File.Dir (strings.TrimPrefix "./" $featured) | absURL }}
-  {{ else }}
-    {{ $featured = absURL $featured }}
-  {{ end }}
-{{ else }}
-  {{ $featured = absURL "images/og-default.png" }}
-{{ end }}
+  {{- else if $.File -}}
+    {{/* 마크다운 파일이 위치한 디렉토리 경로와 파일명을 조합하여 절대 URL 생성 */}}
+    {{- $featured = printf "%s%s" $.File.Dir (strings.TrimPrefix "./" $featured) | absURL -}}
+  {{- end -}}
+{{- else -}}
+  {{- $featured = absURL "images/og-default.png" -}}
+  {{- $featured_alt = printf "%s 대표 이미지" .Site.Title -}}
+{{- end }}
 
 {{ if or (eq .Kind "page") (eq .Section "docs") }}
 <script type="application/ld+json">
@@ -87,7 +90,11 @@
       "@id": {{ printf "%s#article" .Permalink | jsonify (dict "noHTMLEscape" true) | safeJS }},
       "headline": {{ .Title | plainify | jsonify (dict "noHTMLEscape" true) | safeJS }},
       "description": {{ (or .Description .Summary) | plainify | jsonify (dict "noHTMLEscape" true) | safeJS }},
-      "image": {{ $featured | jsonify (dict "noHTMLEscape" true) | safeJS }},
+      "image": {
+        "@type": "ImageObject",
+        "url": {{ $featured | jsonify (dict "noHTMLEscape" true) | safeJS }},
+        "caption": {{ $featured_alt | jsonify (dict "noHTMLEscape" true) | safeJS }}
+      },
       "url": {{ .Permalink | jsonify (dict "noHTMLEscape" true) | safeJS }},
       "mainEntityOfPage": {
         "@id": {{ printf "%s#webpage" .Permalink | jsonify (dict "noHTMLEscape" true) | safeJS }}
