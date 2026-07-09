@@ -91,6 +91,17 @@ html.forced-dark body {
     filter: invert(1) !important;
   }
 }
+/* 3-5) 다크 모드 본문 및 제목 눈부심 방지 (소프트 화이트 적용) */
+html.forced-dark {
+    --body-font-color: #e0e0e0 !important; /* 본문: 눈이 편안한 밝은 회색 (명도 대비 최적화) */
+    --heading-color: #f0f0f0 !important;   /* 제목: 본문보다 가독성을 높인 약간 더 밝은 회색 */
+}
+
+/* 변수가 먹지 않는 일반 마크다운 본문 텍스트 색상 강제 보정 */
+html.forced-dark .markdown,
+html.forced-dark body {
+    color: #e0e0e0 !important;
+}
 
 /* ==========================================================================
    4. 로고 및 브랜드 최적화
