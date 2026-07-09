@@ -63,24 +63,54 @@
         {{ .Content }}
       </div>
 
-      <!-- 자동 연관 게시글 추천 (내부링크 SEO) -->
-      {{- $related := .Site.RegularPages.Related . | first 3 -}}
-      {{- if not $related -}}
-        {{- $related = where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink | first 3 -}}
-      {{- end -}}
-      {{- with $related -}}
+<!-- 자동 연관 게시글 추천 (내부링크 SEO, 새로고침마다 무작위 3개 - JS 처리) -->
+      {{- $candidates := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink -}}
+      {{- with $candidates -}}
       <div class="related-posts-container" style="margin-top: 2.5rem !important; padding-top: 1.5rem !important; border-top: 1px solid #e5e5e5 !important;">
         <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">이 글과 함께 읽으면 좋은 글</p>
-        <ul style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.6rem;">
-          {{- range . -}}
-          <li style="margin: 0 !important; padding: 0 !important;">
-            <a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">
-              • {{ .Title }}
-            </a>
-          </li>
-          {{- end -}}
+        <ul id="related-posts-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.6rem;">
+          <!-- JS가 이 안에 무작위 3개를 채워 넣습니다 -->
         </ul>
       </div>
+
+      <script id="related-posts-data" type="application/json">
+        [
+          {{- range $i, $p := . -}}
+            {{- if $i }},{{ end -}}
+            { "title": {{ $p.Title | jsonify }}, "url": {{ $p.RelPermalink | jsonify }} }
+          {{- end -}}
+        ]
+      </script>
+
+      <script>
+        (function() {
+          const dataEl = document.getElementById('related-posts-data');
+          const listEl = document.getElementById('related-posts-list');
+          if (!dataEl || !listEl) return;
+
+          let posts = [];
+          try {
+            posts = JSON.parse(dataEl.textContent);
+          } catch (e) {
+            console.error("Related posts JSON parse error:", e);
+            return;
+          }
+
+          // Fisher-Yates 셔플
+          for (let i = posts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [posts[i], posts[j]] = [posts[j], posts[i]];
+          }
+
+          const picked = posts.slice(0, 3);
+          listEl.innerHTML = picked.map(function(p) {
+            return '<li style="margin:0 !important; padding:0 !important;">' +
+                   '<a href="' + p.url + '" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">' +
+                   '• ' + p.title +
+                   '</a></li>';
+          }).join('');
+        })();
+      </script>
       {{- end -}}
 
 
