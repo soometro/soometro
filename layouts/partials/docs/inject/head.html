@@ -173,12 +173,18 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": {{ .Section | title | jsonify (dict "noHTMLEscape" true) | safeJS }},
-          "item": {{ printf "%s%s/" .Site.BaseURL .Section | jsonify (dict "noHTMLEscape" true) | safeJS }}
+          "name": "Docs",
+          "item": {{ printf "%sdocs/" .Site.BaseURL | jsonify (dict "noHTMLEscape" true) | safeJS }}
         },
         {
           "@type": "ListItem",
           "position": 3,
+          "name": {{ $dir := replace .File.Dir "\\" "/" }}{{ $parts := split (strings.TrimSuffix "/" $dir) "/" }}{{ if gt (len $parts) 1 }}{{ index $parts 1 | title | jsonify (dict "noHTMLEscape" true) | safeJS }}{{ else }}{{ .Section | title | jsonify (dict "noHTMLEscape" true) | safeJS }}{{ end }},
+          "item": {{ $dir := replace .File.Dir "\\" "/" }}{{ $parts := split (strings.TrimSuffix "/" $dir) "/" }}{{ if gt (len $parts) 1 }}{{ printf "%sdocs/%s/" .Site.BaseURL (index $parts 1) | jsonify (dict "noHTMLEscape" true) | safeJS }}{{ else }}{{ printf "%s%s/" .Site.BaseURL .Section | jsonify (dict "noHTMLEscape" true) | safeJS }}{{ end }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
           "name": {{ .Title | plainify | jsonify (dict "noHTMLEscape" true) | safeJS }},
           "item": {{ .Permalink | jsonify (dict "noHTMLEscape" true) | safeJS }}
         }
