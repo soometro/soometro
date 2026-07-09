@@ -46,42 +46,36 @@ draft = false
     letter-spacing: -0.01em !important;
     color: #1a1a1a !important;
   }
-  /* 🌙 [모바일 및 시스템 다크 모드 감지 시 자동 색상 반전 — 단, 사용자가 라이트를 직접 선택한 경우는 제외] */
-  @media (prefers-color-scheme: dark) {
-    html:not(.forced-dark) body {
-      background-color: #181a1b !important; /* 눈이 편안한 깊은 밤하늘색 */
-      background-image: none !important;     /* 다크 모드에서는 종이 질감 제거하여 가독성 확보 */
-      color: #dee2e6 !important;             /* 본문 기본 글자색을 연한 회백색으로 변경 */
-    }
-
-    html:not(.forced-dark) h1 {
-      color: #f8f9fa !important;             /* 메인 타이틀을 선명한 흰색 계열로 변경 */
-    }
-    /* 상단 인용구 영역 다크 모드 글자색 제어 */
-    html:not(.forced-dark) blockquote,
-    html:not(.forced-dark) blockquote b,
-    html:not(.forced-dark) blockquote strong {
-      color: #f8f9fa !important;             /* 세 줄의 핵심 문구를 다크 모드에서도 선명하게 처리 */
-    }
-    /* 이탤릭체 및 서브 문구 색상 최적화 */
-    html:not(.forced-dark) i,
-    html:not(.forced-dark) .home-box i {
-      color: #ced4da !important;
-    }
-    /* 방문자 트래픽 카운터 영역 다크 모드 가독성 확보 */
-    html:not(.forced-dark) .visitor-counter {
-      border-top-color: #343a40 !important;
-      color: #adb5bd !important;
-    }
-    html:not(.forced-dark) .visitor-counter div {
-      color: #ced4da !important;
-    }
-    html:not(.forced-dark) #count-today,
-    html:not(.forced-dark) #count-weekly {
-      color: #f8f9fa !important;
-    }
-    html:not(.forced-dark) #count-total {
-      color: #ffffff !important;
-    }
+  /* 🌙 [사용자가 사이트에서 직접 '다크'를 선택했을 때만 적용] */
+  html.forced-dark body {
+    background-color: #181a1b !important;
+    background-image: none !important;
+    color: #dee2e6 !important;
+  }
+  html.forced-dark h1 {
+    color: #f8f9fa !important;
+  }
+  html.forced-dark blockquote,
+  html.forced-dark blockquote b,
+  html.forced-dark blockquote strong {
+    color: #f8f9fa !important;
+  }
+  html.forced-dark i,
+  html.forced-dark .home-box i {
+    color: #ced4da !important;
+  }
+  html.forced-dark .visitor-counter {
+    border-top-color: #343a40 !important;
+    color: #adb5bd !important;
+  }
+  html.forced-dark .visitor-counter div {
+    color: #ced4da !important;
+  }
+  html.forced-dark #count-today,
+  html.forced-dark #count-weekly {
+    color: #f8f9fa !important;
+  }
+  html.forced-dark #count-total {
+    color: #ffffff !important;
   }
 </style>
