@@ -1,9 +1,10 @@
 {{ define "main" }}
   <main class="book-page">
     <article class="markdown" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
+    
     <!-- Breadcrumb (화면 표시 + JSON-LD와 정보 일치) -->
-<!-- Breadcrumb (폴더명을 직접 추출하여 중복 방지) -->
-    <nav class="book-breadcrumb" aria-label="breadcrumb" style="font-size: 0.85rem !important; margin-bottom: 0.5rem !important; opacity: 0.75 !important;">
+    <!-- Breadcrumb (폴더명을 직접 추출하여 중복 방지) -->
+    <nav class="book-breadcrumb" aria-label="breadcrumb" style="font-size: 0.85rem !important; margin-bottom: 0.8rem !important; opacity: 0.75 !important;">
       <a href="{{ .Site.BaseURL }}" style="color: inherit; text-decoration: none;">Home</a>
       <span style="margin: 0 4px;">›</span>
       <a href="{{ .Site.BaseURL }}docs/" style="color: inherit; text-decoration: none;">Docs</a>
@@ -19,163 +20,160 @@
       <span style="margin: 0 4px;">›</span>
       <span>{{ .Title }}</span>
     </nav> 
-            <!-- 상단: 작성일 + 수정일 + 조회수 -->
-      <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.85rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: -0.7rem !important; margin-bottom: 0.3rem !important; padding-bottom: 0.3rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.9 !important;">
-        작성일 :
-        {{ if .Date }}
+
+    <!-- 상단: 작성일 + 수정일 + 조회수 -->
+    <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; color: inherit !important; font-size: 0.8rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: 0 !important; margin-bottom: 1rem !important; padding-bottom: 0.5rem !important; border-bottom: 1px solid #e5e5e5 !important; opacity: 0.8 !important;">
+      작성일 :
+      {{ if .Date }}
+        {{ .Date.Format "2006-01-02" }}
+      {{ else }}
+        {{ .PublishDate.Format "2006-01-02" }}
+      {{ end }}
+      <span style="margin-left: 8px !important; display: inline;"> | 수정일 : 
+        {{ if .Lastmod }}
+          {{ .Lastmod.Format "2006-01-02" }}
+        {{ else if .Date }}
           {{ .Date.Format "2006-01-02" }}
         {{ else }}
           {{ .PublishDate.Format "2006-01-02" }}
         {{ end }}
-        <span style="margin-left: 6px !important; display: inline;"> | 수정일 : 
-          {{ if .Lastmod }}
-            {{ .Lastmod.Format "2006-01-02" }}
-          {{ else if .Date }}
-            {{ .Date.Format "2006-01-02" }}
-          {{ else }}
-            {{ .PublishDate.Format "2006-01-02" }}
-          {{ end }}
-        </span>
-        <span id="page-hit-display" style="margin-left: 6px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
-      </div>
+      </span>
+      <span id="page-hit-display" style="margin-left: 8px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
+    </div>
 
+    <style>
+      .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
+    </style>
 
-      <style>
-        .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
-      </style>
-
-      <!-- 조회수 스크립트 -->
-      <script>
-        (function() {
-          function checkHitData() {
-            const valueEl = document.getElementById('page-hit-value');
-            if (valueEl) {
-              const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
-              valueEl.innerText = hitCount.toLocaleString();
-            }
+    <!-- 조회수 스크립트 -->
+    <script>
+      (function() {
+        function checkHitData() {
+          const valueEl = document.getElementById('page-hit-value');
+          if (valueEl) {
+            const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
+            valueEl.innerText = hitCount.toLocaleString();
           }
-          if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", checkHitData);
-          } else {
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", checkHitData);
+        } else {
+          checkHitData();
+        }
+        const interval = setInterval(() => {
+          if (typeof window.currentPageHit !== 'undefined') {
             checkHitData();
+            clearInterval(interval);
           }
-          const interval = setInterval(() => {
-            if (typeof window.currentPageHit !== 'undefined') {
-              checkHitData();
-              clearInterval(interval);
-            }
-          }, 100);
-        })();
-      </script>
+        }, 100);
+      })();
+    </script>
 
-      <!-- 본문 콘텐츠 -->
-      <div class="post-content">
-        {{ .Content }}
+    <!-- 본문 콘텐츠 -->
+    <div class="post-content">
+      {{ .Content }}
+    </div>
+
+    <!-- 자동 연관 게시글 추천 (내부링크 SEO, 새로고침마다 무작위 3개 - JS 처리) -->
+    {{- $candidates := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink -}}
+    {{- with $candidates -}}
+    <div class="related-posts-container" style="margin-top: 2.5rem !important; padding-top: 1.5rem !important; border-top: 1px solid #e5e5e5 !important;">
+      <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">이 글과 함께 읽으면 좋은 글</p>
+      <ul id="related-posts-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.6rem;">
+        <!-- JS가 이 안에 무작위 3개를 채워 넣습니다 -->
+      </ul>
+    </div>
+
+    <script id="related-posts-data" type="application/json">
+      [
+        {{- range $i, $p := . -}}
+          {{- if $i }},{{ end -}}
+          { "title": {{ $p.Title | jsonify }}, "url": {{ $p.RelPermalink | jsonify }} }
+        {{- end -}}
+      ]
+    </script>
+
+    <script>
+      (function() {
+        const dataEl = document.getElementById('related-posts-data');
+        const listEl = document.getElementById('related-posts-list');
+        if (!dataEl || !listEl) return;
+
+        let posts = [];
+        try {
+          posts = JSON.parse(dataEl.textContent);
+        } catch (e) {
+          console.error("Related posts JSON parse error:", e);
+          return;
+        }
+
+        // Fisher-Yates 셔플
+        for (let i = posts.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [posts[i], posts[j]] = [posts[j], posts[i]];
+        }
+
+        const picked = posts.slice(0, 3);
+        listEl.innerHTML = picked.map(function(p) {
+          return '<li style="margin:0 !important; padding:0 !important;">' +
+                 '<a href="' + p.url + '" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">' +
+                 '• ' + p.title +
+                 '</a></li>';
+        }).join('');
+      })();
+    </script>
+    {{- end -}}
+
+    <!-- 좋아요 / 싫어요 반응 컴포넌트 -->
+    <div class="page-reactions-container">
+      <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold; text-align: center;">이 글이 도움이 되었나요?</p>
+      <div style="display: inline-flex; gap: 1rem; justify-content: center; align-items: center;">
+        <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
+          👍 <span id="count-reaction-like">0</span>
+        </button>
+        <button id="btn-reaction-dislike" class="reaction-btn" onclick="sendReaction('dislike')">
+          👎 <span id="count-reaction-dislike">0</span>
+        </button>
       </div>
+    </div>
 
-<!-- 자동 연관 게시글 추천 (내부링크 SEO, 새로고침마다 무작위 3개 - JS 처리) -->
-      {{- $candidates := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink -}}
-      {{- with $candidates -}}
-      <div class="related-posts-container" style="margin-top: 2.5rem !important; padding-top: 1.5rem !important; border-top: 1px solid #e5e5e5 !important;">
-        <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">이 글과 함께 읽으면 좋은 글</p>
-        <ul id="related-posts-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.6rem;">
-          <!-- JS가 이 안에 무작위 3개를 채워 넣습니다 -->
-        </ul>
-      </div>
-
-      <script id="related-posts-data" type="application/json">
-        [
-          {{- range $i, $p := . -}}
-            {{- if $i }},{{ end -}}
-            { "title": {{ $p.Title | jsonify }}, "url": {{ $p.RelPermalink | jsonify }} }
-          {{- end -}}
-        ]
-      </script>
-
-      <script>
-        (function() {
-          const dataEl = document.getElementById('related-posts-data');
-          const listEl = document.getElementById('related-posts-list');
-          if (!dataEl || !listEl) return;
-
-          let posts = [];
-          try {
-            posts = JSON.parse(dataEl.textContent);
-          } catch (e) {
-            console.error("Related posts JSON parse error:", e);
-            return;
-          }
-
-          // Fisher-Yates 셔플
-          for (let i = posts.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [posts[i], posts[j]] = [posts[j], posts[i]];
-          }
-
-          const picked = posts.slice(0, 3);
-          listEl.innerHTML = picked.map(function(p) {
-            return '<li style="margin:0 !important; padding:0 !important;">' +
-                   '<a href="' + p.url + '" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">' +
-                   '• ' + p.title +
-                   '</a></li>';
-          }).join('');
-        })();
-      </script>
-      {{- end -}}
-
-
-
-
-      <!-- 좋아요 / 싫어요 반응 컴포넌트 -->
-      <div class="page-reactions-container">
-        <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold; text-align: center;">이 글이 도움이 되었나요?</p>
-        <div style="display: inline-flex; gap: 1rem; justify-content: center; align-items: center;">
-          <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
-            👍 <span id="count-reaction-like">0</span>
-          </button>
-          <button id="btn-reaction-dislike" class="reaction-btn" onclick="sendReaction('dislike')">
-            👎 <span id="count-reaction-dislike">0</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- 이전글 / 다음글 네비게이션 -->
-      {{ if and (not .Pages) (eq .Section "docs") }}
-        {{ $allPages := .Parent.RegularPages.ByDate }}
-        {{ $currentIndex := -1 }}
-        
-        {{ range $i, $p := $allPages }}
-          {{ if eq $p.RelPermalink $.RelPermalink }}
-            {{ $currentIndex = $i }}
-          {{ end }}
-        {{ end }}
-        
-        {{ if ne $currentIndex -1 }}
-          <div class="book-navigation">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-              {{ if gt $currentIndex 0 }}
-                {{ with index $allPages (sub $currentIndex 1) }}
-                  <a href="{{ .RelPermalink }}" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
-                    ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span>
-                  </a>
-                {{ end }}
-              {{ else }}
-                <div style="visibility: hidden;">←</div>
-              {{ end }}
-              
-              {{ if lt $currentIndex (sub (len $allPages) 1) }}
-                {{ with index $allPages (add $currentIndex 1) }}
-                  <a href="{{ .RelPermalink }}" class="book-nav-link next" style="text-align: right; color: var(--color-link); text-decoration: none;">
-                    <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span> →
-                  </a>
-                {{ end }}
-              {{ else }}
-                <div style="visibility: hidden;">→</div>
-              {{ end }}
-            </div>
-          </div>
+    <!-- 이전글 / 다음글 네비게이션 -->
+    {{ if and (not .Pages) (eq .Section "docs") }}
+      {{ $allPages := .Parent.RegularPages.ByDate }}
+      {{ $currentIndex := -1 }}
+      
+      {{ range $i, $p := $allPages }}
+        {{ if eq $p.RelPermalink $.RelPermalink }}
+          {{ $currentIndex = $i }}
         {{ end }}
       {{ end }}
+      
+      {{ if ne $currentIndex -1 }}
+        <div class="book-navigation">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+            {{ if gt $currentIndex 0 }}
+              {{ with index $allPages (sub $currentIndex 1) }}
+                <a href="{{ .RelPermalink }}" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
+                  ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span>
+                </a>
+              {{ end }}
+            {{ else }}
+              <div style="visibility: hidden;">←</div>
+            {{ end }}
+            
+            {{ if lt $currentIndex (sub (len $allPages) 1) }}
+              {{ with index $allPages (add $currentIndex 1) }}
+                <a href="{{ .RelPermalink }}" class="book-nav-link next" style="text-align: right; color: var(--color-link); text-decoration: none;">
+                  <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span> →
+                </a>
+              {{ end }}
+            {{ else }}
+              <div style="visibility: hidden;">→</div>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    {{ end }}
 
     </article>
   </main>
