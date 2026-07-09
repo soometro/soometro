@@ -2,13 +2,20 @@
   <main class="book-page">
     <article class="markdown" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
     <!-- Breadcrumb (화면 표시 + JSON-LD와 정보 일치) -->
-<!-- Breadcrumb (수정됨: Docs 및 Section 계층 명시) -->
+<!-- Breadcrumb (폴더명을 직접 추출하여 중복 방지) -->
     <nav class="book-breadcrumb" aria-label="breadcrumb" style="font-size: 0.85rem !important; margin-bottom: 0.5rem !important; opacity: 0.75 !important;">
       <a href="{{ .Site.BaseURL }}" style="color: inherit; text-decoration: none;">Home</a>
       <span style="margin: 0 4px;">›</span>
       <a href="{{ .Site.BaseURL }}docs/" style="color: inherit; text-decoration: none;">Docs</a>
-      <span style="margin: 0 4px;">›</span>
-      <a href="{{ .Site.BaseURL }}{{ .Section }}/" style="color: inherit; text-decoration: none;">{{ .Section | title }}</a>
+      
+      {{- $dir := replace .File.Dir "\\" "/" -}}
+      {{- $parts := split (strings.TrimSuffix "/" $dir) "/" -}}
+      {{- if gt (len $parts) 1 -}}
+        {{- $folder := index $parts 1 -}}
+        <span style="margin: 0 4px;">›</span>
+        <a href="{{ .Site.BaseURL }}docs/{{ $folder }}/" style="color: inherit; text-decoration: none;">{{ $folder | title }}</a>
+      {{- end -}}
+      
       <span style="margin: 0 4px;">›</span>
       <span>{{ .Title }}</span>
     </nav> 
