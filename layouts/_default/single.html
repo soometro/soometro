@@ -63,11 +63,8 @@
         {{ .Content }}
       </div>
 
-      <!-- 자동 연관 게시글 추천 (내부링크 SEO) -->
-      {{- $related := .Site.RegularPages.Related . | first 3 -}}
-      {{- if not $related -}}
-        {{- $related = where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink | first 3 -}}
-      {{- end -}}
+<!-- 자동 연관 게시글 추천 (내부링크 SEO, 무작위 3개) -->
+      {{- $related := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink | shuffle | first 3 -}}
       {{- with $related -}}
       <div class="related-posts-container" style="margin-top: 2.5rem !important; padding-top: 1.5rem !important; border-top: 1px solid #e5e5e5 !important;">
         <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">이 글과 함께 읽으면 좋은 글</p>
