@@ -20,10 +20,6 @@ https://github.com/alex-shpak/hugo-book
   {{- $featured = absURL "images/og-default.png" -}}
   {{- $featured_alt = printf "%s 대표 이미지" .Site.Title -}}
 {{- end }}
-{{- else -}}
-  {{- $featured = absURL "images/og-default.png" -}}
-  {{- $featured_alt = printf "%s 대표 이미지" .Site.Title -}}
-{{- end }}
 {{- $description := (or .Description .Summary) | plainify | htmlUnescape | replaceRE `[\r\n\t\f]+` " " | replaceRE `\s+` " " | truncate 150 -}}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
