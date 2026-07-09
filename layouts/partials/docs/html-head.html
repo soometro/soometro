@@ -20,6 +20,10 @@ https://github.com/alex-shpak/hugo-book
   {{- $featured = absURL "images/og-default.png" -}}
   {{- $featured_alt = printf "%s 대표 이미지" .Site.Title -}}
 {{- end }}
+{{- else -}}
+  {{- $featured = absURL "images/og-default.png" -}}
+  {{- $featured_alt = printf "%s 대표 이미지" .Site.Title -}}
+{{- end }}
 {{- $description := (or .Description .Summary) | plainify | htmlUnescape | replaceRE `[\r\n\t\f]+` " " | replaceRE `\s+` " " | truncate 150 -}}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +46,7 @@ https://github.com/alex-shpak/hugo-book
 <meta name="twitter:title" content="{{ .Title }}">
 <meta name="twitter:description" content="{{ $description }}">
 <meta name="twitter:image" content="{{ $featured }}">
-<meta name="twitter:image:alt" content="{{ .Title }}">
+<meta name="twitter:image:alt" content="{{ $featured_alt }}">
 <!-- ★ [GROUP B] 소셜 공유 태그 (property 속성 그룹) ★ -->
 <meta property="og:locale" content="ko_KR">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
@@ -53,7 +57,7 @@ https://github.com/alex-shpak/hugo-book
 <meta property="og:image" content="{{ $featured }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="{{ .Title }}">
+<meta property="og:image:alt" content="{{ $featured_alt }}">
 {{- if not .Lastmod.IsZero }}
 <meta property="og:updated_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
 {{- end }}
