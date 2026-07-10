@@ -41,9 +41,9 @@
 			</item>
 			<item>
 				<title>홈페이지 head는 이렇게 짜야 한다. 아무나 따라하는 meta tag 구성하기.</title>
-				<link>https://soometro.kr/docs/monograph/json-ld/</link>
+				<link>https://soometro.kr/docs/monograph/jsonld/</link>
 				<pubDate>Fri, 03 Jul 2026 00:00:00 +0000</pubDate>
-				<guid>https://soometro.kr/docs/monograph/json-ld/</guid>
+				<guid>https://soometro.kr/docs/monograph/jsonld/</guid>
 				<description>&lt;h1 id=&#34;홈페이지-head는-이렇게-짜야-한다-아무나-따라하는-meta-tag-및-json-ld-구성하기&#34;&gt;홈페이지 head는 이렇게 짜야 한다. 아무나 따라하는 meta tag 및 JSON-LD 구성하기.&lt;a class=&#34;anchor&#34; href=&#34;#%ed%99%88%ed%8e%98%ec%9d%b4%ec%a7%80-head%eb%8a%94-%ec%9d%b4%eb%a0%87%ea%b2%8c-%ec%a7%9c%ec%95%bc-%ed%95%9c%eb%8b%a4-%ec%95%84%eb%ac%b4%eb%82%98-%eb%94%b0%eb%9d%bc%ed%95%98%eb%8a%94-meta-tag-%eb%b0%8f-json-ld-%ea%b5%ac%ec%84%b1%ed%95%98%ea%b8%b0&#34;&gt;&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;우선, head는 해당 게시물의 최상단에 위치하는 어떤 정보라 생각하면 된다.&lt;br&gt;&#xA;독립 홈페이지의 SEO·AEO·GEO는 특정 태그 하나가 아니라 head 메타데이터, JSON-LD, robots, sitemap, 내부 링크가 유기적으로 연결된 결과로 완성된다. 흔히 특정 태그 하나만 넣으면 검색 노출이 개선된다는 식으로 설명되는 경우가 많지만, 실제 구조를 뜯어보면 여러 요소가 서로 연결되어 하나의 정보 체계를 이룬다.&lt;/p&gt;&#xA;&lt;p&gt;이 글에서는 실제 운영 중인 soometro.kr 문서 페이지의 페이지소스를 그대로 가져와 head 태그와 JSON-LD 구조를 설명하고, 정적 홈페이지와 네이버 블로그·티스토리·브런치가 각각 어디까지 관리 가능한지 비교한다.&lt;/p&gt;</description>
 			</item>
 			<item>
