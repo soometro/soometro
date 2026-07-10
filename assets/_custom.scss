@@ -326,9 +326,9 @@ main h1,
 }
 
 
-/* =======================================
-   메인 푸터 가로줄 밑 레트로 전광판 (최종 완벽 제어형)
-   ======================================= */
+/* ====================================================================
+   9. 메인 푸터 가로줄 밑 레트로 전광판 (최종 완벽 제어형 - 폰트 강화)
+   ==================================================================== */
 .retro-footer-marquee {
   /* 1. 테마의 숨은 여백 벽을 깨부수고 둥둥 뜨게 만듭니다 (먹통 방지 안전장치 완료) */
   position: relative !important;
@@ -340,7 +340,6 @@ main h1,
   padding: 0 !important;
   
   /* 2. [위쪽 조절] 음수 마진(- 값)을 주면 위쪽 가로줄 방향으로 강제로 바짝 끌어당깁니다 */
-  /* 완전히 붙이려면 -15px, 약간 떼려면 -5px, 밑으로 내리려면 + 값을 주면 됩니다 */
   margin-top: -5px !important;    
   
   /* 3. [아래쪽 조절] 숫자가 커질수록 아래 저작권 글귀를 밑으로 시원하게 밀어내며 확장됩니다 */
@@ -354,12 +353,15 @@ main h1,
 }
 
 .marquee-text span {
-  font-family: "돋움", Dotum, sans-serif;
+  /* 기기별 내장된 가장 선이 곱고 예쁜 감성 서체(애플명조, 바탕, 궁서) 패키지 호출 */
+  font-family: "AppleMyungjo", "Batang", "바탕체", "Gungsuh", "궁서체", serif !important;
+  
   font-size: 13px;
   color: #ffb6c1; 
   font-weight: bold;
   padding-left: 100%; 
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9); 
+  letter-spacing: 0.3px; 
 }
 
 @keyframes marquee-speed {
