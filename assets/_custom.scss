@@ -208,11 +208,12 @@ html[data-theme="dark"] .markdown p {
 /* ==========================================================================
    6. 게시물 하단 여백 조정 (푸터 인라인 강제 오버라이드)
    ========================================================================== */
-/* 6-1) 좋아요 컨테이너 여백 강제 축소 */
+/* 6-1) 좋아요 컨테이너 여백 통일 */
 main.book-page .markdown .page-reactions-container {
-    margin-top: 1.5rem !important;     /* 본문 글 끝나는 지점과 좋아요 사이 간격 축소 */
-    margin-bottom: 1.5rem !important;  /* 좋아요와 이전글/다음글 선 사이 간격 축소 */
-    padding: 0.6rem 0 !important;      /* 안쪽 위아래 여백 압축 */
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 1.5rem !important;
 }
 
 /* 6-2) 이전글 / 다음글 네비게이션 영역 축소 */
