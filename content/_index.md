@@ -39,7 +39,7 @@ draft = false
     data-host="https://cusdis.com"
     data-app-id="5a65cad6-f2b5-4066-b571-980dc76b9836"
     data-page-id="main-guestbook"
-    data-page-url="http://localhost:1313/"
+    data-page-url="https://soometro.kr/"
     data-page-title="메인 방명록"
   ></div>
 
