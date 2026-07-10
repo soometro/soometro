@@ -87,8 +87,18 @@ https://github.com/alex-shpak/hugo-book
 <!-- Theme stylesheet, you can customize scss by creating `assets/custom.scss` in your website -->
 {{- $styles := resources.Get "book.scss" | resources.ExecuteAsTemplate "book.scss" . | css.Sass | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ partial "docs/links/resource-precache" $styles }}" {{ template "integrity" $styles }}>
+
+<!-- 1. [구글 유지] 구글 모바일 검색결과가 수집해간 고해상도 아이콘 상태 유지 (기존 코드 유지) -->
 <link rel="icon" type="image/png" sizes="192x192" href="/images/google-touch-icon.png">
-<link rel="apple-touch-icon" sizes="192x192" href="/images/google-touch-icon.png">
+
+<!-- 2. [PC 바로가기/브라우저] PC 환경 및 일반 브라우저용 파비콘 설정 -->
+<link rel="icon" type="image/png" sizes="48x48" href="{{ "favicon.png" | relURL }}">
+<link rel="shortcut icon" href="{{ "favicon.png" | relURL }}" type="image/x-icon">
+
+<!-- 3. [아이폰] 애플 기기 홈 화면 및 터치 아이콘 전용 설정 (180x180 규격 최적화 수정) -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "favicon.png" | relURL }}">
+
+
 <!-- Search -->
 {{- if default true .Site.Params.BookSearch -}}
   {{- $searchJSFile := printf "%s.search.js" .Language.Name }}
