@@ -82,6 +82,13 @@
 				<description>&lt;h1 id=&#34;만약-당신이-글이-쓰고-싶어-졌다면-워드프로세서와-마크다운markdown의-구조적-차이-및-활용-전략&#34;&gt;만약 당신이 글이 쓰고 싶어 졌다면? 워드프로세서와 마크다운(Markdown)의 구조적 차이 및 활용 전략&lt;a class=&#34;anchor&#34; href=&#34;#%eb%a7%8c%ec%95%bd-%eb%8b%b9%ec%8b%a0%ec%9d%b4-%ea%b8%80%ec%9d%b4-%ec%93%b0%ea%b3%a0-%ec%8b%b6%ec%96%b4-%ec%a1%8c%eb%8b%a4%eb%a9%b4-%ec%9b%8c%eb%93%9c%ed%94%84%eb%a1%9c%ec%84%b8%ec%84%9c%ec%99%80-%eb%a7%88%ed%81%ac%eb%8b%a4%ec%9a%b4markdown%ec%9d%98-%ea%b5%ac%ec%a1%b0%ec%a0%81-%ec%b0%a8%ec%9d%b4-%eb%b0%8f-%ed%99%9c%ec%9a%a9-%ec%a0%84%eb%9e%b5&#34;&gt;&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;현대 디지털 환경에서 아날로그 수기(노트와 필기구 구매를 통한 작성) 방식을 배제하고 컴퓨터를 활용한 효율적인 텍스트 생산을 지향한다면, 본 제안서가 다루는 디지털 저작 도구의 구조적 메커니즘을 명확히 이해하는 것이 장기적인 글쓰기 생태계 구축에 실질적인 도움이 될것이다.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;핵심-요약&#34;&gt;핵심 요약&lt;a class=&#34;anchor&#34; href=&#34;#%ed%95%b5%ec%8b%ac-%ec%9a%94%ec%95%bd&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;핵심 결론:&lt;/strong&gt; 디지털 스크린 환경에서의 효율적인 글쓰기와 웹 노출(SEO) 성능을 극대화하기 위해서는 종이 인쇄 기반의 전통적인 워드프로세서 포맷을 탈피하고, 순수 데이터 중심의 마크다운(.md) 형식을 전면 도입해야 한다.&lt;/p&gt;</description>
 			</item>
 			<item>
+				<title>홈페이지 head는 이렇게 짜야 한다. 아무나 따라하는 meta tag 구성하기.</title>
+				<link>https://soometro.kr/docs/monograph/json-ld/</link>
+				<pubDate>Fri, 03 Jul 2026 00:00:00 +0000</pubDate>
+				<guid>https://soometro.kr/docs/monograph/json-ld/</guid>
+				<description>&lt;h1 id=&#34;홈페이지-head는-이렇게-짜야-한다-아무나-따라하는-meta-tag-및-json-ld-구성하기&#34;&gt;홈페이지 head는 이렇게 짜야 한다. 아무나 따라하는 meta tag 및 JSON-LD 구성하기.&lt;a class=&#34;anchor&#34; href=&#34;#%ed%99%88%ed%8e%98%ec%9d%b4%ec%a7%80-head%eb%8a%94-%ec%9d%b4%eb%a0%87%ea%b2%8c-%ec%a7%9c%ec%95%bc-%ed%95%9c%eb%8b%a4-%ec%95%84%eb%ac%b4%eb%82%98-%eb%94%b0%eb%9d%bc%ed%95%98%eb%8a%94-meta-tag-%eb%b0%8f-json-ld-%ea%b5%ac%ec%84%b1%ed%95%98%ea%b8%b0&#34;&gt;&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;우선, head는 해당 게시물의 최상단에 위치하는 어떤 정보라 생각하면 된다.&lt;br&gt;&#xA;독립 홈페이지의 SEO·AEO·GEO는 특정 태그 하나가 아니라 head 메타데이터, JSON-LD, robots, sitemap, 내부 링크가 유기적으로 연결된 결과로 완성된다. 흔히 특정 태그 하나만 넣으면 검색 노출이 개선된다는 식으로 설명되는 경우가 많지만, 실제 구조를 뜯어보면 여러 요소가 서로 연결되어 하나의 정보 체계를 이룬다.&lt;/p&gt;&#xA;&lt;p&gt;이 글에서는 실제 운영 중인 soometro.kr 문서 페이지의 페이지소스를 그대로 가져와 head 태그와 JSON-LD 구조를 설명하고, 정적 홈페이지와 네이버 블로그·티스토리·브런치가 각각 어디까지 관리 가능한지 비교한다.&lt;/p&gt;</description>
+			</item>
+			<item>
 				<title>후쿠모토 노부유키의 아카기 세계관과 아카기 시게루가 던지는 삶의 철학</title>
 				<link>https://soometro.kr/docs/manga/akagi/</link>
 				<pubDate>Thu, 02 Jul 2026 00:00:00 +0000</pubDate>
