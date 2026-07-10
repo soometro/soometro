@@ -43,11 +43,6 @@ draft = false
     data-page-title="메인 방명록"
   ></div>
 
-  <script>window.CUSDIS_LOCALE = { "powered_by": "방명록 시스템: %s", "post": "등록하기", "loading": "불러오는 중...", "email": "이메일 (선택)", "nickname": "닉네임", "reply_placeholder": "여기에 따뜻한 한 줄을 남겨주세요...", "reply_btn": "답글", "sending": "전송 중...", "mod_badge": "운영자", "load_more": "더 보기", "empty": "아직 작성된 방명록이 없습니다. 첫 흔적을 남겨보세요!" }</script>
-  <script async defer src="https://cusdis.com"></script>
-</div>
-
-
 <style>
   /* [기본 라이트 모드: 종이 질감 배경 및 원래 색상 순정 유지] */
   body {
