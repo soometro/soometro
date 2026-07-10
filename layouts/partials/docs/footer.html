@@ -13,3 +13,13 @@
         Copyleft &copy; 2026 www.soometro.kr. All wrongs reserved.
     </p>
 </div>
+
+
+
+{{ if .Params.sakura }}
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      {{ readFile "layouts/partials/docs/inject/sakura.js" | safeJS }}
+    });
+  </script>
+{{ end }}
