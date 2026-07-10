@@ -32,17 +32,6 @@ draft = false
   </div>
 </div>
 
-<div style="margin-top: 60px; border-top: 1px dashed #ccc; padding-top: 40px;">
-  <h3 style="margin-bottom: 20px; font-size: 1.3rem; color: #ff6600;">📝 방명록 (일촌평)</h3>
-
-  <div id="cusdis_thread"
-    data-host="https://cusdis.com"
-    data-app-id="5a65cad6-f2b5-4066-b571-980dc76b9836"
-    data-page-id="main-guestbook"
-    data-page-url="https://soometro.kr/"
-    data-page-title="메인 방명록"
-  ></div>
-
 <style>
   /* [기본 라이트 모드: 종이 질감 배경 및 원래 색상 순정 유지] */
   body {
