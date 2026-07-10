@@ -210,14 +210,14 @@ html[data-theme="dark"] .markdown p {
    ========================================================================== */
 /* 6-1) 좋아요 컨테이너 여백 강제 축소 */
 main.book-page .markdown .page-reactions-container {
-    margin-top: 0.8rem !important;     /* 본문 글 끝나는 지점과 좋아요 사이 간격 축소 */
-    margin-bottom: 0.8rem !important;  /* 좋아요와 이전글/다음글 선 사이 간격 축소 */
+    margin-top: 1.5rem !important;     /* 본문 글 끝나는 지점과 좋아요 사이 간격 축소 */
+    margin-bottom: 1.5rem !important;  /* 좋아요와 이전글/다음글 선 사이 간격 축소 */
     padding: 0.6rem 0 !important;      /* 안쪽 위아래 여백 압축 */
 }
 
 /* 6-2) 이전글 / 다음글 네비게이션 영역 축소 */
 main.book-page .markdown .book-navigation {
-    margin-top: 0.5rem !important;     /* 좋아요 밑단 선과의 간격 */
+    margin-top: 1.5rem !important;     /* 좋아요 밑단 선과의 간격 */
     margin-bottom: 0px !important;     /* 하단 마진 삭제 */
     padding-bottom: 0px !important;    /* 하단 패딩 삭제 */
 }
@@ -231,7 +231,7 @@ footer.book-footer > div,
 
 /* 6-4) 공유 버튼 (URL복사 / 카카오톡 / 더보기) */
 .page-share-container {
-    margin: -0.5rem 0 2rem 0 !important;
+    margin: 1.5rem 0 !important;
     text-align: center !important;
 }
 
