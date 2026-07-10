@@ -2064,9 +2064,9 @@ head 메타데이터가 검색엔진과 소셜 플랫폼에 콘텐츠 정보를 
     
     function shareCopyUrl(btn) {
       navigator.clipboard.writeText(window.location.href).then(() => {
-        const original = btn.innerText;
         btn.innerText = "✅";
-        setTimeout(() => { btn.innerText = original; }, 1500);
+        clearTimeout(btn._resetTimer);
+        btn._resetTimer = setTimeout(() => { btn.innerText = "🔗"; }, 1500);
       });
     }
 

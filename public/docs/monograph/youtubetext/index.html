@@ -1055,9 +1055,9 @@ AI는 그런 평균적인 정보를 가장 잘 만든다. 그래서 오히려 �
     
     function shareCopyUrl(btn) {
       navigator.clipboard.writeText(window.location.href).then(() => {
-        const original = btn.innerText;
         btn.innerText = "✅";
-        setTimeout(() => { btn.innerText = original; }, 1500);
+        clearTimeout(btn._resetTimer);
+        btn._resetTimer = setTimeout(() => { btn.innerText = "🔗"; }, 1500);
       });
     }
 
