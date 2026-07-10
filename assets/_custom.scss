@@ -327,10 +327,9 @@ main h1,
 
 
 /* ====================================================================
-   9. 메인 푸터 가로줄 밑 레트로 전광판 (최종 완벽 제어형 - 폰트 강화)
+   9. 메인 푸터 가로줄 밑 레트로 전광판 (최종 완벽 제어형 - 단문 완주 교정)
    ==================================================================== */
 .retro-footer-marquee {
-  /* 1. 테마의 숨은 여백 벽을 깨부수고 둥둥 뜨게 만듭니다 (먹통 방지 안전장치 완료) */
   position: relative !important;
   display: block !important;
   width: 100% !important;
@@ -338,33 +337,36 @@ main h1,
   background: none !important;
   background-color: transparent !important;
   padding: 0 !important;
-  
-  /* 2. [위쪽 조절] 음수 마진(- 값)을 주면 위쪽 가로줄 방향으로 강제로 바짝 끌어당깁니다 */
-  margin-top: -5px !important;    
-  
-  /* 3. [아래쪽 조절] 숫자가 커질수록 아래 저작권 글귀를 밑으로 시원하게 밀어내며 확장됩니다 */
-  margin-bottom: 0px !important; 
+  margin-top: -5px !important;    /* 황금 마진 절대 보존 */
+  margin-bottom: 0px !important;  /* 황금 마진 절대 보존 */
 }
 
 .marquee-text {
-  display: inline-block;
+  display: block !important; /* 가로 전체폭을 쓰도록 블록화 */
   white-space: nowrap;
-  animation: marquee-speed 16s linear infinite; 
+  
+  /* [속도 조절] 글씨가 화면 끝까지 완주해야 하므로, 거리에 맞춰 8초(8s)가 가장 경쾌하고 이쁩니다 */
+  /* 너무 빠르면 10s ~ 12s로 늘리시고, 더 빠르게 하려면 6s ~ 7s로 줄이세요 */
+  animation: marquee-speed 30s linear infinite; 
 }
 
 .marquee-text span {
-  /* 기기별 내장된 가장 선이 곱고 예쁜 감성 서체(애플명조, 바탕, 궁서) 패키지 호출 */
-  font-family: "AppleMyungjo", "Batang", "바탕체", "Gungsuh", "궁서체", serif !important;
-  
-  font-size: 13px;
-  color: #ffb6c1; 
-  font-weight: bold;
-  padding-left: 100%; 
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9); 
-  letter-spacing: 0.3px; 
+  font-family: "NanumPen", "NanumPenScript", "NanumBrush", "AppleGirl", "Comic Sans MS", cursive, sans-serif !important;
+  font-size: 15px;             
+  color: #ffb6c1;              
+  font-weight: bold;           
+  padding-left: 100%; /* 오른쪽 화면 바깥 끝에서 출발 대기 */
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8); 
+  letter-spacing: 0.5px;       
 }
 
+/* [완벽 교정] 짧은 글자수도 화면 왼쪽 끝 투명 구역까지 강제로 완주시키는 무적의 축 */
 @keyframes marquee-speed {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-100%, 0, 0); }
+  0% { 
+    transform: translate3d(0, 0, 0); 
+  }
+  100% { 
+    /* -100vw를 주어야 글자수와 상관없이 "화면 전체 가로폭만큼 왼쪽으로 가라"가 되어 왼쪽 끝 밖으로 완전히 탈출합니다 */
+    transform: translate3d(-100vw, 0, 0); 
+  }
 }
