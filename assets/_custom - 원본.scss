@@ -13,12 +13,12 @@ aside .book-menu nav ul li a,
     letter-spacing: 0em !important;    /* 자간 정상화 */
 }
 
-/* 2. 사이트 전체 폰트 기본값 */
+/* 1) 사이트 전체 폰트 기본값 */
 :root {
     --book-font-family: "Georgia", "Times New Roman", "바탕", serif;
 }
 
-/* 3. 사이트 브랜드(로고) 및 검색창 간격 */
+/* 2) 사이트 브랜드(로고) 및 검색창 간격 */
 .book-brand {
     margin-bottom: 2.0rem !important;  /* 로고와 검색창 사이 간격 */
 }
@@ -39,8 +39,23 @@ aside .book-menu nav ul li a,
 }
 
 /* ==========================================================================
-   4. 다크 모드 시 가독성 보정 (날짜, 조회수, 아카이브)
+   2. 좌측 메뉴 게시물 숫자 폰트 스타일 최적화
    ========================================================================== */
+.book-menu-post-count {
+    display: inline-block !important;
+    float: right !important;
+    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: bold !important;
+    font-style: normal !important; /* 부모 메뉴의 이탤릭(기울임) 무력화 */
+    color: #666 !important;
+    margin-right: 0.6rem !important;
+}
+
+/* ==========================================================================
+   3. 다크 모드 관련 스타일
+   ========================================================================== */
+/* 3-1) 다크 모드 시 가독성 보정 (날짜, 조회수, 아카이브) */
 html.forced-dark .book-post-date,
 html.forced-dark .book-post-date span,
 html.forced-dark #archive,
@@ -49,22 +64,81 @@ html.forced-dark .nav-title {
     color: #b0b0b0 !important; /* 밝은 회색 강제 지정 */
 }
 
-/* 게시물 상단 날짜 영역 테두리 다크모드 대응 */
+/* 게시물 상단 날짜 영역 테두리 다크모드 대응 + 인라인 스타일 무시 */
 html.forced-dark .book-post-date {
     border-bottom: 1px solid #444 !important;
+    color: #b0b0b0 !important;
 }
 
-/* 게시물 상단 날짜 영역의 인라인 스타일(style="color: ...") 무시 */
-html.forced-dark .book-post-date {
-    color: #b0b0b0 !important;
-    border-bottom: 1px solid #444 !important; /* 다크모드에 맞춰 테두리 색도 완화 */
+/* 3-2) PC 및 모바일 다크모드 햄버거 메뉴 아이콘 가시성 */
+html.forced-dark main img.book-icon,
+body.forced-dark main img.book-icon,
+html[data-theme="dark"] main img.book-icon {
+    filter: invert(1) !important;
+    -webkit-filter: invert(1) !important; /* 아이폰 Safari 및 안드로이드 크롬 엔진 강제 대응 */
+}
+
+/* 3-3) PC 창 최대화 시 다크모드 가장자리 여백 블랙 강제 적용 */
+html.forced-dark,
+html.forced-dark body {
+    background: #000000 !important; /* 다크모드 시 바깥 여백을 완벽한 블랙으로 채움 */
+    background-image: none !important; /* 종이질감 배경 이미지가 있다면 강제로 제거 */
+}
+
+/* 3-4) 다크 모드 전용 로고 반전 */
+@media (prefers-color-scheme: dark) {
+  .book-brand img {
+    filter: invert(1) !important;
+  }
+}
+
+/* 3-5) 다크 모드 본문 및 제목 눈부심 방지 (미세 밝기 조정) */
+html.forced-dark, 
+body.forced-dark, 
+html[data-theme="dark"],
+.book-dark {
+    --body-font-color: #a8a8a8 !important; /* 본문: 쥐색에서 약간만 밝아진 중간 회색 (눈부심 방지) */
+    --heading-color: #bebebe !important;   /* 제목: 본문보다 아주 살짝 더 밝은 회색 */
+}
+
+/* 3-5-1) 변수가 먹지 않는 일반 마크다운 본문 텍스트 색상 강제 보정 */
+html.forced-dark main,
+html.forced-dark .markdown,
+html.forced-dark p,
+html.forced-dark .markdown p,
+html.forced-dark li,
+html[data-theme="dark"] .markdown p {
+    color: #a8a8a8 !important;
 }
 
 /* ==========================================================================
-   5. 모바일 사이드바 및 TOC(목차) 슬라이드 효과
+   4. 로고 및 브랜드 최적화
+   ========================================================================== */
+/* 4-1) 로고 이미지 크기 및 여백 최적화 */
+.book-brand img {
+  width: 250px !important;      /* 💡 가로형 공간에 맞춰 좌우 폭을 시원하게 확장 */
+  max-width: 100% !important;   
+  height: auto !important;      
+  margin-top: 0px !important;   /* 상단 여백 최소화 */
+  margin-bottom: 0px !important;/* 💡 이미지 자체의 하단 마진을 완전히 제거 */
+}
+
+/* 4-2) 로고 부모 태그 여백 압축 */
+.book-brand {
+  margin-bottom: 0px !important; /* 💡 음수 마진으로 검색창을 위로 바짝 끌어올림 */
+  padding-bottom: 16px !important;
+}
+
+/* 4-3) 로고 옆 사이트 타이틀 텍스트 숨기기 */
+.book-brand a span {
+  display: none !important;
+}
+
+/* ==========================================================================
+   5. 모바일 레이아웃 및 여백 최적화
    ========================================================================== */
 @media screen and (max-width: 60rem) { 
-    
+    /* 5-1) 모바일 사이드바 및 TOC(목차) 슬라이드 효과 */
     .book-header aside {
         display: block !important;
         position: fixed !important;
@@ -77,7 +151,6 @@ html.forced-dark .book-post-date {
         background: var(--body-background) !important;
         box-shadow: -0.1rem 0 0.5rem rgba(0, 0, 0, 0.15) !important;
         z-index: 9999 !important;
-        
         transform: translateX(100%) !important; 
         transition: transform 0.2s ease-in-out !important; 
         overflow-y: auto !important;
@@ -102,7 +175,6 @@ html.forced-dark .book-post-date {
         .book-header aside {
             transform: translateX(0) !important; 
         }
-        
         .book-toc-overlay {
             display: block !important;
             position: fixed !important; 
@@ -118,100 +190,39 @@ html.forced-dark .book-post-date {
             right: auto !important;
         }
     }
-}
 
-/* ==========================================================================
-   6. 레이아웃 정리 (헤더 중복 제거 및 불필요한 목차 숨김)
-   ========================================================================== */
-@media screen and (max-width: 60rem) { 
+    /* 5-2) 레이아웃 정리 (헤더 중복 제거) */
     .book-header h3 { display: none !important; }
+
+    /* 5-3) 모바일 여백 최적화 (본문 확장) */
+    .book-page { padding: 1rem 0.5rem !important; }
+    .markdown { padding: 0 !important; }
 }
 
 @media screen and (min-width: 54rem) { 
+    /* 5-4) PC에서 TOC 및 aside 숨김 */
     main .book-page .book-toc,
     main .book-page aside { display: none !important; }
 }
 
 /* ==========================================================================
-   7. 모바일 여백 최적화 (본문 확장)
+   6. 게시물 하단 여백 조정 (푸터 인라인 강제 오버라이드)
    ========================================================================== */
-@media screen and (max-width: 60rem) {
-    .book-page { padding: 1rem 0.5rem !important; }
-    .markdown { padding: 0 !important; }
-}
-
-/* ==========================================================================
-   8. PC 및 모바일 다크모드 삼선(햄버거) 메뉴 이미지 아이콘 가시성 보정
-   ========================================================================== */
-html.forced-dark main img.book-icon,
-body.forced-dark main img.book-icon,
-html[data-theme="dark"] main img.book-icon {
-    filter: invert(1) !important;
-    -webkit-filter: invert(1) !important; /* 아이폰 Safari 및 안드로이드 크롬 엔진 강제 대응 */
-}
-
-
-
-/* ==========================================================================
-   9. PC 창 최대화 시 다크모드 가장자리 여백 블랙 강제 적용
-   ========================================================================= */
-html.forced-dark,
-html.forced-dark body {
-    background: #000000 !important; /* 다크모드 시 바깥 여백을 완벽한 블랙으로 채움 */
-    background-image: none !important; /* 종이질감 배경 이미지가 있다면 강제로 제거 */
-}
-
-
-/* ==========================================================================
-   10. 로고 이미지 크기 및 여백 최적화 
-   ========================================================================== */
-.book-brand img {
-  width: 250px !important;      /* 💡 가로형 공간에 맞춰 좌우 폭을 시원하게 확장 */
-  max-width: 100% !important;   
-  height: auto !important;      
-  margin-top: 0px !important;   /* 상단 여백 최소화 */
-  margin-bottom: 0px !important;/* 💡 이미지 자체의 하단 마진을 완전히 제거 */
-}
-
-/* 로고를 감싸는 부모 태그(h1/div)의 기본 하단 여백까지 압축 */
-.book-brand {
-  margin-bottom: 0px !important; /* 💡 음수 마진으로 밑에 있는 검색창을 위로 바짝 끌어올림 */
-  padding-bottom: 16px !important;
-}
-
-/* ==========================================================================
-   11. 다크 모드 전용: 검은 배경에서 로고를 하얗게 반전 
-   ========================================================================== */
-@media (prefers-color-scheme: dark) {
-  .book-brand img {
-    filter: invert(1) !important;
-  }
-}
-
-/* 로고 이미지 옆에 붙는 사이트 타이틀 텍스트 숨기기 */
-.book-brand a span {
-  display: none !important;
-}
-
-/* ==========================================================================
-   12. 게시물 하단 여백 조정 (푸터 인라인 강제 오버라이드)
-   ========================================================================== */
-
-/* 1) 본문 마크다운 영역 내부의 좋아요 컨테이너 여백 강제 축소 */
+/* 6-1) 좋아요 컨테이너 여백 강제 축소 */
 main.book-page .markdown .page-reactions-container {
     margin-top: 0.8rem !important;     /* 본문 글 끝나는 지점과 좋아요 사이 간격 축소 */
     margin-bottom: 0.8rem !important;  /* 좋아요와 이전글/다음글 선 사이 간격 축소 */
     padding: 0.6rem 0 !important;      /* 안쪽 위아래 여백 압축 */
 }
 
-/* 2) 이전글 / 다음글 네비게이션 영역 및 밑 공간 완전히 축소 */
+/* 6-2) 이전글 / 다음글 네비게이션 영역 축소 */
 main.book-page .markdown .book-navigation {
     margin-top: 0.5rem !important;     /* 좋아요 밑단 선과의 간격 */
     margin-bottom: 0px !important;     /* 하단 마진 삭제 */
     padding-bottom: 0px !important;    /* 하단 패딩 삭제 */
 }
 
-/* 3) 푸터 파일 내부 첫 번째 div의 인라인 여백(40px, 20px)을 강제로 축소 */
+/* 6-3) 푸터 div 여백 축소 */
 footer.book-footer > div,
 .book-footer > div {
     margin-top: 10px !important;       /* 기존 40px 강제 무시하고 10px로 압축 */
@@ -219,17 +230,15 @@ footer.book-footer > div,
 }
 
 /* ==========================================================================
-   13. 게시물 리스트 및 링크 읽은 후(:visited) 색상 보정
+   7. 게시물 리스트 및 링크, 제목 스타일
    ========================================================================== */
-/* 본문 및 리스트 영역 내 이미 읽은 링크 색상 통일 (라이트/다크 양방향 최적화) */
+/* 7-1) 읽은 링크(:visited) 색상 보정 */
 .markdown a:visited,
 .book-page a:visited {
     color: #00a49c !important;
 }
 
-/* ==========================================================================
-   14. 게시물 제목(H1, H2, H3) 자동 줄바꿈 시 줄 간격 여백 최적화
-   ========================================================================== */
+/* 7-2) 게시물 제목(H1, H2, H3) 줄 간격 최적화 */
 .markdown h1,
 main h1,
 .markdown h2,
@@ -237,17 +246,54 @@ main h1,
     line-height: 1.3 !important; /* 줄 바꿈 시 위아래 글자가 겹치지 않도록 간격 확보 */
 }
 
-/* ==========================================================================
-   15. 좌측 메뉴 게시물 숫자 폰트 스타일 최적화 (방문자수 폰트와 동기화)
-   ========================================================================== */
-.book-menu-post-count {
-    display: inline-block !important;
-    float: right !important;
-    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif !important;
-    font-size: 0.85rem !important;
-    font-weight: bold !important;
-    font-style: normal !important; /* 부모 메뉴의 이탤릭(기울임) 무력화 */
-    color: #666 !important;
-    margin-right: 0.6rem !important;
+/* 7-3) 브레드크럼 링크 색상 통일 (라이트/다크 안정) */
+.book-breadcrumbs a,
+.book-breadcrumbs a:link,
+.book-breadcrumbs a:visited,
+.breadcrumbs a,
+.breadcrumbs a:link,
+.breadcrumbs a:visited {
+    color: #00a49c !important;
 }
 
+.book-breadcrumbs a:hover,
+.breadcrumbs a:hover {
+    color: #00857a !important;
+}
+
+
+/* ==========================================================================
+   8. OS 다크모드 + 사용자 라이트모드 선택 시 충돌 방지
+   (book.min.css의 @media(prefers-color-scheme: dark) 강제 발동을 무력화)
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  html:not(.forced-dark) {
+    --body-background: white;
+    --body-background-tint: none;
+    --body-font-color: black;
+    --color-link: #0055bb;
+    --color-visited-link: #5500bb;
+    --icon-filter: none;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-500: #adb5bd;
+    --color-accent-default: #64748b;
+    --color-accent-default-tint: rgba(100, 116, 139, 0.1);
+    --color-accent-note: #4486dd;
+    --color-accent-note-tint: rgba(68, 134, 221, 0.1);
+    --color-accent-tip: #3bad3b;
+    --color-accent-tip-tint: rgba(59, 173, 59, 0.1);
+    --color-accent-important: #8144dd;
+    --color-accent-important-tint: rgba(129, 68, 221, 0.1);
+    --color-accent-warning: #f59e42;
+    --color-accent-warning-tint: rgba(245, 158, 66, 0.1);
+    --color-accent-caution: #d84747;
+    --color-accent-caution-tint: rgba(216, 71, 71, 0.1);
+    --color-accent-info: #4486dd;
+    --color-accent-info-tint: rgba(68, 134, 221, 0.1);
+    --color-accent-success: #3bad3b;
+    --color-accent-success-tint: rgba(59, 173, 59, 0.1);
+    --color-accent-danger: #d84747;
+    --color-accent-danger-tint: rgba(216, 71, 71, 0.1);
+  }
+}

@@ -1,0 +1,26 @@
+<!-- 카카오 SDK 불러오기 -->
+<script src="https://kakaocdn.net" integrity="sha384-TiCUE00h649CAMonGHrSaNHlVD9AZHJqlh791S1IFvyRxDZ6fIfDQ5BOJaMkJw8c" crossorigin="anonymous"></script>
+
+<script>
+  // 카카오 디벨로퍼스에서 복사한 내 JavaScript 키를 넣는 곳입니다.
+  // 주의: 반드시 따옴표 "" 안에 키 값을 넣어주세요!
+  if (!Kakao.isInitialized()) {
+    Kakao.init("f158b835db42451835274aea8a45d845");
+  }
+
+  function shareKakao() {
+    Kakao.Share.sendDefault({
+      objectType: 'text',
+      text: document.title, // 현재 내 글의 제목을 자동으로 가져옵니다.
+      link: {
+        mobileWebUrl: window.location.href, // 현재 내 글의 주소를 자동으로 가져옵니다.
+        webUrl: window.location.href,
+      },
+    });
+  }
+</script>
+
+<!-- 내가 원하는 곳에 보일 공유 버튼 -->
+<button onclick="shareKakao()" style="background-color: #FEE500; color: #191919; border: none; padding: 8px 12px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+  💛 카카오톡 공유하기
+</button>

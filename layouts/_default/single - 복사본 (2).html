@@ -280,49 +280,7 @@
         }
       }
     }
-    // ====== 공유 기능 ======
-    function shareCopyUrl(btn) {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        const original = btn.innerText;
-        btn.innerText = "✅";
-        setTimeout(() => { btn.innerText = original; }, 1500);
-      });
-    }
 
-    if (!window.Kakao) {
-      const kakaoScript = document.createElement('script');
-      kakaoScript.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js";
-      kakaoScript.onload = function() {
-        Kakao.init("f158b835db42451835274aea8a45d845");
-      };
-      document.head.appendChild(kakaoScript);
-    }
-
-    function shareKakao() {
-      if (!window.Kakao || !Kakao.isInitialized()) {
-        alert("카카오 공유 준비 중입니다. 잠시 후 다시 시도해주세요.");
-        return;
-      }
-      Kakao.Share.sendDefault({
-        objectType: 'text',
-        text: document.title,
-        link: {
-          mobileWebUrl: window.location.href,
-          webUrl: window.location.href,
-        },
-      });
-    }
-
-    function shareMore() {
-      if (navigator.share) {
-        navigator.share({
-          title: document.title,
-          url: window.location.href,
-        }).catch(() => {});
-      } else {
-        alert("이 브라우저는 공유 기능을 지원하지 않습니다. URL 복사를 이용해주세요.");
-      }
-    }
     // 초기 로드
     document.addEventListener("DOMContentLoaded", loadReactions);
   </script>
