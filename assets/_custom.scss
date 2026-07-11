@@ -325,13 +325,14 @@ main h1,
   }
 }
 
-/* ====================================================================
-   9. 메인 푸터 가로줄 밑 레트로 전광판 (온글잎 박다현체 + 입체 엠보싱)
+//* ====================================================================
+   9. 메인 푸터 가로줄 밑 레트로 전광판 (온글잎 데이지체 + 입체 엠보싱)
    ==================================================================== */
 @font-face {
-  font-family: 'OngleipParkDahyeon';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+  font-family: 'OngleebDaisy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2508-2@1.0/Ownglyph_daisy-Rg.woff2') format('woff2');
   font-weight: normal;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -350,19 +351,17 @@ main h1,
 .marquee-text {
   display: block !important;
   white-space: nowrap;
-  animation: marquee-speed 20s linear infinite; 
+  animation: marquee-speed 30s linear infinite; 
 }
 
 .marquee-text span {
-  font-family: 'OngleipParkDahyeon', "Malgun Gothic", sans-serif !important;
-  font-weight: 200 !important;   /* 이 줄 추가 — 숫자를 낮출수록 얇아짐 */
-  font-size: 12px;
-  color: #ff69b4 !important; /* 사쿠라 꽃잎과 동일한 색상 */
+  font-family: 'OngleebDaisy', "Malgun Gothic", sans-serif !important;
+  font-size: 16px;
+  color: #ff69b4 !important;
   font-weight: normal;
-  padding-left: 100%;
   letter-spacing: 0.5px;
+  padding-left: 100%;
 
-  /* 입체감(엠보싱) 효과: 진한 그림자를 겹겹이 쌓아 글자가 도드라져 보이게 처리 */
   text-shadow:
     0px 1px 0px #d4478f,
     0px 2px 0px #c33f80,
@@ -371,10 +370,6 @@ main h1,
 }
 
 @keyframes marquee-speed {
-  0% { 
-    transform: translate3d(0, 0, 0); 
-  }
-  100% { 
-    transform: translate3d(-100vw, 0, 0); 
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100vw, 0, 0); }
 }
