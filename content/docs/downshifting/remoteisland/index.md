@@ -1,6 +1,6 @@
 ---
 title: "가두리 양식장을 탈출하여 외딴섬의 영주가 되다."
-date: 2026-07-5
+date: 2026-07-04
 lastmod: 2026-07-11
 bookHidden: true
 weight: 1
