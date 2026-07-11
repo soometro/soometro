@@ -37,7 +37,7 @@ sakura = true
   /* [기본 라이트 모드: 종이 질감 배경 및 원래 색상 순정 유지] */
   body {
     background-color: #f4f7f9 !important;
-    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png") !important;
+    background-image: url("/images/paper-fibers.webp") !important;
     background-repeat: repeat !important;
   }
   h1 { 
