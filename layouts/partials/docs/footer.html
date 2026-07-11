@@ -11,7 +11,9 @@
         Copyleft &copy; 2026 [www.soometro.kr](https://www.soometro.kr). All wrongs reserved.
     </p>
 </div>
+
 {{ if .Params.sakura }}
+  <div id="sakura-container" style="position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden;"></div>
   <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
       {{ readFile "layouts/partials/docs/inject/sakura.js" | safeJS }}
