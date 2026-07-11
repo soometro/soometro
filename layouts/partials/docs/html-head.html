@@ -86,9 +86,7 @@ https://github.com/alex-shpak/hugo-book
 {{- end -}}
 <!-- Theme stylesheet, you can customize scss by creating `assets/custom.scss` in your website -->
 {{- $styles := resources.Get "book.scss" | resources.ExecuteAsTemplate "book.scss" . | css.Sass | resources.Minify | resources.Fingerprint }}
-<link rel="preload" href="{{ partial "docs/links/resource-precache" $styles }}" as="style" {{ template "integrity" $styles }}>
-<link rel="stylesheet" href="{{ partial "docs/links/resource-precache" $styles }}" media="print" onload="this.media='all'" {{ template "integrity" $styles }}>
-<noscript><link rel="stylesheet" href="{{ partial "docs/links/resource-precache" $styles }}" {{ template "integrity" $styles }}></noscript>
+<link rel="stylesheet" href="{{ partial "docs/links/resource-precache" $styles }}" {{ template "integrity" $styles }}>
 <link rel="icon" type="image/png" sizes="192x192" href="/images/google-touch-icon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
