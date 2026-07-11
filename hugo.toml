@@ -38,9 +38,6 @@ theme = "hugo-book"
   images = ["/images/og-default.png"]
   BookDisableGoogleFonts = true
 
-  # cusdis 활성화 
-  BookComments = true
-
 
 # 5. 다국어 및 한국어 기본 설정
 [languages]
