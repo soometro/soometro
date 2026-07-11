@@ -7,7 +7,6 @@
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
         const isAdmin = localStorage.getItem('my_admin') === 'true';
-        console.log('[Counter] isAdmin:', isAdmin, 'user_ip_hash:', isAdmin ? 'ADMIN_SKIP' : ipHash);
         const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
