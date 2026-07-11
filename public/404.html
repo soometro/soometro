@@ -54,27 +54,22 @@ https://github.com/alex-shpak/hugo-book
 
   <script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        
-        const isAdmin = localStorage.getItem('my_admin') === 'true';
+    document.addEventListener("DOMContentLoaded", function () {
         const userAgent = navigator.userAgent.toLowerCase();
-        const botKeywords = ['bot', 'crawler', 'spider', 'lighthouse', 'slurp', 'bingpreview'];
-        
+        const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity'];
         
         const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
-
-        const supabaseUrl = "https://supabase.co";
+        const isAdmin = localStorage.getItem('my_admin') === 'true';
+        const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-        const pageUrl = window.location.pathname;
         
+        const pageUrl = window.location.pathname;
         const rawIp = Math.random().toString(36).substring(2); 
         const ipHash = localStorage.getItem('user_hash') || rawIp;
         if (!localStorage.getItem('user_hash')) {
             localStorage.setItem('user_hash', ipHash);
         }
-
-        
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
             headers: {
@@ -84,8 +79,7 @@ https://github.com/alex-shpak/hugo-book
             },
             body: JSON.stringify({
                 page_url: pageUrl,
-                user_ip_hash: ipHash,
-                is_admin_check: isAdmin 
+                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash
             })
         })
         .then(res => res.json())
@@ -105,8 +99,6 @@ https://github.com/alex-shpak/hugo-book
         .catch(err => console.error("Counter Error:", err));
     });
 </script>
-
-
 
 <script>
     (function() {
