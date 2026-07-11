@@ -4,10 +4,10 @@
         const userAgent = navigator.userAgent.toLowerCase();
         const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity'];
         
-        const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
+                const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
         if (isBot) return;
         const isAdmin = localStorage.getItem('my_admin') === 'true';
-        const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+        const supabaseUrl = "https://supabase.co";
         const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
         
         const pageUrl = window.location.pathname;
@@ -16,6 +16,8 @@
         if (!localStorage.getItem('user_hash')) {
             localStorage.setItem('user_hash', ipHash);
         }
+
+        // [수정된 핵심 로직] 관리자면 카운트를 올리지 않는 매개변수를 함께 보냅니다.
         fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
             method: "POST",
             headers: {
@@ -25,7 +27,8 @@
             },
             body: JSON.stringify({
                 page_url: pageUrl,
-                user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash
+                user_ip_hash: ipHash,
+                is_admin_check: isAdmin // 이 값이 true면 수파베이스가 카운트를 올리지 않고 숫자만 반환합니다.
             })
         })
         .then(res => res.json())
@@ -45,6 +48,7 @@
         .catch(err => console.error("Counter Error:", err));
     });
 </script>
+
 <!-- 다크모드 Flash of White 방지 -->
 <script>
     (function() {
