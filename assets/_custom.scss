@@ -350,12 +350,13 @@ main h1,
 .marquee-text {
   display: block !important;
   white-space: nowrap;
-  animation: marquee-speed 30s linear infinite; 
+  animation: marquee-speed 20s linear infinite; 
 }
 
 .marquee-text span {
   font-family: 'OngleipParkDahyeon', "Comic Sans MS", cursive, sans-serif !important;
-  font-size: 17px;
+  font-weight: 200 !important;   /* 이 줄 추가 — 숫자를 낮출수록 얇아짐 */
+  font-size: 12px;
   color: #ff69b4 !important; /* 사쿠라 꽃잎과 동일한 색상 */
   font-weight: normal;
   padding-left: 100%;
