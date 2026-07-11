@@ -324,3 +324,56 @@ main h1,
     --color-accent-danger-tint: rgba(216, 71, 71, 0.1);
   }
 }
+
+/* ====================================================================
+   9. 메인 푸터 가로줄 밑 레트로 전광판 (온글잎 박다현체 + 입체 엠보싱)
+   ==================================================================== */
+@font-face {
+  font-family: 'OngleipParkDahyeon';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
+  font-weight: normal;
+  font-display: swap;
+}
+
+.retro-footer-marquee {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  background: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin-top: -5px !important;
+  margin-bottom: 0px !important;
+}
+
+.marquee-text {
+  display: block !important;
+  white-space: nowrap;
+  animation: marquee-speed 30s linear infinite; 
+}
+
+.marquee-text span {
+  font-family: 'OngleipParkDahyeon', "Comic Sans MS", cursive, sans-serif !important;
+  font-size: 17px;
+  color: #ff69b4 !important; /* 사쿠라 꽃잎과 동일한 색상 */
+  font-weight: normal;
+  padding-left: 100%;
+  letter-spacing: 0.5px;
+
+  /* 입체감(엠보싱) 효과: 진한 그림자를 겹겹이 쌓아 글자가 도드라져 보이게 처리 */
+  text-shadow:
+    0px 1px 0px #d4478f,
+    0px 2px 0px #c33f80,
+    0px 3px 0px #b23771,
+    0px 4px 3px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes marquee-speed {
+  0% { 
+    transform: translate3d(0, 0, 0); 
+  }
+  100% { 
+    transform: translate3d(-100vw, 0, 0); 
+  }
+}
