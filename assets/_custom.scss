@@ -326,24 +326,14 @@ main h1,
 }
 
 /* ====================================================================
-   9. 메인 푸터 가로줄 밑 레트로 전광판 (온글잎 데이지체 + 입체 엠보싱)
+   9. 메인 푸터 가로줄 밑 레트로 전광판 (기본 플랫 디자인)
    ==================================================================== */
-@font-face {
-  font-family: 'OngleebDaisy';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2508-2@1.0/Ownglyph_daisy-Rg.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 .retro-footer-marquee {
   position: relative !important;
   display: block !important;
   width: 100% !important;
   overflow: hidden !important;
-  background: none !important;
-  background-color: transparent !important;
-  padding: 0 !important;
+  background: transparent !important;
   margin-top: -5px !important;
   margin-bottom: 0px !important;
 }
@@ -355,18 +345,17 @@ main h1,
 }
 
 .marquee-text span {
-  font-family: 'OngleebDaisy', "Malgun Gothic", sans-serif !important;
-  font-size: 14px;
-  color: #ff69b4 !important;
-  font-weight: normal;
-  letter-spacing: 0.5px;
+  font-family: "Malgun Gothic", "맑은 고딕", apple-system, sans-serif !important;
   padding-left: 100%;
+  
+  /* [크기 설정] 원하시는 크기로 숫자를 변경하세요 */
+  font-size: 14px; 
 
-  text-shadow:
-    0px 1px 0px #d4478f,
-    0px 2px 0px #c33f80,
-    0px 3px 0px #b23771,
-    0px 4px 3px rgba(0, 0, 0, 0.4);
+  /* [색상 설정] 원하시는 글자 색상 코드로 변경하세요 */
+  color: #ff69b4 !important; 
+
+  /* 두께 설정 (일반 두께는 normal, 굵게는 bold) */
+  font-weight: normal !important; 
 }
 
 @keyframes marquee-speed {
