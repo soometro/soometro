@@ -62,7 +62,7 @@ https://github.com/alex-shpak/hugo-book
         (window.requestIdleCallback || window.setTimeout)(function () {
             const userAgent = navigator.userAgent.toLowerCase();
             
-            const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity', 'lighthouse'];
+            const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity', 'lighthouse', 'google-pagespeedinsights', 'chrome-lighthouse', 'google-read-aloud', 'google-speech-actions', 'headless'];
             
             const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
             if (isBot) return;
