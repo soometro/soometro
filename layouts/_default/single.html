@@ -88,7 +88,7 @@
       [
         {{- range $i, $p := . -}}
           {{- if $i }},{{ end -}}
-          { "title": {{ $p.Title | jsonify }}, "url": {{ $p.RelPermalink | jsonify }} }
+          { "title": {{ printf "%q" $p.Title | safeJS }}, "url": {{ printf "%q" $p.RelPermalink | safeJS }} }
         {{- end -}}
       ]
     </script>
