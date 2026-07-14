@@ -74,18 +74,21 @@
       {{ .Content }}
     </div>
 
-    <!-- 자동 연관 게시글 추천 (내부링크 SEO, 새로고침마다 무작위 3개 - JS 처리) -->
-    {{- $candidates := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink -}}
-    {{- with $candidates -}}
-    <div class="related-posts-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
-      <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">이 글과 함께 읽으면 좋은 글</p>
-      <ul id="related-posts-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.6rem;">
-        <!-- JS가 이 안에 무작위 3개를 채워 넣습니다 -->
-      </ul>
-    </div>
+    <!-- 자동 연관 게시글 추천 (내부링크 SEO, 새로고침마다 무작위 3개) -->
+{{- $candidates := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink -}}
 
-    {{- $related := slice -}}
-{{- range . -}}
+{{- if gt (len $candidates) 0 -}}
+<div class="related-posts-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
+  <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">
+    이 글과 함께 읽으면 좋은 글
+  </p>
+
+  <ul id="related-posts-list" style="list-style:none !important; padding-left:0 !important; margin:0 !important; display:flex; flex-direction:column; gap:0.6rem;">
+  </ul>
+</div>
+
+{{- $related := slice -}}
+{{- range $candidates -}}
   {{- $related = $related | append (dict
       "title" .Title
       "url" .RelPermalink
@@ -97,36 +100,29 @@
 </script>
 
 <script>
-      (function() {
-        const dataEl = document.getElementById('related-posts-data');
-        const listEl = document.getElementById('related-posts-list');
-        if (!dataEl || !listEl) return;
+(function () {
+    const dataEl = document.getElementById("related-posts-data");
+    const listEl = document.getElementById("related-posts-list");
 
-        let posts = [];
-        try {
-          posts = JSON.parse(dataEl.textContent);
-        } catch (e) {
-          console.error("Related posts JSON parse error:", e);
-          return;
-        }
+    if (!dataEl || !listEl) return;
 
-        // Fisher-Yates 셔플
-        for (let i = posts.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [posts[i], posts[j]] = [posts[j], posts[i]];
-        }
+    const posts = JSON.parse(dataEl.textContent);
 
-        const picked = posts.slice(0, 3);
-        listEl.innerHTML = picked.map(function(p) {
-          return `<li style="margin:0 !important; padding:0 !important;">
-            <a href="${p.url}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">
-              • ${p.title}
+    for (let i = posts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [posts[i], posts[j]] = [posts[j], posts[i]];
+    }
+
+    listEl.innerHTML = posts.slice(0, 3).map(p => `
+        <li style="margin:0;padding:0;">
+            <a href="${p.url}" style="color:var(--color-link);text-decoration:none;font-size:0.95rem;">
+                • ${p.title}
             </a>
-          </li>`;
-        }).join('');
-      })();
-    </script>
-    {{- end -}}
+        </li>
+    `).join("");
+})();
+</script>
+{{- end -}}
 
     <!-- 좋아요 / 싫어요 반응 컴포넌트 -->
     <div class="page-reactions-container">
