@@ -93,7 +93,7 @@
       ]
     </script>
 
-    <script>
+<script>
       (function() {
         const dataEl = document.getElementById('related-posts-data');
         const listEl = document.getElementById('related-posts-list');
@@ -115,10 +115,11 @@
 
         const picked = posts.slice(0, 3);
         listEl.innerHTML = picked.map(function(p) {
-          return '<li style="margin:0 !important; padding:0 !important;">' +
-                 '<a href="' + p.url + '" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">' +
-                 '• ' + p.title +
-                 '</a></li>';
+          return `<li style="margin:0 !important; padding:0 !important;">
+            <a href="${p.url}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">
+              • ${p.title}
+            </a>
+          </li>`;
         }).join('');
       })();
     </script>
