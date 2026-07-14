@@ -822,7 +822,7 @@ https://github.com/alex-shpak/hugo-book
 
     </div>
 
-        <div class="related-posts-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
+    <div class="related-posts-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
       <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">이 글과 함께 읽으면 좋은 글</p>
       <ul id="related-posts-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.6rem;">
         
@@ -855,11 +855,10 @@ https://github.com/alex-shpak/hugo-book
 
         const picked = posts.slice(0, 3);
         listEl.innerHTML = picked.map(function(p) {
-          return `<li style="margin:0 !important; padding:0 !important;">
-            <a href="${p.url}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">
-              • ${p.title}
-            </a>
-          </li>`;
+          return '<li style="margin:0 !important; padding:0 !important;">' +
+                 '<a href="' + p.url + '" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">' +
+                 '• ' + p.title +
+                 '</a></li>';
         }).join('');
       })();
     </script>

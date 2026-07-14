@@ -74,7 +74,7 @@
       {{ .Content }}
     </div>
 
-        <!-- 자동 연관 게시글 추천 (내부링크 SEO, 새로고침마다 무작위 3개 - JS 처리) -->
+    <!-- 자동 연관 게시글 추천 (내부링크 SEO, 새로고침마다 무작위 3개 - JS 처리) -->
     {{- $candidates := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink -}}
     {{- with $candidates -}}
     <div class="related-posts-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
@@ -115,11 +115,10 @@
 
         const picked = posts.slice(0, 3);
         listEl.innerHTML = picked.map(function(p) {
-          return `<li style="margin:0 !important; padding:0 !important;">
-            <a href="${p.url}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">
-              • ${p.title}
-            </a>
-          </li>`;
+          return '<li style="margin:0 !important; padding:0 !important;">' +
+                 '<a href="' + p.url + '" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">' +
+                 '• ' + p.title +
+                 '</a></li>';
         }).join('');
       })();
     </script>
