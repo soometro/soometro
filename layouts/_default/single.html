@@ -85,7 +85,7 @@
     </div>
 
     {{- $related := slice -}}
-{{- range $candidates -}}
+{{- range . -}}
   {{- $related = $related | append (dict
       "title" .Title
       "url" .RelPermalink
