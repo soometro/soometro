@@ -84,14 +84,17 @@
       </ul>
     </div>
 
-    <script id="related-posts-data" type="application/json">
-      [
-        {{- range $i, $p := . -}}
-          {{- if $i }},{{ end -}}
-          { "title": {{ $p.Title | jsonify }}, "url": {{ $p.RelPermalink | jsonify }} }
-        {{- end -}}
-      ]
-    </script>
+    {{- $related := slice -}}
+{{- range . -}}
+  {{- $related = $related | append (dict
+      "title" .Title
+      "url" .RelPermalink
+  ) -}}
+{{- end -}}
+
+<script id="related-posts-data" type="application/json">
+{{ $related | jsonify }}
+</script>
 
 <script>
       (function() {
