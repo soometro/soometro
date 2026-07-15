@@ -20,7 +20,9 @@ aside .book-menu nav ul li a,
 
 /* 2) 사이트 브랜드(로고) 및 검색창 간격 */
 .book-brand {
-    margin-bottom: 2.0rem !important;  /* 로고와 검색창 사이 간격 */
+  margin-top: 10px !important;       /* 💡 로고 위쪽에 여백을 주어 아래로 내립니다 */
+  margin-bottom: 30px !important;    /* 💡 로고와 검색창 사이의 간격 */
+  padding-bottom: 0px !important;   /* 💡 패딩 값도 함께 줄여서 조절할 수 있습니다 */
 }
 
 .book-brand a {
@@ -31,11 +33,19 @@ aside .book-menu nav ul li a,
 }
 
 .book-search {
-    margin-bottom: 16px !important;    /* 검색창과 메뉴 사이 간격 */
+margin-top: -10px !important;     /* 💡 핵심: 검색창의 뚝배기를 위로 강제 흡착 (-값으로) */
+    margin-bottom: 10px !important;   /* 검색창과 메뉴 사이 간격 */
 }
 
 .book-search input {
     font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+}
+
+/* 2-2) 메뉴 목록과 통계 영역 사이 간격 (간격3) */
+.book-menu nav hr, 
+.book-menu nav p:has(+ table), /* 통계 표 바로 위의 구분선 텍스트 제어 */
+.book-menu nav ul + p {        /* 메뉴 목록 바로 뒤에 오는 문단 제어 */
+    margin-top: -10px !important;  /* 💡 위로 강하게 끌어올려 간격3을 좁힙니다 */
 }
 
 /* ==========================================================================
@@ -116,7 +126,7 @@ html[data-theme="dark"] .markdown p {
    ========================================================================== */
 /* 4-1) 로고 이미지 크기 및 여백 최적화 */
 .book-brand img {
-  width: 250px !important;      /* 💡 가로형 공간에 맞춰 좌우 폭을 시원하게 확장 */
+  width: 200px !important;      /* 💡 가로형 공간에 맞춰 좌우 폭을 시원하게 확장 */
   max-width: 100% !important;   
   height: auto !important;      
   margin-top: 0px !important;   /* 상단 여백 최소화 */
