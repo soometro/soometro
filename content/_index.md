@@ -31,16 +31,14 @@ sakura = true
   </div>
 </div>
 
-<!-- 💡 미니홈피 감성 글귀 및 아카이브 바로가기 링크 추가 -->
-<div class="home-columns" style="margin-top: 1.5rem;">
-  <div class="home-box" style="text-align: center; border-top: 1px dashed #bbb; padding-top: 1.5rem;">
-    <p style="font-family: 'Georgia', serif; font-style: italic; color: #555; font-size: 0.95rem; margin-bottom: 1rem;">
-      "흘러가는 시간 속에서, 오직 기록된 것만이 우리로 남는다."
-    </p>
-    <a href="/docs/" style="display: inline-block; font-size: 1.1rem; font-weight: bold; color: #00a49c; text-decoration: none; border: 1px solid #00a49c; padding: 6px 16px; border-radius: 20px; background-color: rgba(0, 164, 156, 0.05); transition: all 0.2s;">
-      📂 소메트로 아카이브 들어가기
-    </a>
-  </div>
+<!-- 💡 미니홈피 감성 글귀 및 아카이브 바로가기 링크 수정본 -->
+<div style="margin-top: 1.5rem; text-align: center; border: none !important;">
+  <p style="font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; color: #555; font-size: 0.85rem; margin-bottom: 0.8rem; border: none !important;">
+    "흘러가는 시간 속에서, 오직 기록된 것만이 우리로 남는다."
+  </p>
+  <a href="/docs/" style="display: inline-block; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.9rem; font-weight: bold; color: #00a49c; text-decoration: none; border: 1px solid #00a49c; padding: 4px 12px; border-radius: 20px; background-color: rgba(0, 164, 156, 0.05); transition: all 0.2s;">
+    📂 소메트로 아카이브 들어가기
+  </a>
 </div>
 
 <style>
