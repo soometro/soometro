@@ -14,9 +14,8 @@ sakura = true
 
 <p style="font-size: 1.5em; font-weight: bold; margin: 0.83em 0;">Starting Point</p>
 
-&nbsp;&nbsp;&nbsp;<b><i>"우연한 연결의 시대가 끝나며, 무대는 사라졌다."</i></b>
-
-&nbsp;&nbsp;&nbsp;거리에서 친구들과 밤새 몰려다니던 시절의 활기, 누군가의 로그인에 설레던 시절이 있었다...
+&nbsp;&nbsp;&nbsp;<b><i>"우연한 연결의 시대가 끝나며, 무대는 사라졌다."</i></b><br>
+&nbsp;&nbsp;&nbsp;친구들과 밤새 몰려다니던 시절의 활기, 누군가의 로그인에 설레던 시절이 있었다...
 거리는 비었고, 24시간 연결된 세상에서 대화는 단절되었다. 
   </div>
 </div>
@@ -26,10 +25,21 @@ sakura = true
 
 <p style="font-size: 1.5em; font-weight: bold; margin: 0.83em 0;">Current Focus</p>
 
-&nbsp;&nbsp;&nbsp;<b><i>“좋아했던 것을 다시 들여다보는 일."</i></b>
-
-&nbsp;&nbsp;&nbsp;피드를 채우는 명품, 여행, 연출된 과시에 동참하지 않고, 시간을 거친 안목을 남길 뿐이다.
+&nbsp;&nbsp;&nbsp;<b><i>“좋아했던 것을 다시 들여다보는 일."</i></b><br>
+&nbsp;&nbsp;&nbsp;피드를 채우는 연출된 과시에 동참하지 않고, 시간을 거친 안목을 남길 뿐이다.
 무엇을 보았는가가 아닌, 우리는 무엇을 남겼는가?</i>
+  </div>
+</div>
+
+<!-- 💡 미니홈피 감성 글귀 및 아카이브 바로가기 링크 추가 -->
+<div class="home-columns" style="margin-top: 1.5rem;">
+  <div class="home-box" style="text-align: center; border-top: 1px dashed #bbb; padding-top: 1.5rem;">
+    <p style="font-family: 'Georgia', serif; font-style: italic; color: #555; font-size: 0.95rem; margin-bottom: 1rem;">
+      "흘러가는 시간 속에서, 오직 기록된 것만이 우리로 남는다."
+    </p>
+    <a href="/docs/" style="display: inline-block; font-size: 1.1rem; font-weight: bold; color: #00a49c; text-decoration: none; border: 1px solid #00a49c; padding: 6px 16px; border-radius: 20px; background-color: rgba(0, 164, 156, 0.05); transition: all 0.2s;">
+      📂 소메트로 아카이브 들어가기
+    </a>
   </div>
 </div>
 

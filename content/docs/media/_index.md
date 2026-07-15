@@ -1,5 +1,5 @@
 +++
-title = "Media"
+title = "🎞️Media"
 draft = false
 weight = 30
 
@@ -8,7 +8,7 @@ weight = 30
 # bookFlatSection = true
 +++
 
-## Media
+## <strong>Media</strong>
 
 <strong>미디어</strong> 이 공간에는<br>
 영화, 드라마, 소설 등의 작품에 관련된 감상, 개인 상상 등을 편하게 담아봅니다.<br> 

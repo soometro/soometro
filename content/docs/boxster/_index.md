@@ -1,5 +1,5 @@
 +++
-title = "Boxster"
+title = "🛡️Boxster"
 draft = false
 weight = 40
 

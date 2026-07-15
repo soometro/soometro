@@ -1,5 +1,5 @@
 +++
-title = "Monograph"
+title = "📝Monograph"
 draft = false
 weight = 10
 

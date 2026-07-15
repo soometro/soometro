@@ -1,5 +1,5 @@
 +++
-title = "Bloodborne"
+title = "⚔️Bloodborne"
 draft = false
 weight = 60
 

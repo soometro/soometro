@@ -1,5 +1,5 @@
 +++
-title = "Whisky"
+title = "🥃 Whisky"
 draft = false
 weight = 50
 
