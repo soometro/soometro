@@ -10,13 +10,13 @@ weight = 1
 
 <br>
 
-- **[Monograph](/docs/monograph/)** — 스치는 생각이 아닌, 깊이 들여다본 고찰
+- **[Monograph](/docs/monograph/)** — 스치지 않고 깊이 들여다본 고찰
 - **[Manga](/docs/manga/)** — 오래 곱씹은 만화들에 대한 기록
 - **[Media](/docs/media/)** — 영화, 드라마, 소설 등 콘텐츠에 대한 단상
 - **[Boxster](/docs/boxster/)** — 718 박스터를 중심으로 한 자동차 이야기
 - **[Whisky](/docs/whisky/)** — 시간이 만든 술, 위스키에 대한 기록
 - **[Bloodborne](/docs/bloodborne/)** — 게임 하나의 분석과 기록. 야리코미
-- **[Downshifting](/docs/downshifting/)** — 속도를 늦추고 다시 보는 일상의 태도
+- **[Downshifting](/docs/downshifting/)** — 속도를 늦추고 다시 보는 일상
 
 <br>
 
