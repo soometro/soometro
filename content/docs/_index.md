@@ -17,7 +17,5 @@ weight = 1
 - **[Whisky](/docs/whisky/)** — 시간이 만든 술, 위스키에 대한 기록
 - **[Bloodborne](/docs/bloodborne/)** — 게임 하나의 분석과 기록. 야리코미
 - **[Downshifting](/docs/downshifting/)** — 속도를 늦추고 다시 보는 일상
-
-<br>
-
+<br><br>
 각 카테고리를 클릭하면 주제의 글 목록으로 이동합니다.
