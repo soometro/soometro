@@ -12,8 +12,7 @@ sakura = true
 <div class="home-columns">
   <div class="home-box">
 
-<p style="font-size: 1.5em; font-weight: bold; margin: 0.83em 0;">Starting Point</p>
-
+<p style="font-size: 1.5em; font-weight: bold; margin: 0.3em 0 0.4em 0 !important;">Starting Point</p>
 &nbsp;&nbsp;&nbsp;<b><i>"우연한 연결의 시대가 끝나며, 무대는 사라졌다."</i></b><br>
 &nbsp;&nbsp;&nbsp;친구들과 밤새 몰려다니던 시절의 활기, 누군가의 로그인에 설레던 시절이 있었다...
 거리는 비었고, 24시간 연결된 세상에서 대화는 단절되었다. 
