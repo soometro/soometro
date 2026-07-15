@@ -1,5 +1,5 @@
 +++
-title = "🎞️Media"
+title = "🎞️ Media"
 draft = false
 weight = 30
 
