@@ -4,7 +4,7 @@ defaultContentLanguage = "ko"
 locale = "ko-KR"                # languageCode 대신 locale 사용 (최신 규격)
 title = "soometro"
 theme = "hugo-book"
-disableKinds = ["taxonomy", "term"]	# (검색 콘솔에 빈 페이지 색인되는 문제 방지)
+disableKinds = ["taxonomy", "term"]	# (검색 콘솔에 빈 페이지 색인되는 문제 방지.)
 
 # 2. 고유 주소(Permalinks) 깔끔하게 정리..
 [permalinks]
