@@ -35,7 +35,7 @@ sakura = true
     "어디서 무슨 소리 들리지 않아? 💜 너를 향해 뛰는 내 심장소리."
   </p>
   <a href="/docs/" style="display: inline-block; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.9rem; font-weight: bold; color: #00a49c; text-decoration: none; border: 1px solid #00a49c; padding: 4px 12px; border-radius: 20px; background-color: rgba(0, 164, 156, 0.05); transition: all 0.2s;">
-    📂 아카이브 들어가기👈
+    📂 아카이브 들어가기 
   </a>
 </div>
 
