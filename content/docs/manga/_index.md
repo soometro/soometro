@@ -1,5 +1,5 @@
 +++
-title = "📖 Manga"
+title = "📚 Manga"
 draft = false
 weight = 20
 
