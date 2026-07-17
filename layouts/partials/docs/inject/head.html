@@ -1,71 +1,3 @@
-<script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
-<script>
-    window.addEventListener("load", function () {
-        // 브라우저가 완전히 렌더링을 끝내고 여유가 생길 때(Idle) 통계 처리를 수행하여 LCP 병목 방지
-        (window.requestIdleCallback || window.setTimeout)(function () {
-            const userAgent = navigator.userAgent.toLowerCase();
-            // PageSpeed Insights 측정을 우회하기 위해 'lighthouse' 키워드 추가
-            const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity', 'lighthouse', 'google-pagespeedinsights', 'chrome-lighthouse', 'google-read-aloud', 'google-speech-actions', 'headless'];
-            
-            const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
-            if (isBot) return;
-            
-            const isAdmin = localStorage.getItem('my_admin') === 'true';
-            const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
-            const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-            
-            const pageUrl = window.location.pathname;
-            const rawIp = Math.random().toString(36).substring(2); 
-            const ipHash = localStorage.getItem('user_hash') || rawIp;
-            if (!localStorage.getItem('user_hash')) {
-                localStorage.setItem('user_hash', ipHash);
-            }
-            
-            fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "apikey": supabaseKey,
-                    "Authorization": `Bearer ${supabaseKey}`
-                },
-                body: JSON.stringify({
-                    page_url: pageUrl,
-                    user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                const result = Array.isArray(data) ? data[0] : data;
-                if (result) {
-                    const todayEl = document.getElementById("counter-today");
-                    const monthlyEl = document.getElementById("counter-monthly");
-                    const totalEl = document.getElementById("counter-total");
-                    
-                    if (todayEl) todayEl.innerText = (result.today_count || 0).toLocaleString();
-                    if (monthlyEl) monthlyEl.innerText = (result.monthly_count || 0).toLocaleString();
-                    if (totalEl) totalEl.innerText = (result.total_count || 0).toLocaleString();
-                    window.currentPageHit = result.page_hit || 0;
-                }
-            })
-            .then(null, err => console.error("Counter Error:", err));
-        });
-    });
-</script>
-<!-- 다크모드 Flash of White 방지 -->
-<script>
-    (function() {
-        const savedTheme = localStorage.getItem('forced_theme');
-        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        const themeToApply = savedTheme || (isSystemDark ? 'dark' : 'light');
-        
-        if (themeToApply === 'dark') {
-            document.documentElement.classList.add('forced-dark');
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    })();
-</script>
-
 {{/* ====================== SEO IMAGE ====================== */}}
 {{- $featured := "" -}}
 {{- $featured_alt := "" -}}
@@ -198,5 +130,72 @@
     }
   ]
 }
+</script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="c796d0d8-913e-431c-9b3e-1516e2f2bf1b"></script>
+<script>
+    window.addEventListener("load", function () {
+        // 브라우저가 완전히 렌더링을 끝내고 여유가 생길 때(Idle) 통계 처리를 수행하여 LCP 병목 방지
+        (window.requestIdleCallback || window.setTimeout)(function () {
+            const userAgent = navigator.userAgent.toLowerCase();
+            // PageSpeed Insights 측정을 우회하기 위해 'lighthouse' 키워드 추가
+            const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity', 'lighthouse', 'google-pagespeedinsights', 'chrome-lighthouse', 'google-read-aloud', 'google-speech-actions', 'headless'];
+            
+            const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
+            if (isBot) return;
+            
+            const isAdmin = localStorage.getItem('my_admin') === 'true';
+            const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+            const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+            
+            const pageUrl = window.location.pathname;
+            const rawIp = Math.random().toString(36).substring(2); 
+            const ipHash = localStorage.getItem('user_hash') || rawIp;
+            if (!localStorage.getItem('user_hash')) {
+                localStorage.setItem('user_hash', ipHash);
+            }
+            
+            fetch(`${supabaseUrl}/rest/v1/rpc/increment_and_get_stats`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "apikey": supabaseKey,
+                    "Authorization": `Bearer ${supabaseKey}`
+                },
+                body: JSON.stringify({
+                    page_url: pageUrl,
+                    user_ip_hash: isAdmin ? "ADMIN_SKIP" : ipHash
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const result = Array.isArray(data) ? data[0] : data;
+                if (result) {
+                    const todayEl = document.getElementById("counter-today");
+                    const monthlyEl = document.getElementById("counter-monthly");
+                    const totalEl = document.getElementById("counter-total");
+                    
+                    if (todayEl) todayEl.innerText = (result.today_count || 0).toLocaleString();
+                    if (monthlyEl) monthlyEl.innerText = (result.monthly_count || 0).toLocaleString();
+                    if (totalEl) totalEl.innerText = (result.total_count || 0).toLocaleString();
+                    window.currentPageHit = result.page_hit || 0;
+                }
+            })
+            .then(null, err => console.error("Counter Error:", err));
+        });
+    });
+</script>
+<!-- 다크모드 Flash of White 방지 -->
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('forced_theme');
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        const themeToApply = savedTheme || (isSystemDark ? 'dark' : 'light');
+        
+        if (themeToApply === 'dark') {
+            document.documentElement.classList.add('forced-dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    })();
 </script>
 {{ end }}
