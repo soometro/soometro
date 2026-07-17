@@ -59,7 +59,7 @@ description: "블러드본 최종 7회차 로렌스를 전 무기로, 각 무기
 
 {{< youtube-list id="y2G9hY69sOY" title="장송의 칼날 7회차 로렌스 180919" >}}
 
-{{< youtube-list id=Qjd0eHYv69E" title="토니트루스 7회차 로렌스 180919" >}}
+{{< youtube-list id="Qjd0eHYv69E" title="토니트루스 7회차 로렌스 180919" >}}
 
 {{< youtube-list id="gl_MTfg1mKs" title="야수절단기 7회차 로렌스 180921" >}}
 
