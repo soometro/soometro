@@ -18,20 +18,19 @@ description: "블러드본 최종 7회차 로렌스를 전 무기로, 각 무기
 * 본 영상 모음은 무기를 다 써보고 싶은데, 마땅히 회차 진행하며 하고 싶진 않아서, 익숙한 보스전으로 만든 모음 집이다.
 * 영상의 시간을 위해 가난한자의 혈정석(일명 빈사혈정석)을 대부분 사용하였으며, 피통의 작은 부분으로 영상의 짜릿함을 극대화 하였음.
 
-{{< youtube-list id="RE7NklO7Ca4" title=" 개강추1 폭발망치 7회차 로렌스 180919" >}}  
+{{< youtube-list id="RE7NklO7Ca4" title=" 개강추1 폭발망치 180919" >}}  
 폭팔망치는 변형 후 불이 붙는데, 1타 공격 후 로렌스의 패턴을 파악하여, 변형 후로 2타를 치는 부드러운 공격 패턴이 일품이라 생각한다.
 
-
-{{< youtube-list id="__QYIT4zW7Y" title="나름 잘나왔다고 생각함. 월광검 7회차 로렌스 180829" >}}
+{{< youtube-list id="__QYIT4zW7Y" title="나름 잘나왔다고 생각함. 월광검 180829" >}}
 모음집의 거의 후반부에 만들어진 영상이라. 월광검의 변형 전 후 모션도 잘 살렸고, 패턴 자체가 아주 여유롭다고 생각하여, 상단에 위치했다.
 
-{{< youtube-list id="iQ33RttEpMw" title="초반패링 버전 각잡고 잡아봄. 7회차 로렌스 18010" >}}
+{{< youtube-list id="iQ33RttEpMw" title="초반패링 버전 각잡고 잡아봄. 180910" >}}
 톱단창으로 이렇게 연속으로 후드려 팰 수도 있구나. 라는 생각이 들게 만들어 보고싶었다.
 
-{{< youtube-list id="-LGAj8o_DNI" title="돌망치 7회차 로렌스 180808" >}}
+{{< youtube-list id="-LGAj8o_DNI" title="돌망치 180808" >}}
 성검의 하위 버전이라 생각하는 돌망치 인데, BGM이 드라마틱하게 믹싱되었다. 아주 묵직한 장면들이 아직도 마음에 든다. 
 
-{{< youtube-list id="OBa0cnrYFLE" title="톱단창 최단시간 4렙 7회차 로렌스 180910" >}}
+{{< youtube-list id="OBa0cnrYFLE" title="톱단창 최단시간 180910" >}}
 위 영상에 이어 타임어택을 해보았다. 더 줄일 수 있지만, 이젠 세월이 지나서 못한다.
 
 {{< youtube-list id="L6YBtu7k7Xo" title="톱단창 옛날 버전 171008" >}}
@@ -43,59 +42,59 @@ description: "블러드본 최종 7회차 로렌스를 전 무기로, 각 무기
 {{< youtube-list id="B7wogPNEB4s" title="톱단창 왼뒷다리 180729" >}}
 연습 하던 영상인데, BGM이 좋아서 남겨뒀다.
 
-{{< youtube-list id="ibGgHqcbBcc" title="말뚝박이 7회차 로렌스 180820" >}}
+{{< youtube-list id="ibGgHqcbBcc" title="말뚝박이 180820" >}}
 BGM도 굳, 개인적으로 좋아하는 무기다. 모자이름이 뭐였지? 아르... 기억이 안난다. 어쨌든 참 좋아하는 영상이다.
 
-{{< youtube-list id="t0oxdmzajlM" title="무한궤도 톱 7회차 로렌스 180917" >}}
+{{< youtube-list id="t0oxdmzajlM" title="무한궤도 톱 180917" >}}
 아. 진정한 PVE 사기 무기이다. 블러드본이 힘들다고 생각들면, 이거 들고 하면 된다. 
 
-{{< youtube-list id="c8wRIfePcnE" title="치카게 7회차 로렌스 180731" >}}
+{{< youtube-list id="c8wRIfePcnE" title="치카게 180731" >}}
 발도는 할줄도 모르고, 그런 멋진 기술로 로렌스를 잡을 자신은 없었다. 혈질을 올리지않고 순수 최저 스탯으로 진행했는데, 고역이다.
 
-{{< youtube-list id="BZCWiPrmhHI" title="출혈검 7회차 로렌스 180824" >}}
+{{< youtube-list id="BZCWiPrmhHI" title="출혈검 180824" >}}
 도끼보다 못한듯 하다. 별 감흥이 없다. 왜쓰는지도 모르겟고.
 
-{{< youtube-list id="H0a2bLdxo_E" title="지팡이 7회차 로렌스 180825" >}}
+{{< youtube-list id="H0a2bLdxo_E" title="지팡이 180825" >}}
 변형 후가 은근히 간지나는 무기이긴 한데, 로렌스 상대로는 별로....
 
-{{< youtube-list id="kk9Wd4gJWU0" title="레이테르팔라슈 7회차 로렌스 180825" >}}
+{{< youtube-list id="kk9Wd4gJWU0" title="레이테르팔라슈 180825" >}}
 이건 사실 PVP 전용 무기이다. 왼손에 에블린, 오른손에 레이트르 팔라슈. 필살 콤포는 레이테르로 패링 시키고, 에블린으로 근접에서 최대 데미지 펑~!
 
-{{< youtube-list id="AkvNR26utIY" title="도끼 7회차 로렌스 180829" >}}
+{{< youtube-list id="AkvNR26utIY" title="도끼 180829" >}}
 도끼는 사실 PVP 무기다. 총을 못들으니, 별로일꺼라 생각하는데 이 무기 무시무시하다. 단, PVE용으로는 나는 재미 없더라.
 
-{{< youtube-list id="HitgrteZMz4" title="궁검 7회차 로렌스 180830" >}}
+{{< youtube-list id="HitgrteZMz4" title="궁검 180830" >}}
 마찮가지로, PVP 무기에 가깝다.  아니면 협력시 활쏘는 재미로 쓰는 무기. 하지만 사람들이 모르는데 궁검 한손이 은근히 아니 꽤 세다.
 
-{{< youtube-list id="cBJQyHFhH9Y" title="자비의 칼날 7회차 로렌스 180818" >}}
+{{< youtube-list id="cBJQyHFhH9Y" title="자비의 칼날 180818" >}}
 역시나 PVP 무기다. 보스전에서는 화려한 무빙을 연출할 수 있지만, 데미지는 ㅜㅜ
 
-{{< youtube-list id="XFOIh1ghF7I" title="라쿠요 7회차 로렌스 180825" >}}
+{{< youtube-list id="XFOIh1ghF7I" title="라쿠요 180825" >}}
 자칼의 상위 호환 으로 사람들이 생각한다. 자칼보다 센건 맞지만, 나는 결이 다른 무기라 생각한다.
 
-{{< youtube-list id="D0PoPxLBZog" title="최종병기 피크 7회차 로렌스 180831" >}}
+{{< youtube-list id="D0PoPxLBZog" title="최종병기 피크 180831" >}}
 피크 개간지 무기이다. 양손으로 꼭 들어야 한다면, 피크를 들겠다.
 
-{{< youtube-list id="RmE-d5PMZdM" title="야수의 발톱 7회차 로렌스 180912" >}}
+{{< youtube-list id="RmE-d5PMZdM" title="야수의 발톱 180912" >}}
 환약을 빨지 않고도 게이지를 채울수 있고, 야수로 변신도 할 수 있고 소리도 지른다. 단발성 재미 아이템.
 
-{{< youtube-list id="LXOuCdEAMmE" title="성검 7회차 로렌스 180918" >}}
+{{< youtube-list id="LXOuCdEAMmE" title="성검 180918" >}}
 초보들의 한줄기 빛같은 무기이다. 그런데 나는 돌망치가 더 좋다. 성검 하위호환 인것도 싫다.
 
-{{< youtube-list id="fUcnIYUSXQ0" title="총창. 이게 제일 빡셈. 7회차 로렌스 180917" >}}
+{{< youtube-list id="fUcnIYUSXQ0" title="총창. 이게 제일 빡셈. 180917" >}}
 이게 최악의 무기라고 할 수 있다. 이거 유저들 괴롭히려고 만든 무기임에 분명하다.
 
-{{< youtube-list id="YFWDlNHkrpc" title="4렙이지만 근기99 찍고 최대 데미지 실험. 7회차 로렌스 180918" >}}
+{{< youtube-list id="YFWDlNHkrpc" title="4렙이지만 근기99 찍고 최대 데미지 실험. 180918" >}}
 심심해서 찍어보았다. 최대데미지로 최고회자 로렌스는 이렇게 잡힌다는걸 보여주고 싶었다.
 
-{{< youtube-list id="y2G9hY69sOY" title="장송의 칼날 7회차 로렌스 180919" >}}
+{{< youtube-list id="y2G9hY69sOY" title="장송의 칼날 180919" >}}
 간지 무기이긴 한데, 사실 나는 도끼 하위 호환으로 본다. ㅋ
 
-{{< youtube-list id="Qjd0eHYv69E" title="토니트루스 7회차 로렌스 180919" >}}
+{{< youtube-list id="Qjd0eHYv69E" title="토니트루스 180919" >}}
 아 이것도 은근히 간지 무기이다. 폭발망치 처럼 변형 후 화염이라면 토니트루스는 번개가 인챈이 되는 특이한 무기. 
 
-{{< youtube-list id="gl_MTfg1mKs" title="야수절단기 7회차 로렌스 180921" >}}
+{{< youtube-list id="gl_MTfg1mKs" title="야수절단기 180921" >}}
 저레벨이 사용할 수 있는 무기라 매력적일것 같지만 아미그달라 종의 팔 하위 호완이라고 생각한다.
 
-{{< youtube-list id="hpOmlc4_dtg" title="아미그달라 종의 팔 7회차 로렌스 180922" >}}
+{{< youtube-list id="hpOmlc4_dtg" title="아미그달라 종의 팔 180922" >}}
 일명 닭다리라고 불리는 무기다. 그냥 특이할 뿐 감흥은 없다.
