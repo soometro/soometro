@@ -12,7 +12,7 @@ weight = 1
   <a href="/docs/monograph/" class="category-title">Monograph</a>
   <span class="category-meta">{{< category-stats "monograph" >}}</span>
 </div>
-<span class="category-desc">단편적인 생각을 넘어 하나의 주제를 단단하게 완성하는 고찰</span>
+<span class="category-desc">단편적인 생각을 넘어 주제를 단단하게 완성하는 고찰</span>
 
 ---
 
