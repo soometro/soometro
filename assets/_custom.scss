@@ -121,6 +121,11 @@ html[data-theme="dark"] .markdown p {
     color: #a8a8a8 !important;
 }
 
+/* 3-6) Docs 아카이브 카테고리 메타(개수·날짜) 다크모드 가독성 보정 */
+html.forced-dark .category-meta {
+    color: #b0b0b0 !important;
+}
+
 /* ==========================================================================
    4. 로고 및 브랜드 최적화
    ========================================================================== */
@@ -298,6 +303,22 @@ main h1,
     color: #00857a !important;
 }
 
+/* 7-4) Docs 아카이브 카테고리 목록 레이아웃 (제목 좌측, 개수·날짜 우측 정렬) */
+.category-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+}
+
+.category-title {
+    font-weight: bold !important;
+}
+
+.category-meta {
+    font-size: 0.85rem !important;
+    color: #666 !important;
+    white-space: nowrap !important;
+}
 
 /* ==========================================================================
    8. OS 다크모드 + 사용자 라이트모드 선택 시 충돌 방지

@@ -1,0 +1,11 @@
+{{ $catPath := .Get 0 }}
+{{ $section := site.GetPage (printf "/docs/%s" $catPath) }}
+{{ if $section }}
+  {{ $posts := $section.Pages }}
+  {{ $count := len $posts }}
+  {{ $latest := "" }}
+  {{ with $posts.ByDate }}
+    {{ $latest = (index . (sub (len .) 1)).Date.Format "2006-01-02" }}
+  {{ end }}
+  게시물 {{ $count }}건 · {{ $latest }} 수정
+{{ end }}
