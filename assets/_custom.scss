@@ -71,13 +71,13 @@ html.forced-dark .book-post-date span,
 html.forced-dark #archive,
 html.forced-dark #archive a,
 html.forced-dark .nav-title {
-    color: #b0b0b0 !important; /* 밝은 회색 강제 지정 */
+    color: #c8c8c8 !important; /* 타사이트 참고 톤으로 통일 */
 }
 
 /* 게시물 상단 날짜 영역 테두리 다크모드 대응 + 인라인 스타일 무시 */
 html.forced-dark .book-post-date {
     border-bottom: 1px solid #444 !important;
-    color: #b0b0b0 !important;
+    color: #c8c8c8 !important;
 }
 
 /* 3-2) PC 및 모바일 다크모드 햄버거 메뉴 아이콘 가시성 */
@@ -107,7 +107,7 @@ html.forced-dark,
 body.forced-dark, 
 html[data-theme="dark"],
 .book-dark {
-    --body-font-color: #a8a8a8 !important; /* 본문: 쥐색에서 약간만 밝아진 중간 회색 (눈부심 방지) */
+    --body-font-color: #c8c8c8 !important; /* 본문: 타사이트 참고 톤으로 통일 */
     --heading-color: #bebebe !important;   /* 제목: 본문보다 아주 살짝 더 밝은 회색 */
 }
 
@@ -118,7 +118,7 @@ html.forced-dark p,
 html.forced-dark .markdown p,
 html.forced-dark li,
 html[data-theme="dark"] .markdown p {
-    color: #a8a8a8 !important;
+    color: #c8c8c8 !important;
 }
 
 /* 3-6) Docs 아카이브 카테고리 메타(개수·날짜) 다크모드 가독성 보정 */

@@ -4,12 +4,12 @@
     <!-- 1. 사이트 통계 영역 -->
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
         <div style="display: flex; justify-content: space-between;">
-            <span>TOTAL POSTS:</span>
-            <span style="color: var(--color-text);">{{ len .Site.RegularPages }}</span>
+            <span style="color: #a8a8a8;">TOTAL POSTS:</span>
+            <span style="color: #a8a8a8;">{{ len .Site.RegularPages }}</span>
         </div>
         <div style="display: flex; justify-content: space-between;">
-            <span>BOARDS:</span>
-            <span style="color: var(--color-text);">
+            <span style="color: #a8a8a8;">BOARDS:</span>
+            <span style="color: #a8a8a8;">
                 {{- $docsSection := .Site.GetPage "section" "docs" -}}
                 {{- if $docsSection -}}
                     {{- len $docsSection.Sections -}}
@@ -24,23 +24,23 @@
     <!-- 2. 조회수 카운터 영역 -->
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
         <div style="display: flex; justify-content: space-between;">
-            <span>TODAY:</span>
-            <span id="counter-today" style="color: var(--color-text);">0</span>
+            <span style="color: #a8a8a8;">TODAY:</span>
+            <span id="counter-today" style="color: #a8a8a8;">0</span>
         </div>
         <div style="display: flex; justify-content: space-between;">
-            <span>MONTHLY:</span>
-            <span id="counter-monthly" style="color: var(--color-text);">0</span>
+            <span style="color: #a8a8a8;">MONTHLY:</span>
+            <span id="counter-monthly" style="color: #a8a8a8;">0</span>
         </div>
         <div style="display: flex; justify-content: space-between;">
-            <span>TOTAL VISITS:</span>
-            <span id="counter-total" style="color: var(--color-text);">0</span>
+            <span style="color: #a8a8a8;">TOTAL VISITS:</span>
+            <span id="counter-total" style="color: #a8a8a8;">0</span>
         </div>
     </div>
     <!-- 중간 구분선 2 (색상 보정) -->
     <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
     <!-- 3. 수동 테마 토글 버튼 영역 (하단 배치) -->
     <div class="theme-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SITE THEME</span>
+        <span style="font-size: 0.75rem; color: #a8a8a8; font-weight: 600; letter-spacing: -0.02rem;">SITE THEME</span>
         <div>
             <button id="theme-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
                 🌓 모드 전환하기
@@ -50,7 +50,7 @@
 
     <!-- 4. BGM 토글 영역 -->
     <div class="bgm-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
-        <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">BACKGROUND MUSIC</span>
+        <span style="font-size: 0.75rem; color: #a8a8a8; font-weight: 600; letter-spacing: -0.02rem;">BACKGROUND MUSIC</span>
         <div>
             <button id="bgm-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
                 🎵 BGM ON
@@ -60,7 +60,7 @@
 
     <!-- 5. RSS 구독 버튼 영역 (수정됨) -->
     <div class="rss-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
-        <span style="font-size: 0.75rem; color: #888; font-weight: 600; letter-spacing: -0.02rem;">SUBSCRIBE FEED</span>
+        <span style="font-size: 0.75rem; color: #a8a8a8; font-weight: 600; letter-spacing: -0.02rem;">SUBSCRIBE FEED</span>
         <div>
             <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none; cursor: pointer;">
                 🧡 RSS FEED
