@@ -58,8 +58,12 @@ margin-top: -10px !important;     /* 💡 핵심: 검색창의 뚝배기를 위�
     font-size: 0.85rem !important;
     font-weight: bold !important;
     font-style: normal !important; /* 부모 메뉴의 이탤릭(기울임) 무력화 */
-    color: #a8a8a8 !important;
+    color: #666 !important; /* 라이트모드 기본값 복원 */
     margin-right: 0.6rem !important;
+}
+
+html.forced-dark .book-menu-post-count {
+    color: #a8a8a8 !important; /* 다크모드 전용 */
 }
 
 /* ==========================================================================
@@ -107,7 +111,7 @@ html.forced-dark,
 body.forced-dark, 
 html[data-theme="dark"],
 .book-dark {
-    --body-font-color: #c8c8c8 !important; /* 본문: 타사이트 참고 톤으로 통일 */
+    --body-font-color: #b8b8b8 !important; /* 본문/메뉴: a8a8a8와 c8c8c8의 중간톤 */
     --heading-color: #bebebe !important;   /* 제목: 본문보다 아주 살짝 더 밝은 회색 */
 }
 
@@ -118,7 +122,7 @@ html.forced-dark p,
 html.forced-dark .markdown p,
 html.forced-dark li,
 html[data-theme="dark"] .markdown p {
-    color: #c8c8c8 !important;
+    color: #b8b8b8 !important;
 }
 
 /* 3-6) Docs 아카이브 카테고리 메타(개수·날짜) 다크모드 가독성 보정 */
