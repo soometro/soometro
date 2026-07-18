@@ -4,7 +4,7 @@ date = 2026-07-09
 weight = 1
 +++
 ## <strong>Archive Index</strong>
-이곳은 <strong>soometro</strong>가 시간을 두고 들여다본 관심사들을 살펴보고, 기록해 둔 아카이브의 목록입니다.<br>
+이곳은 시간을 두고 들여다본 관심사들을 살펴보고<br>기록해 둔 아카이브의 목록입니다.<br>
 
 ---
 
@@ -63,5 +63,3 @@ weight = 1
 <span class="category-desc">속도를 늦추고 다시 보는 일상</span>
 
 ---
-
-각 카테고리를 클릭하면 글 목록으로 이동합니다.
