@@ -1,8 +1,15 @@
+{{/* 1. 이미지의 상대 경로를 계산하여 현재 콘텐츠 폴더 위치와 강제로 연결합니다 */}}
 {{- $u := urls.Parse .Destination -}}
 {{- $src := $u.String -}}
 {{- if not $u.IsAbs -}}
-  {{- /* 현재 md 파일이 위치한 콘텐츠 폴더 경로를 계산하여 이미지를 강제로 연결합니다 */ -}}
   {{- $dir := path.Dir .Page.File.Path -}}
   {{- $src = printf "/%s/%s" $dir $u.Path | relURL -}}
 {{- end -}}
-<img src="{{ $src }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }} />
+
+{{/* 2. 이미지를 중앙 정렬하고 대괄호[] 안의 텍스트를 이미지 하단에 (캡션)으로 자동 출력합니다 */}}
+<div class="hugo-custom-image" style="text-align: center; margin-bottom: 25px;">
+  <img src="{{ $src }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }} style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+  {{ if .Text }}
+    <p style="margin-top: 8px; margin-bottom: 0; font-style: italic; color: #666; font-size: 0.95em;">({{ .Text }})</p>
+  {{ end }}
+</div>
