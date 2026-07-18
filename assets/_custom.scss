@@ -319,7 +319,10 @@ main h1,
     color: #666 !important;
     white-space: nowrap !important;
 }
-
+.category-desc {
+    font-style: italic !important;
+    display: block !important;
+}
 /* ==========================================================================
    8. OS 다크모드 + 사용자 라이트모드 선택 시 충돌 방지
    (book.min.css의 @media(prefers-color-scheme: dark) 강제 발동을 무력화)
