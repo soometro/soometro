@@ -1,5 +1,5 @@
 ---
-title: "포르쉐 718 GTS 4.0, S, 노멀 그리고 제네시스 G70의 결정적 차이점은 무엇일까?"
+title: "포르쉐 718 GTS·S·노멀 vs 제네시스 G70 차이점 비교 분석"
 date: 2026-06-06
 lastmod: 2026-06-24
 bookHidden: true
