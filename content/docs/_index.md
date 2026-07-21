@@ -2,6 +2,7 @@
 title = "Docs"
 date = 2026-07-09
 weight = 1
+description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보고 기록해 둔 아카이브의 목록입니다."
 +++
 ## <strong>Archive Index</strong>
 이곳은 시간을 두고 들여다본 관심사들을 살펴보고<br>기록해 둔 아카이브의 목록입니다.<br>
