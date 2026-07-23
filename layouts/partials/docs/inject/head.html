@@ -138,7 +138,7 @@
         (window.requestIdleCallback || window.setTimeout)(function () {
             const userAgent = navigator.userAgent.toLowerCase();
             // PageSpeed Insights 측정을 우회하기 위해 'lighthouse' 키워드 추가
-            const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'naver', 'google', 'bing', 'yahoo', 'duckduckgo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity', 'lighthouse', 'google-pagespeedinsights', 'chrome-lighthouse', 'google-read-aloud', 'google-speech-actions', 'headless'];
+            const botKeywords = ['bot', 'spider', 'crawler', 'crawl', 'slurp', 'yeti', 'daumoa', 'google', 'bing', 'yahoo', 'baidu', 'mediapartners', 'adsbot', 'facebookexternalhit', 'ia_archiver', 'chatgpt', 'openai', 'anthropic', 'gemini', 'perplexity', 'lighthouse', 'google-pagespeedinsights', 'chrome-lighthouse', 'google-read-aloud', 'google-speech-actions', 'headless'];
             
             const isBot = botKeywords.some(keyword => userAgent.includes(keyword));
             if (isBot) return;
