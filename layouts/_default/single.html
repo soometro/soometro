@@ -195,11 +195,12 @@
       <script type="module">
         import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
         init({
-          el: '#waline',
-          serverURL: 'https://waline-production-39ae.up.railway.app',
-          dark: 'auto',
-          login: 'force',
-        });
+	el: '#waline',
+	serverURL: 'https://waline-production-39ae.up.railway.app',
+	dark: 'auto',
+	login: 'force',
+	social: ['github', 'google'],
+	});
       </script>
     </div>
 
