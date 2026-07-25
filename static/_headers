@@ -4,7 +4,7 @@
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://*.supabase.co https://www.youtube.com https://s.ytimg.com https://t1.kakaocdn.net https://developers.kakao.com https://cloud.umami.is; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://transparenttextures.com https://www.transparenttextures.com https://*.supabase.co; connect-src 'self' https://*.supabase.co https://*.kakao.com https://*.kakaocdn.net https://cloud.umami.is https://gateway.umami.is; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://cusdis.com;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://*.supabase.co https://www.youtube.com https://s.ytimg.com https://t1.kakaocdn.net https://developers.kakao.com https://cloud.umami.is https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://transparenttextures.com https://www.transparenttextures.com https://*.supabase.co; connect-src 'self' https://*.supabase.co https://*.kakao.com https://*.kakaocdn.net https://cloud.umami.is https://gateway.umami.is https://twikoo-cloudflare.soo8209.workers.dev; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://cusdis.com;
 
 
 
