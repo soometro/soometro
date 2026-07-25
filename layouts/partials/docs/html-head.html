@@ -81,7 +81,7 @@ https://github.com/alex-shpak/hugo-book
 {{- $manifest := resources.Get "manifest.json" | resources.ExecuteAsTemplate "manifest.json" . }}
 <link rel="manifest" href="{{ $manifest.RelPermalink }}">
 <link rel="canonical" href="{{ .Permalink }}">
-
+<link rel="alternate" type="application/rss+xml" title="soometro archive - RSS" href="https://soometro.kr/index.xml">
 {{- range .Translations }}
   <link rel="alternate" hreflang="{{ default .Site.Language.Locale .Language.Name }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
 {{- end -}}
