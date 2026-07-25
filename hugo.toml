@@ -41,6 +41,9 @@ disableKinds = ["taxonomy", "term"]
   images = ["/images/og-default.png"]
   BookDisableGoogleFonts = true
 
+  # 댓글 기능 활성화
+  BookComments = true
+
 
 # 5. 다국어 및 한국어 기본 설정
 [languages]
