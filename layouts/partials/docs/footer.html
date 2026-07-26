@@ -13,12 +13,24 @@
 
 <p style="margin:0 0 4px 0;">
 문의는
-<a href="https://ig.me/m/soometro.kr"
-target="_blank"
-rel="noopener noreferrer"
-style="color:#2f8f9f;font-weight:bold;text-decoration:underline;text-underline-offset:3px;">
-Instagram DM
+<a id="insta-dm-link"
+   href="https://www.instagram.com/soometro.kr/"
+   target="_blank"
+   rel="noopener noreferrer"
+   style="color:#2f8f9f;font-weight:bold;text-decoration:underline;text-underline-offset:3px;">
+  Instagram DM
 </a>
+
+<script>
+  (function() {
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    var link = document.getElementById('insta-dm-link');
+    
+    if (isMobile && link) {
+      link.href = 'https://ig.me/m/soometro.kr';
+    }
+  })();
+</script>
 또는
 <a href="https://open.kakao.com/me/soometro"
 target="_blank"
