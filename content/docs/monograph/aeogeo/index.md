@@ -1,7 +1,7 @@
 ---
 title: "AI 시대 AEO GEO 환경 변화와 웹 콘텐츠 생존 전략"
 date: 2026-06-07
-lastmod: 2026-07-02
+lastmod: 2026-07-26
 bookHidden: true
 weight: 1
 description: "구글 AI 오버뷰와 네이버 하이퍼클로바가 주도하는 AEO와 GEO 환경에서 저품질 광고 콘텐츠의 한계를 분석하고, 웹 생태계에서 생존하기 위한 3단계 두괄식 글쓰기 법칙을 제시한다."
