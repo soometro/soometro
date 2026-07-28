@@ -393,11 +393,15 @@
 
     listEl.innerHTML = data.map(function(c) {
       const date = new Date(c.created_at).toLocaleDateString('ko-KR');
-      const img = c.profile_img ? '<img src="' + c.profile_img + '" style="width:28px; height:28px; border-radius:50%; margin-right:8px; vertical-align:middle;">' : '';
+      const safeImgUrl = c.profile_img ? c.profile_img.replace(/^http:\/\//, 'https://') : '';
+      const img = safeImgUrl ? '<img src="' + safeImgUrl + '" style="width:28px; height:28px; border-radius:50%; margin-right:8px; vertical-align:middle;">' : '';
+      const isMine = _currentUser && _currentUser.id === c.user_id;
+      const deleteBtn = isMine ? '<button onclick="deleteComment(' + c.id + ')" style="margin-left:auto; font-size:0.75rem; color:#999; background:none; border:none; cursor:pointer;">삭제</button>' : '';
       return '<div style="padding:0.7rem; border:1px solid #e5e5e5; border-radius:8px;">' +
              '<div style="display:flex; align-items:center; margin-bottom:0.3rem;">' + img +
              '<strong style="font-size:0.9rem;">' + c.nickname + '</strong>' +
              '<span style="font-size:0.75rem; color:#999; margin-left:8px;">' + date + '</span>' +
+             deleteBtn +
              '</div>' +
              '<div style="font-size:0.9rem; white-space:pre-wrap;">' + c.content + '</div>' +
              '</div>';
@@ -428,6 +432,17 @@
     }
 
     input.value = '';
+    loadComments();
+  }
+
+  async function deleteComment(id) {
+    if (!confirm('댓글을 삭제하시겠습니까?')) return;
+    const { error } = await window.sb.from('guestbook').delete().eq('id', id);
+    if (error) {
+      console.error('삭제 에러:', error);
+      alert('삭제에 실패했습니다.');
+      return;
+    }
     loadComments();
   }
 
