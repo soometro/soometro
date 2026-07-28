@@ -150,6 +150,18 @@
         </button>
       </div>
     </div>
+    <!-- 댓글(방명록) 시스템 -->
+<div class="post-comments-container" style="margin-top: 2rem !important; padding-top: 1.5rem !important; border-top: 1px solid #e5e5e5 !important;">
+  <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">댓글</p>
+
+  <div id="comment-login-area" style="margin-bottom: 1rem;">
+    <!-- 로그인 여부에 따라 JS가 이 안의 내용을 바꿔줍니다 -->
+  </div>
+
+  <div id="comment-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
+    <!-- JS가 댓글 목록을 이 안에 렌더링합니다 -->
+  </div>
+</div>
     <!-- 이전글 / 다음글 네비게이션 -->
     {{ if and (not .Pages) (eq .Section "docs") }}
       {{ $allPages := .Parent.RegularPages.ByDate }}
