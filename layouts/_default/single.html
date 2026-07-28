@@ -152,15 +152,16 @@
     </div>
     <!-- 댓글(방명록) 시스템 -->
 <div class="post-comments-container" style="margin-top: 2rem !important; padding-top: 1.5rem !important; border-top: 1px solid #e5e5e5 !important;">
-  <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">댓글</p>
-
+  
   <div id="comment-login-area" style="margin-bottom: 1rem;">
     <!-- 로그인 여부에 따라 JS가 이 안의 내용을 바꿔줍니다 -->
   </div>
 
   <div id="comment-form-area" style="display:none; margin-bottom:1rem;">
-    <textarea id="comment-input" class="comment-textarea" rows="3" placeholder="댓글을 남겨보세요" style="width:100%; box-sizing:border-box; padding:0.6rem; border:1px solid #e5e5e5; border-radius:8px; font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
-    <button onclick="submitComment()" class="comment-submit-btn" style="margin-top:0.5rem; padding:0.5rem 1.2rem; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer; font-size:0.85rem;">댓글 등록</button>
+    <div style="display:flex; gap:0.5rem; align-items:flex-start;">
+      <textarea id="comment-input" class="comment-textarea" rows="1" placeholder="댓글을 남겨보세요" style="flex:1; box-sizing:border-box; padding:0.6rem; border:1px solid #e5e5e5; border-radius:8px; font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
+      <button onclick="submitComment()" class="comment-submit-btn" style="padding:0.6rem 1.2rem; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer; font-size:0.85rem; white-space:nowrap;">댓글 등록</button>
+    </div>
   </div>
 
   <div id="comment-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
@@ -394,16 +395,15 @@
     listEl.innerHTML = data.map(function(c) {
       const date = new Date(c.created_at).toLocaleDateString('ko-KR');
       const safeImgUrl = c.profile_img ? c.profile_img.replace(/^http:\/\//, 'https://') : '';
-      const img = safeImgUrl ? '<img src="' + safeImgUrl + '" style="width:28px; height:28px; border-radius:50%; margin-right:8px; vertical-align:middle;">' : '';
+      const img = safeImgUrl ? '<img src="' + safeImgUrl + '" style="width:24px; height:24px; border-radius:50%; vertical-align:middle; flex-shrink:0;">' : '';
       const isMine = _currentUser && _currentUser.id === c.user_id;
-      const deleteBtn = isMine ? '<button onclick="deleteComment(' + c.id + ')" style="margin-left:auto; font-size:0.75rem; color:#999; background:none; border:none; cursor:pointer;">삭제</button>' : '';
-      return '<div style="padding:0.7rem; border:1px solid #e5e5e5; border-radius:8px;">' +
-             '<div style="display:flex; align-items:center; margin-bottom:0.3rem;">' + img +
-             '<strong style="font-size:0.9rem;">' + c.nickname + '</strong>' +
-             '<span style="font-size:0.75rem; color:#999; margin-left:8px;">' + date + '</span>' +
+      const deleteBtn = isMine ? '<button onclick="deleteComment(' + c.id + ')" style="font-size:0.75rem; color:#999; background:none; border:none; cursor:pointer; flex-shrink:0;">삭제</button>' : '';
+      return '<div style="padding:0.6rem 0.8rem; border:1px solid #e5e5e5; border-radius:8px; display:flex; align-items:center; gap:6px;">' +
+             img +
+             '<strong style="font-size:0.85rem; flex-shrink:0;">' + c.nickname + '</strong>' +
+             '<span style="font-size:0.75rem; color:#999; flex-shrink:0;">' + date + '</span>' +
+             '<span style="font-size:0.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1;">' + c.content + '</span>' +
              deleteBtn +
-             '</div>' +
-             '<div style="font-size:0.9rem; white-space:pre-wrap;">' + c.content + '</div>' +
              '</div>';
     }).join('');
   }
