@@ -396,7 +396,8 @@
       const date = new Date(c.created_at).toLocaleDateString('ko-KR');
       const safeImgUrl = c.profile_img ? c.profile_img.replace(/^http:\/\//, 'https://') : '';
       const img = safeImgUrl ? '<img src="' + safeImgUrl + '" style="width:24px; height:24px; border-radius:50%; vertical-align:middle; flex-shrink:0;">' : '';
-      const isMine = _currentUser && _currentUser.id === c.user_id;
+      const ADMIN_USER_ID = '63679d47-4fb8-4076-8250-8df5a8ce579d';
+      const isMine = _currentUser && (_currentUser.id === c.user_id || _currentUser.id === ADMIN_USER_ID);
       const deleteBtn = isMine ? '<button onclick="deleteComment(' + c.id + ')" style="font-size:0.75rem; color:#999; background:none; border:none; cursor:pointer; flex-shrink:0;">삭제</button>' : '';
       return '<div style="padding:0.6rem 0.8rem; border:1px solid #e5e5e5; border-radius:8px;">' +
              '<div style="display:flex; align-items:center; gap:6px; margin-bottom:0.3rem;">' +
