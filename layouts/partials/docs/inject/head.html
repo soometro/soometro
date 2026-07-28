@@ -203,7 +203,14 @@
     const _sbUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
     const _sbKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
     window.sb = window.supabase.createClient(_sbUrl, _sbKey);
-
+    // 로그인 성공 후 URL에 남는 #access_token 찌꺼기 제거
+    if (window.location.hash && window.location.hash.includes('access_token')) {
+        window.sb.auth.onAuthStateChange(function(event, session) {
+            if (event === 'SIGNED_IN') {
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+            }
+        });
+    }
     // 카카오 로그인 시작
     window.sbSignInKakao = function () {
         const cleanUrl = window.location.origin + window.location.pathname;
