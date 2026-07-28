@@ -448,3 +448,14 @@ html.forced-dark .comment-submit-btn {
     color: #b8b8b8 !important;
     border: 1px solid #444 !important;
 }
+/* 10-4) 좋아요/싫어요 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */
+.reaction-btn {
+    background: #f8f9fa !important;
+    color: #000000 !important;
+    border: 1px solid #e5e5e5 !important;
+}
+html.forced-dark .reaction-btn {
+    background: #2a2a2a !important;
+    color: #b8b8b8 !important;
+    border: 1px solid #444 !important;
+}
