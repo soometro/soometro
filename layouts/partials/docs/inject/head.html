@@ -206,9 +206,10 @@
 
     // 카카오 로그인 시작
     window.sbSignInKakao = function () {
+        const cleanUrl = window.location.origin + window.location.pathname;
         window.sb.auth.signInWithOAuth({
             provider: 'kakao',
-            options: { redirectTo: window.location.href }
+            options: { redirectTo: cleanUrl }
         });
     };
 
