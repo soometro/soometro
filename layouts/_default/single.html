@@ -398,12 +398,15 @@
       const img = safeImgUrl ? '<img src="' + safeImgUrl + '" style="width:24px; height:24px; border-radius:50%; vertical-align:middle; flex-shrink:0;">' : '';
       const isMine = _currentUser && _currentUser.id === c.user_id;
       const deleteBtn = isMine ? '<button onclick="deleteComment(' + c.id + ')" style="font-size:0.75rem; color:#999; background:none; border:none; cursor:pointer; flex-shrink:0;">삭제</button>' : '';
-      return '<div style="padding:0.6rem 0.8rem; border:1px solid #e5e5e5; border-radius:8px; display:flex; align-items:center; gap:6px;">' +
+      return '<div style="padding:0.6rem 0.8rem; border:1px solid #e5e5e5; border-radius:8px;">' +
+             '<div style="display:flex; align-items:center; gap:6px; margin-bottom:0.3rem;">' +
              img +
              '<strong style="font-size:0.85rem; flex-shrink:0;">' + c.nickname + '</strong>' +
              '<span style="font-size:0.75rem; color:#999; flex-shrink:0;">' + date + '</span>' +
-             '<span style="font-size:0.9rem; flex:1; min-width:0; word-break:break-word;">' + c.content + '</span>' +
+             '<span style="flex:1;"></span>' +
              deleteBtn +
+             '</div>' +
+             '<div style="font-size:0.9rem; word-break:break-word;">' + c.content + '</div>' +
              '</div>';
     }).join('');
   }
