@@ -198,3 +198,29 @@
         }
     })();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+    const _sbUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+    const _sbKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+    window.sb = window.supabase.createClient(_sbUrl, _sbKey);
+
+    // 카카오 로그인 시작
+    window.sbSignInKakao = function () {
+        window.sb.auth.signInWithOAuth({
+            provider: 'kakao',
+            options: { redirectTo: window.location.href }
+        });
+    };
+
+    // 로그아웃
+    window.sbSignOut = async function () {
+        await window.sb.auth.signOut();
+        window.location.reload();
+    };
+
+    // 현재 로그인 세션 확인 (다른 스크립트에서 활용)
+    window.sbGetUser = async function () {
+        const { data } = await window.sb.auth.getUser();
+        return data.user || null;
+    };
+</script>
