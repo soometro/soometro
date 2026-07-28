@@ -158,6 +158,11 @@
     <!-- 로그인 여부에 따라 JS가 이 안의 내용을 바꿔줍니다 -->
   </div>
 
+  <div id="comment-form-area" style="display:none; margin-bottom:1rem;">
+    <textarea id="comment-input" rows="3" placeholder="댓글을 남겨보세요" style="width:100%; box-sizing:border-box; padding:0.6rem; border:1px solid #e5e5e5; border-radius:8px; font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
+    <button onclick="submitComment()" style="margin-top:0.5rem; padding:0.5rem 1.2rem; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer; font-size:0.85rem;">댓글 등록</button>
+  </div>
+
   <div id="comment-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
     <!-- JS가 댓글 목록을 이 안에 렌더링합니다 -->
   </div>
@@ -340,27 +345,96 @@
   </script>
   <!-- ====================== 카카오로그인 버튼 로그인상태 표시 JS ====================== -->
   <script>
+  const _postSlug = window.location.pathname;
+  let _currentUser = null;
+
   async function renderCommentLoginArea() {
     const area = document.getElementById('comment-login-area');
+    const formArea = document.getElementById('comment-form-area');
     if (!area || !window.sb) return;
 
     const { data } = await window.sb.auth.getUser();
-    const user = data.user;
+    _currentUser = data.user;
 
-    if (user) {
-      const nickname = user.user_metadata.nickname || user.user_metadata.name || '사용자';
+    if (_currentUser) {
+      const nickname = _currentUser.user_metadata.name || _currentUser.user_metadata.preferred_username || '사용자';
       area.innerHTML =
         '<div style="display:flex; align-items:center; gap:0.6rem;">' +
         '<span style="font-size:0.9rem;">' + nickname + '님으로 로그인됨</span>' +
         '<button onclick="window.sbSignOut()" style="font-size:0.85rem; padding:0.3rem 0.8rem; border-radius:12px; border:1px solid #e5e5e5; background:#f8f9fa; cursor:pointer;">로그아웃</button>' +
         '</div>';
+      if (formArea) formArea.style.display = 'block';
     } else {
       area.innerHTML =
         '<button onclick="window.sbSignInKakao()" style="font-size:0.9rem; padding:0.5rem 1rem; border-radius:8px; border:none; background:#FEE500; cursor:pointer;">카카오로 로그인하고 댓글쓰기</button>';
+      if (formArea) formArea.style.display = 'none';
     }
   }
 
-  document.addEventListener("DOMContentLoaded", renderCommentLoginArea);
+  async function loadComments() {
+    const listEl = document.getElementById('comment-list');
+    if (!listEl || !window.sb) return;
+
+    const { data, error } = await window.sb
+      .from('guestbook')
+      .select('*')
+      .eq('post_slug', _postSlug)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('댓글 로드 에러:', error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      listEl.innerHTML = '<p style="font-size:0.85rem; color:#999;">아직 댓글이 없습니다.</p>';
+      return;
+    }
+
+    listEl.innerHTML = data.map(function(c) {
+      const date = new Date(c.created_at).toLocaleDateString('ko-KR');
+      const img = c.profile_img ? '<img src="' + c.profile_img + '" style="width:28px; height:28px; border-radius:50%; margin-right:8px; vertical-align:middle;">' : '';
+      return '<div style="padding:0.7rem; border:1px solid #e5e5e5; border-radius:8px;">' +
+             '<div style="display:flex; align-items:center; margin-bottom:0.3rem;">' + img +
+             '<strong style="font-size:0.9rem;">' + c.nickname + '</strong>' +
+             '<span style="font-size:0.75rem; color:#999; margin-left:8px;">' + date + '</span>' +
+             '</div>' +
+             '<div style="font-size:0.9rem; white-space:pre-wrap;">' + c.content + '</div>' +
+             '</div>';
+    }).join('');
+  }
+
+  async function submitComment() {
+    const input = document.getElementById('comment-input');
+    const content = input.value.trim();
+    if (!content) return;
+    if (!_currentUser) return;
+
+    const nickname = _currentUser.user_metadata.name || _currentUser.user_metadata.preferred_username || '사용자';
+    const profileImg = _currentUser.user_metadata.avatar_url || null;
+
+    const { error } = await window.sb.from('guestbook').insert({
+      user_id: _currentUser.id,
+      nickname: nickname,
+      profile_img: profileImg,
+      content: content,
+      post_slug: _postSlug
+    });
+
+    if (error) {
+      console.error('댓글 등록 에러:', error);
+      alert('댓글 등록에 실패했습니다.');
+      return;
+    }
+
+    input.value = '';
+    loadComments();
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    renderCommentLoginArea();
+    loadComments();
+  });
 </script>
   <!-- ====================== 추가 CSS ====================== -->
   <style>
