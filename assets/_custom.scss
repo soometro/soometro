@@ -408,3 +408,43 @@ main h1,
   0% { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-100vw, 0, 0); }
 }
+
+/* ==========================================================================
+   10. 댓글 시스템 (로그아웃 버튼 / 입력창 / 등록 버튼) 다크·라이트 모드 대응
+   ========================================================================== */
+
+/* 10-1) 로그아웃 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */
+.comment-signout-btn {
+    background: #f8f9fa !important;
+    color: #000000 !important;
+    border: 1px solid #e5e5e5 !important;
+}
+html.forced-dark .comment-signout-btn {
+    background: #2a2a2a !important;
+    color: #b8b8b8 !important;
+    border: 1px solid #444 !important;
+}
+
+/* 10-2) 댓글 입력창 (라이트: 흰바탕+검정글자 / 다크: 검정바탕+흰글자) */
+.comment-textarea {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #e5e5e5 !important;
+}
+html.forced-dark .comment-textarea {
+    background: #1a1a1a !important;
+    color: #b8b8b8 !important;
+    border: 1px solid #444 !important;
+}
+
+/* 10-3) 댓글 등록 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */
+.comment-submit-btn {
+    background: #f8f9fa !important;
+    color: #000000 !important;
+    border: 1px solid #e5e5e5 !important;
+}
+html.forced-dark .comment-submit-btn {
+    background: #2a2a2a !important;
+    color: #b8b8b8 !important;
+    border: 1px solid #444 !important;
+}

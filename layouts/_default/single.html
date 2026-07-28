@@ -159,8 +159,8 @@
   </div>
 
   <div id="comment-form-area" style="display:none; margin-bottom:1rem;">
-    <textarea id="comment-input" rows="3" placeholder="댓글을 남겨보세요" style="width:100%; box-sizing:border-box; padding:0.6rem; border:1px solid #e5e5e5; border-radius:8px; font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
-    <button onclick="submitComment()" style="margin-top:0.5rem; padding:0.5rem 1.2rem; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer; font-size:0.85rem;">댓글 등록</button>
+    <textarea id="comment-input" class="comment-textarea" rows="3" placeholder="댓글을 남겨보세요" style="width:100%; box-sizing:border-box; padding:0.6rem; border:1px solid #e5e5e5; border-radius:8px; font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
+    <button onclick="submitComment()" class="comment-submit-btn" style="margin-top:0.5rem; padding:0.5rem 1.2rem; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer; font-size:0.85rem;">댓글 등록</button>
   </div>
 
   <div id="comment-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
@@ -361,7 +361,7 @@
       area.innerHTML =
         '<div style="display:flex; align-items:center; gap:0.6rem;">' +
         '<span style="font-size:0.9rem;">' + nickname + '님으로 로그인됨</span>' +
-        '<button onclick="window.sbSignOut()" style="font-size:0.85rem; padding:0.3rem 0.8rem; border-radius:12px; border:1px solid #e5e5e5; background:#f8f9fa; cursor:pointer;">로그아웃</button>' +
+        '<button onclick="window.sbSignOut()" class="comment-signout-btn" style="font-size:0.85rem; padding:0.3rem 0.8rem; border-radius:12px; border:1px solid #e5e5e5; background:#f8f9fa; cursor:pointer;">로그아웃</button>' +
         '</div>';
       if (formArea) formArea.style.display = 'block';
     } else {
