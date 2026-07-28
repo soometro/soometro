@@ -213,6 +213,7 @@
     }
     // 카카오 로그인 시작
     window.sbSignInKakao = function () {
+        sessionStorage.setItem('scroll_before_login', window.scrollY);
         const cleanUrl = window.location.origin + window.location.pathname;
         window.sb.auth.signInWithOAuth({
             provider: 'kakao',
