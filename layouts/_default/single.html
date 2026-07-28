@@ -402,7 +402,7 @@
              img +
              '<strong style="font-size:0.85rem; flex-shrink:0;">' + c.nickname + '</strong>' +
              '<span style="font-size:0.75rem; color:#999; flex-shrink:0;">' + date + '</span>' +
-             '<span style="font-size:0.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1;">' + c.content + '</span>' +
+             '<span style="font-size:0.9rem; flex:1; min-width:0; word-break:break-word;">' + c.content + '</span>' +
              deleteBtn +
              '</div>';
     }).join('');
