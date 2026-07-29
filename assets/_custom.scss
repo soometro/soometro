@@ -143,7 +143,7 @@ html.forced-dark .category-meta {
    ========================================================================== */
 /* 4-1) 로고 이미지 크기 및 여백 최적화 */
 .book-brand img {
-  width: 200px !important;      /* 💡 가로형 공간에 맞춰 좌우 폭을 시원하게 확장 */
+  width: 160px !important;      /* 💡 실제 표시 크기 160px, 320×68 2x 원본으로 고화질 유지 */
   max-width: 100% !important;   
   height: auto !important;      
   margin-top: 0px !important;   /* 상단 여백 최소화 */
