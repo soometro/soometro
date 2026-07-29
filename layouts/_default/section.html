@@ -11,8 +11,6 @@
       
       {{/* 현재 섹션 폴더(docs) 내에 하위 마크다운 페이지들이 존재하는지 검사 */}}
        {{ if and .Pages (ne .RelPermalink "/docs/") }}
-        <h3>Product Inventory</h3>
-        
         {{/* 하위 목록 리스트 시작 (padding-left를 0.6rem으로 줄여서 왼쪽 배치 완료) */}}
         <ul style="padding-left: 0.4rem;">
           {{/* 하위 페이지들을 날짜 최신순(역순)으로 정렬하여 순회 처리 */}}
