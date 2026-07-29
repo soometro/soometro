@@ -7,5 +7,5 @@
   {{ with $posts.ByDate }}
     {{ $latest = (index . (sub (len .) 1)).Date.Format "2006-01-02" }}
   {{ end }}
-  <span style="font-size: 13px; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;">게시물 {{ $count }}건</span> · <span style="font-size: 13px; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;">{{ $latest }} 수정</span>
+  <span class="meta-text-unified" style="font-size: 13px; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;">게시물 {{ $count }}건</span> · <span class="meta-text-unified" style="font-size: 13px; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;">{{ $latest }} 수정</span>
 {{ end }}
