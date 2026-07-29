@@ -109,10 +109,8 @@ html.forced-dark body {
 }
 
 /* 3-4) 다크 모드 전용 로고 반전 */
-@media (prefers-color-scheme: dark) {
-  .book-brand img {
-    filter: invert(1) !important;
-  }
+html.forced-dark .book-brand img {
+  filter: invert(1) !important;
 }
 
 /* 3-5) 다크 모드 본문 및 제목 눈부심 방지 (미세 밝기 조정) */
