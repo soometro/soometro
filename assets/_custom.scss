@@ -329,6 +329,9 @@ main h1,
     font-size: 0.85rem !important;
     color: #666 !important;
     white-space: nowrap !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
 }
 .category-desc {
     font-style: italic !important;
