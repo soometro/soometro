@@ -2,7 +2,7 @@
 title = "⚔️ Bloodborne"
 draft = false
 weight = 60
-
+description = "블러드본은 소울류 게임 중 난이도 최상의 게임 괴로운데 희열을 느끼는 변태같은 게임 그리고 마지막 전율"
 # ★ 핵심: 이 카테고리 하위의 모든 메뉴를 접어두겠다는 테마 고유 설정
 # bookCollapseSection = true  
 # bookFlatSection = true
