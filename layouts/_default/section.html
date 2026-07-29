@@ -34,6 +34,42 @@
             </li>
           {{ end }}
         </ul>
+
+        <script>
+        (function() {
+          const metaEls = document.querySelectorAll('.post-list-meta');
+          if (metaEls.length === 0) return;
+
+          const urls = Array.from(metaEls).map(el => el.getAttribute('data-url'));
+
+          const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+          const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+
+          fetch(`${supabaseUrl}/rest/v1/rpc/get_page_hits_batch`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": supabaseKey,
+              "Authorization": `Bearer ${supabaseKey}`
+            },
+            body: JSON.stringify({ page_urls: urls })
+          })
+          .then(res => res.json())
+          .then(data => {
+            const hitMap = {};
+            (data || []).forEach(row => { hitMap[row.url] = row.hit_count; });
+
+            metaEls.forEach(el => {
+              const url = el.getAttribute('data-url');
+              const valueEl = el.querySelector('.post-list-hit-value');
+              if (valueEl) {
+                valueEl.innerText = (hitMap[url] || 0).toLocaleString();
+              }
+            });
+          })
+          .catch(err => console.error("Batch Hit Count Error:", err));
+        })();
+        </script>
       {{ end }}
     </article>
     
