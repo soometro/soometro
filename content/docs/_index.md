@@ -13,7 +13,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/monograph/" class="category-title">Monograph</a>
   <span class="category-meta">{{< category-stats "monograph" >}}</span>
 </div>
-<span class="category-desc">단편적인 생각을 넘어 주제를 단단하게 완성하는 고찰</span>
+<span class="category-desc">단편적이지 않게 주제를 단단하게 완성하는 고찰</span>
 
 ---
 
@@ -21,7 +21,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/manga/" class="category-title">Manga</a>
   <span class="category-meta">{{< category-stats "manga" >}}</span>
 </div>
-<span class="category-desc">찰나의 몰입, 오래 남은 잔상. 만화에 대한 깊은 기록</span>
+<span class="category-desc">찰나의 몰입, 오래 남은 잔상. 만화의 기록</span>
 
 ---
 
@@ -29,7 +29,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/media/" class="category-title">Media</a>
   <span class="category-meta">{{< category-stats "media" >}}</span>
 </div>
-<span class="category-desc">재생되는 순간부터 덮이는 페이지까지, 곱씹은 서사</span>
+<span class="category-desc">재생 부터 덮이는 페이지까지, 곱씹은 서사</span>
 
 ---
 
