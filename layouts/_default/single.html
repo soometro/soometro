@@ -450,9 +450,9 @@
     loadComments();
   }
 
-  document.addEventListener("DOMContentLoaded", function() {
-    renderCommentLoginArea();
-    loadComments();
+  document.addEventListener("DOMContentLoaded", async function() {
+    await renderCommentLoginArea();
+    await loadComments();
   });
 </script>
   <!-- ====================== 추가 CSS ====================== -->
