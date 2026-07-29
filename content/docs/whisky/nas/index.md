@@ -1,7 +1,7 @@
 ---
 title: "NAS 위스키란? 숙성 연도가 없는 위스키를 의미할까?"
 date: 2026-06-21
-lastmod: 2026-07-04
+lastmod: 2026-07-27
 bookHidden: true
 description: "NAS 위스키는 숙성을 하지 않은 술이 아니라 숙성 연도를 표기하지 않은 위스키를 의미한다"
 ---
