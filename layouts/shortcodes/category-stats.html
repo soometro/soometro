@@ -7,5 +7,5 @@
   {{ with $posts.ByDate }}
     {{ $latest = (index . (sub (len .) 1)).Date.Format "2006-01-02" }}
   {{ end }}
-  게시물 {{ $count }}건 · {{ $latest }} 수정
+  <span style="font-size: 13px;">게시물 {{ $count }}건</span> · <span style="font-size: 14px;">{{ $latest }} 수정</span>
 {{ end }}
