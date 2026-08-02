@@ -29,7 +29,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/media/" class="category-title">Media</a>
   <span class="category-meta">{{< category-stats "media" >}}</span>
 </div>
-<span class="category-desc">러닝타임에서 페이지 너머까지, 서사를 읽다</span>
+<span class="category-desc">러닝 타임에서 페이지 너머까지, 서사를 느껴라</span>
 
 ---
 
