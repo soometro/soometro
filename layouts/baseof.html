@@ -400,8 +400,8 @@
 
     var colors = ['#ff9eb5', '#ffd166', '#ffffff', '#ffb6d9'];
     var darkColors = ['#d17a91', '#cfa84f', '#e8e8e8', '#c98aa8'];
-    var SPARKLE_COUNT = 6;
-    var DURATION = 550; // ms
+    var SPARKLE_COUNT = 8;
+    var DURATION = 900; // ms (기존 550ms → 900ms, 더 오래 보이도록)
 
     function isDarkMode() {
       return document.documentElement.classList.contains('forced-dark');
@@ -412,8 +412,8 @@
 
       for (var i = 0; i < SPARKLE_COUNT; i++) {
         var angle = (Math.PI * 2 * i) / SPARKLE_COUNT + Math.random() * 0.5;
-        var distance = 24 + Math.random() * 24;
-        var size = 3 + Math.random() * 3;
+        var distance = 30 + Math.random() * 30;
+        var size = 6 + Math.random() * 5;
         var color = palette[Math.floor(Math.random() * palette.length)];
 
         var star = document.createElement('div');
@@ -457,4 +457,3 @@
   }
 })();
 </script>
-
