@@ -13,7 +13,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/monograph/" class="category-title">Monograph</a>
   <span class="category-meta">{{< category-stats "monograph" >}}</span>
 </div>
-<span class="category-desc">단편적이지 않게 주제를 단단하게 완성하는 고찰</span>
+<span class="category-desc">스쳐가는 생각에서 하나의 주제를 향한 집요한 고찰</span>
 
 ---
 
@@ -29,7 +29,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/media/" class="category-title">Media</a>
   <span class="category-meta">{{< category-stats "media" >}}</span>
 </div>
-<span class="category-desc">재생 부터 덮이는 페이지까지, 곱씹은 서사</span>
+<span class="category-desc">러닝타임에서 페이지 너머까지, 서사를 읽다</span>
 
 ---
 
@@ -37,7 +37,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/boxster/" class="category-title">Boxster</a>
   <span class="category-meta">{{< category-stats "boxster" >}}</span>
 </div>
-<span class="category-desc">718 박스터를 중심으로 한 자동차 이야기</span>
+<span class="category-desc">가장 완벽한 공학이 가장 순수한 예술을 만났을때</span>
 
 ---
 
@@ -45,7 +45,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/whisky/" class="category-title">Whisky</a>
   <span class="category-meta">{{< category-stats "whisky" >}}</span>
 </div>
-<span class="category-desc">시간이 만든 술, 위스키에 대한 단상</span>
+<span class="category-desc">기다림이 만든 위스키, 멈춤이 만든 단상</span>
 
 ---
 
@@ -53,7 +53,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/bloodborne/" class="category-title">Bloodborne</a>
   <span class="category-meta">{{< category-stats "bloodborne" >}}</span>
 </div>
-<span class="category-desc">게임 하나의 분석과 기록. 야리코미</span>
+<span class="category-desc">하나의 게임, 집요한 분석, 야리코미의 기록</span>
 
 ---
 
@@ -61,6 +61,6 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/downshifting/" class="category-title">Downshifting</a>
   <span class="category-meta">{{< category-stats "downshifting" >}}</span>
 </div>
-<span class="category-desc">속도를 늦추고 다시 보는 일상</span>
+<span class="category-desc">내 삶의 속도를 늦추면 비로소 마주하는 일상</span>
 
 ---
