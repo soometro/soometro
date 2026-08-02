@@ -468,3 +468,42 @@ html.forced-dark .reaction-btn {
 html.forced-dark .meta-text-unified {
     color: #a8a8a8 !important;
 }
+
+<style>
+  /* 커서 본체 (선두) */
+  .mt-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--mt-color, #ff9eb5); /* 다크/라이트 모드 색상은 JS에서 CSS 변수로 제어 */
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.9;
+    will-change: transform;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  /* 뒤따라오는 트레일 점들 */
+  .mt-trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background: var(--mt-color, #ff9eb5);
+    pointer-events: none;
+    z-index: 9998;
+    will-change: transform;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  /* 모바일/태블릿에서는 완전히 숨김 (터치 기기는 JS에서도 아예 초기화 안 하지만, 이중 안전장치) */
+  @media (hover: none) and (pointer: coarse) {
+    .mt-cursor,
+    .mt-trail {
+      display: none !important;
+    }
+  }
+</style>

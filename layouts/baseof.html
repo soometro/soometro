@@ -174,3 +174,162 @@
 {{ define "toc" }}
   {{ partial "docs/toc" . }}
 {{ end }}
+<style>
+  /* 커서 본체 (선두) */
+  .mt-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--mt-color, #ff9eb5); /* 다크/라이트 모드 색상은 JS에서 CSS 변수로 제어 */
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.9;
+    will-change: transform;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  /* 뒤따라오는 트레일 점들 */
+  .mt-trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background: var(--mt-color, #ff9eb5);
+    pointer-events: none;
+    z-index: 9998;
+    will-change: transform;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  /* 모바일/태블릿에서는 완전히 숨김 (터치 기기는 JS에서도 아예 초기화 안 하지만, 이중 안전장치) */
+  @media (hover: none) and (pointer: coarse) {
+    .mt-cursor,
+    .mt-trail {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  // body가 아직 준비 안 됐으면(스크립트가 head 등에서 먼저 실행된 경우) DOM 로드 후 재시도
+  if (!document.body) {
+    document.addEventListener('DOMContentLoaded', init);
+    return;
+  }
+  init();
+
+  function init() {
+
+  // 1) 터치 전용 기기에서는 아예 실행하지 않음 (성능/의미 둘 다 불필요)
+  var isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (isTouchOnly) return;
+
+  // 2) 사용자가 "동작 최소화" 설정을 켜둔 경우 존중 (접근성)
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  // 3) 트레일 개수 및 크기 설정 (원본 대비 축소)
+  var TRAIL_LENGTH = 8;      // 원본 React 버전은 10개 → 8개로 축소
+  var CURSOR_SIZE = 10;      // px
+  var TRAIL_MAX_SIZE = 7;    // px, 트레일 중 가장 큰 점 크기
+  var EASE_CURSOR = 0.35;    // 선두 커서가 실제 마우스를 따라가는 속도 (0~1, 클수록 빠름)
+  var EASE_TRAIL = 0.28;     // 트레일 점들이 앞 점을 따라가는 속도
+
+  var mouseX = -100, mouseY = -100;
+  var cursorX = -100, cursorY = -100;
+  var trails = [];
+  var rafId = null;
+  var started = false;
+
+  function createEl(className, size) {
+    var el = document.createElement('div');
+    el.className = className;
+    if (size) {
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+    }
+    document.body.appendChild(el);
+    return el;
+  }
+
+  var cursorEl = createEl('mt-cursor', CURSOR_SIZE);
+
+  for (var i = 0; i < TRAIL_LENGTH; i++) {
+    var scale = 1 - i / TRAIL_LENGTH; // 뒤로 갈수록 작아짐
+    var size = Math.max(2, TRAIL_MAX_SIZE * scale);
+    var el = createEl('mt-trail', size);
+    el.style.opacity = (0.5 * scale).toFixed(2);
+    trails.push({ el: el, x: -100, y: -100 });
+  }
+
+  function onMouseMove(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!started) {
+      // 첫 움직임 시 커서를 즉시 해당 위치로 스냅 (초기 로딩 시 화면 구석에서 날아오는 것 방지)
+      cursorX = mouseX;
+      cursorY = mouseY;
+      trails.forEach(function (t) { t.x = mouseX; t.y = mouseY; });
+      started = true;
+    }
+  }
+
+  function onMouseLeave() {
+    // 창 밖으로 나가면 트레일 숨김 (레이아웃 밖 잔상 방지)
+    cursorEl.style.opacity = '0';
+    trails.forEach(function (t) { t.el.style.opacity = '0'; });
+  }
+
+  function onMouseEnter() {
+    cursorEl.style.opacity = '0.9';
+    trails.forEach(function (t, idx) {
+      t.el.style.opacity = (0.5 * (1 - idx / TRAIL_LENGTH)).toFixed(2);
+    });
+  }
+
+  function animate() {
+    // 선두 커서: 마우스 위치로 선형 보간(lerp) — GSAP의 ease-out과 유사한 체감
+    cursorX += (mouseX - cursorX) * EASE_CURSOR;
+    cursorY += (mouseY - cursorY) * EASE_CURSOR;
+    cursorEl.style.transform =
+      'translate3d(' + cursorX + 'px, ' + cursorY + 'px, 0) translate(-50%, -50%)';
+
+    // 트레일: 각자 앞의 점(또는 커서)을 따라가며 사슬처럼 연결
+    var prevX = cursorX, prevY = cursorY;
+    for (var i = 0; i < trails.length; i++) {
+      var t = trails[i];
+      t.x += (prevX - t.x) * EASE_TRAIL;
+      t.y += (prevY - t.y) * EASE_TRAIL;
+      t.el.style.transform =
+        'translate3d(' + t.x + 'px, ' + t.y + 'px, 0) translate(-50%, -50%)';
+      prevX = t.x;
+      prevY = t.y;
+    }
+
+    rafId = requestAnimationFrame(animate);
+  }
+
+  // 탭이 백그라운드로 가면 애니메이션 중단 (배터리/CPU 절약)
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    } else if (!rafId) {
+      rafId = requestAnimationFrame(animate);
+    }
+  });
+
+  window.addEventListener('mousemove', onMouseMove, { passive: true });
+  document.addEventListener('mouseleave', onMouseLeave);
+  document.addEventListener('mouseenter', onMouseEnter);
+
+  rafId = requestAnimationFrame(animate);
+  } // end init()
+})();
+</script>
