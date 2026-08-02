@@ -2,7 +2,7 @@
 title = "☕ Downshifting"
 draft = false
 weight = 70
-description = "다운쉬프팅은 경쟁과 물질적 성공보다는 여유롭고 단순한 삶을 추구하는 라이프스타일을 의미하는 단어입니다"
+description = "무거운 가속 페달에서 발을 떼고, 오롯이 나만의 속도로 일상을 채워가는 시간"
 # ★ 핵심: 이 카테고리 하위의 모든 메뉴를 접어두겠다는 테마 고유 설정
 # bookCollapseSection = true  
 # bookFlatSection = true
@@ -10,4 +10,4 @@ description = "다운쉬프팅은 경쟁과 물질적 성공보다는 여유롭�
 
 ## <strong>Downshifting</strong>
 
-경쟁과 물질적 성공보다는 여유롭고 단순한 삶을 추구하는 '미니얼 라이프 스타일'을 지향한다.
+무거운 가속 페달에서 발을 떼고, 오롯이 나만의 속도로 일상을 채워가는 시간

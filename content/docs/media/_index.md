@@ -2,7 +2,7 @@
 title = "🎞️ Media"
 draft = false
 weight = 30
-description = "미디어 이 공간에는 영화, 드라마, 소설 등의 작품에 관련된 감상, 개인 상상 등을 편하게 담아봅니다"
+description = "스크린의 잔상부터 책장의 여백까지, 작품을 향한 날카로운 시선과 자유로운 상상"
 # ★ 핵심: 이 카테고리 하위의 모든 메뉴를 접어두겠다는 테마 고유 설정
 # bookCollapseSection = true  
 # bookFlatSection = true
@@ -10,4 +10,4 @@ description = "미디어 이 공간에는 영화, 드라마, 소설 등의 작�
 
 ## <strong>Media</strong>
 
-이 공간에는 영화, 드라마, 소설 등의 작품에 관련된 감상, 개인 상상 등을 편하게 담아봅니다.<br>
+스크린의 잔상부터 책장의 여백까지, 작품을 향한 날카로운 시선과 자유로운 상상
