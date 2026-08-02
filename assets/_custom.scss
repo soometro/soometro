@@ -534,3 +534,14 @@ html.forced-dark .meta-text-unified {
 html.forced-dark #scroll-progress-ribbon .bar {
   background: linear-gradient(90deg, #d17a91, #cfa84f);
 }
+/* ==========================================================================
+   14. 클릭 반짝임 이펙트
+   ========================================================================== */
+.click-sparkle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  will-change: transform, opacity;
+  transform: translate3d(-50%, -50%, 0) scale(1);
+}
