@@ -333,3 +333,50 @@
   } // end init()
 })();
 </script>
+
+
+ // 아래 프로그래스바 적용내용.
+
+<div id="scroll-progress-ribbon"><div class="bar"></div></div>
+
+<script>
+(function () {
+  'use strict';
+
+  if (!document.body) {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  function init() {
+    var bar = document.querySelector('#scroll-progress-ribbon .bar');
+    if (!bar) return;
+
+    var ticking = false;
+
+    function updateProgress() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      // 0~1 범위로 고정 (모바일 바운스 스크롤 시 음수/1 초과 방지)
+      progress = Math.min(1, Math.max(0, progress));
+      bar.style.transform = 'scaleX(' + progress + ')';
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    // 초기 진입 시(새로고침 위치 복원 등) 즉시 한 번 반영
+    updateProgress();
+  }
+})();
+</script>
