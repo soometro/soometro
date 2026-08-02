@@ -508,3 +508,29 @@ html.forced-dark .meta-text-unified {
       display: none !important;
     }
   }
+/* ==========================================================================
+   13. 스크롤 진행률 리본
+   ========================================================================== */
+#scroll-progress-ribbon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+#scroll-progress-ribbon .bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #ff9eb5, #ffd166);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+html.forced-dark #scroll-progress-ribbon .bar {
+  background: linear-gradient(90deg, #d17a91, #cfa84f);
+}
