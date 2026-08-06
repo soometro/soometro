@@ -242,11 +242,16 @@ main.book-page .markdown .page-actions-container {
     padding-bottom: 1.5rem !important;
 }
 
-/* 6-3) 푸터 div 여백 축소 */
+/* 수정 후 */
+/* 6-3) 푸터 여백 축소 */
+.book-footer {
+    padding-top: 0 !important;         /* 테마 기본 1rem(16px) 제거 */
+}
+
 footer.book-footer > div,
 .book-footer > div {
-    margin-top: 10px !important;       /* 기존 40px 강제 무시하고 10px로 압축 */
-    padding-top: 10px !important;      /* 기존 20px 강제 무시하고 10px로 압축 */
+    margin-top: 5px !important;
+    padding-top: 5px !important;
 }
 
 /* 6-4) 공유 버튼 (URL복사 / 카카오톡 / 더보기) */
