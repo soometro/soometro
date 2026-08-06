@@ -166,45 +166,7 @@
     <!-- JS가 댓글 목록을 이 안에 렌더링합니다 -->
   </div>
 </div>
-    <!-- 이전글 / 다음글 네비게이션 -->
-    {{ if and (not .Pages) (eq .Section "docs") }}
-      {{ $allPages := .Parent.RegularPages.ByDate }}
-      {{ $currentIndex := -1 }}
-      
-      {{ range $i, $p := $allPages }}
-        {{ if eq $p.RelPermalink $.RelPermalink }}
-          {{ $currentIndex = $i }}
-        {{ end }}
-      {{ end }}
-      
-      {{ if ne $currentIndex -1 }}
-        <div class="book-navigation">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
-            {{ if gt $currentIndex 0 }}
-              {{ with index $allPages (sub $currentIndex 1) }}
-                <a href="{{ .RelPermalink }}" class="book-nav-link prev" style="color: var(--color-link); text-decoration: none;">
-                  ← <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span>
-                </a>
-              {{ end }}
-            {{ else }}
-              <div style="visibility: hidden;">←</div>
-            {{ end }}
-            
-            {{ if lt $currentIndex (sub (len $allPages) 1) }}
-              {{ with index $allPages (add $currentIndex 1) }}
-                <a href="{{ .RelPermalink }}" class="book-nav-link next" style="text-align: right; color: var(--color-link); text-decoration: none;">
-                  <span class="nav-title" style="font-weight: bold; color: var(--body-font-color);">{{ .Title }}</span> →
-                </a>
-              {{ end }}
-            {{ else }}
-              <div style="visibility: hidden;">→</div>
-            {{ end }}
-          </div>
-        </div>
-      {{ end }}
-    {{ end }}
-
-    </article>
+        </article>
   </main>
 
   <!-- ====================== 반응 컴포넌트 스크립트 ====================== -->
