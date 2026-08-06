@@ -74,55 +74,53 @@
       {{ .Content }}
     </div>
 
-    <!-- 자동 연관 게시글 추천 (내부링크 SEO, 새로고침마다 무작위 3개 - JS 처리) -->
-    {{- $candidates := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" .Permalink -}}
-    {{- with $candidates -}}
-    <div class="related-posts-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
-      <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">이 글과 함께 읽으면 좋은 글</p>
-      <ul id="related-posts-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.6rem;">
-        <!-- JS가 이 안에 무작위 3개를 채워 넣습니다 -->
+    <!-- 게시판 내 상위2/본문/하위2 네비게이션 (내부링크 겸용) -->
+{{ if and (not .Pages) (eq .Section "docs") }}
+  {{ $dir := replace .File.Dir "\\" "/" }}
+  {{ $parts := split (strings.TrimSuffix "/" $dir) "/" }}
+  {{ $boardName := "" }}
+  {{ if gt (len $parts) 1 }}
+    {{ $boardName = index $parts 1 }}
+  {{ end }}
+
+  {{ $allPages := .Parent.RegularPages.ByDate }}
+  {{ $currentIndex := -1 }}
+  {{ range $i, $p := $allPages }}
+    {{ if eq $p.RelPermalink $.RelPermalink }}
+      {{ $currentIndex = $i }}
+    {{ end }}
+  {{ end }}
+
+  {{ if ne $currentIndex -1 }}
+    {{ $total := len $allPages }}
+    <div class="board-nav-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
+      <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">{{ $boardName | title }}의 전체 글</p>
+      <ul class="board-nav-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.5rem;">
+        {{ if lt (add $currentIndex 2) $total }}
+          {{ with index $allPages (add $currentIndex 2) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        {{ if lt (add $currentIndex 1) $total }}
+          {{ with index $allPages (add $currentIndex 1) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        <li><span style="font-weight: bold; color: var(--body-font-color); font-size: 0.95rem; cursor: default;">• {{ $.Title }}</span></li>
+        {{ if ge (sub $currentIndex 1) 0 }}
+          {{ with index $allPages (sub $currentIndex 1) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        {{ if ge (sub $currentIndex 2) 0 }}
+          {{ with index $allPages (sub $currentIndex 2) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
       </ul>
     </div>
-
-    <script id="related-posts-data" type="application/json">
-      [
-        {{- range $i, $p := . -}}
-          {{- if $i }},{{ end -}}
-          { "title": {{ printf "%q" $p.Title | safeJS }}, "url": {{ printf "%q" $p.RelPermalink | safeJS }} }
-        {{- end -}}
-      ]
-    </script>
-
-    <script>
-      (function() {
-        const dataEl = document.getElementById('related-posts-data');
-        const listEl = document.getElementById('related-posts-list');
-        if (!dataEl || !listEl) return;
-
-        let posts = [];
-        try {
-          posts = JSON.parse(dataEl.textContent);
-        } catch (e) {
-          console.error("Related posts JSON parse error:", e);
-          return;
-        }
-
-        // Fisher-Yates 셔플
-        for (let i = posts.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [posts[i], posts[j]] = [posts[j], posts[i]];
-        }
-
-        const picked = posts.slice(0, 3);
-        listEl.innerHTML = picked.map(function(p) {
-          return '<li style="margin:0 !important; padding:0 !important;">' +
-                 '<a href="' + p.url + '" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem; font-weight: normal; display: inline-block;">' +
-                 '• ' + p.title +
-                 '</a></li>';
-        }).join('');
-      })();
-    </script>
-    {{- end -}}
+  {{ end }}
+{{ end }}
 
     <!-- 좋아요 / 싫어요 반응 컴포넌트 -->
     <div class="page-reactions-container">
@@ -482,10 +480,5 @@
       transition: all 0.2s;
     }
 
-    .book-navigation {
-      margin-top: 1.5rem !important;
-      padding-top: 1rem !important;
-      border-top: 1px solid #e5e5e5 !important;
-    }
   </style>
 {{ end }}
