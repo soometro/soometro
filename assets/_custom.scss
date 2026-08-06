@@ -235,18 +235,11 @@ html.forced-dark .category-meta {
    6. 게시물 하단 여백 조정 (푸터 인라인 강제 오버라이드)
    ========================================================================== */
 /* 6-1) 좋아요 컨테이너 여백 통일 */
-main.book-page .markdown .page-reactions-container {
+main.book-page .markdown .page-actions-container {
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
     padding-top: 0.6rem !important;
     padding-bottom: 1.5rem !important;
-}
-
-/* 6-2) 이전글 / 다음글 네비게이션 영역 축소 */
-main.book-page .markdown .book-navigation {
-    margin-top: 1.5rem !important;     /* 좋아요 밑단 선과의 간격 */
-    margin-bottom: 0px !important;     /* 하단 마진 삭제 */
-    padding-bottom: 0px !important;    /* 하단 패딩 삭제 */
 }
 
 /* 6-3) 푸터 div 여백 축소 */
