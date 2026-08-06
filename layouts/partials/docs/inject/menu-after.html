@@ -67,6 +67,28 @@
             </a>
         </div>
     </div>
+
+    <!-- 6. 홈 화면에 추가 영역 -->
+    <div class="install-container" id="install-container" style="display: none; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
+        <span class="sidebar-subheading">INSTALL APP</span>
+        <div>
+            <button id="install-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
+                📲 홈 화면에 추가
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- iOS 안내 모달 -->
+<div id="ios-install-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+    <div style="background:var(--body-background, #fff); color:var(--color-text, #111); max-width:300px; width:85%; padding:1.2rem; border-radius:12px; text-align:center; font-family:'Malgun Gothic','맑은 고딕',-apple-system,sans-serif; box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+        <div style="font-size:0.95rem; font-weight:bold; margin-bottom:0.6rem;">홈 화면에 추가하기</div>
+        <div style="font-size:0.85rem; line-height:1.6; margin-bottom:1rem;">
+            Safari 하단(또는 상단)의 공유 버튼 <strong>⬆️</strong> 을 누른 뒤<br>
+            <strong>&quot;홈 화면에 추가&quot;</strong>를 선택해주세요.
+        </div>
+        <button id="ios-install-modal-close" style="background:var(--color-link,#8ab4f8); color:#fff; border:none; padding:0.5rem 1.2rem; border-radius:8px; font-size:0.85rem; cursor:pointer;">확인</button>
+    </div>
 </div>
 
 <!-- BGM 오디오 요소 -->
@@ -208,5 +230,61 @@
                 alert("RSS 주소: " + rssUrl + "\n이 주소를 수동으로 복사하여 사용해 주세요.");
             });
         };
+
+        // === [D] 홈 화면에 추가(PWA 설치) 로직 ===
+        const installContainer = document.getElementById('install-container');
+        const installBtn = document.getElementById('install-toggle-btn');
+        const iosModal = document.getElementById('ios-install-modal');
+        const iosModalClose = document.getElementById('ios-install-modal-close');
+
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+            || window.navigator.standalone === true;
+
+        const ua = window.navigator.userAgent;
+        const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+
+        let deferredInstallPrompt = null;
+
+        if (!isStandalone) {
+            // 안드로이드 / PC 크롬 계열: 설치 가능해지는 시점에 버튼 노출
+            window.addEventListener('beforeinstallprompt', function(e) {
+                e.preventDefault();
+                deferredInstallPrompt = e;
+                if (installContainer) installContainer.style.display = 'flex';
+            });
+
+            // iOS: 이벤트가 없으므로 즉시 버튼 노출 (안내 모달용)
+            if (isIOS && installContainer) {
+                installContainer.style.display = 'flex';
+            }
+        }
+
+        if (installBtn) {
+            installBtn.addEventListener('click', async function() {
+                if (deferredInstallPrompt) {
+                    deferredInstallPrompt.prompt();
+                    const choice = await deferredInstallPrompt.userChoice;
+                    deferredInstallPrompt = null;
+                    if (choice.outcome === 'accepted' && installContainer) {
+                        installContainer.style.display = 'none';
+                    }
+                } else if (isIOS && iosModal) {
+                    iosModal.style.display = 'flex';
+                }
+            });
+        }
+
+        if (iosModalClose && iosModal) {
+            iosModalClose.addEventListener('click', function() {
+                iosModal.style.display = 'none';
+            });
+            iosModal.addEventListener('click', function(e) {
+                if (e.target === iosModal) iosModal.style.display = 'none';
+            });
+        }
+
+        window.addEventListener('appinstalled', function() {
+            if (installContainer) installContainer.style.display = 'none';
+        });
     });
 </script>
