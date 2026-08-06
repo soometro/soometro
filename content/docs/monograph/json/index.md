@@ -1,12 +1,12 @@
 ---
-title: "웹사이트 meta tag 구성 가이드 홈페이지 head 정석"
+title: "웹사이트 meta tag 가이드 홈페이지 head 정석"
 date: 2026-07-03
-lastmod: 2026-07-26
+lastmod: 2026-08-05
 bookHidden: true
 description: "구글 상위 노출을 위한 웹사이트 meta tag 구성 가이드를 소개한다. 검색 엔진 최적화(SEO)에 필수적인 홈페이지 head 영역의 메타태그 종류와 올바른 작성 규칙을 초보자도 쉽게 따라 할 수 있도록 정리했다"
 ---
 
-# 웹사이트 meta tag 구성 가이드 홈페이지 head 정석
+# 웹사이트 meta tag 가이드 홈페이지 head 정석
 
 구글 상위 노출을 위한 웹사이트 meta tag 구성 가이드를 소개한다. 검색 엔진 최적화(SEO)에 필수적인 홈페이지 head 영역의 메타태그 종류와 올바른 작성 규칙을 초보자도 쉽게 따라 할 수 있도록 정리했다.  
 
