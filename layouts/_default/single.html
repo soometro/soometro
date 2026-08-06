@@ -122,29 +122,21 @@
   {{ end }}
 {{ end }}
 
-    <!-- 좋아요/싫어요 + 공유 버튼 통합 -->
+    <!-- 좋아요 + 공유 버튼 통합 -->
 <div class="page-actions-container">
-  <p style="margin-bottom: 0.6rem !important; font-size: 0.9rem !important; color: #666 !important; font-weight: bold; text-align: center;">이 글이 도움이 되었나요?</p>
-  <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; align-items: center;">
-    <div style="display: inline-flex; gap: 1rem; align-items: center;">
-      <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
-        👍 <span id="count-reaction-like">0</span>
-      </button>
-      <button id="btn-reaction-dislike" class="reaction-btn" onclick="sendReaction('dislike')">
-        👎 <span id="count-reaction-dislike">0</span>
-      </button>
-    </div>
-    <div style="display: inline-flex; gap: 0.8rem; align-items: center;">
-      <button class="share-btn" onclick="shareCopyUrl(this)" title="URL 복사" aria-label="URL 복사">
-        🔗
-      </button>
-      <button class="share-btn" onclick="shareKakao()" title="카카오톡 공유" aria-label="카카오톡 공유" style="background:#FEE500;">
-        💬
-      </button>
-      <button class="share-btn" onclick="shareMore()" title="더보기" aria-label="더보기">
-        ⋯
-      </button>
-    </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center;">
+    <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
+      👍 <span id="count-reaction-like">0</span>
+    </button>
+    <button class="share-btn" onclick="shareCopyUrl(this)" title="URL 복사" aria-label="URL 복사">
+      🔗
+    </button>
+    <button class="share-btn" onclick="shareKakao()" title="카카오톡 공유" aria-label="카카오톡 공유" style="background:#FEE500;">
+      💬
+    </button>
+    <button class="share-btn" onclick="shareMore()" title="더보기" aria-label="더보기">
+      ⋯
+    </button>
   </div>
 </div>
     <!-- 댓글(방명록) 시스템 -->
