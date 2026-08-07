@@ -1,28 +1,12 @@
 <!-- 통합 사이드바 하단 위젯 (구분선 라이트모드 시인성 보정판) -->
 <div class="book-menu-widgets" style="margin-top: 0.8rem; padding: 0.5rem 0.5rem 0.5rem 0; border-top: 1px dashed #ccc; font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif; font-size: 0.85rem; color: #666; font-weight: bold;">
-   
-    <!-- 1. 사이트 통계 영역 -->
+
+    <!-- 통합 영역: 사이트 통계 + 조회수 카운터 -->
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
         <div style="display: flex; justify-content: space-between;">
             <span class="sidebar-stat-label">TOTAL POSTS:</span>
             <span class="sidebar-stat-value">{{ len .Site.RegularPages }}</span>
         </div>
-        <div style="display: flex; justify-content: space-between;">
-            <span class="sidebar-stat-label">BOARDS:</span>
-            <span class="sidebar-stat-value">
-                {{- $docsSection := .Site.GetPage "section" "docs" -}}
-                {{- if $docsSection -}}
-                    {{- len $docsSection.Sections -}}
-                {{- else -}}
-                    0
-                {{- end -}}
-            </span>
-        </div>
-    </div>
-    <!-- 중간 구분선 1 (색상 보정) -->
-    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
-    <!-- 2. 조회수 카운터 영역 -->
-    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
         <div style="display: flex; justify-content: space-between;">
             <span class="sidebar-stat-label">TODAY:</span>
             <span id="counter-today" class="sidebar-stat-value">0</span>
@@ -36,8 +20,10 @@
             <span id="counter-total" class="sidebar-stat-value">0</span>
         </div>
     </div>
+
+</div>
     <!-- 중간 구분선 2 (색상 보정) -->
-    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.8rem 0;"></div>
+    <div style="border-top: 1px dashed #ccc; opacity: 0.6; margin: 0.6rem 0;"></div>
     <!-- 3. 수동 테마 토글 버튼 영역 (하단 배치) -->
     <div class="theme-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem;">
         <span class="sidebar-subheading">SITE THEME</span>
