@@ -30,7 +30,7 @@ sakura = true
 </div>
 
 <!-- 💡 미니홈피 감성 글귀 및 아카이브 바로가기 링크 수정본 -->
-<div style="margin-top: 1.5rem; text-align: center; border: none !important;">
+<div style="margin-top: 1.5rem; text-align: center; border: none !important; margin-bottom: 20px !important;">
   <p style="font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; color: #970fac; font-size: 0.85rem; margin-bottom: 0.8rem; border: none !important;">
     "어디서 무슨 소리 들리지 않아? 💜 너를 향해 뛰는 내 심장소리."
   </p>
