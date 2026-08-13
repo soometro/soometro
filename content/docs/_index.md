@@ -13,7 +13,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/monograph/" class="category-title">Monograph</a>
   <span class="category-meta">{{< category-stats "monograph" >}}</span>
 </div>
-<span class="category-desc">스쳐가는 생각에서 하나의 주제를 향한 집요한 고찰</span>
+<span class="category-desc">스쳐가는 생각에서 집요한 고찰</span>
 
 ---
 
@@ -21,7 +21,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/manga/" class="category-title">Manga</a>
   <span class="category-meta">{{< category-stats "manga" >}}</span>
 </div>
-<span class="category-desc">찰나의 몰입, 오래 남은 잔상. 만화의 기록</span>
+<span class="category-desc">찰나의 몰입, 오래 남은 잔상</span>
 
 ---
 
@@ -29,7 +29,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/media/" class="category-title">Media</a>
   <span class="category-meta">{{< category-stats "media" >}}</span>
 </div>
-<span class="category-desc">러닝 타임에서 페이지 너머까지, 서사를 느껴라</span>
+<span class="category-desc">러닝 타임에서 페이지 너머까지</span>
 
 ---
 
@@ -37,7 +37,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/boxster/" class="category-title">Boxster</a>
   <span class="category-meta">{{< category-stats "boxster" >}}</span>
 </div>
-<span class="category-desc">가장 완벽한 공학이 가장 순수한 예술을 만났을때</span>
+<span class="category-desc">완벽한 공학과 순수한 예술의 콜라보</span>
 
 ---
 
@@ -45,7 +45,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/whisky/" class="category-title">Whisky</a>
   <span class="category-meta">{{< category-stats "whisky" >}}</span>
 </div>
-<span class="category-desc">기다림이 만든 위스키, 멈춤이 만든 단상</span>
+<span class="category-desc">기다림이 만든 미학</span>
 
 ---
 
@@ -53,7 +53,7 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/bloodborne/" class="category-title">Bloodborne</a>
   <span class="category-meta">{{< category-stats "bloodborne" >}}</span>
 </div>
-<span class="category-desc">하나의 게임, 집요한 분석, 야리코미의 기록</span>
+<span class="category-desc">집요한 게임 분석, 야리코미</span>
 
 ---
 
