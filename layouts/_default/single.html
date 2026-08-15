@@ -125,6 +125,7 @@
 {{ end }}
 
     <!-- 좋아요 + 공유 버튼 통합 -->
+{{ if ne $boardName "guestbook" }}
 <div class="page-actions-container">
   <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center;">
     <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
