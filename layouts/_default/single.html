@@ -85,18 +85,65 @@
 
   {{ if ne $boardName "guestbook" }}
   {{ $allPages := .Parent.RegularPages.ByDate }}
-  ... (중략, 네비게이션 목록) ...
+  {{ $currentIndex := -1 }}
+  {{ range $i, $p := $allPages }}
+    {{ if eq $p.RelPermalink $.RelPermalink }}
+      {{ $currentIndex = $i }}
+    {{ end }}
+  {{ end }}
+
+  {{ if ne $currentIndex -1 }}
+    {{ $total := len $allPages }}
+    <div class="board-nav-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
+      <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">{{ $boardName | title }}의 전체 글</p>
+      <ul class="board-nav-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.5rem;">
+        {{ if lt (add $currentIndex 2) $total }}
+          {{ with index $allPages (add $currentIndex 2) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        {{ if lt (add $currentIndex 1) $total }}
+          {{ with index $allPages (add $currentIndex 1) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        <li><span style="font-weight: bold; color: var(--body-font-color); font-size: 0.95rem; cursor: default;">• {{ $.Title }}</span></li>
+        {{ if ge (sub $currentIndex 1) 0 }}
+          {{ with index $allPages (sub $currentIndex 1) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        {{ if ge (sub $currentIndex 2) 0 }}
+          {{ with index $allPages (sub $currentIndex 2) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  {{ end }}
   {{ end }}
 
     <!-- 좋아요 + 공유 버튼 통합 -->
   {{ if ne $boardName "guestbook" }}
 <div class="page-actions-container">
-  ...
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center;">
+    <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
+      👍 <span id="count-reaction-like">0</span>
+    </button>
+    <button class="share-btn" onclick="shareCopyUrl(this)" title="URL 복사" aria-label="URL 복사">
+      🔗
+    </button>
+    <button class="share-btn" onclick="shareKakao()" title="카카오톡 공유" aria-label="카카오톡 공유" style="background:#FEE500;">
+      💬
+    </button>
+    <button class="share-btn" onclick="shareMore()" title="더보기" aria-label="더보기">
+      ⋯
+    </button>
+  </div>
 </div>
   {{ end }}
 {{ end }}
 
-    <!-- 댓글(방명록) 시스템 -->
     <!-- 댓글(방명록) 시스템 -->
 <div class="post-comments-container" style="margin-top: 0rem !important; padding-top: 0.25rem !important;">
   
