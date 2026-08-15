@@ -29,31 +29,28 @@
     <!-- 중간 구분선 2 (색상 보정) -->
     <div style="border-top: 1px dashed #ccc; opacity: 0.8; margin: 0.2rem 0 1rem 0;"></div>
     <!-- 3. 수동 테마 토글 버튼 영역 (하단 배치) -->
-    <div class="theme-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+    <div class="theme-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0;">
         <span class="sidebar-subheading" style="white-space: nowrap;">SITE THEME</span>
         <button id="theme-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
             🌓 모드 전환하기
         </button>
     </div>
 
-    <!-- 4. BGM 토글 영역 -->
-    <div class="bgm-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem;">
+    <div class="bgm-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
         <span class="sidebar-subheading" style="white-space: nowrap;">BACKGROUND MUSIC</span>
         <button id="bgm-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
             🎵 BGM ON
         </button>
     </div>
 
-    <!-- 5. RSS 구독 버튼 영역 (수정됨) -->
-    <div class="rss-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem;">
+    <div class="rss-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
         <span class="sidebar-subheading" style="white-space: nowrap;">SUBSCRIBE FEED</span>
-        <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none; cursor: pointer; margin-left: auto !important; flex-shrink: 0; display: inline-block !important;">
-    🧡 RSS FEED
+        <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none !important; cursor: pointer; width: auto !important; max-width: none !important; flex: 0 0 auto !important; display: inline-block !important; text-align: right !important;">
+            🧡 RSS FEED
         </a>
     </div>
 
-    <!-- 6. 홈 화면에 추가 영역 -->
-    <div class="install-container" id="install-container" style="display: none; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem;">
+    <div class="install-container" id="install-container" style="display: none; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
         <span class="sidebar-subheading" style="white-space: nowrap;">INSTALL APP</span>
         <button id="install-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
             📲 홈 화면에 추가
