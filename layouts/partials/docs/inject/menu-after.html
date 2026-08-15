@@ -3,23 +3,27 @@
 
     <!-- 통합 영역: 사이트 통계 + 조회수 카운터 -->
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
-      	<div style="display: flex; justify-content: space-between;">
-  	<span class="sidebar-stat-label">• TODAY:</span>
-	<span id="counter-today" class="sidebar-stat-value">0</span>
-	</div>
-	<div style="display: flex; justify-content: space-between;">
-	<span class="sidebar-stat-label">• THIS MONTH:</span>
-	<span id="counter-monthly" class="sidebar-stat-value">0</span>
-	</div>
-	<div style="display: flex; justify-content: space-between;">
-	<span class="sidebar-stat-label">• THIS YEAR:</span>
-	<span id="counter-year" class="sidebar-stat-value">0</span>
-	</div>
-	<div style="display: flex; justify-content: space-between;">
-	<span class="sidebar-stat-label">• ALL TIME:</span>
-	<span id="counter-total" class="sidebar-stat-value">0</span>
-	</div>
+    <div style="display: flex; justify-content: space-between;">
+        <span class="sidebar-stat-label">• TOTAL POSTS:</span>
+        <span class="sidebar-stat-value">{{ len .Site.RegularPages }}</span>
     </div>
+    <div style="display: flex; justify-content: space-between;">
+        <span class="sidebar-stat-label">• TODAY:</span>
+        <span id="counter-today" class="sidebar-stat-value">0</span>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+        <span class="sidebar-stat-label">• THIS MONTH:</span>
+        <span id="counter-monthly" class="sidebar-stat-value">0</span>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+        <span class="sidebar-stat-label">• THIS YEAR:</span>
+        <span id="counter-year" class="sidebar-stat-value">0</span>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+        <span class="sidebar-stat-label">• ALL TIME:</span>
+        <span id="counter-total" class="sidebar-stat-value">0</span>
+    </div>
+</div>
 
 </div>
     <!-- 중간 구분선 2 (색상 보정) -->
