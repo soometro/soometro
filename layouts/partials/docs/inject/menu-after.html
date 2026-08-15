@@ -25,45 +25,36 @@
     <!-- 중간 구분선 2 (색상 보정) -->
     <div style="border-top: 1px dashed #ccc; opacity: 0.8; margin: 0.2rem 0 1rem 0;"></div>
     <!-- 3. 수동 테마 토글 버튼 영역 (하단 배치) -->
-    <div class="theme-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <span class="sidebar-subheading">SITE THEME</span>
-        <div>
-            <button id="theme-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
-                🌓 모드 전환하기
-            </button>
-        </div>
+    <div class="theme-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+        <span class="sidebar-subheading" style="white-space: nowrap;">SITE THEME</span>
+        <button id="theme-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
+            🌓 모드 전환하기
+        </button>
     </div>
 
     <!-- 4. BGM 토글 영역 -->
-    <div class="bgm-toggle-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
-        <span class="sidebar-subheading">BACKGROUND MUSIC</span>
-        <div>
-            <button id="bgm-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
-                🎵 BGM ON
-            </button>
-        </div>
+    <div class="bgm-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem;">
+        <span class="sidebar-subheading" style="white-space: nowrap;">BACKGROUND MUSIC</span>
+        <button id="bgm-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
+            🎵 BGM ON
+        </button>
     </div>
 
     <!-- 5. RSS 구독 버튼 영역 (수정됨) -->
-    <div class="rss-container" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
-        <span class="sidebar-subheading">SUBSCRIBE FEED</span>
-        <div>
-            <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none; cursor: pointer;">
-                🧡 RSS FEED
-            </a>
-        </div>
+    <div class="rss-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem;">
+        <span class="sidebar-subheading" style="white-space: nowrap;">SUBSCRIBE FEED</span>
+        <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none; cursor: pointer; text-align: right;">
+            🧡 RSS FEED
+        </a>
     </div>
 
     <!-- 6. 홈 화면에 추가 영역 -->
-    <div class="install-container" id="install-container" style="display: none; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem;">
-        <span class="sidebar-subheading">INSTALL APP</span>
-        <div>
-            <button id="install-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none;">
-                📲 홈 화면에 추가
-            </button>
-        </div>
+    <div class="install-container" id="install-container" style="display: none; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem;">
+        <span class="sidebar-subheading" style="white-space: nowrap;">INSTALL APP</span>
+        <button id="install-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
+            📲 홈 화면에 추가
+        </button>
     </div>
-</div>
 
 <!-- iOS 안내 모달 -->
 <div id="ios-install-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
