@@ -83,6 +83,7 @@
     {{ $boardName = index $parts 1 }}
   {{ end }}
 
+  {{ if ne $boardName "guestbook" }}
   {{ $allPages := .Parent.RegularPages.ByDate }}
   {{ $currentIndex := -1 }}
   {{ range $i, $p := $allPages }}
@@ -119,6 +120,7 @@
         {{ end }}
       </ul>
     </div>
+  {{ end }}
   {{ end }}
 {{ end }}
 
