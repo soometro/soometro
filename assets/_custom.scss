@@ -331,6 +331,12 @@ main h1,
     font-size: 0.875rem !important;    /* 수정 전: 15px → 수정 후: 14px 목표값 정확 환산 */
 }
 
+/* 게시물 리스트 제목 */
+.book-page > ul > li > a {
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+    font-size: 0.875rem !important;
+}
+
 /* 게시물 리스트 날짜·조회수 */
 .post-list-date,
 .post-list-hit {
@@ -338,11 +344,12 @@ main h1,
     font-size: 0.8rem !important;
     color: #666666 !important;
 }
-
 html.forced-dark .post-list-date,
 html.forced-dark .post-list-hit {
     color: #a8a8a8 !important;
 }
+
+
 /* ==========================================================================
    8. OS 다크모드 + 사용자 라이트모드 선택 시 충돌 방지
    (book.min.css의 @media(prefers-color-scheme: dark) 강제 발동을 무력화)
