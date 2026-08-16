@@ -36,6 +36,8 @@
     <h1>{{ .Title }}</h1>
   </header>
 
+  <!-- 오늘의 추천 아카이브 -->
+
   <section class="dashboard-section">
 
     <div class="dashboard-recommendation">
@@ -63,53 +65,64 @@
 
   </section>
 
+
+  <!-- 통계 -->
+
   <section class="dashboard-section">
 
     <div class="dashboard-stats">
 
       <!-- 게시물 -->
 
-      <div class="dashboard-total-stat">
+      <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
           게시물
         </span>
 
-        <strong>
+        <strong class="dashboard-stat-value">
           {{ $postCount }}
         </strong>
 
+        <span class="dashboard-stat-empty"></span>
+
       </div>
+
 
       <!-- 전체 조회수 -->
 
-      <div class="dashboard-total-stat">
+      <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
           전체 조회수
         </span>
 
-        <strong id="dashboard-total-views">
+        <strong
+          id="dashboard-total-views"
+          class="dashboard-stat-value"
+        >
           불러오는 중
         </strong>
 
+        <span class="dashboard-stat-empty"></span>
+
       </div>
+
 
       <!-- 조회수 높은 글 -->
 
-      <div class="dashboard-stat-detail">
+      <div class="dashboard-stat-row">
 
-        <div class="dashboard-stat-meta">
+        <span class="dashboard-label">
+          조회수 높은 글
+        </span>
 
-          <span class="dashboard-label">
-            조회수 높은 글
-          </span>
-
-          <strong id="dashboard-top-count">
-            불러오는 중
-          </strong>
-
-        </div>
+        <strong
+          id="dashboard-top-count"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
 
         <a
           id="dashboard-top-post"
@@ -121,21 +134,21 @@
 
       </div>
 
+
       <!-- 가장 안 읽힌 글 -->
 
-      <div class="dashboard-stat-detail">
+      <div class="dashboard-stat-row">
 
-        <div class="dashboard-stat-meta">
+        <span class="dashboard-label">
+          가장 안 읽힌 글
+        </span>
 
-          <span class="dashboard-label">
-            가장 안 읽힌 글
-          </span>
-
-          <strong id="dashboard-low-count">
-            불러오는 중
-          </strong>
-
-        </div>
+        <strong
+          id="dashboard-low-count"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
 
         <a
           id="dashboard-low-post"
@@ -147,21 +160,18 @@
 
       </div>
 
+
       <!-- 가장 오래된 글 -->
 
-      <div class="dashboard-stat-detail">
+      <div class="dashboard-stat-row">
 
-        <div class="dashboard-stat-meta">
+        <span class="dashboard-label">
+          가장 오래된 글
+        </span>
 
-          <span class="dashboard-label">
-            가장 오래된 글
-          </span>
-
-          <strong>
-            {{ $oldestPost.Date.Format "2006-01-02" }}
-          </strong>
-
-        </div>
+        <strong class="dashboard-stat-value">
+          {{ $oldestPost.Date.Format "2006-01-02" }}
+        </strong>
 
         <a
           class="dashboard-stat-title"
@@ -172,21 +182,18 @@
 
       </div>
 
+
       <!-- 가장 긴 글 -->
 
-      <div class="dashboard-stat-detail">
+      <div class="dashboard-stat-row">
 
-        <div class="dashboard-stat-meta">
+        <span class="dashboard-label">
+          가장 긴 글
+        </span>
 
-          <span class="dashboard-label">
-            가장 긴 글
-          </span>
-
-          <strong>
-            {{ $longestPost.WordCount }}단어
-          </strong>
-
-        </div>
+        <strong class="dashboard-stat-value">
+          {{ $longestPost.WordCount }}단어
+        </strong>
 
         <a
           class="dashboard-stat-title"
@@ -197,21 +204,18 @@
 
       </div>
 
+
       <!-- 가장 짧은 글 -->
 
-      <div class="dashboard-stat-detail">
+      <div class="dashboard-stat-row">
 
-        <div class="dashboard-stat-meta">
+        <span class="dashboard-label">
+          가장 짧은 글
+        </span>
 
-          <span class="dashboard-label">
-            가장 짧은 글
-          </span>
-
-          <strong>
-            {{ $shortestPost.WordCount }}단어
-          </strong>
-
-        </div>
+        <strong class="dashboard-stat-value">
+          {{ $shortestPost.WordCount }}단어
+        </strong>
 
         <a
           class="dashboard-stat-title"
@@ -222,21 +226,18 @@
 
       </div>
 
+
       <!-- 최근 작성 -->
 
-      <div class="dashboard-stat-detail">
+      <div class="dashboard-stat-row">
 
-        <div class="dashboard-stat-meta">
+        <span class="dashboard-label">
+          최근 작성
+        </span>
 
-          <span class="dashboard-label">
-            최근 작성
-          </span>
-
-          <strong>
-            {{ $newestPost.Date.Format "2006-01-02" }}
-          </strong>
-
-        </div>
+        <strong class="dashboard-stat-value">
+          {{ $newestPost.Date.Format "2006-01-02" }}
+        </strong>
 
         <a
           class="dashboard-stat-title"
@@ -251,9 +252,10 @@
 
   </section>
 
-  <section class="dashboard-section">
 
-    <h2>시간 축</h2>
+  <!-- 시간축 -->
+
+  <section class="dashboard-section dashboard-timeline-section">
 
     <div class="dashboard-timeline">
 
@@ -289,6 +291,7 @@
   </section>
 
 </main>
+
 
 <script>
 (function () {
@@ -370,6 +373,7 @@
     const rows =
       Array.isArray(data) ? data : [];
 
+
     /*
      * 전체 조회수
      */
@@ -386,6 +390,7 @@
     totalViewsEl.innerText =
       totalViews.toLocaleString();
 
+
     /*
      * 방명록 제외 대상
      */
@@ -400,6 +405,7 @@
       rows.filter(function (item) {
         return statsUrls.includes(item.url);
       });
+
 
     /*
      * 조회수 높은 글
@@ -438,6 +444,7 @@
 
     }
 
+
     /*
      * 가장 안 읽힌 글
      */
@@ -474,6 +481,7 @@
         "";
 
     }
+
 
     console.log(
       "Dashboard total views:",
@@ -528,6 +536,7 @@
 
 })();
 </script>
+
 
 <style>
 
@@ -629,8 +638,9 @@ html.forced-dark .dashboard-recommendation-meta {
 
 /* =========================================================
    통계
-   영역 1 = 항목명
-   영역 2 = 값 / 게시물 제목
+   1열 = 항목명
+   2열 = 값
+   3열 = 게시물 제목
    ========================================================= */
 
 .dashboard-stats {
@@ -639,81 +649,44 @@ html.forced-dark .dashboard-recommendation-meta {
   gap: 0;
 }
 
-
-/* =========================================================
-   게시물 / 전체 조회수 / 6개 상세 통계
-   ========================================================= */
-
-.dashboard-total-stat,
-.dashboard-stat-detail {
+.dashboard-stat-row {
   display: grid;
-  grid-template-columns: 95px minmax(0, 1fr);
-  align-items: center;
-  column-gap: 0.4rem;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--gray-200);
+  grid-template-columns: 110px 90px minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 0.6rem;
+  padding: 0.4rem 0;
 }
 
-
-/* 항목명 */
-
-.dashboard-total-stat .dashboard-label,
-.dashboard-stat-meta .dashboard-label {
+.dashboard-label {
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.4;
+  color: #666666 !important;
+}
+
+html.forced-dark .dashboard-label {
+  color: #a8a8a8 !important;
+}
+
+.dashboard-stat-value {
+  display: block;
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
   color: #666666 !important;
   white-space: nowrap;
 }
 
-html.forced-dark .dashboard-total-stat .dashboard-label,
-html.forced-dark .dashboard-stat-meta .dashboard-label {
+html.forced-dark .dashboard-stat-value {
   color: #a8a8a8 !important;
 }
 
-
-/* 게시물 / 전체 조회수의 값 */
-
-.dashboard-total-stat strong {
-  text-align: left;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
-  font-weight: 400;
-  line-height: 1.4;
-  color: #666666 !important;
+.dashboard-stat-empty {
+  display: block;
 }
-
-html.forced-dark .dashboard-total-stat strong {
-  color: #a8a8a8 !important;
-}
-
-
-/* 상세 통계 */
-
-.dashboard-stat-meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.15rem;
-  min-width: 0;
-}
-
-.dashboard-stat-meta strong {
-  text-align: left;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
-  font-weight: 400;
-  line-height: 1.4;
-  color: #666666 !important;
-}
-
-html.forced-dark .dashboard-stat-meta strong {
-  color: #a8a8a8 !important;
-}
-
-
-/* 상세 통계 게시물 제목 */
 
 .dashboard-stat-title,
 .dashboard-stat-title:visited {
@@ -733,28 +706,38 @@ html.forced-dark .dashboard-stat-meta strong {
 
 
 /* =========================================================
-   시간 축
-   영역 1 = 날짜
-   영역 2 = posts
-   영역 3 = 게이지
+   통계와 시간축 사이 구분선
+   ========================================================= */
+
+.dashboard-timeline-section {
+  margin-top: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+
+/* =========================================================
+   시간축
+   1열 = 날짜
+   2열 = posts
+   3열 = 게이지
    ========================================================= */
 
 .dashboard-timeline {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .dashboard-timeline-row {
   display: grid;
-  grid-template-columns: 95px 70px minmax(0, 1fr);
+  grid-template-columns: 110px 90px minmax(0, 1fr);
   align-items: center;
-  column-gap: 0.4rem;
+  column-gap: 0.6rem;
   width: 100%;
 }
 
 .dashboard-timeline-date {
-  width: auto;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
   font-size: 0.75rem;
   line-height: 1.4;
@@ -767,13 +750,13 @@ html.forced-dark .dashboard-timeline-date {
 }
 
 .dashboard-timeline-count {
-  min-width: 0;
+  display: block;
   margin: 0;
-  text-align: left;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
   font-size: 0.75rem;
   line-height: 1.4;
   font-weight: 400;
+  text-align: left;
   color: #666666 !important;
   white-space: nowrap;
 }
@@ -790,6 +773,7 @@ html.forced-dark .dashboard-timeline-count {
 
 .dashboard-timeline-gauge i {
   display: block;
+  width: var(--timeline-bar-width, 0);
   height: 10px;
   min-width: 2px;
   max-width: 180px;
@@ -804,31 +788,6 @@ html.forced-dark .dashboard-timeline-count {
 
 @media (max-width: 768px) {
 
-  .dashboard-total-stat,
-  .dashboard-stat-detail {
-    grid-template-columns: 80px minmax(0, 1fr);
-    column-gap: 0.35rem;
-  }
-
-  .dashboard-total-stat .dashboard-label,
-  .dashboard-stat-meta .dashboard-label {
-    font-size: 0.75rem;
-  }
-
-  .dashboard-total-stat strong,
-  .dashboard-stat-meta strong {
-    font-size: 0.75rem;
-  }
-
-  .dashboard-stat-title {
-    font-size: 0.8rem;
-  }
-
-  .dashboard-timeline-row {
-    grid-template-columns: 80px 60px minmax(0, 1fr);
-    column-gap: 0.35rem;
-  }
-
   .dashboard-recommendation-content {
     gap: 0.75rem;
   }
@@ -839,6 +798,28 @@ html.forced-dark .dashboard-timeline-count {
 
   .dashboard-recommendation-meta {
     font-size: 0.75rem;
+  }
+
+  .dashboard-stat-row {
+    grid-template-columns: 90px 75px minmax(0, 1fr);
+    column-gap: 0.4rem;
+  }
+
+  .dashboard-label {
+    font-size: 0.75rem;
+  }
+
+  .dashboard-stat-value {
+    font-size: 0.75rem;
+  }
+
+  .dashboard-stat-title {
+    font-size: 0.8rem;
+  }
+
+  .dashboard-timeline-row {
+    grid-template-columns: 90px 75px minmax(0, 1fr);
+    column-gap: 0.4rem;
   }
 
 }
