@@ -332,10 +332,10 @@
   ];
 
   const postTitles = {
-    {{ range $posts }}
-      "{{ .RelPermalink }}": {{ .Title | jsonify }},
-    {{ end }}
-  };
+  {{ range $posts }}
+    "{{ .RelPermalink }}": {{ .Title | jsonify | safeJS }},
+  {{ end }}
+};
 
   const supabaseUrl =
     "https://jmosoaoxjuudcffbeoxi.supabase.co";
