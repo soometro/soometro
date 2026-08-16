@@ -53,11 +53,11 @@
 
   <section class="dashboard-section dashboard-recommendation-section">
 
-    <div class="dashboard-recommendation">
+    <div class="dashboard-section-title">
+      오늘의 추천 아카이브
+    </div>
 
-      <div class="dashboard-recommendation-date">
-        {{ now.Format "2006년 1월 2일" }} 오늘의 추천 아카이브
-      </div>
+    <div class="dashboard-recommendation">
 
       <div class="dashboard-recommendation-content">
 
@@ -101,6 +101,10 @@
   <!-- 통계 -->
 
   <section class="dashboard-section">
+
+    <div class="dashboard-section-title">
+      통계
+    </div>
 
     <div class="dashboard-stats">
 
@@ -307,15 +311,14 @@
 
   <section class="dashboard-section dashboard-search-console-section">
 
+    <div
+      id="dashboard-gsc-period"
+      class="dashboard-section-title"
+    >
+      Google 검색 · 28일
+    </div>
+
     <div class="dashboard-search-console">
-
-      <div
-        id="dashboard-gsc-period"
-        class="dashboard-search-console-title"
-      >
-        Google 검색 · 28일
-      </div>
-
 
       <!-- 클릭수 -->
 
@@ -404,6 +407,10 @@
   <!-- 시간축 -->
 
   <section class="dashboard-section dashboard-timeline-section">
+
+    <div class="dashboard-section-title">
+      시간 축
+    </div>
 
     <div class="dashboard-timeline">
 
@@ -563,10 +570,6 @@
         : [];
 
 
-    /*
-     * 전체 조회수
-     */
-
     const totalViews =
       rows.reduce(
         function (sum, item) {
@@ -582,10 +585,6 @@
     totalViewsEl.innerText =
       totalViews.toLocaleString();
 
-
-    /*
-     * 방명록 제외 대상
-     */
 
     const statsUrls = [
       {{ range $statsPosts }}
@@ -603,10 +602,6 @@
 
       });
 
-
-    /*
-     * 조회수 높은 글
-     */
 
     if (statsRows.length > 0) {
 
@@ -647,10 +642,6 @@
     }
 
 
-    /*
-     * 가장 안 읽힌 글
-     */
-
     if (statsRows.length > 0) {
 
       const lowPost =
@@ -690,34 +681,6 @@
         "";
 
     }
-
-
-    console.log(
-      "Dashboard total views:",
-      totalViews
-    );
-
-    console.log(
-      "Dashboard top post:",
-      statsRows[0] || null
-    );
-
-    console.log(
-      "Dashboard low post:",
-      statsRows[
-        statsRows.length - 1
-      ] || null
-    );
-
-    console.log(
-      "Dashboard post URL count:",
-      postUrls.length
-    );
-
-    console.log(
-      "Dashboard stats URL count:",
-      statsUrls.length
-    );
 
   })
 
@@ -775,12 +738,6 @@
 
     .then(function (data) {
 
-      console.log(
-        "Google Search Console:",
-        data
-      );
-
-
       if (
         !data ||
         !data.analytics
@@ -797,10 +754,6 @@
         data.analytics;
 
 
-      /*
-       * 조회 기간
-       */
-
       if (
         gscPeriodEl &&
         analytics.startDate &&
@@ -813,29 +766,17 @@
       }
 
 
-      /*
-       * 클릭수
-       */
-
       gscClicksEl.innerText =
         Number(
           analytics.clicks || 0
         ).toLocaleString();
 
 
-      /*
-       * 노출수
-       */
-
       gscImpressionsEl.innerText =
         Number(
           analytics.impressions || 0
         ).toLocaleString();
 
-
-      /*
-       * CTR
-       */
 
       gscCtrEl.innerText =
         `${(
@@ -844,10 +785,6 @@
           ) * 100
         ).toFixed(1)}%`;
 
-
-      /*
-       * 평균 순위
-       */
 
       gscPositionEl.innerText =
         Number(
@@ -865,8 +802,10 @@
 
 
       if (gscPeriodEl) {
+
         gscPeriodEl.innerText =
           "Google 검색 · 28일";
+
       }
 
 
@@ -935,7 +874,7 @@
 .dashboard-quick-link a {
   display: block;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 400;
   color: var(--color-link) !important;
   text-decoration: none;
@@ -956,12 +895,31 @@
 
 .dashboard-header h1 {
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.85rem !important;
-  font-weight: 400 !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
   color: #666666 !important;
 }
 
 html.forced-dark .dashboard-header h1 {
+  color: #a8a8a8 !important;
+}
+
+
+/* =========================================================
+   Dashboard H2
+   ========================================================= */
+
+.dashboard-section-title {
+  margin-top: 0.5rem;
+  margin-bottom: 0.35rem;
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+  color: #666666 !important;
+}
+
+html.forced-dark .dashboard-section-title {
   color: #a8a8a8 !important;
 }
 
@@ -978,18 +936,6 @@ html.forced-dark .dashboard-header h1 {
   background: var(--body-background);
 }
 
-.dashboard-recommendation-date {
-  margin-bottom: 0.5rem;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
-  line-height: 1.4;
-  color: #666666 !important;
-}
-
-html.forced-dark .dashboard-recommendation-date {
-  color: #a8a8a8 !important;
-}
-
 .dashboard-recommendation-content {
   display: flex;
   align-items: baseline;
@@ -1001,8 +947,8 @@ html.forced-dark .dashboard-recommendation-date {
   flex: 1 1 auto;
   min-width: 0;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
   line-height: 1.55;
   text-decoration: none;
   overflow-wrap: anywhere;
@@ -1017,8 +963,8 @@ html.forced-dark .dashboard-recommendation-date {
   flex: 0 0 auto;
   margin-left: auto;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
-  font-weight: 400;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
   line-height: 1.4;
   color: #666666 !important;
   white-space: nowrap;
@@ -1031,9 +977,6 @@ html.forced-dark .dashboard-recommendation-meta {
 
 /* =========================================================
    통계
-   1열 = 항목명
-   2열 = 값
-   3열 = 게시물 제목
    ========================================================= */
 
 .dashboard-stats {
@@ -1052,8 +995,8 @@ html.forced-dark .dashboard-recommendation-meta {
 
 .dashboard-label {
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
-  font-weight: 400;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
   line-height: 1.4;
   color: #666666 !important;
 }
@@ -1065,8 +1008,8 @@ html.forced-dark .dashboard-label {
 .dashboard-stat-value {
   display: block;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
-  font-weight: 400;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
   line-height: 1.4;
   text-align: right;
   color: #666666 !important;
@@ -1085,8 +1028,8 @@ html.forced-dark .dashboard-stat-value {
 .dashboard-stat-title:visited {
   min-width: 0;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
   line-height: 1.5;
   text-decoration: none;
   overflow-wrap: anywhere;
@@ -1114,22 +1057,9 @@ html.forced-dark .dashboard-stat-value {
   gap: 0;
 }
 
-.dashboard-search-console-title {
-  margin-bottom: 0.15rem;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #666666 !important;
-}
-
-html.forced-dark .dashboard-search-console-title {
-  color: #a8a8a8 !important;
-}
-
 
 /* =========================================================
-   통계와 시간축 사이 구분선
+   시간축
    ========================================================= */
 
 .dashboard-timeline-section {
@@ -1137,14 +1067,6 @@ html.forced-dark .dashboard-search-console-title {
   padding-top: 0.65rem;
   border-top: 1px solid var(--gray-200);
 }
-
-
-/* =========================================================
-   시간축
-   1열 = 날짜
-   2열 = posts
-   3열 = 게이지
-   ========================================================= */
 
 .dashboard-timeline {
   display: flex;
@@ -1162,7 +1084,8 @@ html.forced-dark .dashboard-search-console-title {
 
 .dashboard-timeline-date {
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
   line-height: 1.4;
   color: #666666 !important;
   white-space: nowrap;
@@ -1176,9 +1099,9 @@ html.forced-dark .dashboard-timeline-date {
   display: block;
   margin: 0;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
   line-height: 1.4;
-  font-weight: 400;
   text-align: right;
   color: #666666 !important;
   white-space: nowrap;
@@ -1224,7 +1147,7 @@ html.forced-dark .dashboard-timeline-count {
   }
 
   .dashboard-recommendation-meta {
-    font-size: 0.75rem;
+    font-size: 0.8rem !important;
   }
 
   .dashboard-stat-row {
@@ -1233,15 +1156,15 @@ html.forced-dark .dashboard-timeline-count {
   }
 
   .dashboard-label {
-    font-size: 0.75rem;
+    font-size: 0.8rem !important;
   }
 
   .dashboard-stat-value {
-    font-size: 0.75rem;
+    font-size: 0.8rem !important;
   }
 
   .dashboard-stat-title {
-    font-size: 0.8rem;
+    font-size: 0.85rem !important;
   }
 
   .dashboard-timeline-row {
@@ -1249,8 +1172,15 @@ html.forced-dark .dashboard-timeline-count {
     column-gap: 0.4rem;
   }
 
-}
+  .dashboard-timeline-date {
+    font-size: 0.8rem !important;
+  }
 
+  .dashboard-timeline-count {
+    font-size: 0.8rem !important;
+  }
+
+}
 </style>
 
 {{ end }}
