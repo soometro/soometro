@@ -28,7 +28,7 @@
       {{ else }}
         {{ .PublishDate.Format "2006-01-02" }}
       {{ end }}
-      <span style="margin-left: 8px !important; display: inline;">|수정일: 
+      <span style="margin-left: 8px !important; display: inline;">수정일: 
         {{ if .Lastmod }}
           {{ .Lastmod.Format "2006-01-02" }}
         {{ else if .Date }}
@@ -37,8 +37,8 @@
           {{ .PublishDate.Format "2006-01-02" }}
         {{ end }}
       </span>
-      <span style="margin-left: 8px !important; display: inline;">|단어수: {{ .WordCount }}</span>
-      <span id="page-hit-display" style="margin-left: 8px !important; display: inline;">|조회수: <span id="page-hit-value">...</span></span>
+      <span style="margin-left: 8px !important; display: inline;">단어: {{ .WordCount }}</span>
+      <span id="page-hit-display" style="margin-left: 8px !important; display: inline;">조회수: <span id="page-hit-value">...</span></span>
     </div>
 
     <style>
