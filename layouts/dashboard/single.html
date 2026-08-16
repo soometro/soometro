@@ -38,32 +38,36 @@
 
   <!-- 오늘의 추천 아카이브 -->
 
-  <section class="dashboard-section">
+  <section class="dashboard-section dashboard-recommendation-section">
 
-    <div class="dashboard-recommendation">
+  <div class="dashboard-recommendation">
 
-      <div class="dashboard-recommendation-date">
-        {{ now.Format "2006년 1월 2일" }} 오늘의 추천 아카이브
-      </div>
+    <div class="dashboard-recommendation-date">
+      {{ now.Format "2006년 1월 2일" }} 오늘의 추천 아카이브
+    </div>
 
-      <div class="dashboard-recommendation-content">
+    <div class="dashboard-recommendation-content">
 
-        <a
-          class="dashboard-recommendation-title"
-          href="{{ $recommendedPost.RelPermalink }}"
-        >
-          {{ $recommendedPost.Title }}
-        </a>
+      <a
+        class="dashboard-recommendation-title"
+        href="{{ $recommendedPost.RelPermalink }}"
+      >
+        {{ $recommendedPost.Title }}
+      </a>
 
-        <span class="dashboard-recommendation-meta">
-          {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
-        </span>
-
-      </div>
+      <span class="dashboard-recommendation-meta">
+        {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
+      </span>
 
     </div>
 
-  </section>
+  </div>
+
+  <div class="dashboard-archive-link">
+    <a href="/docs/">📂 아카이브 입장</a>
+  </div>
+
+</section>
 
 
   <!-- 통계 -->
@@ -553,7 +557,33 @@
 }
 
 .dashboard-section {
-  margin-bottom: 3rem;
+  margin-bottom: 0;
+}
+
+.dashboard-recommendation-section {
+  margin-bottom: 0;
+}
+
+.dashboard-archive-link {
+  margin-top: 0.5rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.dashboard-archive-link a {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-link) !important;
+  text-decoration: none;
+}
+
+.dashboard-archive-link a:hover {
+  text-decoration: underline;
+}
+
+.dashboard-stats {
+  margin-top: 0.65rem;
 }
 
 
@@ -710,8 +740,8 @@ html.forced-dark .dashboard-stat-value {
    ========================================================= */
 
 .dashboard-timeline-section {
-  margin-top: 0;
-  padding-top: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 0.65rem;
   border-top: 1px solid var(--gray-200);
 }
 
