@@ -1,1382 +1,443 @@
 {{ define "main" }}
-
-{{ $posts := where .Site.RegularPages "Section" "docs" }}
-{{ $postCount := len $posts }}
-
-{{ $statsPosts := where $posts "RelPermalink" "ne" "/docs/guestbook/" }}
-
-{{ $postsByDateAsc := sort $posts "Date" "asc" }}
-{{ $postsByDateDesc := sort $statsPosts "Date" "desc" }}
-{{ $postsByWordDesc := sort $statsPosts "WordCount" "desc" }}
-{{ $postsByWordAsc := sort $statsPosts "WordCount" "asc" }}
-
-{{ $oldestPost := index $postsByDateAsc 0 }}
-{{ $newestPost := index $postsByDateDesc 0 }}
-{{ $longestPost := index $postsByWordDesc 0 }}
-{{ $shortestPost := index $postsByWordAsc 0 }}
-
-{{ $totalWordCount := 0 }}
-
-{{ range $statsPosts }}
-  {{ $totalWordCount = add $totalWordCount .WordCount }}
-{{ end }}
-
-{{ $averageWordCount := 0 }}
-
-{{ if gt (len $statsPosts) 0 }}
-  {{ $averageWordCount = div $totalWordCount (len $statsPosts) }}
-{{ end }}
-
-{{ $archivePosts := where $posts "RelPermalink" "ne" "/docs/guestbook/" }}
-{{ $archivePosts = sort $archivePosts "Date" "asc" }}
-
-{{ $recommendIndex := mod (now.YearDay) (len $archivePosts) }}
-{{ $recommendedPost := index $archivePosts $recommendIndex }}
-
-{{ $timelineGroups := $posts.GroupByDate "2006-01" }}
-{{ $maxMonthCount := 0 }}
-
-{{ range $timelineGroups }}
-  {{ if gt (len .Pages) $maxMonthCount }}
-    {{ $maxMonthCount = len .Pages }}
-  {{ end }}
-{{ end }}
-
-<main class="dashboard-page">
-
-  <header class="dashboard-header">
-    <h1>{{ .Title }}</h1>
-  </header>
-
-
-  <!-- 오늘의 추천 아카이브 -->
-
-  <section class="dashboard-section dashboard-recommendation-section">
-
-    <div class="dashboard-section-title">
-      오늘의 추천 아카이브
-    </div>
-
-    <div class="dashboard-recommendation">
-
-      <div class="dashboard-recommendation-content">
-
-        <a
-          class="dashboard-recommendation-title"
-          href="{{ $recommendedPost.RelPermalink }}"
-        >
-          {{ $recommendedPost.Title }}
-        </a>
-
-        <span class="dashboard-recommendation-meta">
-          {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <!-- 아카이브 / 방명록 -->
-
-    <div class="dashboard-quick-links">
-
-      <div class="dashboard-quick-link">
-        <a href="/docs/">
-          📂 아카이브 입장
-        </a>
-      </div>
-
-      <div class="dashboard-quick-link">
-        <a href="/docs/guestbook/">
-          💬 방명록 쓰기
-        </a>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- 통계 -->
-
-  <section class="dashboard-section">
-
-    <div class="dashboard-section-title dashboard-section-divider"></div>
-
-    <div class="dashboard-stats">
-
-
-      <!-- 게시물 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          게시물
-        </span>
-
-        <strong class="dashboard-stat-value">
-          {{ $postCount }}
-        </strong>
-
-        <span class="dashboard-stat-empty"></span>
-
-      </div>
-
-
-      <!-- 사이트 운영일 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          사이트 운영일
-        </span>
-
-        <strong
-          id="dashboard-site-days"
-          class="dashboard-stat-value"
-          data-start-date="{{ $oldestPost.Date.Format "2006-01-02" }}"
-        >
-          계산 중
-        </strong>
-
-        <span class="dashboard-stat-empty"></span>
-
-      </div>
-
-
-      <!-- 전체 조회수 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          전체 조회수
-        </span>
-
-        <strong
-          id="dashboard-total-views"
-          class="dashboard-stat-value"
-        >
-          불러오는 중
-        </strong>
-
-        <span class="dashboard-stat-empty"></span>
-
-      </div>
-
-
-      <!-- 조회수 높은 글 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          조회수 높은 글
-        </span>
-
-        <strong
-          id="dashboard-top-count"
-          class="dashboard-stat-value"
-        >
-          불러오는 중
-        </strong>
-
-        <a
-          id="dashboard-top-post"
-          class="dashboard-stat-title"
-          href="#"
-        >
-          불러오는 중
-        </a>
-
-      </div>
-
-
-      <!-- 가장 안 읽힌 글 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          가장 안 읽힌 글
-        </span>
-
-        <strong
-          id="dashboard-low-count"
-          class="dashboard-stat-value"
-        >
-          불러오는 중
-        </strong>
-
-        <a
-          id="dashboard-low-post"
-          class="dashboard-stat-title"
-          href="#"
-        >
-          불러오는 중
-        </a>
-
-      </div>
-
-
-      <!-- 가장 오래된 글 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          가장 오래된 글
-        </span>
-
-        <strong class="dashboard-stat-value">
-          {{ $oldestPost.Date.Format "2006-01-02" }}
-        </strong>
-
-        <a
-          class="dashboard-stat-title"
-          href="{{ $oldestPost.RelPermalink }}"
-        >
-          {{ $oldestPost.Title }}
-        </a>
-
-      </div>
-
-
-      <!-- 최근 작성 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          최근 작성
-        </span>
-
-        <strong class="dashboard-stat-value">
-          {{ $newestPost.Date.Format "2006-01-02" }}
-        </strong>
-
-        <a
-          class="dashboard-stat-title"
-          href="{{ $newestPost.RelPermalink }}"
-        >
-          {{ $newestPost.Title }}
-        </a>
-
-      </div>
-
-
-      <!-- 가장 긴 글 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          가장 긴 글
-        </span>
-
-        <strong class="dashboard-stat-value">
-          {{ $longestPost.WordCount }}단어
-        </strong>
-
-        <a
-          class="dashboard-stat-title"
-          href="{{ $longestPost.RelPermalink }}"
-        >
-          {{ $longestPost.Title }}
-        </a>
-
-      </div>
-
-
-      <!-- 가장 짧은 글 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          가장 짧은 글
-        </span>
-
-        <strong class="dashboard-stat-value">
-          {{ $shortestPost.WordCount }}단어
-        </strong>
-
-        <a
-          class="dashboard-stat-title"
-          href="{{ $shortestPost.RelPermalink }}"
-        >
-          {{ $shortestPost.Title }}
-        </a>
-
-      </div>
-
-
-      <!-- 평균 글 길이 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          평균 글 길이
-        </span>
-
-        <strong class="dashboard-stat-value">
-          {{ $averageWordCount }}단어
-        </strong>
-
-        <span class="dashboard-stat-empty"></span>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- Google Search Console -->
-
-  <section class="dashboard-section dashboard-search-console-section">
-
-    <div
-      id="dashboard-gsc-period"
-      class="dashboard-section-title"
-    >
-      Google 검색 · 28일
-    </div>
-
-    <div class="dashboard-search-console">
-
-
-      <!-- 클릭수 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          클릭수
-        </span>
-
-        <strong
-          id="dashboard-gsc-clicks"
-          class="dashboard-stat-value"
-        >
-          불러오는 중
-        </strong>
-
-        <span
-          id="dashboard-gsc-clicks-change"
-          class="dashboard-stat-change"
-        ></span>
-
-      </div>
-
-
-      <!-- 노출수 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          노출수
-        </span>
-
-        <strong
-          id="dashboard-gsc-impressions"
-          class="dashboard-stat-value"
-        >
-          불러오는 중
-        </strong>
-
-        <span
-          id="dashboard-gsc-impressions-change"
-          class="dashboard-stat-change"
-        ></span>
-
-      </div>
-
-
-      <!-- CTR -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          CTR
-        </span>
-
-        <strong
-          id="dashboard-gsc-ctr"
-          class="dashboard-stat-value"
-        >
-          불러오는 중
-        </strong>
-
-        <span
-          id="dashboard-gsc-ctr-change"
-          class="dashboard-stat-change"
-        ></span>
-
-      </div>
-
-
-      <!-- 평균 순위 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          평균 순위
-        </span>
-
-        <strong
-          id="dashboard-gsc-position"
-          class="dashboard-stat-value"
-        >
-          불러오는 중
-        </strong>
-
-        <span
-          id="dashboard-gsc-position-change"
-          class="dashboard-stat-change"
-        ></span>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- 시간축 -->
-
-  <section class="dashboard-section dashboard-timeline-section">
-
-    <div class="dashboard-section-title">
-      시간 축
-    </div>
-
-    <div class="dashboard-timeline">
-
-      {{ range $timelineGroups }}
-
-        {{ $monthCount := len .Pages }}
-        {{ $barWidth := 0 }}
-
-        {{ if gt $maxMonthCount 0 }}
-          {{ $barWidth = div (mul $monthCount 180) $maxMonthCount }}
+  <main class="book-page">
+    <article class="markdown" style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
+    
+    <!-- Breadcrumb (화면 표시 + JSON-LD와 정보 일치) -->
+    <!-- Breadcrumb (폴더명을 직접 추출하여 중복 방지) -->
+    <nav class="book-breadcrumb" aria-label="breadcrumb" style="font-size: 0.85rem !important; margin-bottom: 0.8rem !important;">
+      <a href="{{ .Site.BaseURL }}" style="color: inherit; text-decoration: none;">Home</a>
+      <span style="margin: 0 4px;">›</span>
+      <a href="{{ .Site.BaseURL }}docs/" style="color: inherit; text-decoration: none;">Docs</a>
+      
+      {{- $dir := replace .File.Dir "\\" "/" -}}
+      {{- $parts := split (strings.TrimSuffix "/" $dir) "/" -}}
+      {{- if gt (len $parts) 1 -}}
+        {{- $folder := index $parts 1 -}}
+        <span style="margin: 0 4px;">›</span>
+        <a href="{{ .Site.BaseURL }}docs/{{ $folder }}/" style="color: inherit; text-decoration: none;">{{ $folder | title }}</a>
+      {{- end -}}
+      
+      <span style="margin: 0 4px;">›</span>
+      <span>{{ .Title }}</span>
+    </nav> 
+
+    <!-- 상단: 작성일 + 수정일 + 단어수 + 읽기 시간 + 조회수 -->
+    <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; font-size: 0.8rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: 0 !important; margin-bottom: 1rem !important; padding-bottom: 0.5rem !important; border-bottom: 1px solid #e5e5e5 !important;">
+      작성일: {{ if .Date }}
+        {{ .Date.Format "2006-01-02" }}
+      {{ else }}
+        {{ .PublishDate.Format "2006-01-02" }}
+      {{ end }}
+      <span style="margin-left: 8px !important; display: inline;">|수정일: 
+        {{ if .Lastmod }}
+          {{ .Lastmod.Format "2006-01-02" }}
+        {{ else if .Date }}
+          {{ .Date.Format "2006-01-02" }}
+        {{ else }}
+          {{ .PublishDate.Format "2006-01-02" }}
         {{ end }}
-
-        <div class="dashboard-timeline-row">
-
-          <span class="dashboard-timeline-date">
-            {{ .Key }}
-          </span>
-
-          <strong class="dashboard-timeline-count">
-            {{ $monthCount }} posts
-          </strong>
-
-          <div class="dashboard-timeline-gauge">
-            <i style="width: {{ $barWidth }}px;"></i>
-          </div>
-
-        </div>
-
-      {{ end }}
-
+      </span>
+      <span style="margin-left: 8px !important; display: inline;">|단어수: {{ .WordCount }}</span>
+      <span style="margin-left: 8px !important; display: inline;">|시간: {{ .ReadingTime }}분</span>
+      <span id="page-hit-display" style="margin-left: 8px !important; display: inline;">|조회수 : <span id="page-hit-value">...</span></span>
     </div>
 
-  </section>
+    <style>
+      .book-post-date + * { margin-top: 0.2rem !important; padding-top: 0 !important; }
+    </style>
 
-</main>
+    <!-- 조회수 스크립트 -->
+    <script>
+      (function() {
+        function checkHitData() {
+          const valueEl = document.getElementById('page-hit-value');
+          if (valueEl) {
+            const hitCount = (typeof window.currentPageHit !== 'undefined') ? window.currentPageHit : 0;
+            valueEl.innerText = hitCount.toLocaleString();
+          }
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", checkHitData);
+        } else {
+          checkHitData();
+        }
+        const interval = setInterval(() => {
+          if (typeof window.currentPageHit !== 'undefined') {
+            checkHitData();
+            clearInterval(interval);
+          }
+        }, 100);
+      })();
+    </script>
 
+    <!-- 본문 콘텐츠 -->
+    <div class="post-content">
+      {{ .Content }}
+    </div>
 
-<script>
-(function () {
-
-  const siteDaysEl =
-    document.getElementById("dashboard-site-days");
-
-  const totalViewsEl =
-    document.getElementById("dashboard-total-views");
-
-  const topPostEl =
-    document.getElementById("dashboard-top-post");
-
-  const topCountEl =
-    document.getElementById("dashboard-top-count");
-
-  const lowPostEl =
-    document.getElementById("dashboard-low-post");
-
-  const lowCountEl =
-    document.getElementById("dashboard-low-count");
-
-  const gscPeriodEl =
-    document.getElementById("dashboard-gsc-period");
-
-  const gscClicksEl =
-    document.getElementById("dashboard-gsc-clicks");
-
-  const gscImpressionsEl =
-    document.getElementById("dashboard-gsc-impressions");
-
-  const gscCtrEl =
-    document.getElementById("dashboard-gsc-ctr");
-
-  const gscPositionEl =
-    document.getElementById("dashboard-gsc-position");
-
-  const gscClicksChangeEl =
-    document.getElementById("dashboard-gsc-clicks-change");
-
-  const gscImpressionsChangeEl =
-    document.getElementById("dashboard-gsc-impressions-change");
-
-  const gscCtrChangeEl =
-    document.getElementById("dashboard-gsc-ctr-change");
-
-  const gscPositionChangeEl =
-    document.getElementById("dashboard-gsc-position-change");
-
-
-  /*
-   * 사이트 운영일
-   */
-
-  if (siteDaysEl) {
-
-    const startDate =
-      siteDaysEl.dataset.startDate;
-
-    const start =
-      new Date(`${startDate}T00:00:00`);
-
-    const today =
-      new Date();
-
-    start.setHours(0, 0, 0, 0);
-    today.setHours(0, 0, 0, 0);
-
-    const days =
-      Math.max(
-        0,
-        Math.floor(
-          (today - start) /
-          86400000
-        )
-      );
-
-    siteDaysEl.innerText =
-      `${days.toLocaleString()}일`;
-
-  }
-
-
-  if (
-    !totalViewsEl ||
-    !topPostEl ||
-    !topCountEl ||
-    !lowPostEl ||
-    !lowCountEl
-  ) {
-    return;
-  }
-
-
-  /*
-   * 게시물 URL
-   */
-
-  const postUrls = [
-    {{ range $posts }}
-      "{{ .RelPermalink }}",
-    {{ end }}
-  ];
-
-
-  /*
-   * 게시물 제목
-   */
-
-  const postTitles = {
-  {{ range $posts }}
-    "{{ .RelPermalink }}": {{ .Title | jsonify | safeJS }},
+    <!-- 게시판 내 상위2/본문/하위2 네비게이션 (내부링크 겸용) -->
+{{ if and (not .Pages) (eq .Section "docs") }}
+  {{ $dir := replace .File.Dir "\\" "/" }}
+  {{ $parts := split (strings.TrimSuffix "/" $dir) "/" }}
+  {{ $boardName := "" }}
+  {{ if gt (len $parts) 1 }}
+    {{ $boardName = index $parts 1 }}
   {{ end }}
-};
 
+  {{ if ne $boardName "guestbook" }}
+  {{ $allPages := .Parent.RegularPages.ByDate }}
+  {{ $currentIndex := -1 }}
+  {{ range $i, $p := $allPages }}
+    {{ if eq $p.RelPermalink $.RelPermalink }}
+      {{ $currentIndex = $i }}
+    {{ end }}
+  {{ end }}
 
-  /*
-   * Supabase
-   */
+  {{ if ne $currentIndex -1 }}
+    {{ $total := len $allPages }}
+    <div class="board-nav-container" style="margin-top: 1rem !important; padding-top: 0.5rem !important; border-top: 1px solid #e5e5e5 !important;">
+      <p style="margin-bottom: 1rem !important; font-size: 1rem !important; font-weight: bold; color: var(--body-font-color);">{{ $boardName | title }}의 전체 글</p>
+      <ul class="board-nav-list" style="list-style: none !important; padding-left: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 0.5rem;">
+        {{ if lt (add $currentIndex 2) $total }}
+          {{ with index $allPages (add $currentIndex 2) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        {{ if lt (add $currentIndex 1) $total }}
+          {{ with index $allPages (add $currentIndex 1) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        <li><span style="font-weight: bold; color: var(--body-font-color); font-size: 0.95rem; cursor: default;">• {{ $.Title }}</span></li>
+        {{ if ge (sub $currentIndex 1) 0 }}
+          {{ with index $allPages (sub $currentIndex 1) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+        {{ if ge (sub $currentIndex 2) 0 }}
+          {{ with index $allPages (sub $currentIndex 2) }}
+            <li><a href="{{ .RelPermalink }}" style="color: var(--color-link); text-decoration: none; font-size: 0.95rem;">• {{ .Title }}</a></li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  {{ end }}
+  {{ end }}
 
-  const supabaseUrl =
-    "https://jmosoaoxjuudcffbeoxi.supabase.co";
+    <!-- 좋아요 + 공유 버튼 통합 -->
+  {{ if ne $boardName "guestbook" }}
+<div class="page-actions-container">
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center;">
+    <button id="btn-reaction-like" class="reaction-btn" onclick="sendReaction('like')">
+      👍 <span id="count-reaction-like">0</span>
+    </button>
+    <button class="share-btn" onclick="shareCopyUrl(this)" title="URL 복사" aria-label="URL 복사">
+      🔗
+    </button>
+    <button class="share-btn" onclick="shareKakao()" title="카카오톡 공유" aria-label="카카오톡 공유" style="background:#FEE500;">
+      💬
+    </button>
+    <button class="share-btn" onclick="shareMore()" title="더보기" aria-label="더보기">
+      ⋯
+    </button>
+  </div>
+</div>
+  {{ end }}
+{{ end }}
 
-  const supabaseKey =
-    "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+    <!-- 댓글(방명록) 시스템 -->
+<div class="post-comments-container" style="margin-top: 0rem !important; padding-top: 0.25rem !important;">
+  
+  <div id="comment-login-area" style="margin-bottom: 1rem;">
+    <!-- 로그인 여부에 따라 JS가 이 안의 내용을 바꿔줍니다 -->
+  </div>
 
+  <div id="comment-form-area" style="display:none; margin-bottom:1rem;">
+    <div style="display:flex; gap:0.5rem; align-items:flex-start;">
+      <textarea id="comment-input" class="comment-textarea" rows="1" placeholder="댓글을 남겨보세요" style="flex:1; box-sizing:border-box; padding:0.6rem; border:1px solid #e5e5e5; border-radius:8px; font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
+      <button onclick="submitComment()" class="comment-submit-btn" style="padding:0.6rem 1.2rem; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer; font-size:0.85rem; white-space:nowrap;">댓글 등록</button>
+    </div>
+  </div>
 
-  /*
-   * Supabase 조회수
-   */
+  <div id="comment-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
+    <!-- JS가 댓글 목록을 이 안에 렌더링합니다 -->
+  </div>
+</div>
+        </article>
+  </main>
 
-  fetch(
-    `${supabaseUrl}/rest/v1/rpc/get_page_view_counts`,
-    {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": supabaseKey,
-        "Authorization": `Bearer ${supabaseKey}`
-      },
-
-      body: JSON.stringify({
-        p_urls: postUrls
-      })
+  <!-- ====================== 반응 컴포넌트 스크립트 ====================== -->
+  <script>
+    // 사용자 해시
+    function getReactionUserHash() {
+      let userHash = localStorage.getItem('user_hash');
+      if (!userHash) {
+        userHash = Math.random().toString(36).substring(2);
+        localStorage.setItem('user_hash', userHash);
+      }
+      return localStorage.getItem('my_admin') === 'true' ? 'ADMIN_SKIP' : userHash;
     }
-  )
 
-  .then(function (res) {
+    const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+    const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
 
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`);
-    }
+    function loadReactions() {
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
 
-    return res.json();
-
-  })
-
-  .then(function (data) {
-
-    const rows =
-      Array.isArray(data)
-        ? data
-        : [];
-
-
-    const totalViews =
-      rows.reduce(
-        function (sum, item) {
-
-          return sum +
-            Number(
-              item.page_hit || 0
-            );
-
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
         },
-        0
-      );
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: "get"
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Load Error:", err));
+    }
 
+    function sendReaction(actionType) {
+      const pageUrl = window.location.pathname;
+      const userHash = getReactionUserHash();
 
-    totalViewsEl.innerText =
-      totalViews.toLocaleString();
+      fetch(`${supabaseUrl}/rest/v1/rpc/handle_page_reaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify({
+          p_page_url: pageUrl,
+          p_user_hash: userHash,
+          p_action: actionType
+        })
+      })
+      .then(res => res.json())
+      .then(data => updateReactionDOM(data))
+      .catch(err => console.error("Reaction Action Error:", err));
+    }
 
+    function updateReactionDOM(data) {
+      if (!data) return;
 
-    const statsUrls = [
-      {{ range $statsPosts }}
-        "{{ .RelPermalink }}",
-      {{ end }}
-    ];
+      const btnLike = document.getElementById('btn-reaction-like');
+      const btnDislike = document.getElementById('btn-reaction-dislike');
+      const countLike = document.getElementById('count-reaction-like');
+      const countDislike = document.getElementById('count-reaction-dislike');
 
+      if (countLike) countLike.innerText = data.like_count || 0;
+      if (countDislike) countDislike.innerText = data.dislike_count || 0;
 
-    const statsRows =
-      rows.filter(function (item) {
-
-        return statsUrls.includes(
-          item.url
-        );
-
+      if (btnLike && btnDislike) {
+        if (data.my_reaction === 'like') {
+          btnLike.style.background = '#e3faf2';
+          btnLike.style.borderColor = '#20c997';
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        } else if (data.my_reaction === 'dislike') {
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#ffe3e3';
+          btnDislike.style.borderColor = '#ff6b6b';
+        } else {
+          btnLike.style.background = '#f8f9fa';
+          btnLike.style.borderColor = '#e5e5e5';
+          btnDislike.style.background = '#f8f9fa';
+          btnDislike.style.borderColor = '#e5e5e5';
+        }
+      }
+    }
+    // ====== 공유 기능 ======
+    function shareCopyUrl(btn) {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        btn.innerText = "✅";
+        clearTimeout(btn._resetTimer);
+        btn._resetTimer = setTimeout(() => { btn.innerText = "🔗"; }, 1500);
       });
-
-
-    if (statsRows.length > 0) {
-
-      const topPost =
-        statsRows[0];
-
-      const topTitle =
-        postTitles[topPost.url] ||
-        topPost.url;
-
-      const topViews =
-        Number(
-          topPost.page_hit || 0
-        );
-
-
-      topPostEl.innerText =
-        topTitle;
-
-      topPostEl.href =
-        topPost.url;
-
-      topCountEl.innerText =
-        `${topViews.toLocaleString()}회`;
-
-    } else {
-
-      topPostEl.innerText =
-        "없음";
-
-      topPostEl.removeAttribute(
-        "href"
-      );
-
-      topCountEl.innerText =
-        "";
-
     }
 
-
-    if (statsRows.length > 0) {
-
-      const lowPost =
-        statsRows[
-          statsRows.length - 1
-        ];
-
-      const lowTitle =
-        postTitles[lowPost.url] ||
-        lowPost.url;
-
-      const lowViews =
-        Number(
-          lowPost.page_hit || 0
-        );
-
-
-      lowPostEl.innerText =
-        lowTitle;
-
-      lowPostEl.href =
-        lowPost.url;
-
-      lowCountEl.innerText =
-        `${lowViews.toLocaleString()}회`;
-
-    } else {
-
-      lowPostEl.innerText =
-        "없음";
-
-      lowPostEl.removeAttribute(
-        "href"
-      );
-
-      lowCountEl.innerText =
-        "";
-
+    if (!window.Kakao) {
+      const kakaoScript = document.createElement('script');
+      kakaoScript.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js";
+      kakaoScript.onload = function() {
+        Kakao.init("f158b835db42451835274aea8a45d845");
+      };
+      document.head.appendChild(kakaoScript);
     }
 
-  })
-
-  .catch(function () {
-
-    totalViewsEl.innerText =
-      "확인 불가";
-
-    topPostEl.innerText =
-      "확인 불가";
-
-    topCountEl.innerText =
-      "";
-
-    lowPostEl.innerText =
-      "확인 불가";
-
-    lowCountEl.innerText =
-      "";
-
-  });
-
-
-  /*
-   * Google Search Console
-   */
-
-  if (
-    gscClicksEl &&
-    gscImpressionsEl &&
-    gscCtrEl &&
-    gscPositionEl
-  ) {
-
-    fetch(
-      "https://noisy-forest-d168.soo8209.workers.dev/search-console"
-    )
-
-    .then(function (res) {
-
-      if (!res.ok) {
-        throw new Error(
-          `HTTP ${res.status}`
-        );
+    function shareKakao() {
+      if (!window.Kakao || !Kakao.isInitialized()) {
+        alert("카카오 공유 준비 중입니다. 잠시 후 다시 시도해주세요.");
+        return;
       }
+      Kakao.Share.sendDefault({
+        objectType: 'text',
+        text: document.title,
+        link: {
+          mobileWebUrl: window.location.href,
+          webUrl: window.location.href,
+        },
+      });
+    }
 
-      return res.json();
-
-    })
-
-    .then(function (data) {
-
-      if (
-        !data ||
-        !data.analytics
-      ) {
-
-        throw new Error(
-          "Search Console 데이터가 없습니다."
-        );
-
+    function shareMore() {
+      if (navigator.share) {
+        navigator.share({
+          title: document.title,
+          url: window.location.href,
+        }).catch(() => {});
+      } else {
+        alert("이 브라우저는 공유 기능을 지원하지 않습니다. URL 복사를 이용해주세요.");
       }
+    }
+    // 초기 로드
+    document.addEventListener("DOMContentLoaded", loadReactions);
+  </script>
+  <!-- ====================== 카카오로그인 버튼 로그인상태 표시 JS ====================== -->
+  <script>
+  const _postSlug = window.location.pathname;
+  let _currentUser = null;
 
+  async function renderCommentLoginArea() {
+    const area = document.getElementById('comment-login-area');
+    const formArea = document.getElementById('comment-form-area');
+    if (!area || !window.sb) return;
 
-      const analytics =
-        data.analytics;
+    const { data } = await window.sb.auth.getUser();
+    _currentUser = data.user;
 
+    if (_currentUser) {
+      const nickname = _currentUser.user_metadata.name || _currentUser.user_metadata.preferred_username || '사용자';
+      area.innerHTML =
+        '<div style="display:flex; align-items:center; gap:0.6rem;">' +
+        '<span style="font-size:0.9rem;">' + nickname + '님으로 로그인됨</span>' +
+        '<button onclick="window.sbSignOut()" class="comment-signout-btn" style="font-size:0.85rem; padding:0.3rem 0.8rem; border-radius:12px; border:1px solid #e5e5e5; background:#f8f9fa; cursor:pointer;">로그아웃</button>' +
+        '</div>';
+      if (formArea) formArea.style.display = 'block';
+    } else {
+      area.innerHTML =
+        '<button onclick="window.sbSignInKakao()" style="font-size:0.9rem; padding:0.5rem 1rem; border-radius:8px; border:none; background:#FEE500; cursor:pointer;">카카오로 로그인하고 댓글쓰기</button>';
+      if (formArea) formArea.style.display = 'none';
+    }
+  }
 
-      if (
-        gscPeriodEl &&
-        analytics.startDate &&
-        analytics.endDate
-      ) {
+  async function loadComments() {
+    const listEl = document.getElementById('comment-list');
+    if (!listEl || !window.sb) return;
 
-        gscPeriodEl.innerText =
-          `Google 검색 · ${analytics.startDate}~${analytics.endDate} (28일간)`;
+    const { data, error } = await window.sb
+      .from('guestbook')
+      .select('*')
+      .eq('post_slug', _postSlug)
+      .order('created_at', { ascending: false });
 
-      }
+    if (error) {
+      console.error('댓글 로드 에러:', error);
+      return;
+    }
 
+    if (!data || data.length === 0) {
+      listEl.innerHTML = '<p style="font-size:0.85rem; color:#999;">아직 댓글이 없습니다.</p>';
+      return;
+    }
 
-      gscClicksEl.innerText =
-        Number(
-          analytics.clicks || 0
-        ).toLocaleString();
+    listEl.innerHTML = data.map(function(c) {
+      const date = new Date(c.created_at).toLocaleDateString('ko-KR');
+      const safeImgUrl = c.profile_img ? c.profile_img.replace(/^http:\/\//, 'https://') : '';
+      const img = safeImgUrl ? '<img src="' + safeImgUrl + '" style="width:24px; height:24px; border-radius:50%; vertical-align:middle; flex-shrink:0;">' : '';
+      const ADMIN_USER_ID = '63679d47-4fb8-4076-8250-8df5a8ce579d';
+      const isMine = _currentUser && (_currentUser.id === c.user_id || _currentUser.id === ADMIN_USER_ID);
+      const deleteBtn = isMine ? '<button onclick="deleteComment(' + c.id + ')" style="font-size:0.75rem; color:#999; background:none; border:none; cursor:pointer; flex-shrink:0;">삭제</button>' : '';
+      return '<div style="padding:0.6rem 0.8rem; border:1px solid #e5e5e5; border-radius:8px;">' +
+             '<div style="display:flex; align-items:center; gap:6px; margin-bottom:0.3rem;">' +
+             img +
+             '<strong style="font-size:0.85rem; flex-shrink:0;">' + c.nickname + '</strong>' +
+             '<span style="font-size:0.75rem; color:#999; flex-shrink:0;">' + date + '</span>' +
+             '<span style="flex:1;"></span>' +
+             deleteBtn +
+             '</div>' +
+             '<div style="font-size:0.9rem; word-break:break-word;">' + c.content + '</div>' +
+             '</div>';
+    }).join('');
+  }
 
+  async function submitComment() {
+    const input = document.getElementById('comment-input');
+    const content = input.value.trim();
+    if (!content) return;
+    if (!_currentUser) return;
 
-      gscImpressionsEl.innerText =
-        Number(
-          analytics.impressions || 0
-        ).toLocaleString();
+    const nickname = _currentUser.user_metadata.name || _currentUser.user_metadata.preferred_username || '사용자';
+    const profileImg = _currentUser.user_metadata.avatar_url || null;
 
-
-      gscCtrEl.innerText =
-        `${(
-          Number(
-            analytics.ctr || 0
-          ) * 100
-        ).toFixed(1)}%`;
-
-
-      gscPositionEl.innerText =
-        Number(
-          analytics.position || 0
-        ).toFixed(1);
-
-
-      /*
-       * 이전 기간 대비 증감률
-       */
-
-      const previous =
-        analytics.previous;
-
-
-      function formatChange(
-        current,
-        previousValue
-      ) {
-
-        if (
-          previousValue === undefined ||
-          previousValue === null ||
-          Number(previousValue) === 0
-        ) {
-
-          return "";
-
-        }
-
-
-        const change =
-          (
-            (Number(current) -
-              Number(previousValue)) /
-            Number(previousValue)
-          ) * 100;
-
-
-        const rounded =
-          Number(
-            change.toFixed(1)
-          );
-
-
-        if (rounded > 0) {
-          return `▲ ${rounded}%`;
-        }
-
-
-        if (rounded < 0) {
-          return `▼ ${Math.abs(rounded)}%`;
-        }
-
-
-        return "—";
-      }
-
-
-      if (previous) {
-
-        gscClicksChangeEl.innerText =
-          formatChange(
-            analytics.clicks,
-            previous.clicks
-          );
-
-        gscImpressionsChangeEl.innerText =
-          formatChange(
-            analytics.impressions,
-            previous.impressions
-          );
-
-        gscCtrChangeEl.innerText =
-          formatChange(
-            analytics.ctr,
-            previous.ctr
-          );
-
-        gscPositionChangeEl.innerText =
-          formatChange(
-            analytics.position,
-            previous.position
-          );
-
-      }
-
-    })
-
-    .catch(function (error) {
-
-      console.error(
-        "Google Search Console Error:",
-        error
-      );
-
-
-      if (gscPeriodEl) {
-
-        gscPeriodEl.innerText =
-          "Google 검색";
-
-      }
-
-
-      const errorMessage =
-        error && error.message
-          ? error.message
-          : "Google Search Console 호출 실패";
-
-
-      gscClicksEl.innerText =
-        errorMessage;
-
-      gscImpressionsEl.innerText =
-        "확인 불가";
-
-      gscCtrEl.innerText =
-        "확인 불가";
-
-      gscPositionEl.innerText =
-        "확인 불가";
-
-      gscClicksChangeEl.innerText =
-        "";
-
-      gscImpressionsChangeEl.innerText =
-        "";
-
-      gscCtrChangeEl.innerText =
-        "";
-
-      gscPositionChangeEl.innerText =
-        "";
-
+    const { error } = await window.sb.from('guestbook').insert({
+      user_id: _currentUser.id,
+      nickname: nickname,
+      profile_img: profileImg,
+      content: content,
+      post_slug: _postSlug
     });
 
+    if (error) {
+      console.error('댓글 등록 에러:', error);
+      alert('댓글 등록에 실패했습니다.');
+      return;
+    }
+
+    input.value = '';
+    loadComments();
   }
 
-})();
+  async function deleteComment(id) {
+    if (!confirm('댓글을 삭제하시겠습니까?')) return;
+    const { error } = await window.sb.from('guestbook').delete().eq('id', id);
+    if (error) {
+      console.error('삭제 에러:', error);
+      alert('삭제에 실패했습니다.');
+      return;
+    }
+    loadComments();
+  }
+
+  document.addEventListener("DOMContentLoaded", async function() {
+    await renderCommentLoginArea();
+    await loadComments();
+  });
 </script>
+  <!-- ====================== 추가 CSS ====================== -->
+  <style>
+    .post-content {
+      margin-bottom: 2rem !important;
+    }
 
+    .page-actions-container {
+      margin: 2.5rem 0 2rem 0;
+      padding: 1.5rem 0;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      text-align: center;
+    }
 
-<style>
-
-/* =========================================================
-   Dashboard 기본
-   ========================================================= */
-
-.dashboard-page {
-  width: 100%;
-}
-
-.dashboard-header {
-  margin-bottom: 2rem;
-}
-
-.dashboard-section {
-  margin-bottom: 0;
-}
-
-.dashboard-recommendation-section {
-  margin-bottom: 0;
-}
-
-.dashboard-quick-links {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.dashboard-quick-link {
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  background: var(--body-background);
-}
-
-.dashboard-quick-link a {
-  display: block;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem !important;
-  font-weight: 400 !important;
-  color: var(--color-link) !important;
-  text-decoration: none;
-}
-
-.dashboard-quick-link a:hover {
-  text-decoration: underline;
-}
-
-.dashboard-stats {
-  margin-top: 0.65rem;
-}
-
-
-/* =========================================================
-   Dashboard H1
-   ========================================================= */
-
-.dashboard-header h1 {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  color: #666666 !important;
-}
-
-html.forced-dark .dashboard-header h1 {
-  color: #a8a8a8 !important;
-}
-
-
-/* =========================================================
-   Dashboard H2
-   ========================================================= */
-
-.dashboard-section-title {
-  margin-top: 0.5rem;
-  margin-bottom: 0.35rem;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.85rem !important;
-  font-weight: 400 !important;
-  line-height: 1.4;
-  color: #666666 !important;
-}
-
-html.forced-dark .dashboard-section-title {
-  color: #a8a8a8 !important;
-}
-
-
-/* =========================================================
-   통계 구분선
-   ========================================================= */
-
-.dashboard-section-divider {
-  height: 1px;
-  margin-top: 0.65rem;
-  margin-bottom: 0.35rem;
-  background: var(--gray-200);
-}
-
-
-/* =========================================================
-   오늘의 추천 아카이브
-   ========================================================= */
-
-.dashboard-recommendation {
-  margin-top: 0.5rem;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  background: var(--body-background);
-}
-
-.dashboard-recommendation-content {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-}
-
-.dashboard-recommendation-title,
-.dashboard-recommendation-title:visited {
-  flex: 1 1 auto;
-  min-width: 0;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.85rem !important;
-  font-weight: 400 !important;
-  line-height: 1.55;
-  text-decoration: none;
-  overflow-wrap: anywhere;
-  color: var(--color-link) !important;
-}
-
-.dashboard-recommendation-title:hover {
-  text-decoration: underline;
-}
-
-.dashboard-recommendation-meta {
-  flex: 0 0 auto;
-  margin-left: auto;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem !important;
-  font-weight: 400 !important;
-  line-height: 1.4;
-  color: #666666 !important;
-  white-space: nowrap;
-}
-
-html.forced-dark .dashboard-recommendation-meta {
-  color: #a8a8a8 !important;
-}
-
-
-/* =========================================================
-   통계
-   ========================================================= */
-
-.dashboard-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.dashboard-stat-row {
-  display: grid;
-  grid-template-columns: 110px 90px minmax(0, 1fr);
-  align-items: baseline;
-  column-gap: 0.6rem;
-  padding: 0.4rem 0;
-}
-
-.dashboard-label {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem !important;
-  font-weight: 400 !important;
-  line-height: 1.4;
-  color: #666666 !important;
-}
-
-html.forced-dark .dashboard-label {
-  color: #a8a8a8 !important;
-}
-
-.dashboard-stat-value {
-  display: block;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem !important;
-  font-weight: 400 !important;
-  line-height: 1.4;
-  text-align: right;
-  color: #666666 !important;
-  white-space: nowrap;
-}
-
-html.forced-dark .dashboard-stat-value {
-  color: #a8a8a8 !important;
-}
-
-.dashboard-stat-empty {
-  display: block;
-}
-
-.dashboard-stat-title,
-.dashboard-stat-title:visited {
-  min-width: 0;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.85rem !important;
-  font-weight: 400 !important;
-  line-height: 1.5;
-  text-decoration: none;
-  overflow-wrap: anywhere;
-  color: var(--color-link) !important;
-}
-
-.dashboard-stat-title:hover {
-  text-decoration: underline;
-}
-
-
-/* =========================================================
-   Google Search Console
-   ========================================================= */
-
-.dashboard-search-console-section {
-  margin-top: 0.5rem;
-  padding-top: 0.65rem;
-  border-top: 1px solid var(--gray-200);
-}
-
-.dashboard-search-console {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.dashboard-stat-change {
-  display: block;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem !important;
-  font-weight: 400 !important;
-  line-height: 1.4;
-  text-align: left;
-  color: #666666 !important;
-  white-space: nowrap;
-}
-
-html.forced-dark .dashboard-stat-change {
-  color: #a8a8a8 !important;
-}
-
-
-/* =========================================================
-   시간축
-   ========================================================= */
-
-.dashboard-timeline-section {
-  margin-top: 0.5rem;
-  padding-top: 0.65rem;
-  border-top: 1px solid var(--gray-200);
-}
-
-.dashboard-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.dashboard-timeline-row {
-  display: grid;
-  grid-template-columns: 110px 90px minmax(0, 1fr);
-  align-items: center;
-  column-gap: 0.6rem;
-  width: 100%;
-}
-
-.dashboard-timeline-date {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem !important;
-  font-weight: 400 !important;
-  line-height: 1.4;
-  color: #666666 !important;
-  white-space: nowrap;
-}
-
-html.forced-dark .dashboard-timeline-date {
-  color: #a8a8a8 !important;
-}
-
-.dashboard-timeline-count {
-  display: block;
-  margin: 0;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem !important;
-  font-weight: 400 !important;
-  line-height: 1.4;
-  text-align: right;
-  color: #666666 !important;
-  white-space: nowrap;
-}
-
-html.forced-dark .dashboard-timeline-count {
-  color: #a8a8a8 !important;
-}
-
-.dashboard-timeline-gauge {
-  width: 100%;
+    .reaction-btn {
+  background: #f8f9fa;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  padding: 0.5rem 0.8rem;
+  font-size: 1.1rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
 }
 
-.dashboard-timeline-gauge i {
-  display: block;
-  width: var(--timeline-bar-width, 0);
-  height: 10px;
-  min-width: 2px;
-  max-width: 180px;
-  border-radius: 5px;
-  background: var(--gray-200);
-}
-
-
-/* =========================================================
-   모바일
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-  .dashboard-quick-links {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard-recommendation-content {
-    gap: 0.75rem;
-  }
-
-  .dashboard-recommendation-title {
-    min-width: 0;
-  }
-
-  .dashboard-recommendation-meta {
-    font-size: 0.8rem !important;
-  }
-
-  .dashboard-stat-row {
-    grid-template-columns: 90px 75px minmax(0, 1fr);
-    column-gap: 0.4rem;
-  }
-
-  .dashboard-label {
-    font-size: 0.8rem !important;
-  }
-
-  .dashboard-stat-value {
-    font-size: 0.8rem !important;
-  }
-
-  .dashboard-stat-title {
-    font-size: 0.85rem !important;
-  }
-
-  .dashboard-stat-change {
-    font-size: 0.75rem !important;
-  }
-
-  .dashboard-timeline-row {
-    grid-template-columns: 90px 75px minmax(0, 1fr);
-    column-gap: 0.4rem;
-  }
-
-  .dashboard-timeline-date {
-    font-size: 0.8rem !important;
-  }
-
-  .dashboard-timeline-count {
-    font-size: 0.8rem !important;
-  }
-
-}
-</style>
-
+  </style>
 {{ end }}
