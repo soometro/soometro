@@ -83,58 +83,49 @@
 
   const postUrls = [
     {{ range $posts }}
-      {{ .RelPermalink | jsonify }},
+      "{{ .RelPermalink }}",
     {{ end }}
   ];
 
-  let attempts = 0;
-  const maxAttempts = 30;
+  const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
+  const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
 
-  async function loadDashboardViews() {
-    attempts++;
-
-    if (!window.sb || typeof window.sb.rpc !== "function") {
-      if (attempts < maxAttempts) {
-        setTimeout(loadDashboardViews, 100);
-        return;
-      }
-
-      console.error("Dashboard: Supabase client is not available.");
-      totalViewsEl.innerText = "확인 불가";
-      return;
+  fetch(`${supabaseUrl}/rest/v1/rpc/get_page_view_counts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": supabaseKey,
+      "Authorization": `Bearer ${supabaseKey}`
+    },
+    body: JSON.stringify({
+      p_urls: postUrls
+    })
+  })
+  .then(function (res) {
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
     }
+    return res.json();
+  })
+  .then(function (data) {
+    console.log("Dashboard RPC:", data);
 
-    try {
-      const { data, error } = await window.sb.rpc(
-        "get_page_view_counts",
-        {
-          p_urls: postUrls
-        }
-      );
-
-      if (error) {
-        throw error;
-      }
-
-      const totalViews = (data || []).reduce(function (sum, item) {
+    const totalViews = (Array.isArray(data) ? data : []).reduce(
+      function (sum, item) {
         return sum + Number(item.page_hit || 0);
-      }, 0);
+      },
+      0
+    );
 
-      totalViewsEl.innerText = totalViews.toLocaleString();
+    totalViewsEl.innerText = totalViews.toLocaleString();
 
-      console.log("Dashboard view data loaded:", {
-        postCount: postUrls.length,
-        resultCount: (data || []).length,
-        totalViews: totalViews
-      });
-
-    } catch (error) {
-      console.error("Dashboard View Count Error:", error);
-      totalViewsEl.innerText = "확인 불가";
-    }
-  }
-
-  loadDashboardViews();
+    console.log("Dashboard total views:", totalViews);
+    console.log("Dashboard post URL count:", postUrls.length);
+  })
+  .catch(function (error) {
+    console.error("Dashboard View Count Error:", error);
+    totalViewsEl.innerText = "확인 불가";
+  });
 })();
 </script>
 
