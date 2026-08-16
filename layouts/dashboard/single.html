@@ -15,6 +15,12 @@
 {{ $longestPost := index $postsByWordDesc 0 }}
 {{ $shortestPost := index $postsByWordAsc 0 }}
 
+{{ $archivePosts := where $posts "RelPermalink" "ne" "/docs/guestbook/" }}
+{{ $archivePosts = sort $archivePosts "Date" "asc" }}
+
+{{ $recommendIndex := mod (now.YearDay) (len $archivePosts) }}
+{{ $recommendedPost := index $archivePosts $recommendIndex }}
+
 {{ $timelineGroups := $posts.GroupByDate "2006-01" }}
 {{ $maxMonthCount := 0 }}
 
@@ -30,96 +36,173 @@
     <h1>{{ .Title }}</h1>
   </header>
 
-  {{ $archivePosts := where $posts "RelPermalink" "ne" "/docs/guestbook/" }}
-{{ $archivePosts = sort $archivePosts "Date" "asc" }}
-
-{{ $recommendIndex := mod (now.YearDay) (len $archivePosts) }}
-{{ $recommendedPost := index $archivePosts $recommendIndex }}
-
-<section class="dashboard-section">
-  <h2>오늘의 추천 아카이브</h2>
-
-  <div class="dashboard-recommendation">
-
-    <div class="dashboard-recommendation-date">
-      {{ now.Format "2006년 1월 2일" }}
-    </div>
-
-    <a
-      class="dashboard-recommendation-title"
-      href="{{ $recommendedPost.RelPermalink }}"
-    >
-      {{ $recommendedPost.Title }}
-    </a>
-
-    <div class="dashboard-recommendation-meta">
-      {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
-    </div>
-
-  </div>
-</section>
-
   <section class="dashboard-section">
-    <h2>통계</h2>
+    <h2>오늘의 추천 아카이브</h2>
 
-    <div class="dashboard-stats">
+    <div class="dashboard-recommendation">
 
-      <div>
-        <span class="dashboard-label">게시물</span>
-        <strong>{{ $postCount }}</strong>
+      <div class="dashboard-recommendation-date">
+        {{ now.Format "2006년 1월 2일" }}
       </div>
 
-      <div>
-        <span class="dashboard-label">전체 조회수</span>
-        <strong id="dashboard-total-views">불러오는 중</strong>
-      </div>
+      <a
+        class="dashboard-recommendation-title"
+        href="{{ $recommendedPost.RelPermalink }}"
+      >
+        {{ $recommendedPost.Title }}
+      </a>
 
-      <div>
-        <span class="dashboard-label">조회수 높은 글</span>
-        <strong id="dashboard-top-post">불러오는 중</strong>
-      </div>
-
-      <div>
-        <span class="dashboard-label">가장 안 읽힌 글</span>
-        <strong id="dashboard-low-post">불러오는 중</strong>
-      </div>
-
-      <div>
-        <span class="dashboard-label">가장 오래된 글</span>
-        <strong>
-          {{ $oldestPost.Title }}
-          · {{ $oldestPost.Date.Format "2006-01-02" }}
-        </strong>
-      </div>
-
-      <div>
-        <span class="dashboard-label">가장 긴 글</span>
-        <strong>
-          {{ $longestPost.Title }}
-          · {{ $longestPost.WordCount }}단어
-        </strong>
-      </div>
-
-      <div>
-        <span class="dashboard-label">가장 짧은 글</span>
-        <strong>
-          {{ $shortestPost.Title }}
-          · {{ $shortestPost.WordCount }}단어
-        </strong>
-      </div>
-
-      <div>
-        <span class="dashboard-label">최근 작성</span>
-        <strong>
-          {{ $newestPost.Title }}
-          · {{ $newestPost.Date.Format "2006-01-02" }}
-        </strong>
+      <div class="dashboard-recommendation-meta">
+        {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
       </div>
 
     </div>
   </section>
 
   <section class="dashboard-section">
+
+    <h2>통계</h2>
+
+    <div class="dashboard-stats">
+
+      <!-- 게시물 -->
+
+      <div class="dashboard-total-stat">
+        <span class="dashboard-label">게시물</span>
+        <strong>{{ $postCount }}</strong>
+      </div>
+
+      <!-- 전체 조회수 -->
+
+      <div class="dashboard-total-stat">
+        <span class="dashboard-label">전체 조회수</span>
+        <strong id="dashboard-total-views">불러오는 중</strong>
+      </div>
+
+      <!-- 조회수 높은 글 -->
+
+      <div class="dashboard-stat-detail">
+
+        <div class="dashboard-stat-meta">
+          <span class="dashboard-label">조회수 높은 글</span>
+          <strong id="dashboard-top-count">불러오는 중</strong>
+        </div>
+
+        <a
+          id="dashboard-top-post"
+          class="dashboard-stat-title"
+          href="#"
+        >
+          불러오는 중
+        </a>
+
+      </div>
+
+      <!-- 가장 안 읽힌 글 -->
+
+      <div class="dashboard-stat-detail">
+
+        <div class="dashboard-stat-meta">
+          <span class="dashboard-label">가장 안 읽힌 글</span>
+          <strong id="dashboard-low-count">불러오는 중</strong>
+        </div>
+
+        <a
+          id="dashboard-low-post"
+          class="dashboard-stat-title"
+          href="#"
+        >
+          불러오는 중
+        </a>
+
+      </div>
+
+      <!-- 가장 오래된 글 -->
+
+      <div class="dashboard-stat-detail">
+
+        <div class="dashboard-stat-meta">
+          <span class="dashboard-label">가장 오래된 글</span>
+          <strong>
+            {{ $oldestPost.Date.Format "2006-01-02" }}
+          </strong>
+        </div>
+
+        <a
+          class="dashboard-stat-title"
+          href="{{ $oldestPost.RelPermalink }}"
+        >
+          {{ $oldestPost.Title }}
+        </a>
+
+      </div>
+
+      <!-- 가장 긴 글 -->
+
+      <div class="dashboard-stat-detail">
+
+        <div class="dashboard-stat-meta">
+          <span class="dashboard-label">가장 긴 글</span>
+          <strong>
+            {{ $longestPost.WordCount }}단어
+          </strong>
+        </div>
+
+        <a
+          class="dashboard-stat-title"
+          href="{{ $longestPost.RelPermalink }}"
+        >
+          {{ $longestPost.Title }}
+        </a>
+
+      </div>
+
+      <!-- 가장 짧은 글 -->
+
+      <div class="dashboard-stat-detail">
+
+        <div class="dashboard-stat-meta">
+          <span class="dashboard-label">가장 짧은 글</span>
+          <strong>
+            {{ $shortestPost.WordCount }}단어
+          </strong>
+        </div>
+
+        <a
+          class="dashboard-stat-title"
+          href="{{ $shortestPost.RelPermalink }}"
+        >
+          {{ $shortestPost.Title }}
+        </a>
+
+      </div>
+
+      <!-- 최근 작성 -->
+
+      <div class="dashboard-stat-detail">
+
+        <div class="dashboard-stat-meta">
+          <span class="dashboard-label">최근 작성</span>
+          <strong>
+            {{ $newestPost.Date.Format "2006-01-02" }}
+          </strong>
+        </div>
+
+        <a
+          class="dashboard-stat-title"
+          href="{{ $newestPost.RelPermalink }}"
+        >
+          {{ $newestPost.Title }}
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="dashboard-section">
+
     <h2>시간 축</h2>
 
     <div class="dashboard-timeline">
@@ -152,6 +235,7 @@
       {{ end }}
 
     </div>
+
   </section>
 
 </main>
@@ -165,10 +249,22 @@
   const topPostEl =
     document.getElementById("dashboard-top-post");
 
+  const topCountEl =
+    document.getElementById("dashboard-top-count");
+
   const lowPostEl =
     document.getElementById("dashboard-low-post");
 
-  if (!totalViewsEl || !topPostEl || !lowPostEl) {
+  const lowCountEl =
+    document.getElementById("dashboard-low-count");
+
+  if (
+    !totalViewsEl ||
+    !topPostEl ||
+    !topCountEl ||
+    !lowPostEl ||
+    !lowCountEl
+  ) {
     return;
   }
 
@@ -241,36 +337,7 @@
       totalViews.toLocaleString();
 
     /*
-     * 조회수 높은 글
-     */
-
-    if (rows.length > 0) {
-
-      const topPost =
-        rows[0];
-
-      const topTitle =
-        postTitles[topPost.url] ||
-        topPost.url;
-
-      const topViews =
-        Number(topPost.page_hit || 0);
-
-      topPostEl.innerText =
-        `${topTitle} · ${topViews.toLocaleString()}회`;
-
-    } else {
-
-      topPostEl.innerText =
-        "없음";
-
-    }
-
-    /*
-     * 가장 안 읽힌 글
-     *
-     * 방명록 URL이 stats 대상에 포함되지 않도록
-     * 현재 Hugo 게시물 배열 자체에서 제외한다.
+     * 방명록 제외 대상
      */
 
     const statsUrls = [
@@ -283,6 +350,47 @@
       rows.filter(function (item) {
         return statsUrls.includes(item.url);
       });
+
+    /*
+     * 조회수 높은 글
+     */
+
+    if (statsRows.length > 0) {
+
+      const topPost =
+        statsRows[0];
+
+      const topTitle =
+        postTitles[topPost.url] ||
+        topPost.url;
+
+      const topViews =
+        Number(topPost.page_hit || 0);
+
+      topPostEl.innerText =
+        topTitle;
+
+      topPostEl.href =
+        topPost.url;
+
+      topCountEl.innerText =
+        `${topViews.toLocaleString()}회`;
+
+    } else {
+
+      topPostEl.innerText =
+        "없음";
+
+      topPostEl.removeAttribute("href");
+
+      topCountEl.innerText =
+        "";
+
+    }
+
+    /*
+     * 가장 안 읽힌 글
+     */
 
     if (statsRows.length > 0) {
 
@@ -297,12 +405,23 @@
         Number(lowPost.page_hit || 0);
 
       lowPostEl.innerText =
-        `${lowTitle} · ${lowViews.toLocaleString()}회`;
+        lowTitle;
+
+      lowPostEl.href =
+        lowPost.url;
+
+      lowCountEl.innerText =
+        `${lowViews.toLocaleString()}회`;
 
     } else {
 
       lowPostEl.innerText =
         "없음";
+
+      lowPostEl.removeAttribute("href");
+
+      lowCountEl.innerText =
+        "";
 
     }
 
@@ -313,7 +432,7 @@
 
     console.log(
       "Dashboard top post:",
-      rows[0] || null
+      statsRows[0] || null
     );
 
     console.log(
@@ -346,8 +465,14 @@
     topPostEl.innerText =
       "확인 불가";
 
+    topCountEl.innerText =
+      "";
+
     lowPostEl.innerText =
       "확인 불가";
+
+    lowCountEl.innerText =
+      "";
 
   });
 
@@ -372,100 +497,237 @@
   margin-bottom: 1rem;
 }
 
+/* =========================
+   통계
+   ========================= */
+
 .dashboard-stats {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-.dashboard-stats > div {
+/* 게시물 / 전체 조회수 */
+
+.dashboard-total-stat {
   display: grid;
-  grid-template-columns: 140px minmax(0, 1fr);
+
+  grid-template-columns:
+    140px minmax(0, 1fr);
+
   align-items: center;
+
   gap: 1.5rem;
 
   padding: 0.85rem 0;
 
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom:
+    1px solid var(--gray-200);
 }
 
-.dashboard-label {
+.dashboard-total-stat .dashboard-label {
   opacity: 0.65;
-  font-size: 0.9rem;
-  white-space: nowrap;
+
+  font-size:
+    0.9rem;
+
+  white-space:
+    nowrap;
 }
 
-.dashboard-stats strong {
-  min-width: 0;
-
+.dashboard-total-stat strong {
   text-align: right;
 
-  font-size: 0.95rem;
-  font-weight: 500;
-  line-height: 1.5;
+  font-size:
+    0.95rem;
 
-  overflow-wrap: anywhere;
+  font-weight:
+    600;
 }
 
-.dashboard-recommendation {
-  margin-top: 0.5rem;
-  padding: 1.25rem 1.5rem;
+/* 6개 상세 통계 */
 
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
+.dashboard-stat-detail {
+  display: grid;
 
-  background: var(--body-background);
+  grid-template-columns:
+    140px minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 1.5rem;
+
+  padding: 0.85rem 0;
+
+  border-bottom:
+    1px solid var(--gray-200);
 }
 
-.dashboard-recommendation-date {
-  margin-bottom: 0.5rem;
-
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
-
-.dashboard-recommendation-title {
-  display: block;
-
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.55;
-
-  text-decoration: none;
-  color: inherit;
-}
-
-.dashboard-recommendation-title:hover {
-  text-decoration: underline;
-}
-
-.dashboard-recommendation-meta {
-  margin-top: 0.6rem;
-
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
-
-.dashboard-timeline {
+.dashboard-stat-meta {
   display: flex;
 
   flex-direction: column;
 
-  gap: 0.75rem;
+  align-items: flex-start;
+
+  gap: 0.15rem;
+
+  min-width: 0;
+}
+
+.dashboard-stat-meta .dashboard-label {
+  opacity: 0.65;
+
+  font-size:
+    0.9rem;
+
+  line-height:
+    1.4;
+
+  white-space:
+    nowrap;
+}
+
+.dashboard-stat-meta strong {
+  text-align: left;
+
+  font-size:
+    0.95rem;
+
+  font-weight:
+    600;
+
+  line-height:
+    1.4;
+}
+
+.dashboard-stat-title {
+  min-width: 0;
+
+  font-size:
+    0.95rem;
+
+  font-weight:
+    500;
+
+  line-height:
+    1.5;
+
+  color:
+    inherit;
+
+  text-decoration:
+    none;
+
+  overflow-wrap:
+    anywhere;
+}
+
+.dashboard-stat-title:hover {
+  text-decoration:
+    underline;
+}
+
+/* =========================
+   추천 아카이브
+   ========================= */
+
+.dashboard-recommendation {
+  margin-top:
+    0.5rem;
+
+  padding:
+    1.25rem 1.5rem;
+
+  border:
+    1px solid var(--gray-200);
+
+  border-radius:
+    10px;
+
+  background:
+    var(--body-background);
+}
+
+.dashboard-recommendation-date {
+  margin-bottom:
+    0.5rem;
+
+  font-size:
+    0.8rem;
+
+  opacity:
+    0.6;
+}
+
+.dashboard-recommendation-title {
+  display:
+    block;
+
+  font-size:
+    1.15rem;
+
+  font-weight:
+    600;
+
+  line-height:
+    1.55;
+
+  text-decoration:
+    none;
+
+  color:
+    inherit;
+}
+
+.dashboard-recommendation-title:hover {
+  text-decoration:
+    underline;
+}
+
+.dashboard-recommendation-meta {
+  margin-top:
+    0.6rem;
+
+  font-size:
+    0.8rem;
+
+  opacity:
+    0.6;
+}
+
+/* =========================
+   시간 축
+   ========================= */
+
+.dashboard-timeline {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    0.75rem;
 }
 
 .dashboard-timeline-row {
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  width: 100%;
+  width:
+    100%;
 
-  gap: 0.75rem;
+  gap:
+    0.75rem;
 }
 
 .dashboard-timeline-date {
-  width: 5rem;
+  width:
+    5rem;
 
   flex:
     0 0 5rem;
@@ -475,35 +737,45 @@
 }
 
 .dashboard-timeline-gauge {
-  width: 180px;
+  width:
+    180px;
 
   flex:
     0 0 180px;
 
-  display: flex;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 }
 
 .dashboard-timeline-gauge i {
-  display: block;
+  display:
+    block;
 
-  height: 10px;
+  height:
+    10px;
 
-  min-width: 2px;
+  min-width:
+    2px;
 
-  border-radius: 5px;
+  border-radius:
+    5px;
 
   background:
     var(--gray-200);
 }
 
 .dashboard-timeline-count {
-  margin-left: auto;
+  margin-left:
+    auto;
 
-  min-width: 5rem;
+  min-width:
+    5rem;
 
-  text-align: right;
+  text-align:
+    right;
 
   font-size:
     0.8rem;
@@ -511,28 +783,44 @@
   white-space:
     nowrap;
 
-  opacity: 0.7;
+  opacity:
+    0.7;
 }
+
+/* =========================
+   모바일
+   ========================= */
 
 @media (max-width: 768px) {
 
-  .dashboard-stats > div {
-  grid-template-columns: 110px minmax(0, 1fr);
-  gap: 1rem;
-}
+  .dashboard-total-stat,
+  .dashboard-stat-detail {
+    grid-template-columns:
+      110px minmax(0, 1fr);
 
-.dashboard-label {
-  font-size: 0.85rem;
-}
+    gap:
+      1rem;
+  }
 
-.dashboard-stats strong {
-  font-size: 0.9rem;
-}
+  .dashboard-total-stat .dashboard-label,
+  .dashboard-stat-meta .dashboard-label {
+    font-size:
+      0.85rem;
+  }
+
+  .dashboard-total-stat strong,
+  .dashboard-stat-meta strong,
+  .dashboard-stat-title {
+    font-size:
+      0.9rem;
+  }
 
   .dashboard-timeline-gauge {
-    width: 140px;
+    width:
+      140px;
 
-    flex-basis: 140px;
+    flex-basis:
+      140px;
   }
 
 }
