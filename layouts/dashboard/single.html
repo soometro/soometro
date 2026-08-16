@@ -1,6 +1,7 @@
 {{ define "main" }}
 {{ $posts := where .Site.RegularPages "Section" "docs" }}
 {{ $postCount := len $posts }}
+
 <main class="dashboard-page">
   <header class="dashboard-header">
     <h1>{{ .Title }}</h1>
@@ -27,7 +28,7 @@
 
       <div>
         <span class="dashboard-label">전체 조회수</span>
-        <strong>{{ $postCount }}</strong>
+        <strong id="dashboard-total-views">불러오는 중</strong>
       </div>
 
       <div>
@@ -73,6 +74,47 @@
     </div>
   </section>
 </main>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+  const totalViewsEl = document.getElementById("dashboard-total-views");
+
+  if (!totalViewsEl) return;
+
+  const postUrls = [
+    {{ range $posts }}
+      {{ .RelPermalink | jsonify }},
+    {{ end }}
+  ];
+
+  try {
+    if (!window.sb || typeof window.sb.rpc !== "function") {
+      throw new Error("Supabase client is not available.");
+    }
+
+    const { data, error } = await window.sb.rpc(
+      "get_page_view_counts",
+      {
+        p_urls: postUrls
+      }
+    );
+
+    if (error) {
+      throw error;
+    }
+
+    const totalViews = (data || []).reduce(
+      (sum, item) => sum + Number(item.page_hit || 0),
+      0
+    );
+
+    totalViewsEl.innerText = totalViews.toLocaleString();
+  } catch (error) {
+    console.error("Dashboard View Count Error:", error);
+    totalViewsEl.innerText = "확인 불가";
+  }
+});
+</script>
 
 <style>
 .dashboard-page {
