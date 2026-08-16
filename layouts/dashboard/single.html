@@ -124,6 +124,27 @@
       </div>
 
 
+      <!-- 사이트 운영일 -->
+
+      <div class="dashboard-stat-row">
+
+        <span class="dashboard-label">
+          사이트 운영일
+        </span>
+
+        <strong
+          id="dashboard-site-days"
+          class="dashboard-stat-value"
+          data-start-date="{{ $oldestPost.Date.Format "2006-01-02" }}"
+        >
+          계산 중
+        </strong>
+
+        <span class="dashboard-stat-empty"></span>
+
+      </div>
+
+
       <!-- 전체 조회수 -->
 
       <div class="dashboard-stat-row">
@@ -318,6 +339,7 @@
 
     <div class="dashboard-search-console">
 
+
       <!-- 클릭수 -->
 
       <div class="dashboard-stat-row">
@@ -333,7 +355,10 @@
           불러오는 중
         </strong>
 
-        <span class="dashboard-stat-empty"></span>
+        <span
+          id="dashboard-gsc-clicks-change"
+          class="dashboard-stat-change"
+        ></span>
 
       </div>
 
@@ -353,7 +378,10 @@
           불러오는 중
         </strong>
 
-        <span class="dashboard-stat-empty"></span>
+        <span
+          id="dashboard-gsc-impressions-change"
+          class="dashboard-stat-change"
+        ></span>
 
       </div>
 
@@ -373,7 +401,10 @@
           불러오는 중
         </strong>
 
-        <span class="dashboard-stat-empty"></span>
+        <span
+          id="dashboard-gsc-ctr-change"
+          class="dashboard-stat-change"
+        ></span>
 
       </div>
 
@@ -393,7 +424,10 @@
           불러오는 중
         </strong>
 
-        <span class="dashboard-stat-empty"></span>
+        <span
+          id="dashboard-gsc-position-change"
+          class="dashboard-stat-change"
+        ></span>
 
       </div>
 
@@ -449,6 +483,9 @@
 <script>
 (function () {
 
+  const siteDaysEl =
+    document.getElementById("dashboard-site-days");
+
   const totalViewsEl =
     document.getElementById("dashboard-total-views");
 
@@ -478,6 +515,51 @@
 
   const gscPositionEl =
     document.getElementById("dashboard-gsc-position");
+
+  const gscClicksChangeEl =
+    document.getElementById("dashboard-gsc-clicks-change");
+
+  const gscImpressionsChangeEl =
+    document.getElementById("dashboard-gsc-impressions-change");
+
+  const gscCtrChangeEl =
+    document.getElementById("dashboard-gsc-ctr-change");
+
+  const gscPositionChangeEl =
+    document.getElementById("dashboard-gsc-position-change");
+
+
+  /*
+   * 사이트 운영일
+   */
+
+  if (siteDaysEl) {
+
+    const startDate =
+      siteDaysEl.dataset.startDate;
+
+    const start =
+      new Date(`${startDate}T00:00:00`);
+
+    const today =
+      new Date();
+
+    start.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    const days =
+      Math.max(
+        0,
+        Math.floor(
+          (today - start) /
+          86400000
+        )
+      );
+
+    siteDaysEl.innerText =
+      `${days.toLocaleString()}일`;
+
+  }
 
 
   if (
@@ -557,11 +639,6 @@
 
   .then(function (data) {
 
-    console.log(
-      "Dashboard RPC:",
-      data
-    );
-
     const rows =
       Array.isArray(data)
         ? data
@@ -573,7 +650,9 @@
         function (sum, item) {
 
           return sum +
-            Number(item.page_hit || 0);
+            Number(
+              item.page_hit || 0
+            );
 
         },
         0
@@ -682,12 +761,7 @@
 
   })
 
-  .catch(function (error) {
-
-    console.error(
-      "Dashboard View Count Error:",
-      error
-    );
+  .catch(function () {
 
     totalViewsEl.innerText =
       "확인 불가";
@@ -789,6 +863,93 @@
           analytics.position || 0
         ).toFixed(1);
 
+
+      /*
+       * 이전 기간 대비 증감률
+       */
+
+      const previous =
+        analytics.previous;
+
+
+      function formatChange(
+        current,
+        previousValue,
+        suffix = "%"
+      ) {
+
+        if (
+          previousValue === undefined ||
+          previousValue === null ||
+          Number(previousValue) === 0
+        ) {
+
+          return "";
+
+        }
+
+
+        const change =
+          (
+            (Number(current) -
+              Number(previousValue)) /
+            Number(previousValue)
+          ) * 100;
+
+
+        const rounded =
+          Number(
+            change.toFixed(1)
+          );
+
+
+        if (rounded > 0) {
+
+          return `▲ ${rounded}${suffix}`;
+
+        }
+
+
+        if (rounded < 0) {
+
+          return `▼ ${Math.abs(rounded)}${suffix}`;
+
+        }
+
+
+        return "—";
+
+      }
+
+
+      if (previous) {
+
+        gscClicksChangeEl.innerText =
+          formatChange(
+            analytics.clicks,
+            previous.clicks
+          );
+
+        gscImpressionsChangeEl.innerText =
+          formatChange(
+            analytics.impressions,
+            previous.impressions
+          );
+
+        gscCtrChangeEl.innerText =
+          formatChange(
+            analytics.ctr,
+            previous.ctr
+          );
+
+        gscPositionChangeEl.innerText =
+          formatChange(
+            analytics.position,
+            previous.position
+          );
+
+      }
+
     })
 
     .catch(function (error) {
@@ -872,8 +1033,8 @@
 .dashboard-quick-link a {
   display: block;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem;
-  font-weight: 400;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
   color: var(--color-link) !important;
   text-decoration: none;
 }
@@ -921,13 +1082,18 @@ html.forced-dark .dashboard-section-title {
   color: #a8a8a8 !important;
 }
 
-/* 통계 구분선 */
+
+/* =========================================================
+   통계 구분선
+   ========================================================= */
+
 .dashboard-section-divider {
   height: 1px;
   margin-top: 0.65rem;
   margin-bottom: 0.35rem;
   background: var(--gray-200);
 }
+
 
 /* =========================================================
    오늘의 추천 아카이브
@@ -1062,6 +1228,21 @@ html.forced-dark .dashboard-stat-value {
   gap: 0;
 }
 
+.dashboard-stat-change {
+  display: block;
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+  text-align: right;
+  color: #666666 !important;
+  white-space: nowrap;
+}
+
+html.forced-dark .dashboard-stat-change {
+  color: #a8a8a8 !important;
+}
+
 
 /* =========================================================
    시간축
@@ -1170,6 +1351,10 @@ html.forced-dark .dashboard-timeline-count {
 
   .dashboard-stat-title {
     font-size: 0.85rem !important;
+  }
+
+  .dashboard-stat-change {
+    font-size: 0.75rem !important;
   }
 
   .dashboard-timeline-row {
