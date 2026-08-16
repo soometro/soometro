@@ -800,17 +800,22 @@
         error
       );
 
-      gscClicksEl.innerText =
-        "확인 불가";
+      const errorMessage =
+  error && error.message
+    ? error.message
+    : "Google Search Console 호출 실패";
 
-      gscImpressionsEl.innerText =
-        "확인 불가";
+gscClicksEl.innerText =
+  errorMessage;
 
-      gscCtrEl.innerText =
-        "확인 불가";
+gscImpressionsEl.innerText =
+  "확인 불가";
 
-      gscPositionEl.innerText =
-        "확인 불가";
+gscCtrEl.innerText =
+  "확인 불가";
+
+gscPositionEl.innerText =
+  "확인 불가";
 
     });
 
