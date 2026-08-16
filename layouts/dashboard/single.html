@@ -15,6 +15,18 @@
 {{ $longestPost := index $postsByWordDesc 0 }}
 {{ $shortestPost := index $postsByWordAsc 0 }}
 
+{{ $totalWordCount := 0 }}
+
+{{ range $statsPosts }}
+  {{ $totalWordCount = add $totalWordCount .WordCount }}
+{{ end }}
+
+{{ $averageWordCount := 0 }}
+
+{{ if gt (len $statsPosts) 0 }}
+  {{ $averageWordCount = div $totalWordCount (len $statsPosts) }}
+{{ end }}
+
 {{ $archivePosts := where $posts "RelPermalink" "ne" "/docs/guestbook/" }}
 {{ $archivePosts = sort $archivePosts "Date" "asc" }}
 
@@ -36,38 +48,39 @@
     <h1>{{ .Title }}</h1>
   </header>
 
+
   <!-- 오늘의 추천 아카이브 -->
 
   <section class="dashboard-section dashboard-recommendation-section">
 
-  <div class="dashboard-recommendation">
+    <div class="dashboard-recommendation">
 
-    <div class="dashboard-recommendation-date">
-      {{ now.Format "2006년 1월 2일" }} 오늘의 추천 아카이브
+      <div class="dashboard-recommendation-date">
+        {{ now.Format "2006년 1월 2일" }} 오늘의 추천 아카이브
+      </div>
+
+      <div class="dashboard-recommendation-content">
+
+        <a
+          class="dashboard-recommendation-title"
+          href="{{ $recommendedPost.RelPermalink }}"
+        >
+          {{ $recommendedPost.Title }}
+        </a>
+
+        <span class="dashboard-recommendation-meta">
+          {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
+        </span>
+
+      </div>
+
     </div>
 
-    <div class="dashboard-recommendation-content">
-
-      <a
-        class="dashboard-recommendation-title"
-        href="{{ $recommendedPost.RelPermalink }}"
-      >
-        {{ $recommendedPost.Title }}
-      </a>
-
-      <span class="dashboard-recommendation-meta">
-        {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
-      </span>
-
+    <div class="dashboard-archive-link">
+      <a href="/docs/">📂 아카이브 입장</a>
     </div>
 
-  </div>
-
-  <div class="dashboard-archive-link">
-    <a href="/docs/">📂 아카이브 입장</a>
-  </div>
-
-</section>
+  </section>
 
 
   <!-- 통계 -->
@@ -75,6 +88,7 @@
   <section class="dashboard-section">
 
     <div class="dashboard-stats">
+
 
       <!-- 게시물 -->
 
@@ -187,6 +201,28 @@
       </div>
 
 
+      <!-- 최근 작성 -->
+
+      <div class="dashboard-stat-row">
+
+        <span class="dashboard-label">
+          최근 작성
+        </span>
+
+        <strong class="dashboard-stat-value">
+          {{ $newestPost.Date.Format "2006-01-02" }}
+        </strong>
+
+        <a
+          class="dashboard-stat-title"
+          href="{{ $newestPost.RelPermalink }}"
+        >
+          {{ $newestPost.Title }}
+        </a>
+
+      </div>
+
+
       <!-- 가장 긴 글 -->
 
       <div class="dashboard-stat-row">
@@ -231,24 +267,19 @@
       </div>
 
 
-      <!-- 최근 작성 -->
+      <!-- 평균 글 길이 -->
 
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          최근 작성
+          평균 글 길이
         </span>
 
         <strong class="dashboard-stat-value">
-          {{ $newestPost.Date.Format "2006-01-02" }}
+          {{ $averageWordCount }}단어
         </strong>
 
-        <a
-          class="dashboard-stat-title"
-          href="{{ $newestPost.RelPermalink }}"
-        >
-          {{ $newestPost.Title }}
-        </a>
+        <span class="dashboard-stat-empty"></span>
 
       </div>
 
@@ -707,7 +738,7 @@ html.forced-dark .dashboard-label {
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.4;
-  text-align: left;
+  text-align: right;
   color: #666666 !important;
   white-space: nowrap;
 }
