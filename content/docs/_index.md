@@ -61,6 +61,6 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
   <a href="/docs/downshifting/" class="category-title">Downshifting</a>
   <span class="category-meta">{{< category-stats "downshifting" >}}</span>
 </div>
-<span class="category-desc">내 삶의 속도를 늦추면 비로소 마주하는 일상</span>
+<span class="category-desc">삶의 속도를 늦추고 마주하는 일상</span>
 
 ---
