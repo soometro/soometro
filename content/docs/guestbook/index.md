@@ -1,5 +1,5 @@
 ---
-title: "방명록"
+title: "💬 Guestbook"
 date: 2026-08-14
 lastmod: 2026-08-14
 bookHidden: false
