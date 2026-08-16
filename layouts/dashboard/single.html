@@ -71,11 +71,11 @@
       </div>
 
       <div>
-        <span class="dashboard-label">가장 긴 글</span>
-        <strong>
-          {{ $longestPost.Title }}
-          · {{ $longestPost.WordCount | lang.NumFmt 0 }}단어
-        </strong>
+	<span class="dashboard-label">가장 짧은 글</span>
+	<strong>
+	{{ $shortestPost.Title }}
+	· {{ $shortestPost.WordCount }}단어
+	</strong>
       </div>
 
       <div>
