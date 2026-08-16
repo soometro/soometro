@@ -642,17 +642,14 @@ html.forced-dark .dashboard-recommendation-meta {
 
 /* =========================================================
    게시물 / 전체 조회수 / 6개 상세 통계
-   전체 동일 기준
-   영역 1 = 95px
-   영역 1 ↔ 영역 2 = 0.4rem
    ========================================================= */
 
 .dashboard-total-stat,
 .dashboard-stat-detail {
   display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
+  grid-template-columns: 95px minmax(0, 1fr);
   align-items: center;
-  column-gap: 0.25rem;
+  column-gap: 0.4rem;
   padding: 0.85rem 0;
   border-bottom: 1px solid var(--gray-200);
 }
@@ -692,7 +689,7 @@ html.forced-dark .dashboard-total-stat strong {
 }
 
 
-/* 상세 통계의 값 */
+/* 상세 통계 */
 
 .dashboard-stat-meta {
   display: flex;
@@ -716,7 +713,7 @@ html.forced-dark .dashboard-stat-meta strong {
 }
 
 
-/* 상세 통계의 게시물 제목 */
+/* 상세 통계 게시물 제목 */
 
 .dashboard-stat-title,
 .dashboard-stat-title:visited {
