@@ -11,16 +11,22 @@
   ) -}}
 
   {{- $source := .RelPermalink -}}
-  {{- range (findRE `href="[^"]+"` .Content) -}}
-    {{- $target := replaceRE `^href="([^"]+)".*$` `$1` . -}}
-    {{- $target = replaceRE `[?#].*$` `` $target -}}
-    {{- if strings.HasPrefix $target "/docs/" -}}
-      {{- $edges = $edges | append (dict
-        "source" $source
-        "target" $target
-      ) -}}
+{{- range (findRE `href="[^"]+"` .Content) -}}
+  {{- $target := replaceRE `^href="([^"]+)".*$` `$1` . -}}
+  {{- $target = replaceRE `[?#].*$` `` $target -}}
+  {{- $target = replaceRE `^https?://soometro\.kr` `` $target -}}
+
+  {{- if strings.HasPrefix $target "/docs/" -}}
+    {{- if not (hasSuffix $target "/") -}}
+      {{- $target = printf "%s/" $target -}}
     {{- end -}}
+
+    {{- $edges = $edges | append (dict
+      "source" $source
+      "target" $target
+    ) -}}
   {{- end -}}
+{{- end -}}
 {{- end -}}
 
 {{- $graphData := dict "nodes" $nodes "edges" $edges -}}
