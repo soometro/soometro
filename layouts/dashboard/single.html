@@ -76,8 +76,23 @@
 
     </div>
 
-    <div class="dashboard-archive-link">
-      <a href="/docs/">📂 아카이브 입장</a>
+
+    <!-- 아카이브 / 방명록 -->
+
+    <div class="dashboard-quick-links">
+
+      <div class="dashboard-quick-link">
+        <a href="/docs/">
+          📂 아카이브 입장
+        </a>
+      </div>
+
+      <div class="dashboard-quick-link">
+        <a href="/docs/guestbook/">
+          ✎ 방명록 가기
+        </a>
+      </div>
+
     </div>
 
   </section>
@@ -294,8 +309,11 @@
 
     <div class="dashboard-search-console">
 
-      <div class="dashboard-search-console-title">
-        Google 검색
+      <div
+        id="dashboard-gsc-period"
+        class="dashboard-search-console-title"
+      >
+        Google 검색 · 28일
       </div>
 
 
@@ -441,6 +459,9 @@
   const lowCountEl =
     document.getElementById("dashboard-low-count");
 
+  const gscPeriodEl =
+    document.getElementById("dashboard-gsc-period");
+
   const gscClicksEl =
     document.getElementById("dashboard-gsc-clicks");
 
@@ -549,11 +570,14 @@
     const totalViews =
       rows.reduce(
         function (sum, item) {
+
           return sum +
             Number(item.page_hit || 0);
+
         },
         0
       );
+
 
     totalViewsEl.innerText =
       totalViews.toLocaleString();
@@ -569,9 +593,14 @@
       {{ end }}
     ];
 
+
     const statsRows =
       rows.filter(function (item) {
-        return statsUrls.includes(item.url);
+
+        return statsUrls.includes(
+          item.url
+        );
+
       });
 
 
@@ -589,7 +618,10 @@
         topPost.url;
 
       const topViews =
-        Number(topPost.page_hit || 0);
+        Number(
+          topPost.page_hit || 0
+        );
+
 
       topPostEl.innerText =
         topTitle;
@@ -605,7 +637,9 @@
       topPostEl.innerText =
         "없음";
 
-      topPostEl.removeAttribute("href");
+      topPostEl.removeAttribute(
+        "href"
+      );
 
       topCountEl.innerText =
         "";
@@ -620,14 +654,19 @@
     if (statsRows.length > 0) {
 
       const lowPost =
-        statsRows[statsRows.length - 1];
+        statsRows[
+          statsRows.length - 1
+        ];
 
       const lowTitle =
         postTitles[lowPost.url] ||
         lowPost.url;
 
       const lowViews =
-        Number(lowPost.page_hit || 0);
+        Number(
+          lowPost.page_hit || 0
+        );
+
 
       lowPostEl.innerText =
         lowTitle;
@@ -643,7 +682,9 @@
       lowPostEl.innerText =
         "없음";
 
-      lowPostEl.removeAttribute("href");
+      lowPostEl.removeAttribute(
+        "href"
+      );
 
       lowCountEl.innerText =
         "";
@@ -663,7 +704,9 @@
 
     console.log(
       "Dashboard low post:",
-      statsRows[statsRows.length - 1] || null
+      statsRows[
+        statsRows.length - 1
+      ] || null
     );
 
     console.log(
@@ -721,7 +764,9 @@
     .then(function (res) {
 
       if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
+        throw new Error(
+          `HTTP ${res.status}`
+        );
       }
 
       return res.json();
@@ -740,14 +785,32 @@
         !data ||
         !data.analytics
       ) {
+
         throw new Error(
           "Search Console 데이터가 없습니다."
         );
+
       }
 
 
       const analytics =
         data.analytics;
+
+
+      /*
+       * 조회 기간
+       */
+
+      if (
+        gscPeriodEl &&
+        analytics.startDate &&
+        analytics.endDate
+      ) {
+
+        gscPeriodEl.innerText =
+          `Google 검색 · 28일 ${analytics.startDate}~${analytics.endDate}`;
+
+      }
 
 
       /*
@@ -800,22 +863,30 @@
         error
       );
 
+
+      if (gscPeriodEl) {
+        gscPeriodEl.innerText =
+          "Google 검색 · 28일";
+      }
+
+
       const errorMessage =
-  error && error.message
-    ? error.message
-    : "Google Search Console 호출 실패";
+        error && error.message
+          ? error.message
+          : "Google Search Console 호출 실패";
 
-gscClicksEl.innerText =
-  errorMessage;
 
-gscImpressionsEl.innerText =
-  "확인 불가";
+      gscClicksEl.innerText =
+        errorMessage;
 
-gscCtrEl.innerText =
-  "확인 불가";
+      gscImpressionsEl.innerText =
+        "확인 불가";
 
-gscPositionEl.innerText =
-  "확인 불가";
+      gscCtrEl.innerText =
+        "확인 불가";
+
+      gscPositionEl.innerText =
+        "확인 불가";
 
     });
 
@@ -847,15 +918,22 @@ gscPositionEl.innerText =
   margin-bottom: 0;
 }
 
-.dashboard-archive-link {
+.dashboard-quick-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
   margin-top: 0.5rem;
+}
+
+.dashboard-quick-link {
   padding: 0.75rem 1.5rem;
   border: 1px solid var(--gray-200);
   border-radius: 10px;
   background: var(--body-background);
 }
 
-.dashboard-archive-link a {
+.dashboard-quick-link a {
+  display: block;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
   font-size: 0.85rem;
   font-weight: 400;
@@ -863,7 +941,7 @@ gscPositionEl.innerText =
   text-decoration: none;
 }
 
-.dashboard-archive-link a:hover {
+.dashboard-quick-link a:hover {
   text-decoration: underline;
 }
 
@@ -1132,6 +1210,10 @@ html.forced-dark .dashboard-timeline-count {
    ========================================================= */
 
 @media (max-width: 768px) {
+
+  .dashboard-quick-links {
+    grid-template-columns: 1fr;
+  }
 
   .dashboard-recommendation-content {
     gap: 0.75rem;
