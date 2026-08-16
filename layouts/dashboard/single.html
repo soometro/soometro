@@ -269,16 +269,16 @@
         <div class="dashboard-timeline-row">
 
           <span class="dashboard-timeline-date">
-  {{ .Key }}
-</span>
+            {{ .Key }}
+          </span>
 
-<strong class="dashboard-timeline-count">
-  {{ $monthCount }} posts
-</strong>
+          <strong class="dashboard-timeline-count">
+            {{ $monthCount }} posts
+          </strong>
 
-<div class="dashboard-timeline-gauge">
-  <i style="width: {{ $barWidth }}px;"></i>
-</div>
+          <div class="dashboard-timeline-gauge">
+            <i style="width: {{ $barWidth }}px;"></i>
+          </div>
 
         </div>
 
@@ -529,7 +529,6 @@
 })();
 </script>
 
-
 <style>
 
 /* =========================================================
@@ -548,7 +547,10 @@
   margin-bottom: 3rem;
 }
 
-/* Dashboard H1 */
+
+/* =========================================================
+   Dashboard H1
+   ========================================================= */
 
 .dashboard-header h1 {
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
@@ -637,11 +639,16 @@ html.forced-dark .dashboard-recommendation-meta {
   gap: 0;
 }
 
-/*
- * 게시물 / 전체 조회수
- */
 
-.dashboard-total-stat {
+/* =========================================================
+   게시물 / 전체 조회수 / 6개 상세 통계
+   전체 동일 기준
+   영역 1 = 95px
+   영역 1 ↔ 영역 2 = 0.4rem
+   ========================================================= */
+
+.dashboard-total-stat,
+.dashboard-stat-detail {
   display: grid;
   grid-template-columns: 95px minmax(0, 1fr);
   align-items: center;
@@ -650,7 +657,11 @@ html.forced-dark .dashboard-recommendation-meta {
   border-bottom: 1px solid var(--gray-200);
 }
 
-.dashboard-total-stat .dashboard-label {
+
+/* 항목명 */
+
+.dashboard-total-stat .dashboard-label,
+.dashboard-stat-meta .dashboard-label {
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
   font-size: 0.75rem;
   font-weight: 400;
@@ -659,9 +670,13 @@ html.forced-dark .dashboard-recommendation-meta {
   white-space: nowrap;
 }
 
-html.forced-dark .dashboard-total-stat .dashboard-label {
+html.forced-dark .dashboard-total-stat .dashboard-label,
+html.forced-dark .dashboard-stat-meta .dashboard-label {
   color: #a8a8a8 !important;
 }
+
+
+/* 게시물 / 전체 조회수의 값 */
 
 .dashboard-total-stat strong {
   text-align: left;
@@ -677,18 +692,7 @@ html.forced-dark .dashboard-total-stat strong {
 }
 
 
-/*
- * 6개 상세 통계
- */
-
-.dashboard-stat-detail {
-  display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
-  align-items: center;
-  column-gap: 0.75rem;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--gray-200);
-}
+/* 상세 통계의 값 */
 
 .dashboard-stat-meta {
   display: flex;
@@ -696,19 +700,6 @@ html.forced-dark .dashboard-total-stat strong {
   align-items: flex-start;
   gap: 0.15rem;
   min-width: 0;
-}
-
-.dashboard-stat-meta .dashboard-label {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem;
-  font-weight: 400;
-  line-height: 1.4;
-  color: #666666 !important;
-  white-space: nowrap;
-}
-
-html.forced-dark .dashboard-stat-meta .dashboard-label {
-  color: #a8a8a8 !important;
 }
 
 .dashboard-stat-meta strong {
@@ -723,6 +714,9 @@ html.forced-dark .dashboard-stat-meta .dashboard-label {
 html.forced-dark .dashboard-stat-meta strong {
   color: #a8a8a8 !important;
 }
+
+
+/* 상세 통계의 게시물 제목 */
 
 .dashboard-stat-title,
 .dashboard-stat-title:visited {
@@ -756,9 +750,9 @@ html.forced-dark .dashboard-stat-meta strong {
 
 .dashboard-timeline-row {
   display: grid;
-  grid-template-columns: 110px 70px minmax(0, 1fr);
+  grid-template-columns: 95px 70px minmax(0, 1fr);
   align-items: center;
-  column-gap: 0.75rem;
+  column-gap: 0.4rem;
   width: 100%;
 }
 
@@ -815,8 +809,8 @@ html.forced-dark .dashboard-timeline-count {
 
   .dashboard-total-stat,
   .dashboard-stat-detail {
-    grid-template-columns: 90px minmax(0, 1fr);
-    column-gap: 0.6rem;
+    grid-template-columns: 80px minmax(0, 1fr);
+    column-gap: 0.35rem;
   }
 
   .dashboard-total-stat .dashboard-label,
@@ -834,8 +828,8 @@ html.forced-dark .dashboard-timeline-count {
   }
 
   .dashboard-timeline-row {
-    grid-template-columns: 90px 60px minmax(0, 1fr);
-    column-gap: 0.6rem;
+    grid-template-columns: 80px 60px minmax(0, 1fr);
+    column-gap: 0.35rem;
   }
 
   .dashboard-recommendation-content {
