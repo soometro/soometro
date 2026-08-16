@@ -37,6 +37,7 @@
   </header>
 
   <section class="dashboard-section">
+
     <h2>오늘의 추천 아카이브</h2>
 
     <div class="dashboard-recommendation">
@@ -57,6 +58,7 @@
       </div>
 
     </div>
+
   </section>
 
   <section class="dashboard-section">
@@ -68,15 +70,29 @@
       <!-- 게시물 -->
 
       <div class="dashboard-total-stat">
-        <span class="dashboard-label">게시물</span>
-        <strong>{{ $postCount }}</strong>
+
+        <span class="dashboard-label">
+          게시물
+        </span>
+
+        <strong>
+          {{ $postCount }}
+        </strong>
+
       </div>
 
       <!-- 전체 조회수 -->
 
       <div class="dashboard-total-stat">
-        <span class="dashboard-label">전체 조회수</span>
-        <strong id="dashboard-total-views">불러오는 중</strong>
+
+        <span class="dashboard-label">
+          전체 조회수
+        </span>
+
+        <strong id="dashboard-total-views">
+          불러오는 중
+        </strong>
+
       </div>
 
       <!-- 조회수 높은 글 -->
@@ -84,8 +100,15 @@
       <div class="dashboard-stat-detail">
 
         <div class="dashboard-stat-meta">
-          <span class="dashboard-label">조회수 높은 글</span>
-          <strong id="dashboard-top-count">불러오는 중</strong>
+
+          <span class="dashboard-label">
+            조회수 높은 글
+          </span>
+
+          <strong id="dashboard-top-count">
+            불러오는 중
+          </strong>
+
         </div>
 
         <a
@@ -103,8 +126,15 @@
       <div class="dashboard-stat-detail">
 
         <div class="dashboard-stat-meta">
-          <span class="dashboard-label">가장 안 읽힌 글</span>
-          <strong id="dashboard-low-count">불러오는 중</strong>
+
+          <span class="dashboard-label">
+            가장 안 읽힌 글
+          </span>
+
+          <strong id="dashboard-low-count">
+            불러오는 중
+          </strong>
+
         </div>
 
         <a
@@ -122,10 +152,15 @@
       <div class="dashboard-stat-detail">
 
         <div class="dashboard-stat-meta">
-          <span class="dashboard-label">가장 오래된 글</span>
+
+          <span class="dashboard-label">
+            가장 오래된 글
+          </span>
+
           <strong>
             {{ $oldestPost.Date.Format "2006-01-02" }}
           </strong>
+
         </div>
 
         <a
@@ -142,10 +177,15 @@
       <div class="dashboard-stat-detail">
 
         <div class="dashboard-stat-meta">
-          <span class="dashboard-label">가장 긴 글</span>
+
+          <span class="dashboard-label">
+            가장 긴 글
+          </span>
+
           <strong>
             {{ $longestPost.WordCount }}단어
           </strong>
+
         </div>
 
         <a
@@ -162,10 +202,15 @@
       <div class="dashboard-stat-detail">
 
         <div class="dashboard-stat-meta">
-          <span class="dashboard-label">가장 짧은 글</span>
+
+          <span class="dashboard-label">
+            가장 짧은 글
+          </span>
+
           <strong>
             {{ $shortestPost.WordCount }}단어
           </strong>
+
         </div>
 
         <a
@@ -182,10 +227,15 @@
       <div class="dashboard-stat-detail">
 
         <div class="dashboard-stat-meta">
-          <span class="dashboard-label">최근 작성</span>
+
+          <span class="dashboard-label">
+            최근 작성
+          </span>
+
           <strong>
             {{ $newestPost.Date.Format "2006-01-02" }}
           </strong>
+
         </div>
 
         <a
@@ -481,6 +531,10 @@
 
 <style>
 
+/* =========================================================
+   Dashboard 기본
+   ========================================================= */
+
 .dashboard-page {
   width: 100%;
 }
@@ -493,151 +547,31 @@
   margin-bottom: 3rem;
 }
 
+/*
+ * H1은 사이트 기존 스타일 유지.
+ *
+ * Dashboard H2만 사이트의 2단계 메타 계층에 맞춤.
+ */
+
 .dashboard-section h2 {
   margin-bottom: 1rem;
+
+  font-size: 0.85rem !important;
+
+  font-weight: 600;
+
+  color: #b0b0b0 !important;
 }
 
-/* =========================
-   통계
-   ========================= */
 
-.dashboard-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-/* 게시물 / 전체 조회수 */
-
-.dashboard-total-stat {
-  display: grid;
-
-  grid-template-columns:
-    140px minmax(0, 1fr);
-
-  align-items: center;
-
-  gap: 1.5rem;
-
-  padding: 0.85rem 0;
-
-  border-bottom:
-    1px solid var(--gray-200);
-}
-
-.dashboard-total-stat .dashboard-label {
-  opacity: 0.65;
-
-  font-size:
-    0.9rem;
-
-  white-space:
-    nowrap;
-}
-
-.dashboard-total-stat strong {
-  text-align: right;
-
-  font-size:
-    0.95rem;
-
-  font-weight:
-    600;
-}
-
-/* 6개 상세 통계 */
-
-.dashboard-stat-detail {
-  display: grid;
-
-  grid-template-columns:
-    140px minmax(0, 1fr);
-
-  align-items: center;
-
-  gap: 1.5rem;
-
-  padding: 0.85rem 0;
-
-  border-bottom:
-    1px solid var(--gray-200);
-}
-
-.dashboard-stat-meta {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  gap: 0.15rem;
-
-  min-width: 0;
-}
-
-.dashboard-stat-meta .dashboard-label {
-  opacity: 0.65;
-
-  font-size:
-    0.9rem;
-
-  line-height:
-    1.4;
-
-  white-space:
-    nowrap;
-}
-
-.dashboard-stat-meta strong {
-  text-align: left;
-
-  font-size:
-    0.95rem;
-
-  font-weight:
-    600;
-
-  line-height:
-    1.4;
-}
-
-.dashboard-stat-title {
-  min-width: 0;
-
-  font-size:
-    0.95rem;
-
-  font-weight:
-    500;
-
-  line-height:
-    1.5;
-
-  color:
-    inherit;
-
-  text-decoration:
-    none;
-
-  overflow-wrap:
-    anywhere;
-}
-
-.dashboard-stat-title:hover {
-  text-decoration:
-    underline;
-}
-
-/* =========================
-   추천 아카이브
-   ========================= */
+/* =========================================================
+   오늘의 추천 아카이브
+   ========================================================= */
 
 .dashboard-recommendation {
-  margin-top:
-    0.5rem;
+  margin-top: 0.5rem;
 
-  padding:
-    1.25rem 1.5rem;
+  padding: 1.25rem 1.5rem;
 
   border:
     1px solid var(--gray-200);
@@ -656,8 +590,11 @@
   font-size:
     0.8rem;
 
-  opacity:
-    0.6;
+  line-height:
+    1.4;
+
+  color:
+    #a8a8a8 !important;
 }
 
 .dashboard-recommendation-title {
@@ -665,10 +602,10 @@
     block;
 
   font-size:
-    1.15rem;
+    0.85rem;
 
   font-weight:
-    600;
+    500;
 
   line-height:
     1.55;
@@ -677,7 +614,7 @@
     none;
 
   color:
-    inherit;
+    #b0b0b0 !important;
 }
 
 .dashboard-recommendation-title:hover {
@@ -692,13 +629,190 @@
   font-size:
     0.8rem;
 
-  opacity:
-    0.6;
+  line-height:
+    1.4;
+
+  color:
+    #a8a8a8 !important;
 }
 
-/* =========================
+
+/* =========================================================
+   통계
+   ========================================================= */
+
+.dashboard-stats {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    0;
+}
+
+
+/*
+ * 게시물 / 전체 조회수
+ */
+
+.dashboard-total-stat {
+  display:
+    grid;
+
+  grid-template-columns:
+    140px minmax(0, 1fr);
+
+  align-items:
+    center;
+
+  gap:
+    1.5rem;
+
+  padding:
+    0.85rem 0;
+
+  border-bottom:
+    1px solid var(--gray-200);
+}
+
+.dashboard-total-stat .dashboard-label {
+  font-size:
+    0.8rem;
+
+  line-height:
+    1.4;
+
+  color:
+    #a8a8a8 !important;
+
+  white-space:
+    nowrap;
+}
+
+.dashboard-total-stat strong {
+  text-align:
+    right;
+
+  font-size:
+    0.8rem;
+
+  font-weight:
+    500;
+
+  line-height:
+    1.4;
+
+  color:
+    #a8a8a8 !important;
+}
+
+
+/*
+ * 6개 상세 통계
+ */
+
+.dashboard-stat-detail {
+  display:
+    grid;
+
+  grid-template-columns:
+    140px minmax(0, 1fr);
+
+  align-items:
+    center;
+
+  gap:
+    1.5rem;
+
+  padding:
+    0.85rem 0;
+
+  border-bottom:
+    1px solid var(--gray-200);
+}
+
+.dashboard-stat-meta {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    flex-start;
+
+  gap:
+    0.15rem;
+
+  min-width:
+    0;
+}
+
+.dashboard-stat-meta .dashboard-label {
+  font-size:
+    0.8rem;
+
+  line-height:
+    1.4;
+
+  color:
+    #a8a8a8 !important;
+
+  white-space:
+    nowrap;
+}
+
+.dashboard-stat-meta strong {
+  text-align:
+    left;
+
+  font-size:
+    0.8rem;
+
+  font-weight:
+    500;
+
+  line-height:
+    1.4;
+
+  color:
+    #a8a8a8 !important;
+}
+
+.dashboard-stat-title {
+  min-width:
+    0;
+
+  font-size:
+    0.85rem;
+
+  font-weight:
+    500;
+
+  line-height:
+    1.5;
+
+  color:
+    #b0b0b0 !important;
+
+  text-decoration:
+    none;
+
+  overflow-wrap:
+    anywhere;
+}
+
+.dashboard-stat-title:hover {
+  text-decoration:
+    underline;
+}
+
+
+/* =========================================================
    시간 축
-   ========================= */
+   ========================================================= */
 
 .dashboard-timeline {
   display:
@@ -733,7 +847,13 @@
     0 0 5rem;
 
   font-size:
-    0.9rem;
+    0.8rem;
+
+  line-height:
+    1.4;
+
+  color:
+    #a8a8a8 !important;
 }
 
 .dashboard-timeline-gauge {
@@ -780,21 +900,29 @@
   font-size:
     0.8rem;
 
+  line-height:
+    1.4;
+
+  font-weight:
+    400;
+
+  color:
+    #a8a8a8 !important;
+
   white-space:
     nowrap;
-
-  opacity:
-    0.7;
 }
 
-/* =========================
+
+/* =========================================================
    모바일
-   ========================= */
+   ========================================================= */
 
 @media (max-width: 768px) {
 
   .dashboard-total-stat,
   .dashboard-stat-detail {
+
     grid-template-columns:
       110px minmax(0, 1fr);
 
@@ -804,18 +932,26 @@
 
   .dashboard-total-stat .dashboard-label,
   .dashboard-stat-meta .dashboard-label {
+
+    font-size:
+      0.8rem;
+  }
+
+  .dashboard-total-stat strong,
+  .dashboard-stat-meta strong {
+
+    font-size:
+      0.8rem;
+  }
+
+  .dashboard-stat-title {
+
     font-size:
       0.85rem;
   }
 
-  .dashboard-total-stat strong,
-  .dashboard-stat-meta strong,
-  .dashboard-stat-title {
-    font-size:
-      0.9rem;
-  }
-
   .dashboard-timeline-gauge {
+
     width:
       140px;
 
