@@ -36,6 +36,10 @@
   </div>
 </div>
 
+<div style="padding:10px 0;">
+  Pages: {{ len $pages }} / Nodes: {{ len $nodes }}
+</div>
+
 <script id="graph-data" type="application/json">
 {{ $graphData | jsonify | safeHTML }}
 </script>
