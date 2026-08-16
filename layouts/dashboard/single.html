@@ -6,12 +6,12 @@
   <header class="dashboard-header">
     <h1>{{ .Title }}</h1>
   </header>
-  
+
   <section class="dashboard-section">
     <h2>오늘의 추천 아카이브</h2>
 
     <div class="dashboard-recommendation">
-      <div>2026년 8월 16일</div>
+      <div>{{ now.Format "2006년 1월 2일" }}</div>
       <strong>추천 글 준비 중</strong>
       <p>추천 데이터 연동 예정</p>
     </div>
@@ -76,7 +76,7 @@
 </main>
 
 <script>
-document.addEventListener("DOMContentLoaded", async function () {
+(function () {
   const totalViewsEl = document.getElementById("dashboard-total-views");
 
   if (!totalViewsEl) return;
@@ -87,33 +87,55 @@ document.addEventListener("DOMContentLoaded", async function () {
     {{ end }}
   ];
 
-  try {
+  let attempts = 0;
+  const maxAttempts = 30;
+
+  async function loadDashboardViews() {
+    attempts++;
+
     if (!window.sb || typeof window.sb.rpc !== "function") {
-      throw new Error("Supabase client is not available.");
-    }
-
-    const { data, error } = await window.sb.rpc(
-      "get_page_view_counts",
-      {
-        p_urls: postUrls
+      if (attempts < maxAttempts) {
+        setTimeout(loadDashboardViews, 100);
+        return;
       }
-    );
 
-    if (error) {
-      throw error;
+      console.error("Dashboard: Supabase client is not available.");
+      totalViewsEl.innerText = "확인 불가";
+      return;
     }
 
-    const totalViews = (data || []).reduce(
-      (sum, item) => sum + Number(item.page_hit || 0),
-      0
-    );
+    try {
+      const { data, error } = await window.sb.rpc(
+        "get_page_view_counts",
+        {
+          p_urls: postUrls
+        }
+      );
 
-    totalViewsEl.innerText = totalViews.toLocaleString();
-  } catch (error) {
-    console.error("Dashboard View Count Error:", error);
-    totalViewsEl.innerText = "확인 불가";
+      if (error) {
+        throw error;
+      }
+
+      const totalViews = (data || []).reduce(function (sum, item) {
+        return sum + Number(item.page_hit || 0);
+      }, 0);
+
+      totalViewsEl.innerText = totalViews.toLocaleString();
+
+      console.log("Dashboard view data loaded:", {
+        postCount: postUrls.length,
+        resultCount: (data || []).length,
+        totalViews: totalViews
+      });
+
+    } catch (error) {
+      console.error("Dashboard View Count Error:", error);
+      totalViewsEl.innerText = "확인 불가";
+    }
   }
-});
+
+  loadDashboardViews();
+})();
 </script>
 
 <style>
