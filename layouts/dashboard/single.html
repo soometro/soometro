@@ -373,40 +373,38 @@
 }
 
 .dashboard-stats {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 0.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .dashboard-stats > div {
-  display: flex;
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  align-items: center;
+  gap: 1.5rem;
 
-  justify-content: space-between;
+  padding: 0.85rem 0;
 
-  align-items: flex-start;
-
-  gap: 1rem;
-
-  padding: 0.75rem 0;
-
-  border-bottom:
-    1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .dashboard-label {
-  opacity: 0.75;
-
-  flex:
-    0 0 auto;
+  opacity: 0.65;
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .dashboard-stats strong {
+  min-width: 0;
+
   text-align: right;
 
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
 }
 
 .dashboard-recommendation {
@@ -508,20 +506,18 @@
 
 @media (max-width: 768px) {
 
-  .dashboard-stats {
-    grid-template-columns:
-      1fr;
-  }
-
   .dashboard-stats > div {
-    align-items:
-      center;
-  }
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 1rem;
+}
 
-  .dashboard-stats strong {
-    max-width:
-      70%;
-  }
+.dashboard-label {
+  font-size: 0.85rem;
+}
+
+.dashboard-stats strong {
+  font-size: 0.9rem;
+}
 
   .dashboard-timeline-gauge {
     width: 140px;
