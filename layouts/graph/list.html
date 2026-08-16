@@ -5,7 +5,6 @@
 {{- $edges := slice -}}
 
 {{- range $pages -}}
-
   {{- if ne .RelPermalink "/docs/guestbook/" -}}
 
     {{- $source := .RelPermalink -}}
@@ -18,26 +17,22 @@
 
     {{- range (findRE `/docs/[A-Za-z0-9._~!$&'()*+,;=:@%/-]+` .Content) -}}
 
-      {{- $target := . -}}
-      {{- $target = replaceRE `[?#].*$` `` $target -}}
+      {{- $target := replaceRE `[?#].*$` `` . -}}
 
       {{- if not (hasSuffix $target "/") -}}
         {{- $target = printf "%s/" $target -}}
       {{- end -}}
 
       {{- if and (ne $target $source) (in $target "/docs/") -}}
-
         {{- $edges = $edges | append (dict
           "source" $source
           "target" $target
         ) -}}
-
       {{- end -}}
 
     {{- end -}}
 
   {{- end -}}
-
 {{- end -}}
 
 {{- $graphData := dict
@@ -50,15 +45,10 @@
   <header class="graph-header">
     <h1>{{ .Title }}</h1>
     <p>soometro 게시물 사이의 연결 관계를 시각적으로 탐색합니다.</p>
-    <div class="graph-stats">
-      {{ len $nodes }}개 게시물 · {{ len $edges }}개 연결
-    </div>
   </header>
 
   <div id="knowledge-graph" class="knowledge-graph">
-    <div class="graph-loading">
-      지식 그래프를 불러오는 중...
-    </div>
+    <div class="graph-loading">지식 그래프를 불러오는 중...</div>
   </div>
 
 </div>
@@ -81,13 +71,7 @@
 }
 
 .graph-header p {
-  margin-bottom: 0.6rem;
   opacity: 0.7;
-}
-
-.graph-stats {
-  font-size: 0.85rem;
-  opacity: 0.55;
 }
 
 .knowledge-graph {
@@ -104,44 +88,19 @@
   width: 100%;
   height: 100%;
   display: block;
-  cursor: grab;
-}
-
-.knowledge-graph svg:active {
-  cursor: grabbing;
 }
 
 .graph-edge {
   stroke: currentColor;
   stroke-width: 1;
-  opacity: 0.18;
+  opacity: 0.15;
 }
 
 .graph-node {
   fill: currentColor;
-  cursor: pointer;
 }
 
-.graph-node:hover {
-  opacity: 0.6;
-}
-
-.graph-tooltip {
-  position: absolute;
-  display: none;
-  pointer-events: none;
-  max-width: 320px;
-  padding: 8px 10px;
-  border: 1px solid var(--gray-200);
-  border-radius: 6px;
-  background: var(--body-background);
-  color: inherit;
-  font-size: 0.85rem;
-  line-height: 1.4;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-  z-index: 10;
-}
-
+.graph-loading,
 .graph-empty {
   position: absolute;
   inset: 0;
@@ -177,7 +136,6 @@
       if (typeof data === "string") {
         data = JSON.parse(data);
       }
-
     } catch (error) {
       container.innerHTML =
         '<div class="graph-empty">그래프 데이터를 읽을 수 없습니다.</div>';
@@ -193,66 +151,21 @@
       return;
     }
 
-    /*
-     * ------------------------------------------------------------
-     * 중복 노드 제거
-     * ------------------------------------------------------------
-     */
-
     var nodeMap = new Map();
 
     nodes.forEach(function (node) {
       nodeMap.set(node.id, node);
     });
 
-    nodes = Array.from(nodeMap.values());
-
-    /*
-     * ------------------------------------------------------------
-     * 중복 및 잘못된 연결 제거
-     * ------------------------------------------------------------
-     */
-
-    var edgeMap = new Map();
+    var validEdges = [];
 
     edges.forEach(function (edge) {
-
       if (!nodeMap.has(edge.source)) return;
       if (!nodeMap.has(edge.target)) return;
       if (edge.source === edge.target) return;
 
-      var key = edge.source + "=>" + edge.target;
-
-      if (!edgeMap.has(key)) {
-        edgeMap.set(key, edge);
-      }
-
+      validEdges.push(edge);
     });
-
-    edges = Array.from(edgeMap.values());
-
-    /*
-     * ------------------------------------------------------------
-     * 연결 정도 계산
-     * ------------------------------------------------------------
-     */
-
-    nodes.forEach(function (node) {
-      node.degree = 0;
-    });
-
-    edges.forEach(function (edge) {
-
-      nodeMap.get(edge.source).degree++;
-      nodeMap.get(edge.target).degree++;
-
-    });
-
-    /*
-     * ------------------------------------------------------------
-     * SVG 생성
-     * ------------------------------------------------------------
-     */
 
     container.innerHTML = "";
 
@@ -264,10 +177,8 @@
     var width = container.clientWidth;
     var height = container.clientHeight;
 
-    if (!width || !height) {
-      width = 900;
-      height = 700;
-    }
+    if (!width) width = 900;
+    if (!height) height = 700;
 
     svg.setAttribute(
       "viewBox",
@@ -289,33 +200,20 @@
     svg.appendChild(edgeLayer);
     svg.appendChild(nodeLayer);
 
-    /*
-     * ------------------------------------------------------------
-     * 툴팁
-     * ------------------------------------------------------------
-     */
-
-    var tooltip = document.createElement("div");
-
-    tooltip.className = "graph-tooltip";
-
-    container.appendChild(tooltip);
+    var edgeElements = [];
+    var nodeElements = new Map();
 
     /*
-     * ------------------------------------------------------------
-     * 초기 위치
-     * ------------------------------------------------------------
+     * 점을 원형으로 배치
      */
 
     var count = nodes.length;
+    var radius = Math.min(width, height) * 0.34;
 
     nodes.forEach(function (node, index) {
 
       var angle =
         (Math.PI * 2 * index) / count;
-
-      var radius =
-        Math.min(width, height) * 0.35;
 
       node.x =
         width / 2 +
@@ -325,20 +223,19 @@
         height / 2 +
         Math.sin(angle) * radius;
 
-      node.vx = 0;
-      node.vy = 0;
+      node.vx =
+        (Math.random() - 0.5) * 0.3;
+
+      node.vy =
+        (Math.random() - 0.5) * 0.3;
 
     });
 
     /*
-     * ------------------------------------------------------------
      * 연결선
-     * ------------------------------------------------------------
      */
 
-    var edgeElements = [];
-
-    edges.forEach(function (edge) {
+    validEdges.forEach(function (edge) {
 
       var line = document.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -357,19 +254,10 @@
     });
 
     /*
-     * ------------------------------------------------------------
-     * 노드
-     * ------------------------------------------------------------
+     * 점
      */
 
-    var nodeElements = new Map();
-
     nodes.forEach(function (node) {
-
-      var group = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "g"
-      );
 
       var circle = document.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -377,112 +265,46 @@
       );
 
       circle.classList.add("graph-node");
+      circle.setAttribute("r", 3.5);
 
-      var radius =
-        Math.min(
-          9,
-          3 + Math.sqrt(node.degree + 1)
-        );
-
-      circle.setAttribute(
-        "r",
-        radius
-      );
-
-      group.appendChild(circle);
-
-      nodeLayer.appendChild(group);
+      nodeLayer.appendChild(circle);
 
       nodeElements.set(
         node.id,
-        {
-          group: group,
-          circle: circle
-        }
-      );
-
-      group.addEventListener(
-        "mouseenter",
-        function () {
-
-          tooltip.textContent = node.title;
-
-          tooltip.style.display = "block";
-
-        }
-      );
-
-      group.addEventListener(
-        "mousemove",
-        function (event) {
-
-          var rect =
-            container.getBoundingClientRect();
-
-          tooltip.style.left =
-            (event.clientX - rect.left + 14) +
-            "px";
-
-          tooltip.style.top =
-            (event.clientY - rect.top + 14) +
-            "px";
-
-        }
-      );
-
-      group.addEventListener(
-        "mouseleave",
-        function () {
-
-          tooltip.style.display = "none";
-
-        }
-      );
-
-      group.addEventListener(
-        "click",
-        function () {
-
-          window.location.href =
-            node.url;
-
-        }
+        circle
       );
 
     });
 
     /*
-     * ------------------------------------------------------------
      * 위치 갱신
-     * ------------------------------------------------------------
      */
 
     function updatePositions() {
 
       nodes.forEach(function (node) {
 
-        var element =
-          nodeElements.get(node.id);
-
-        if (!element) return;
-
-        if (
-          !Number.isFinite(node.x) ||
-          !Number.isFinite(node.y)
-        ) {
-
+        if (!Number.isFinite(node.x)) {
           node.x = width / 2;
-          node.y = height / 2;
-
         }
 
-        element.group.setAttribute(
-          "transform",
-          "translate(" +
-          node.x +
-          "," +
-          node.y +
-          ")"
+        if (!Number.isFinite(node.y)) {
+          node.y = height / 2;
+        }
+
+        var circle =
+          nodeElements.get(node.id);
+
+        if (!circle) return;
+
+        circle.setAttribute(
+          "cx",
+          node.x
+        );
+
+        circle.setAttribute(
+          "cy",
+          node.y
         );
 
       });
@@ -490,14 +312,10 @@
       edgeElements.forEach(function (item) {
 
         var source =
-          nodeMap.get(
-            item.edge.source
-          );
+          nodeMap.get(item.edge.source);
 
         var target =
-          nodeMap.get(
-            item.edge.target
-          );
+          nodeMap.get(item.edge.target);
 
         if (!source || !target) return;
 
@@ -526,299 +344,72 @@
     }
 
     /*
-     * ------------------------------------------------------------
-     * 안정적인 물리 시뮬레이션
-     * ------------------------------------------------------------
+     * 점의 아주 느린 움직임
      */
 
-    var simulationRunning = true;
-
-    function simulate() {
-
-      if (!simulationRunning) return;
-
-      /*
-       * 반발력
-       */
-
-      for (
-        var i = 0;
-        i < nodes.length;
-        i++
-      ) {
-
-        for (
-          var j = i + 1;
-          j < nodes.length;
-          j++
-        ) {
-
-          var a = nodes[i];
-          var b = nodes[j];
-
-          var dx =
-            b.x - a.x;
-
-          var dy =
-            b.y - a.y;
-
-          var distanceSquared =
-            dx * dx +
-            dy * dy;
-
-          if (
-            !Number.isFinite(
-              distanceSquared
-            )
-          ) continue;
-
-          distanceSquared =
-            Math.max(
-              distanceSquared,
-              100
-            );
-
-          var distance =
-            Math.sqrt(
-              distanceSquared
-            );
-
-          var force =
-            2500 /
-            distanceSquared;
-
-          var fx =
-            (dx / distance) *
-            force;
-
-          var fy =
-            (dy / distance) *
-            force;
-
-          a.vx -= fx;
-          a.vy -= fy;
-
-          b.vx += fx;
-          b.vy += fy;
-
-        }
-
-      }
-
-      /*
-       * 연결선 인력
-       */
-
-      edges.forEach(function (edge) {
-
-        var source =
-          nodeMap.get(
-            edge.source
-          );
-
-        var target =
-          nodeMap.get(
-            edge.target
-          );
-
-        if (!source || !target) return;
-
-        var dx =
-          target.x - source.x;
-
-        var dy =
-          target.y - source.y;
-
-        var distance =
-          Math.sqrt(
-            dx * dx +
-            dy * dy
-          );
-
-        if (
-          !Number.isFinite(distance) ||
-          distance < 1
-        ) {
-          return;
-        }
-
-        var desiredDistance =
-          110;
-
-        var force =
-          (distance - desiredDistance) *
-          0.002;
-
-        var fx =
-          (dx / distance) *
-          force;
-
-        var fy =
-          (dy / distance) *
-          force;
-
-        source.vx += fx;
-        source.vy += fy;
-
-        target.vx -= fx;
-        target.vy -= fy;
-
-      });
-
-      /*
-       * 중심으로 약하게 끌어당김
-       */
+    function animate() {
 
       nodes.forEach(function (node) {
-
-        node.vx +=
-          (width / 2 - node.x) *
-          0.0005;
-
-        node.vy +=
-          (height / 2 - node.y) *
-          0.0005;
-
-      });
-
-      /*
-       * 속도 및 위치 업데이트
-       */
-
-      nodes.forEach(function (node) {
-
-        node.vx *= 0.88;
-        node.vy *= 0.88;
 
         node.x += node.vx;
         node.y += node.vy;
 
-        /*
-         * 화면 밖으로 나가지 않도록 제한
-         */
+        if (
+          node.x < 15 ||
+          node.x > width - 15
+        ) {
+          node.vx *= -1;
+        }
+
+        if (
+          node.y < 15 ||
+          node.y > height - 15
+        ) {
+          node.vy *= -1;
+        }
+
+        node.vx +=
+          (Math.random() - 0.5) * 0.01;
+
+        node.vy +=
+          (Math.random() - 0.5) * 0.01;
+
+        node.vx *= 0.995;
+        node.vy *= 0.995;
 
         node.x =
           Math.max(
-            20,
+            15,
             Math.min(
-              width - 20,
+              width - 15,
               node.x
             )
           );
 
         node.y =
           Math.max(
-            20,
+            15,
             Math.min(
-              height - 20,
+              height - 15,
               node.y
             )
           );
-
-        /*
-         * NaN 방지
-         */
-
-        if (
-          !Number.isFinite(node.x)
-        ) {
-          node.x = width / 2;
-        }
-
-        if (
-          !Number.isFinite(node.y)
-        ) {
-          node.y = height / 2;
-        }
-
-        if (
-          !Number.isFinite(node.vx)
-        ) {
-          node.vx = 0;
-        }
-
-        if (
-          !Number.isFinite(node.vy)
-        ) {
-          node.vy = 0;
-        }
 
       });
 
       updatePositions();
 
       requestAnimationFrame(
-        simulate
+        animate
       );
 
     }
 
-    /*
-     * ------------------------------------------------------------
-     * 드래그
-     * ------------------------------------------------------------
-     */
-
-    var dragging = null;
-
-    nodes.forEach(function (node) {
-
-      var element =
-        nodeElements.get(
-          node.id
-        );
-
-      element.group.addEventListener(
-        "mousedown",
-        function (event) {
-
-          event.preventDefault();
-
-          dragging = node;
-
-        }
-      );
-
-    });
-
-    svg.addEventListener(
-      "mousemove",
-      function (event) {
-
-        if (!dragging) return;
-
-        var rect =
-          svg.getBoundingClientRect();
-
-        dragging.x =
-          event.clientX -
-          rect.left;
-
-        dragging.y =
-          event.clientY -
-          rect.top;
-
-        dragging.vx = 0;
-        dragging.vy = 0;
-
-        updatePositions();
-
-      }
-    );
-
-    document.addEventListener(
-      "mouseup",
-      function () {
-
-        dragging = null;
-
-      }
-    );
+    updatePositions();
+    animate();
 
     /*
-     * ------------------------------------------------------------
      * 화면 크기 변경
-     * ------------------------------------------------------------
      */
 
     window.addEventListener(
@@ -839,20 +430,32 @@
           height
         );
 
+        nodes.forEach(function (node) {
+
+          node.x =
+            Math.max(
+              15,
+              Math.min(
+                width - 15,
+                node.x
+              )
+            );
+
+          node.y =
+            Math.max(
+              15,
+              Math.min(
+                height - 15,
+                node.y
+              )
+            );
+
+        });
+
         updatePositions();
 
       }
     );
-
-    /*
-     * ------------------------------------------------------------
-     * 시작
-     * ------------------------------------------------------------
-     */
-
-    updatePositions();
-
-    simulate();
 
   });
 
