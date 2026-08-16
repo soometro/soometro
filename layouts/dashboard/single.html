@@ -628,17 +628,14 @@ html.forced-dark .dashboard-recommendation-date {
   align-items:
     baseline;
 
-  justify-content:
-    space-between;
-
   gap:
     1rem;
 }
 
 .dashboard-recommendation-title,
 .dashboard-recommendation-title:visited {
-  display:
-    block;
+  flex:
+    1 1 auto;
 
   min-width:
     0;
@@ -658,18 +655,19 @@ html.forced-dark .dashboard-recommendation-date {
   text-decoration:
     none;
 
+  overflow-wrap:
+    anywhere;
+
   color:
     var(--color-link) !important;
 }
 
-.dashboard-recommendation-title:hover {
-  text-decoration:
-    underline;
-}
-
 .dashboard-recommendation-meta {
-  flex-shrink:
-    0;
+  flex:
+    0 0 auto;
+
+  margin-left:
+    auto;
 
   margin-top:
     0;
@@ -691,6 +689,11 @@ html.forced-dark .dashboard-recommendation-date {
 
   white-space:
     nowrap;
+}
+
+html.forced-dark .dashboard-recommendation-meta {
+  color:
+    #a8a8a8 !important;
 }
 
 html.forced-dark .dashboard-recommendation-meta {
