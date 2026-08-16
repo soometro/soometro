@@ -38,26 +38,26 @@
 
   <section class="dashboard-section">
 
-    <h2>오늘의 추천 아카이브</h2>
-
     <div class="dashboard-recommendation">
 
-      <div class="dashboard-recommendation-date">
-        {{ now.Format "2006년 1월 2일" }}
-      </div>
+  <div class="dashboard-recommendation-date">
+    {{ now.Format "2006년 1월 2일" }} 오늘의 추천 아카이브
+  </div>
 
-      <a
-        class="dashboard-recommendation-title"
-        href="{{ $recommendedPost.RelPermalink }}"
-      >
-        {{ $recommendedPost.Title }}
-      </a>
+  <div class="dashboard-recommendation-content">
+    <a
+      class="dashboard-recommendation-title"
+      href="{{ $recommendedPost.RelPermalink }}"
+    >
+      {{ $recommendedPost.Title }}
+    </a>
 
-      <div class="dashboard-recommendation-meta">
-        {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
-      </div>
+    <span class="dashboard-recommendation-meta">
+      {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
+    </span>
+  </div>
 
-    </div>
+</div>
 
   </section>
 
