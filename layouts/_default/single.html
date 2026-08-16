@@ -21,15 +21,14 @@
       <span>{{ .Title }}</span>
     </nav> 
 
-    <!-- 상단: 작성일 + 수정일 + 총 단어수 + 읽기 시간 + 조회수 -->
+    <!-- 상단: 작성일 + 수정일 + 단어수 + 읽기 시간 + 조회수 -->
     <div class="book-post-date" style="display: block !important; visibility: visible !important; text-align: right !important; font-size: 0.8rem !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-weight: normal !important; margin-top: 0 !important; margin-bottom: 1rem !important; padding-bottom: 0.5rem !important; border-bottom: 1px solid #e5e5e5 !important;">
-      작성일 :
-      {{ if .Date }}
+      작성일: {{ if .Date }}
         {{ .Date.Format "2006-01-02" }}
       {{ else }}
         {{ .PublishDate.Format "2006-01-02" }}
       {{ end }}
-      <span style="margin-left: 8px !important; display: inline;"> | 수정일 :
+      <span style="margin-left: 8px !important; display: inline;">|수정일: 
         {{ if .Lastmod }}
           {{ .Lastmod.Format "2006-01-02" }}
         {{ else if .Date }}
@@ -38,9 +37,9 @@
           {{ .PublishDate.Format "2006-01-02" }}
         {{ end }}
       </span>
-      <span style="margin-left: 8px !important; display: inline;"> | 총 단어수 : {{ .WordCount }}</span>
-      <span style="margin-left: 8px !important; display: inline;"> | 읽기 시간 : {{ .ReadingTime }}분</span>
-      <span id="page-hit-display" style="margin-left: 8px !important; display: inline;"> | 조회수 : <span id="page-hit-value">...</span></span>
+      <span style="margin-left: 8px !important; display: inline;">|단어수: {{ .WordCount }}</span>
+      <span style="margin-left: 8px !important; display: inline;">|시간: {{ .ReadingTime }}분</span>
+      <span id="page-hit-display" style="margin-left: 8px !important; display: inline;">|조회수 : <span id="page-hit-value">...</span></span>
     </div>
 
     <style>
