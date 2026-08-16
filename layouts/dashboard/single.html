@@ -3,7 +3,7 @@
 {{ $posts := where .Site.RegularPages "Section" "docs" }}
 {{ $postCount := len $posts }}
 
-{{ $statsPosts := where $posts "File.Path" "ne" "docs/guestbook/index.md" }}
+{{ $statsPosts := where $posts "RelPermalink" "ne" "/docs/guestbook/" }}
 
 {{ $postsByDateAsc := sort $posts "Date" "asc" }}
 {{ $postsByDateDesc := sort $statsPosts "Date" "desc" }}
@@ -30,15 +30,34 @@
     <h1>{{ .Title }}</h1>
   </header>
 
-  <section class="dashboard-section">
-    <h2>오늘의 추천 아카이브</h2>
+  {{ $archivePosts := where $posts "RelPermalink" "ne" "/docs/guestbook/" }}
+{{ $archivePosts = sort $archivePosts "Date" "asc" }}
 
-    <div class="dashboard-recommendation">
-      <div>{{ now.Format "2006년 1월 2일" }}</div>
-      <strong>추천 글 준비 중</strong>
-      <p>추천 데이터 연동 예정</p>
+{{ $recommendIndex := mod (now.YearDay) (len $archivePosts) }}
+{{ $recommendedPost := index $archivePosts $recommendIndex }}
+
+<section class="dashboard-section">
+  <h2>오늘의 추천 아카이브</h2>
+
+  <div class="dashboard-recommendation">
+
+    <div class="dashboard-recommendation-date">
+      {{ now.Format "2006년 1월 2일" }}
     </div>
-  </section>
+
+    <a
+      class="dashboard-recommendation-title"
+      href="{{ $recommendedPost.RelPermalink }}"
+    >
+      {{ $recommendedPost.Title }}
+    </a>
+
+    <div class="dashboard-recommendation-meta">
+      {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
+    </div>
+
+  </div>
+</section>
 
   <section class="dashboard-section">
     <h2>통계</h2>
