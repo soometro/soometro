@@ -1,4 +1,30 @@
 {{ define "main" }}
+{{- $pages := where .Site.RegularPages "Section" "docs" -}}
+{{- $nodes := slice -}}
+{{- $edges := slice -}}
+
+{{- range $pages -}}
+  {{- $nodes = $nodes | append (dict
+    "id" .RelPermalink
+    "title" .Title
+    "url" .RelPermalink
+  ) -}}
+
+  {{- $source := .RelPermalink -}}
+  {{- range (findRE `href="[^"]+"` .Content) -}}
+    {{- $target := replaceRE `^href="([^"]+)".*$` `$1` . -}}
+    {{- $target = replaceRE `[?#].*$` `` $target -}}
+    {{- if strings.HasPrefix $target "/docs/" -}}
+      {{- $edges = $edges | append (dict
+        "source" $source
+        "target" $target
+      ) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $graphData := dict "nodes" $nodes "edges" $edges -}}
+
 <div class="graph-page">
   <header class="graph-header">
     <h1>{{ .Title }}</h1>
@@ -9,6 +35,10 @@
     <div class="graph-loading">지식 그래프를 불러오는 중...</div>
   </div>
 </div>
+
+<script id="graph-data" type="application/json">
+{{ $graphData | jsonify | safeHTML }}
+</script>
 
 <style>
 .graph-page {
@@ -29,7 +59,7 @@
 
 .knowledge-graph {
   width: 100%;
-  min-height: 650px;
+  min-height: 700px;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   overflow: hidden;
@@ -37,7 +67,35 @@
   background: var(--body-background);
 }
 
-.graph-loading {
+.knowledge-graph svg {
+  width: 100%;
+  height: 700px;
+  display: block;
+  cursor: grab;
+}
+
+.knowledge-graph svg:active {
+  cursor: grabbing;
+}
+
+.graph-edge {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.2;
+}
+
+.graph-node {
+  fill: currentColor;
+  cursor: pointer;
+}
+
+.graph-label {
+  fill: currentColor;
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.graph-empty {
   position: absolute;
   inset: 0;
   display: flex;
@@ -47,9 +105,271 @@
 }
 
 @media (max-width: 768px) {
-  .knowledge-graph {
+  .knowledge-graph,
+  .knowledge-graph svg {
     min-height: 500px;
+    height: 500px;
+  }
+
+  .graph-label {
+    font-size: 9px;
   }
 }
 </style>
+
+<script>
+(function () {
+  "use strict";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var container = document.getElementById("knowledge-graph");
+    var dataElement = document.getElementById("graph-data");
+
+    if (!container || !dataElement) return;
+
+    var data;
+
+    try {
+      data = JSON.parse(dataElement.textContent);
+    } catch (error) {
+      container.innerHTML = '<div class="graph-empty">그래프 데이터를 읽을 수 없습니다.</div>';
+      return;
+    }
+
+    var nodes = Array.isArray(data.nodes) ? data.nodes : [];
+    var edges = Array.isArray(data.edges) ? data.edges : [];
+
+    if (!nodes.length) {
+      container.innerHTML = '<div class="graph-empty">게시물이 없습니다.</div>';
+      return;
+    }
+
+    var nodeMap = new Map();
+
+    nodes.forEach(function (node) {
+      nodeMap.set(node.id, node);
+
+      node.x = 0.2 + Math.random() * 0.6;
+      node.y = 0.2 + Math.random() * 0.6;
+      node.vx = 0;
+      node.vy = 0;
+      node.degree = 0;
+    });
+
+    var validEdges = [];
+    var edgeSet = new Set();
+
+    edges.forEach(function (edge) {
+      if (!nodeMap.has(edge.source) || !nodeMap.has(edge.target)) return;
+      if (edge.source === edge.target) return;
+
+      var key = edge.source + "=>" + edge.target;
+
+      if (edgeSet.has(key)) return;
+
+      edgeSet.add(key);
+      validEdges.push(edge);
+
+      nodeMap.get(edge.source).degree++;
+      nodeMap.get(edge.target).degree++;
+    });
+
+    container.innerHTML = "";
+
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    var width = container.clientWidth;
+    var height = window.innerWidth <= 768 ? 500 : 700;
+
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+
+    container.appendChild(svg);
+
+    var edgeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    var nodeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+    svg.appendChild(edgeLayer);
+    svg.appendChild(nodeLayer);
+
+    var edgeElements = [];
+    var nodeElements = new Map();
+
+    validEdges.forEach(function (edge) {
+      var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.classList.add("graph-edge");
+
+      edgeLayer.appendChild(line);
+      edgeElements.push({
+        line: line,
+        edge: edge
+      });
+    });
+
+    nodes.forEach(function (node) {
+      var group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+      var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.classList.add("graph-node");
+
+      var radius = Math.min(9, 3 + node.degree * 0.8);
+      circle.setAttribute("r", radius);
+
+      var label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      label.classList.add("graph-label");
+      label.textContent = node.title;
+
+      group.appendChild(circle);
+      group.appendChild(label);
+      nodeLayer.appendChild(group);
+
+      nodeElements.set(node.id, {
+        group: group,
+        circle: circle,
+        label: label
+      });
+
+      group.addEventListener("click", function () {
+        window.location.href = node.url;
+      });
+
+      group.addEventListener("mousedown", function (event) {
+        event.stopPropagation();
+      });
+    });
+
+    function updatePositions() {
+      nodes.forEach(function (node) {
+        var element = nodeElements.get(node.id);
+
+        var x = node.x * width;
+        var y = node.y * height;
+
+        element.group.setAttribute(
+          "transform",
+          "translate(" + x + "," + y + ")"
+        );
+
+        element.label.setAttribute("x", 12);
+        element.label.setAttribute("y", 4);
+      });
+
+      edgeElements.forEach(function (item) {
+        var source = nodeMap.get(item.edge.source);
+        var target = nodeMap.get(item.edge.target);
+
+        item.line.setAttribute("x1", source.x * width);
+        item.line.setAttribute("y1", source.y * height);
+        item.line.setAttribute("x2", target.x * width);
+        item.line.setAttribute("y2", target.y * height);
+      });
+    }
+
+    function simulate() {
+      for (var i = 0; i < nodes.length; i++) {
+        for (var j = i + 1; j < nodes.length; j++) {
+          var a = nodes[i];
+          var b = nodes[j];
+
+          var dx = b.x - a.x;
+          var dy = b.y - a.y;
+
+          var distanceSquared = dx * dx + dy * dy;
+          var distance = Math.sqrt(distanceSquared) || 0.001;
+
+          var force = 0.00035 / distanceSquared;
+
+          var fx = dx / distance * force;
+          var fy = dy / distance * force;
+
+          a.vx -= fx;
+          a.vy -= fy;
+          b.vx += fx;
+          b.vy += fy;
+        }
+      }
+
+      validEdges.forEach(function (edge) {
+        var source = nodeMap.get(edge.source);
+        var target = nodeMap.get(edge.target);
+
+        var dx = target.x - source.x;
+        var dy = target.y - source.y;
+
+        var distance = Math.sqrt(dx * dx + dy * dy) || 0.001;
+        var targetDistance = 0.16;
+
+        var force = (distance - targetDistance) * 0.0012;
+
+        var fx = dx / distance * force;
+        var fy = dy / distance * force;
+
+        source.vx += fx;
+        source.vy += fy;
+        target.vx -= fx;
+        target.vy -= fy;
+      });
+
+      nodes.forEach(function (node) {
+        node.vx *= 0.92;
+        node.vy *= 0.92;
+
+        node.vx += (0.5 - node.x) * 0.00035;
+        node.vy += (0.5 - node.y) * 0.00035;
+
+        node.x += node.vx;
+        node.y += node.vy;
+
+        node.x = Math.max(0.03, Math.min(0.97, node.x));
+        node.y = Math.max(0.03, Math.min(0.97, node.y));
+      });
+
+      updatePositions();
+      requestAnimationFrame(simulate);
+    }
+
+    var dragging = null;
+
+    nodes.forEach(function (node) {
+      var element = nodeElements.get(node.id);
+
+      element.group.addEventListener("mousedown", function () {
+        dragging = node;
+      });
+    });
+
+    svg.addEventListener("mousemove", function (event) {
+      if (!dragging) return;
+
+      var rect = svg.getBoundingClientRect();
+
+      dragging.x =
+        (event.clientX - rect.left) / rect.width;
+
+      dragging.y =
+        (event.clientY - rect.top) / rect.height;
+
+      dragging.vx = 0;
+      dragging.vy = 0;
+    });
+
+    document.addEventListener("mouseup", function () {
+      dragging = null;
+    });
+
+    window.addEventListener("resize", function () {
+      width = container.clientWidth;
+      height = window.innerWidth <= 768 ? 500 : 700;
+
+      svg.setAttribute(
+        "viewBox",
+        "0 0 " + width + " " + height
+      );
+
+      updatePositions();
+    });
+
+    updatePositions();
+    simulate();
+  });
+})();
+</script>
 {{ end }}
