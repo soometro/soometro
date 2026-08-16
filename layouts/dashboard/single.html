@@ -1,5 +1,6 @@
 {{ define "main" }}
-
+{{ $posts := where .Site.RegularPages "Section" "docs" }}
+{{ $postCount := len $posts }}
 <main class="dashboard-page">
   <header class="dashboard-header">
     <h1>{{ .Title }}</h1>
@@ -11,42 +12,42 @@
     <div class="dashboard-stats">
       <div>
         <span class="dashboard-label">게시물</span>
-        <strong>-</strong>
+        <strong>{{ $postCount }}</strong>
       </div>
 
       <div>
         <span class="dashboard-label">전체 조회수</span>
-        <strong>-</strong>
+        <strong>{{ $postCount }}</strong>
       </div>
 
       <div>
         <span class="dashboard-label">조회수 높은 글</span>
-        <strong>-</strong>
+        <strong>{{ $postCount }}</strong>
       </div>
 
       <div>
         <span class="dashboard-label">가장 안 읽힌 글</span>
-        <strong>-</strong>
+        <strong>{{ $postCount }}</strong>
       </div>
 
       <div>
         <span class="dashboard-label">가장 오래된 글</span>
-        <strong>-</strong>
+        <strong>{{ $postCount }}</strong>
       </div>
 
       <div>
         <span class="dashboard-label">가장 긴 글</span>
-        <strong>-</strong>
+        <strong>{{ $postCount }}</strong>
       </div>
 
       <div>
         <span class="dashboard-label">가장 짧은 글</span>
-        <strong>-</strong>
+        <strong>{{ $postCount }}</strong>
       </div>
 
       <div>
         <span class="dashboard-label">최근 작성</span>
-        <strong>-</strong>
+        <strong>{{ $postCount }}</strong>
       </div>
     </div>
   </section>
