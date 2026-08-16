@@ -1,45 +1,66 @@
 {{ define "main" }}
+
 {{- $pages := where .Site.RegularPages "Section" "docs" -}}
 {{- $nodes := slice -}}
 {{- $edges := slice -}}
 
 {{- range $pages -}}
-  {{- $nodes = $nodes | append (dict
-    "id" .RelPermalink
-    "title" .Title
-    "url" .RelPermalink
-  ) -}}
 
-  {{- $source := .RelPermalink -}}
-{{- range (findRE `href="[^"]+"` .Content) -}}
-  {{- $target := replaceRE `^href="([^"]+)".*$` `$1` . -}}
-  {{- $target = replaceRE `[?#].*$` `` $target -}}
-  {{- $target = replaceRE `^https?://soometro\.kr` `` $target -}}
+  {{- if ne .RelPermalink "/docs/guestbook/" -}}
 
-  {{- if strings.HasPrefix $target "/docs/" -}}
-    {{- if not (hasSuffix $target "/") -}}
-      {{- $target = printf "%s/" $target -}}
+    {{- $source := .RelPermalink -}}
+
+    {{- $nodes = $nodes | append (dict
+      "id" $source
+      "title" .Title
+      "url" $source
+    ) -}}
+
+    {{- range (findRE `/docs/[A-Za-z0-9._~!$&'()*+,;=:@%/-]+` .Content) -}}
+
+      {{- $target := . -}}
+      {{- $target = replaceRE `[?#].*$` `` $target -}}
+
+      {{- if not (hasSuffix $target "/") -}}
+        {{- $target = printf "%s/" $target -}}
+      {{- end -}}
+
+      {{- if and (ne $target $source) (in $target "/docs/") -}}
+
+        {{- $edges = $edges | append (dict
+          "source" $source
+          "target" $target
+        ) -}}
+
+      {{- end -}}
+
     {{- end -}}
 
-    {{- $edges = $edges | append (dict
-      "source" $source
-      "target" $target
-    ) -}}
   {{- end -}}
-{{- end -}}
+
 {{- end -}}
 
-{{- $graphData := dict "nodes" $nodes "edges" $edges -}}
+{{- $graphData := dict
+  "nodes" $nodes
+  "edges" $edges
+-}}
 
 <div class="graph-page">
+
   <header class="graph-header">
     <h1>{{ .Title }}</h1>
     <p>soometro 게시물 사이의 연결 관계를 시각적으로 탐색합니다.</p>
+    <div class="graph-stats">
+      {{ len $nodes }}개 게시물 · {{ len $edges }}개 연결
+    </div>
   </header>
 
   <div id="knowledge-graph" class="knowledge-graph">
-    <div class="graph-loading">지식 그래프를 불러오는 중...</div>
+    <div class="graph-loading">
+      지식 그래프를 불러오는 중...
+    </div>
   </div>
+
 </div>
 
 <script id="graph-data" type="application/json">
@@ -52,7 +73,7 @@
 }
 
 .graph-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .graph-header h1 {
@@ -60,12 +81,18 @@
 }
 
 .graph-header p {
+  margin-bottom: 0.6rem;
   opacity: 0.7;
+}
+
+.graph-stats {
+  font-size: 0.85rem;
+  opacity: 0.55;
 }
 
 .knowledge-graph {
   width: 100%;
-  min-height: 700px;
+  height: 700px;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   overflow: hidden;
@@ -75,7 +102,7 @@
 
 .knowledge-graph svg {
   width: 100%;
-  height: 700px;
+  height: 100%;
   display: block;
   cursor: grab;
 }
@@ -87,7 +114,7 @@
 .graph-edge {
   stroke: currentColor;
   stroke-width: 1;
-  opacity: 0.2;
+  opacity: 0.18;
 }
 
 .graph-node {
@@ -95,10 +122,24 @@
   cursor: pointer;
 }
 
-.graph-label {
-  fill: currentColor;
-  font-size: 11px;
+.graph-node:hover {
+  opacity: 0.6;
+}
+
+.graph-tooltip {
+  position: absolute;
+  display: none;
   pointer-events: none;
+  max-width: 320px;
+  padding: 8px 10px;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  background: var(--body-background);
+  color: inherit;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  z-index: 10;
 }
 
 .graph-empty {
@@ -111,14 +152,8 @@
 }
 
 @media (max-width: 768px) {
-  .knowledge-graph,
-  .knowledge-graph svg {
-    min-height: 500px;
+  .knowledge-graph {
     height: 500px;
-  }
-
-  .graph-label {
-    font-size: 9px;
   }
 }
 </style>
@@ -128,6 +163,7 @@
   "use strict";
 
   document.addEventListener("DOMContentLoaded", function () {
+
     var container = document.getElementById("knowledge-graph");
     var dataElement = document.getElementById("graph-data");
 
@@ -136,212 +172,691 @@
     var data;
 
     try {
-  data = JSON.parse(dataElement.textContent);
+      data = JSON.parse(dataElement.textContent);
 
-  if (typeof data === "string") {
-    data = JSON.parse(data);
-  }
-} catch (error) {
-  container.innerHTML =
-    '<div class="graph-empty">그래프 데이터를 읽을 수 없습니다.</div>';
-  return;
-}
+      if (typeof data === "string") {
+        data = JSON.parse(data);
+      }
+
+    } catch (error) {
+      container.innerHTML =
+        '<div class="graph-empty">그래프 데이터를 읽을 수 없습니다.</div>';
+      return;
+    }
 
     var nodes = Array.isArray(data.nodes) ? data.nodes : [];
     var edges = Array.isArray(data.edges) ? data.edges : [];
 
-container.innerHTML =
-  '<div class="graph-empty">' +
-  'JSON 확인 — nodes: ' + nodes.length +
-  ' / edges: ' + edges.length +
-  ' / raw: ' + dataElement.textContent.length +
-  '</div>';
-
     if (!nodes.length) {
-  container.innerHTML =
-    '<div class="graph-empty">' +
-    'JSON 오류 — raw 길이: ' + dataElement.textContent.length +
-    ' / data.nodes: ' + typeof data.nodes +
-    '</div>';
-  return;
-}
+      container.innerHTML =
+        '<div class="graph-empty">게시물이 없습니다.</div>';
+      return;
+    }
+
+    /*
+     * ------------------------------------------------------------
+     * 중복 노드 제거
+     * ------------------------------------------------------------
+     */
 
     var nodeMap = new Map();
+
     nodes.forEach(function (node) {
       nodeMap.set(node.id, node);
-
-      node.x = 0.2 + Math.random() * 0.6;
-      node.y = 0.2 + Math.random() * 0.6;
-      node.vx = 0;
-      node.vy = 0;
-      node.degree = 0;
     });
 
-    var validEdges = [];
-    var edgeSet = new Set();
+    nodes = Array.from(nodeMap.values());
+
+    /*
+     * ------------------------------------------------------------
+     * 중복 및 잘못된 연결 제거
+     * ------------------------------------------------------------
+     */
+
+    var edgeMap = new Map();
 
     edges.forEach(function (edge) {
-      if (!nodeMap.has(edge.source) || !nodeMap.has(edge.target)) return;
+
+      if (!nodeMap.has(edge.source)) return;
+      if (!nodeMap.has(edge.target)) return;
       if (edge.source === edge.target) return;
 
       var key = edge.source + "=>" + edge.target;
 
-      if (edgeSet.has(key)) return;
+      if (!edgeMap.has(key)) {
+        edgeMap.set(key, edge);
+      }
 
-      edgeSet.add(key);
-      validEdges.push(edge);
+    });
+
+    edges = Array.from(edgeMap.values());
+
+    /*
+     * ------------------------------------------------------------
+     * 연결 정도 계산
+     * ------------------------------------------------------------
+     */
+
+    nodes.forEach(function (node) {
+      node.degree = 0;
+    });
+
+    edges.forEach(function (edge) {
 
       nodeMap.get(edge.source).degree++;
       nodeMap.get(edge.target).degree++;
+
     });
+
+    /*
+     * ------------------------------------------------------------
+     * SVG 생성
+     * ------------------------------------------------------------
+     */
 
     container.innerHTML = "";
 
-    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    var width = container.clientWidth;
-    var height = window.innerWidth <= 768 ? 500 : 700;
+    var svg = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
 
-    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+    var width = container.clientWidth;
+    var height = container.clientHeight;
+
+    if (!width || !height) {
+      width = 900;
+      height = 700;
+    }
+
+    svg.setAttribute(
+      "viewBox",
+      "0 0 " + width + " " + height
+    );
 
     container.appendChild(svg);
 
-    var edgeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    var nodeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    var edgeLayer = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "g"
+    );
+
+    var nodeLayer = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "g"
+    );
 
     svg.appendChild(edgeLayer);
     svg.appendChild(nodeLayer);
 
-    var edgeElements = [];
-    var nodeElements = new Map();
+    /*
+     * ------------------------------------------------------------
+     * 툴팁
+     * ------------------------------------------------------------
+     */
 
-    validEdges.forEach(function (edge) {
-      var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    var tooltip = document.createElement("div");
+
+    tooltip.className = "graph-tooltip";
+
+    container.appendChild(tooltip);
+
+    /*
+     * ------------------------------------------------------------
+     * 초기 위치
+     * ------------------------------------------------------------
+     */
+
+    var count = nodes.length;
+
+    nodes.forEach(function (node, index) {
+
+      var angle =
+        (Math.PI * 2 * index) / count;
+
+      var radius =
+        Math.min(width, height) * 0.35;
+
+      node.x =
+        width / 2 +
+        Math.cos(angle) * radius;
+
+      node.y =
+        height / 2 +
+        Math.sin(angle) * radius;
+
+      node.vx = 0;
+      node.vy = 0;
+
+    });
+
+    /*
+     * ------------------------------------------------------------
+     * 연결선
+     * ------------------------------------------------------------
+     */
+
+    var edgeElements = [];
+
+    edges.forEach(function (edge) {
+
+      var line = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "line"
+      );
+
       line.classList.add("graph-edge");
 
       edgeLayer.appendChild(line);
+
       edgeElements.push({
         line: line,
         edge: edge
       });
+
     });
+
+    /*
+     * ------------------------------------------------------------
+     * 노드
+     * ------------------------------------------------------------
+     */
+
+    var nodeElements = new Map();
 
     nodes.forEach(function (node) {
-      var group = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-      var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      var group = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "g"
+      );
+
+      var circle = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      );
+
       circle.classList.add("graph-node");
 
-      var radius = Math.min(9, 3 + node.degree * 0.8);
-      circle.setAttribute("r", radius);
+      var radius =
+        Math.min(
+          9,
+          3 + Math.sqrt(node.degree + 1)
+        );
 
-      var label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      label.classList.add("graph-label");
-      label.textContent = node.title;
+      circle.setAttribute(
+        "r",
+        radius
+      );
 
       group.appendChild(circle);
-      group.appendChild(label);
+
       nodeLayer.appendChild(group);
 
-      nodeElements.set(node.id, {
-        group: group,
-        circle: circle,
-        label: label
-      });
+      nodeElements.set(
+        node.id,
+        {
+          group: group,
+          circle: circle
+        }
+      );
 
-      group.addEventListener("click", function () {
-        window.location.href = node.url;
-      });
+      group.addEventListener(
+        "mouseenter",
+        function () {
 
-      group.addEventListener("mousedown", function (event) {
-        event.stopPropagation();
-      });
+          tooltip.textContent = node.title;
+
+          tooltip.style.display = "block";
+
+        }
+      );
+
+      group.addEventListener(
+        "mousemove",
+        function (event) {
+
+          var rect =
+            container.getBoundingClientRect();
+
+          tooltip.style.left =
+            (event.clientX - rect.left + 14) +
+            "px";
+
+          tooltip.style.top =
+            (event.clientY - rect.top + 14) +
+            "px";
+
+        }
+      );
+
+      group.addEventListener(
+        "mouseleave",
+        function () {
+
+          tooltip.style.display = "none";
+
+        }
+      );
+
+      group.addEventListener(
+        "click",
+        function () {
+
+          window.location.href =
+            node.url;
+
+        }
+      );
+
     });
 
-    function updatePositions() {
-      nodes.forEach(function (node) {
-        var element = nodeElements.get(node.id);
+    /*
+     * ------------------------------------------------------------
+     * 위치 갱신
+     * ------------------------------------------------------------
+     */
 
-        var x = node.x * width;
-        var y = node.y * height;
+    function updatePositions() {
+
+      nodes.forEach(function (node) {
+
+        var element =
+          nodeElements.get(node.id);
+
+        if (!element) return;
+
+        if (
+          !Number.isFinite(node.x) ||
+          !Number.isFinite(node.y)
+        ) {
+
+          node.x = width / 2;
+          node.y = height / 2;
+
+        }
 
         element.group.setAttribute(
           "transform",
-          "translate(" + x + "," + y + ")"
+          "translate(" +
+          node.x +
+          "," +
+          node.y +
+          ")"
         );
 
-        element.label.setAttribute("x", 12);
-        element.label.setAttribute("y", 4);
       });
 
       edgeElements.forEach(function (item) {
-        var source = nodeMap.get(item.edge.source);
-        var target = nodeMap.get(item.edge.target);
 
-        item.line.setAttribute("x1", source.x * width);
-        item.line.setAttribute("y1", source.y * height);
-        item.line.setAttribute("x2", target.x * width);
-        item.line.setAttribute("y2", target.y * height);
+        var source =
+          nodeMap.get(
+            item.edge.source
+          );
+
+        var target =
+          nodeMap.get(
+            item.edge.target
+          );
+
+        if (!source || !target) return;
+
+        item.line.setAttribute(
+          "x1",
+          source.x
+        );
+
+        item.line.setAttribute(
+          "y1",
+          source.y
+        );
+
+        item.line.setAttribute(
+          "x2",
+          target.x
+        );
+
+        item.line.setAttribute(
+          "y2",
+          target.y
+        );
+
       });
+
     }
 
+    /*
+     * ------------------------------------------------------------
+     * 안정적인 물리 시뮬레이션
+     * ------------------------------------------------------------
+     */
+
+    var simulationRunning = true;
+
     function simulate() {
-  var count = nodes.length;
-  var radius = 0.38;
 
-  nodes.forEach(function (node, index) {
-    var angle = (Math.PI * 2 * index) / count;
+      if (!simulationRunning) return;
 
-    node.x = 0.5 + Math.cos(angle) * radius;
-    node.y = 0.5 + Math.sin(angle) * radius;
-  });
+      /*
+       * 반발력
+       */
 
-  updatePositions();
-}
+      for (
+        var i = 0;
+        i < nodes.length;
+        i++
+      ) {
+
+        for (
+          var j = i + 1;
+          j < nodes.length;
+          j++
+        ) {
+
+          var a = nodes[i];
+          var b = nodes[j];
+
+          var dx =
+            b.x - a.x;
+
+          var dy =
+            b.y - a.y;
+
+          var distanceSquared =
+            dx * dx +
+            dy * dy;
+
+          if (
+            !Number.isFinite(
+              distanceSquared
+            )
+          ) continue;
+
+          distanceSquared =
+            Math.max(
+              distanceSquared,
+              100
+            );
+
+          var distance =
+            Math.sqrt(
+              distanceSquared
+            );
+
+          var force =
+            2500 /
+            distanceSquared;
+
+          var fx =
+            (dx / distance) *
+            force;
+
+          var fy =
+            (dy / distance) *
+            force;
+
+          a.vx -= fx;
+          a.vy -= fy;
+
+          b.vx += fx;
+          b.vy += fy;
+
+        }
+
+      }
+
+      /*
+       * 연결선 인력
+       */
+
+      edges.forEach(function (edge) {
+
+        var source =
+          nodeMap.get(
+            edge.source
+          );
+
+        var target =
+          nodeMap.get(
+            edge.target
+          );
+
+        if (!source || !target) return;
+
+        var dx =
+          target.x - source.x;
+
+        var dy =
+          target.y - source.y;
+
+        var distance =
+          Math.sqrt(
+            dx * dx +
+            dy * dy
+          );
+
+        if (
+          !Number.isFinite(distance) ||
+          distance < 1
+        ) {
+          return;
+        }
+
+        var desiredDistance =
+          110;
+
+        var force =
+          (distance - desiredDistance) *
+          0.002;
+
+        var fx =
+          (dx / distance) *
+          force;
+
+        var fy =
+          (dy / distance) *
+          force;
+
+        source.vx += fx;
+        source.vy += fy;
+
+        target.vx -= fx;
+        target.vy -= fy;
+
+      });
+
+      /*
+       * 중심으로 약하게 끌어당김
+       */
+
+      nodes.forEach(function (node) {
+
+        node.vx +=
+          (width / 2 - node.x) *
+          0.0005;
+
+        node.vy +=
+          (height / 2 - node.y) *
+          0.0005;
+
+      });
+
+      /*
+       * 속도 및 위치 업데이트
+       */
+
+      nodes.forEach(function (node) {
+
+        node.vx *= 0.88;
+        node.vy *= 0.88;
+
+        node.x += node.vx;
+        node.y += node.vy;
+
+        /*
+         * 화면 밖으로 나가지 않도록 제한
+         */
+
+        node.x =
+          Math.max(
+            20,
+            Math.min(
+              width - 20,
+              node.x
+            )
+          );
+
+        node.y =
+          Math.max(
+            20,
+            Math.min(
+              height - 20,
+              node.y
+            )
+          );
+
+        /*
+         * NaN 방지
+         */
+
+        if (
+          !Number.isFinite(node.x)
+        ) {
+          node.x = width / 2;
+        }
+
+        if (
+          !Number.isFinite(node.y)
+        ) {
+          node.y = height / 2;
+        }
+
+        if (
+          !Number.isFinite(node.vx)
+        ) {
+          node.vx = 0;
+        }
+
+        if (
+          !Number.isFinite(node.vy)
+        ) {
+          node.vy = 0;
+        }
+
+      });
+
+      updatePositions();
+
+      requestAnimationFrame(
+        simulate
+      );
+
+    }
+
+    /*
+     * ------------------------------------------------------------
+     * 드래그
+     * ------------------------------------------------------------
+     */
 
     var dragging = null;
 
     nodes.forEach(function (node) {
-      var element = nodeElements.get(node.id);
 
-      element.group.addEventListener("mousedown", function () {
-        dragging = node;
-      });
-    });
+      var element =
+        nodeElements.get(
+          node.id
+        );
 
-    svg.addEventListener("mousemove", function (event) {
-      if (!dragging) return;
+      element.group.addEventListener(
+        "mousedown",
+        function (event) {
 
-      var rect = svg.getBoundingClientRect();
+          event.preventDefault();
 
-      dragging.x =
-        (event.clientX - rect.left) / rect.width;
+          dragging = node;
 
-      dragging.y =
-        (event.clientY - rect.top) / rect.height;
-
-      dragging.vx = 0;
-      dragging.vy = 0;
-    });
-
-    document.addEventListener("mouseup", function () {
-      dragging = null;
-    });
-
-    window.addEventListener("resize", function () {
-      width = container.clientWidth;
-      height = window.innerWidth <= 768 ? 500 : 700;
-
-      svg.setAttribute(
-        "viewBox",
-        "0 0 " + width + " " + height
+        }
       );
 
-      updatePositions();
     });
 
+    svg.addEventListener(
+      "mousemove",
+      function (event) {
+
+        if (!dragging) return;
+
+        var rect =
+          svg.getBoundingClientRect();
+
+        dragging.x =
+          event.clientX -
+          rect.left;
+
+        dragging.y =
+          event.clientY -
+          rect.top;
+
+        dragging.vx = 0;
+        dragging.vy = 0;
+
+        updatePositions();
+
+      }
+    );
+
+    document.addEventListener(
+      "mouseup",
+      function () {
+
+        dragging = null;
+
+      }
+    );
+
+    /*
+     * ------------------------------------------------------------
+     * 화면 크기 변경
+     * ------------------------------------------------------------
+     */
+
+    window.addEventListener(
+      "resize",
+      function () {
+
+        width =
+          container.clientWidth;
+
+        height =
+          container.clientHeight;
+
+        svg.setAttribute(
+          "viewBox",
+          "0 0 " +
+          width +
+          " " +
+          height
+        );
+
+        updatePositions();
+
+      }
+    );
+
+    /*
+     * ------------------------------------------------------------
+     * 시작
+     * ------------------------------------------------------------
+     */
+
     updatePositions();
+
     simulate();
+
   });
+
 })();
 </script>
+
 {{ end }}
