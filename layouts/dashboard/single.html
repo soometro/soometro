@@ -531,6 +531,8 @@
 
 <style>
 
+<style>
+
 /* =========================================================
    Dashboard 기본
    ========================================================= */
@@ -547,20 +549,34 @@
   margin-bottom: 3rem;
 }
 
+/* Dashboard H1 */
+.dashboard-header h1 {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  color: #666666 !important;
+}
+html.forced-dark .dashboard-header h1 {
+  color: #a8a8a8 !important;
+}
+
 /*
- * H1은 사이트 기존 스타일 유지.
- *
- * Dashboard H2만 사이트의 2단계 메타 계층에 맞춤.
+ * Dashboard H2 (오늘의 추천 아카이브 · 통계 · 시간 축)
  */
 
 .dashboard-section h2 {
   margin-bottom: 1rem;
 
-  font-size: 0.85rem !important;
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.8rem !important;
 
   font-weight: 600;
 
-  color: #b0b0b0 !important;
+  color: #666666 !important;
+}
+
+html.forced-dark .dashboard-section h2 {
+  color: #a8a8a8 !important;
 }
 
 
@@ -587,12 +603,20 @@
   margin-bottom:
     0.5rem;
 
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.8rem;
+    0.75rem;
 
   line-height:
     1.4;
 
+  color:
+    #666666 !important;
+}
+
+html.forced-dark .dashboard-recommendation-date {
   color:
     #a8a8a8 !important;
 }
@@ -601,8 +625,11 @@
   display:
     block;
 
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.85rem;
+    0.8rem;
 
   font-weight:
     500;
@@ -614,7 +641,12 @@
     none;
 
   color:
-    #b0b0b0 !important;
+    #666666 !important;
+}
+
+html.forced-dark .dashboard-recommendation-title {
+  color:
+    #a8a8a8 !important;
 }
 
 .dashboard-recommendation-title:hover {
@@ -626,12 +658,20 @@
   margin-top:
     0.6rem;
 
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.8rem;
+    0.75rem;
 
   line-height:
     1.4;
 
+  color:
+    #666666 !important;
+}
+
+html.forced-dark .dashboard-recommendation-meta {
   color:
     #a8a8a8 !important;
 }
@@ -695,8 +735,11 @@
   text-align:
     right;
 
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.8rem;
+    0.75rem;
 
   font-weight:
     500;
@@ -704,6 +747,11 @@
   line-height:
     1.4;
 
+  color:
+    #666666 !important;
+}
+
+html.forced-dark .dashboard-total-stat strong {
   color:
     #a8a8a8 !important;
 }
@@ -751,25 +799,36 @@
 }
 
 .dashboard-stat-meta .dashboard-label {
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.8rem;
+    0.75rem;
 
   line-height:
     1.4;
 
   color:
-    #a8a8a8 !important;
+    #666666 !important;
 
   white-space:
     nowrap;
+}
+
+html.forced-dark .dashboard-stat-meta .dashboard-label {
+  color:
+    #a8a8a8 !important;
 }
 
 .dashboard-stat-meta strong {
   text-align:
     left;
 
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.8rem;
+    0.75rem;
 
   font-weight:
     500;
@@ -777,6 +836,11 @@
   line-height:
     1.4;
 
+  color:
+    #666666 !important;
+}
+
+html.forced-dark .dashboard-stat-meta strong {
   color:
     #a8a8a8 !important;
 }
@@ -785,8 +849,11 @@
   min-width:
     0;
 
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.85rem;
+    0.8rem;
 
   font-weight:
     500;
@@ -795,13 +862,18 @@
     1.5;
 
   color:
-    #b0b0b0 !important;
+    #666666 !important;
 
   text-decoration:
     none;
 
   overflow-wrap:
     anywhere;
+}
+
+html.forced-dark .dashboard-stat-title {
+  color:
+    #a8a8a8 !important;
 }
 
 .dashboard-stat-title:hover {
@@ -846,12 +918,20 @@
   flex:
     0 0 5rem;
 
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.8rem;
+    0.75rem;
 
   line-height:
     1.4;
 
+  color:
+    #666666 !important;
+}
+
+html.forced-dark .dashboard-timeline-date {
   color:
     #a8a8a8 !important;
 }
@@ -897,8 +977,11 @@
   text-align:
     right;
 
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
   font-size:
-    0.8rem;
+    0.75rem;
 
   line-height:
     1.4;
@@ -907,10 +990,15 @@
     400;
 
   color:
-    #a8a8a8 !important;
+    #666666 !important;
 
   white-space:
     nowrap;
+}
+
+html.forced-dark .dashboard-timeline-count {
+  color:
+    #a8a8a8 !important;
 }
 
 
