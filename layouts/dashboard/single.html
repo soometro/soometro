@@ -2,7 +2,27 @@
 {{ $posts := where .Site.RegularPages "Section" "docs" }}
 {{ $postCount := len $posts }}
 
+{{ $postsByDateAsc := sort $posts "Date" "asc" }}
+{{ $postsByDateDesc := sort $posts "Date" "desc" }}
+{{ $postsByWordDesc := sort $posts "WordCount" "desc" }}
+{{ $postsByWordAsc := sort $posts "WordCount" "asc" }}
+
+{{ $oldestPost := index $postsByDateAsc 0 }}
+{{ $newestPost := index $postsByDateDesc 0 }}
+{{ $longestPost := index $postsByWordDesc 0 }}
+{{ $shortestPost := index $postsByWordAsc 0 }}
+
+{{ $timelineGroups := $posts.GroupByDate "2006-01" }}
+{{ $maxMonthCount := 0 }}
+
+{{ range $timelineGroups }}
+  {{ if gt (len .Pages) $maxMonthCount }}
+    {{ $maxMonthCount = len .Pages }}
+  {{ end }}
+{{ end }}
+
 <main class="dashboard-page">
+
   <header class="dashboard-header">
     <h1>{{ .Title }}</h1>
   </header>
@@ -21,6 +41,7 @@
     <h2>통계</h2>
 
     <div class="dashboard-stats">
+
       <div>
         <span class="dashboard-label">게시물</span>
         <strong>{{ $postCount }}</strong>
@@ -38,28 +59,41 @@
 
       <div>
         <span class="dashboard-label">가장 안 읽힌 글</span>
-        <strong>{{ $postCount }}</strong>
+        <strong id="dashboard-low-post">불러오는 중</strong>
       </div>
 
       <div>
         <span class="dashboard-label">가장 오래된 글</span>
-        <strong>{{ $postCount }}</strong>
+        <strong>
+          {{ $oldestPost.Title }}
+          · {{ $oldestPost.Date.Format "2006-01-02" }}
+        </strong>
       </div>
 
       <div>
         <span class="dashboard-label">가장 긴 글</span>
-        <strong>{{ $postCount }}</strong>
+        <strong>
+          {{ $longestPost.Title }}
+          · {{ $longestPost.WordCount | lang.NumFmt 0 }}단어
+        </strong>
       </div>
 
       <div>
         <span class="dashboard-label">가장 짧은 글</span>
-        <strong>{{ $postCount }}</strong>
+        <strong>
+          {{ $shortestPost.Title }}
+          · {{ $shortestPost.WordCount | lang.NumFmt 0 }}단어
+        </strong>
       </div>
 
       <div>
         <span class="dashboard-label">최근 작성</span>
-        <strong>{{ $postCount }}</strong>
+        <strong>
+          {{ $newestPost.Title }}
+          · {{ $newestPost.Date.Format "2006-01-02" }}
+        </strong>
       </div>
+
     </div>
   </section>
 
@@ -67,20 +101,41 @@
     <h2>시간 축</h2>
 
     <div class="dashboard-timeline">
-      <div><span>2026</span></div>
-      <div><span>08</span><i></i></div>
-      <div><span>07</span><i></i></div>
-      <div><span>06</span><i></i></div>
+
+      {{ range $timelineGroups }}
+        {{ $monthCount := len .Pages }}
+        {{ $barWidth := 0 }}
+
+        {{ if gt $maxMonthCount 0 }}
+          {{ $barWidth = div (mul $monthCount 180) $maxMonthCount }}
+        {{ end }}
+
+        <div class="dashboard-timeline-row">
+          <span class="dashboard-timeline-date">
+            {{ .Key }}
+          </span>
+
+          <i style="width: {{ $barWidth }}px;"></i>
+
+          <strong>
+            {{ $monthCount }} posts
+          </strong>
+        </div>
+      {{ end }}
+
     </div>
   </section>
+
 </main>
 
 <script>
 (function () {
+
   const totalViewsEl = document.getElementById("dashboard-total-views");
   const topPostEl = document.getElementById("dashboard-top-post");
+  const lowPostEl = document.getElementById("dashboard-low-post");
 
-  if (!totalViewsEl || !topPostEl) return;
+  if (!totalViewsEl || !topPostEl || !lowPostEl) return;
 
   const postUrls = [
     {{ range $posts }}
@@ -99,25 +154,34 @@
 
   fetch(`${supabaseUrl}/rest/v1/rpc/get_page_view_counts`, {
     method: "POST",
+
     headers: {
       "Content-Type": "application/json",
       "apikey": supabaseKey,
       "Authorization": `Bearer ${supabaseKey}`
     },
+
     body: JSON.stringify({
       p_urls: postUrls
     })
   })
+
   .then(function (res) {
+
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
     }
+
     return res.json();
   })
+
   .then(function (data) {
+
     console.log("Dashboard RPC:", data);
 
     const rows = Array.isArray(data) ? data : [];
+
+    /* 전체 조회수 */
 
     const totalViews = rows.reduce(
       function (sum, item) {
@@ -126,32 +190,94 @@
       0
     );
 
-    totalViewsEl.innerText = totalViews.toLocaleString();
+    totalViewsEl.innerText =
+      totalViews.toLocaleString();
+
+    /* 조회수 높은 글 */
 
     if (rows.length > 0) {
+
       const topPost = rows[0];
-      const topTitle = postTitles[topPost.url] || topPost.url;
-      const topViews = Number(topPost.page_hit || 0);
+
+      const topTitle =
+        postTitles[topPost.url] || topPost.url;
+
+      const topViews =
+        Number(topPost.page_hit || 0);
 
       topPostEl.innerText =
         `${topTitle} · ${topViews.toLocaleString()}회`;
-    } else {
+    }
+
+    else {
       topPostEl.innerText = "없음";
     }
 
-    console.log("Dashboard total views:", totalViews);
-    console.log("Dashboard top post:", rows[0] || null);
-    console.log("Dashboard post URL count:", postUrls.length);
+    /* 가장 안 읽힌 글 */
+
+    if (rows.length > 0) {
+
+      const lowPost =
+        rows[rows.length - 1];
+
+      const lowTitle =
+        postTitles[lowPost.url] || lowPost.url;
+
+      const lowViews =
+        Number(lowPost.page_hit || 0);
+
+      lowPostEl.innerText =
+        `${lowTitle} · ${lowViews.toLocaleString()}회`;
+    }
+
+    else {
+      lowPostEl.innerText = "없음";
+    }
+
+    console.log(
+      "Dashboard total views:",
+      totalViews
+    );
+
+    console.log(
+      "Dashboard top post:",
+      rows[0] || null
+    );
+
+    console.log(
+      "Dashboard low post:",
+      rows[rows.length - 1] || null
+    );
+
+    console.log(
+      "Dashboard post URL count:",
+      postUrls.length
+    );
+
   })
+
   .catch(function (error) {
-    console.error("Dashboard View Count Error:", error);
-    totalViewsEl.innerText = "확인 불가";
-    topPostEl.innerText = "확인 불가";
+
+    console.error(
+      "Dashboard View Count Error:",
+      error
+    );
+
+    totalViewsEl.innerText =
+      "확인 불가";
+
+    topPostEl.innerText =
+      "확인 불가";
+
+    lowPostEl.innerText =
+      "확인 불가";
   });
+
 })();
 </script>
 
 <style>
+
 .dashboard-page {
   width: 100%;
 }
@@ -170,24 +296,35 @@
 
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
   gap: 0.75rem 2rem;
 }
 
 .dashboard-stats > div {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+
   gap: 1rem;
+
   padding: 0.75rem 0;
-  border-bottom: 1px solid var(--gray-200);
+
+  border-bottom:
+    1px solid var(--gray-200);
 }
 
 .dashboard-label {
   opacity: 0.75;
+
+  flex: 0 0 auto;
 }
 
 .dashboard-stats strong {
   text-align: right;
+
+  font-weight: 600;
 }
 
 .dashboard-recommendation {
@@ -196,44 +333,82 @@
 
 .dashboard-recommendation strong {
   display: block;
-  margin: 0.35rem 0;
+
+  margin:
+    0.35rem 0;
 }
 
 .dashboard-recommendation p {
   margin: 0;
+
   opacity: 0.7;
 }
 
 .dashboard-timeline {
   display: flex;
+
   flex-direction: column;
+
   gap: 0.75rem;
 }
 
-.dashboard-timeline > div {
+.dashboard-timeline-row {
   display: flex;
+
   align-items: center;
-  gap: 1rem;
+
+  gap: 0.75rem;
 }
 
-.dashboard-timeline span {
-  width: 2rem;
-  flex: 0 0 2rem;
+.dashboard-timeline-date {
+  width: 5rem;
+
+  flex:
+    0 0 5rem;
+
+  font-size:
+    0.9rem;
 }
 
-.dashboard-timeline i {
+.dashboard-timeline-row i {
   display: block;
-  width: 180px;
+
   height: 10px;
+
+  min-width: 2px;
+
   border-radius: 5px;
-  background: var(--gray-200);
+
+  background:
+    var(--gray-200);
+}
+
+.dashboard-timeline-row strong {
+  font-size:
+    0.8rem;
+
+  white-space:
+    nowrap;
+
+  opacity: 0.7;
 }
 
 @media (max-width: 768px) {
+
   .dashboard-stats {
     grid-template-columns: 1fr;
   }
+
+  .dashboard-stats > div {
+    align-items: center;
+  }
+
+  .dashboard-stats strong {
+    max-width: 70%;
+  }
+
 }
+
 </style>
 
 {{ end }}
