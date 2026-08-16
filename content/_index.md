@@ -35,11 +35,12 @@ sakura = true
     "어디서 무슨 소리 들리지 않아? 💜 너를 향해 뛰는 내 심장소리." 
   </p> 
   <div style="display: flex; gap: 1.0rem; justify-content: center; align-items: center; flex-wrap: wrap;"> 
-    <a href="/docs/" style="display: inline-block; width: fit-content !important; flex: 0 0 auto !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.9rem; font-weight: bold; color: #2f8f9f; text-decoration: none; border: 1px solid #2f8f9f; padding: 4px 10px; border-radius: 20px; background-color: rgba(47, 143, 159, 0.05); transition: all 0.2s; white-space: nowrap;"> 
-      📂 아카이브 가기 
-    </a> 
-    <a href="/docs/guestbook/" style="display: inline-block; width: fit-content !important; flex: 0 0 auto !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.9rem; font-weight: bold; color: #2f8f9f; text-decoration: none; border: 1px solid #2f8f9f; padding: 4px 10px; border-radius: 20px; background-color: rgba(47, 143, 159, 0.05); transition: all 0.2s; white-space: nowrap;"> 
-      ✏️ 방명록 가기 
+    <a href="/docs/" style="display: inline-block; width: fit-content !important; flex: 0 0 auto !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.9rem; font-weight: bold; color: #2f8f9f; text-decoration: none; border: 1px solid #2f8f9f; padding: 4px 10px; border-radius: 20px; background-color: rgba(47, 143, 159, 0.05); transition: all 0.2s; white-space: nowrap;">
+  📂 아카이브 입장
+    </a>
+
+    <a href="/dashboard/" style="display: inline-block; width: fit-content !important; flex: 0 0 auto !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.9rem; font-weight: bold; color: #2f8f9f; text-decoration: none; border: 1px solid #2f8f9f; padding: 4px 10px; border-radius: 20px; background-color: rgba(47, 143, 159, 0.05); transition: all 0.2s; white-space: nowrap;">
+  📊 현황 확인하기
     </a> 
   </div> 
 </div> 
