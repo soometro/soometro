@@ -36,10 +36,6 @@
   </div>
 </div>
 
-<div style="padding:10px 0;">
-  Pages: {{ len $pages }} / Nodes: {{ len $nodes }}
-</div>
-
 <script id="graph-data" type="application/json">
 {{ $graphData | jsonify | safeHTML }}
 </script>
@@ -134,22 +130,35 @@
     var data;
 
     try {
-      data = JSON.parse(dataElement.textContent);
-    } catch (error) {
-      container.innerHTML = '<div class="graph-empty">그래프 데이터를 읽을 수 없습니다.</div>';
-      return;
-    }
+  data = JSON.parse(dataElement.textContent);
+
+  if (typeof data === "string") {
+    data = JSON.parse(data);
+  }
+} catch (error) {
+  container.innerHTML =
+    '<div class="graph-empty">그래프 데이터를 읽을 수 없습니다.</div>';
+  return;
+}
 
     var nodes = Array.isArray(data.nodes) ? data.nodes : [];
     var edges = Array.isArray(data.edges) ? data.edges : [];
 
+container.innerHTML =
+  '<div class="graph-empty">' +
+  'JSON 확인 — nodes: ' + nodes.length +
+  ' / edges: ' + edges.length +
+  ' / raw: ' + dataElement.textContent.length +
+  '</div>';
+
     if (!nodes.length) {
-      container.innerHTML =
-        '<div class="graph-empty">' +
-        'RegularPages: {{ len .Site.RegularPages }} / AllPages: {{ len .Site.AllPages }}' +
-        '</div>';
-      return;
-    }
+  container.innerHTML =
+    '<div class="graph-empty">' +
+    'JSON 오류 — raw 길이: ' + dataElement.textContent.length +
+    ' / data.nodes: ' + typeof data.nodes +
+    '</div>';
+  return;
+}
 
     var nodeMap = new Map();
     nodes.forEach(function (node) {
@@ -270,67 +279,18 @@
     }
 
     function simulate() {
-      for (var i = 0; i < nodes.length; i++) {
-        for (var j = i + 1; j < nodes.length; j++) {
-          var a = nodes[i];
-          var b = nodes[j];
+  var count = nodes.length;
+  var radius = 0.38;
 
-          var dx = b.x - a.x;
-          var dy = b.y - a.y;
+  nodes.forEach(function (node, index) {
+    var angle = (Math.PI * 2 * index) / count;
 
-          var distanceSquared = dx * dx + dy * dy;
-          var distance = Math.sqrt(distanceSquared) || 0.001;
+    node.x = 0.5 + Math.cos(angle) * radius;
+    node.y = 0.5 + Math.sin(angle) * radius;
+  });
 
-          var force = 0.00035 / distanceSquared;
-
-          var fx = dx / distance * force;
-          var fy = dy / distance * force;
-
-          a.vx -= fx;
-          a.vy -= fy;
-          b.vx += fx;
-          b.vy += fy;
-        }
-      }
-
-      validEdges.forEach(function (edge) {
-        var source = nodeMap.get(edge.source);
-        var target = nodeMap.get(edge.target);
-
-        var dx = target.x - source.x;
-        var dy = target.y - source.y;
-
-        var distance = Math.sqrt(dx * dx + dy * dy) || 0.001;
-        var targetDistance = 0.16;
-
-        var force = (distance - targetDistance) * 0.0012;
-
-        var fx = dx / distance * force;
-        var fy = dy / distance * force;
-
-        source.vx += fx;
-        source.vy += fy;
-        target.vx -= fx;
-        target.vy -= fy;
-      });
-
-      nodes.forEach(function (node) {
-        node.vx *= 0.92;
-        node.vy *= 0.92;
-
-        node.vx += (0.5 - node.x) * 0.00035;
-        node.vy += (0.5 - node.y) * 0.00035;
-
-        node.x += node.vx;
-        node.y += node.vy;
-
-        node.x = Math.max(0.03, Math.min(0.97, node.x));
-        node.y = Math.max(0.03, Math.min(0.97, node.y));
-      });
-
-      updatePositions();
-      requestAnimationFrame(simulate);
-    }
+  updatePositions();
+}
 
     var dragging = null;
 
