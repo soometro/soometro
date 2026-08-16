@@ -1,10 +1,5 @@
 {{ define "main" }}
-{{- $pages := slice -}}
-{{- range .Site.RegularPages -}}
-  {{- if and (ne .Section "graph") (ne .Section "archive") -}}
-    {{- $pages = $pages | append . -}}
-  {{- end -}}
-{{- end -}}
+{{- $pages := where .Site.RegularPages "Section" "docs" -}}
 {{- $nodes := slice -}}
 {{- $edges := slice -}}
 
