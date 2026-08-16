@@ -129,7 +129,7 @@ html[data-theme="dark"] .markdown p {
 
 /* 3-6) Docs 아카이브 카테고리 메타(개수·날짜) 다크모드 가독성 보정 */
 html.forced-dark .category-meta {
-    color: #b0b0b0 !important;
+    color: #a8a8a8 !important;
 }
 
 /* ==========================================================================
@@ -320,8 +320,8 @@ main h1,
 }
 
 .category-meta {
-    font-size: 0.85rem !important;
-    color: #666 !important;
+    font-size: 0.8rem !important;
+    color: #666666 !important;
     white-space: nowrap !important;
 }
 .category-desc {
