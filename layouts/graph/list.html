@@ -13,6 +13,7 @@
 
   {{- if ne .RelPermalink "/docs/guestbook/" -}}
 
+    {{- $page := . -}}
     {{- $source := .RelPermalink -}}
 
     {{- $nodes = $nodes | append (dict
@@ -37,7 +38,7 @@
     {{- $currentIndex := -1 -}}
 
     {{- range $i, $p := $allPages -}}
-      {{- if eq $p.RelPermalink $.RelPermalink -}}
+      {{- if eq $p.RelPermalink $page.RelPermalink -}}
         {{- $currentIndex = $i -}}
       {{- end -}}
     {{- end -}}
