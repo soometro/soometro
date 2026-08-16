@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{- $pages := slice -}}
 {{- range .Site.RegularPages -}}
-  {{- if strings.HasPrefix .RelPermalink "/docs/" -}}
+  {{- if and (ne .Section "graph") (ne .Section "archive") -}}
     {{- $pages = $pages | append . -}}
   {{- end -}}
 {{- end -}}
