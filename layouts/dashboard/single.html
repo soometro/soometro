@@ -33,7 +33,7 @@
 
       <div>
         <span class="dashboard-label">조회수 높은 글</span>
-        <strong>{{ $postCount }}</strong>
+        <strong id="dashboard-top-post">불러오는 중</strong>
       </div>
 
       <div>
@@ -78,14 +78,21 @@
 <script>
 (function () {
   const totalViewsEl = document.getElementById("dashboard-total-views");
+  const topPostEl = document.getElementById("dashboard-top-post");
 
-  if (!totalViewsEl) return;
+  if (!totalViewsEl || !topPostEl) return;
 
   const postUrls = [
     {{ range $posts }}
       "{{ .RelPermalink }}",
     {{ end }}
   ];
+
+  const postTitles = {
+    {{ range $posts }}
+      "{{ .RelPermalink }}": {{ .Title | jsonify }},
+    {{ end }}
+  };
 
   const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
   const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
@@ -110,7 +117,9 @@
   .then(function (data) {
     console.log("Dashboard RPC:", data);
 
-    const totalViews = (Array.isArray(data) ? data : []).reduce(
+    const rows = Array.isArray(data) ? data : [];
+
+    const totalViews = rows.reduce(
       function (sum, item) {
         return sum + Number(item.page_hit || 0);
       },
@@ -119,12 +128,25 @@
 
     totalViewsEl.innerText = totalViews.toLocaleString();
 
+    if (rows.length > 0) {
+      const topPost = rows[0];
+      const topTitle = postTitles[topPost.url] || topPost.url;
+      const topViews = Number(topPost.page_hit || 0);
+
+      topPostEl.innerText =
+        `${topTitle} · ${topViews.toLocaleString()}회`;
+    } else {
+      topPostEl.innerText = "없음";
+    }
+
     console.log("Dashboard total views:", totalViews);
+    console.log("Dashboard top post:", rows[0] || null);
     console.log("Dashboard post URL count:", postUrls.length);
   })
   .catch(function (error) {
     console.error("Dashboard View Count Error:", error);
     totalViewsEl.innerText = "확인 불가";
+    topPostEl.innerText = "확인 불가";
   });
 })();
 </script>
@@ -162,6 +184,10 @@
 
 .dashboard-label {
   opacity: 0.75;
+}
+
+.dashboard-stats strong {
+  text-align: right;
 }
 
 .dashboard-recommendation {
