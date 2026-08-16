@@ -348,23 +348,17 @@
           클릭수
         </span>
 
-        <div class="dashboard-gsc-value">
+        <strong
+          id="dashboard-gsc-clicks"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
 
-          <strong
-            id="dashboard-gsc-clicks"
-            class="dashboard-stat-value"
-          >
-            불러오는 중
-          </strong>
-
-          <span
-            id="dashboard-gsc-clicks-change"
-            class="dashboard-stat-change"
-          ></span>
-
-        </div>
-
-        <span class="dashboard-stat-empty"></span>
+        <span
+          id="dashboard-gsc-clicks-change"
+          class="dashboard-stat-change"
+        ></span>
 
       </div>
 
@@ -377,23 +371,17 @@
           노출수
         </span>
 
-        <div class="dashboard-gsc-value">
+        <strong
+          id="dashboard-gsc-impressions"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
 
-          <strong
-            id="dashboard-gsc-impressions"
-            class="dashboard-stat-value"
-          >
-            불러오는 중
-          </strong>
-
-          <span
-            id="dashboard-gsc-impressions-change"
-            class="dashboard-stat-change"
-          ></span>
-
-        </div>
-
-        <span class="dashboard-stat-empty"></span>
+        <span
+          id="dashboard-gsc-impressions-change"
+          class="dashboard-stat-change"
+        ></span>
 
       </div>
 
@@ -406,23 +394,17 @@
           CTR
         </span>
 
-        <div class="dashboard-gsc-value">
+        <strong
+          id="dashboard-gsc-ctr"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
 
-          <strong
-            id="dashboard-gsc-ctr"
-            class="dashboard-stat-value"
-          >
-            불러오는 중
-          </strong>
-
-          <span
-            id="dashboard-gsc-ctr-change"
-            class="dashboard-stat-change"
-          ></span>
-
-        </div>
-
-        <span class="dashboard-stat-empty"></span>
+        <span
+          id="dashboard-gsc-ctr-change"
+          class="dashboard-stat-change"
+        ></span>
 
       </div>
 
@@ -435,23 +417,17 @@
           평균 순위
         </span>
 
-        <div class="dashboard-gsc-value">
+        <strong
+          id="dashboard-gsc-position"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
 
-          <strong
-            id="dashboard-gsc-position"
-            class="dashboard-stat-value"
-          >
-            불러오는 중
-          </strong>
-
-          <span
-            id="dashboard-gsc-position-change"
-            class="dashboard-stat-change"
-          ></span>
-
-        </div>
-
-        <span class="dashboard-stat-empty"></span>
+        <span
+          id="dashboard-gsc-position-change"
+          class="dashboard-stat-change"
+        ></span>
 
       </div>
 
@@ -857,7 +833,7 @@
       ) {
 
         gscPeriodEl.innerText =
-  `Google 검색 · ${analytics.startDate}~${analytics.endDate} (28일간)`;
+          `Google 검색 · ${analytics.startDate}~${analytics.endDate} (28일간)`;
 
       }
 
@@ -927,21 +903,16 @@
 
 
         if (rounded > 0) {
-
           return `▲ ${rounded}%`;
-
         }
 
 
         if (rounded < 0) {
-
           return `▼ ${Math.abs(rounded)}%`;
-
         }
 
 
         return "—";
-
       }
 
 
@@ -986,7 +957,7 @@
       if (gscPeriodEl) {
 
         gscPeriodEl.innerText =
-          "Google 검색 · 28일";
+          "Google 검색";
 
       }
 
@@ -1008,6 +979,18 @@
 
       gscPositionEl.innerText =
         "확인 불가";
+
+      gscClicksChangeEl.innerText =
+        "";
+
+      gscImpressionsChangeEl.innerText =
+        "";
+
+      gscCtrChangeEl.innerText =
+        "";
+
+      gscPositionChangeEl.innerText =
+        "";
 
     });
 
@@ -1251,19 +1234,13 @@ html.forced-dark .dashboard-stat-value {
   gap: 0;
 }
 
-.dashboard-gsc-value {
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-end;
-  gap: 0.45rem;
-}
-
 .dashboard-stat-change {
-  display: inline-block;
+  display: block;
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
   font-size: 0.75rem !important;
   font-weight: 400 !important;
   line-height: 1.4;
+  text-align: left;
   color: #666666 !important;
   white-space: nowrap;
 }
