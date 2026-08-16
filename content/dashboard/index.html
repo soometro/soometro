@@ -1,0 +1,166 @@
+{{ define "main" }}
+
+<main class="dashboard-page">
+  <header class="dashboard-header">
+    <h1>{{ .Title }}</h1>
+  </header>
+
+  <section class="dashboard-section">
+    <h2>통계</h2>
+
+```
+<div class="dashboard-stats">
+  <div>
+    <span class="dashboard-label">게시물</span>
+    <strong>-</strong>
+  </div>
+
+  <div>
+    <span class="dashboard-label">전체 조회수</span>
+    <strong>-</strong>
+  </div>
+
+  <div>
+    <span class="dashboard-label">조회수 높은 글</span>
+    <strong>-</strong>
+  </div>
+
+  <div>
+    <span class="dashboard-label">가장 안 읽힌 글</span>
+    <strong>-</strong>
+  </div>
+
+  <div>
+    <span class="dashboard-label">가장 오래된 글</span>
+    <strong>-</strong>
+  </div>
+
+  <div>
+    <span class="dashboard-label">가장 긴 글</span>
+    <strong>-</strong>
+  </div>
+
+  <div>
+    <span class="dashboard-label">가장 짧은 글</span>
+    <strong>-</strong>
+  </div>
+
+  <div>
+    <span class="dashboard-label">최근 작성</span>
+    <strong>-</strong>
+  </div>
+</div>
+```
+
+  </section>
+
+  <section class="dashboard-section">
+    <h2>오늘의 추천 아카이브</h2>
+
+```
+<div class="dashboard-recommendation">
+  <div>2026년 8월 16일</div>
+  <strong>추천 글 준비 중</strong>
+  <p>추천 데이터 연동 예정</p>
+</div>
+```
+
+  </section>
+
+  <section class="dashboard-section">
+    <h2>시간 축</h2>
+
+```
+<div class="dashboard-timeline">
+  <div><span>2026</span></div>
+  <div><span>08</span> <i></i></div>
+  <div><span>07</span> <i></i></div>
+  <div><span>06</span> <i></i></div>
+</div>
+```
+
+  </section>
+</main>
+
+<style>
+.dashboard-page {
+  width: 100%;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.dashboard-section {
+  margin-bottom: 3rem;
+}
+
+.dashboard-section h2 {
+  margin-bottom: 1rem;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 2rem;
+}
+
+.dashboard-stats > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.dashboard-label {
+  opacity: 0.75;
+}
+
+.dashboard-recommendation {
+  padding: 1rem 0;
+}
+
+.dashboard-recommendation strong {
+  display: block;
+  margin: 0.35rem 0;
+}
+
+.dashboard-recommendation p {
+  margin: 0;
+  opacity: 0.7;
+}
+
+.dashboard-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboard-timeline > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dashboard-timeline span {
+  width: 2rem;
+  flex: 0 0 2rem;
+}
+
+.dashboard-timeline i {
+  display: block;
+  width: 180px;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--gray-200);
+}
+
+@media (max-width: 768px) {
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+{{ end }}

@@ -5,91 +5,113 @@
 {{- $edges := slice -}}
 
 {{/*
-  게시물 Node 생성
-  방명록은 그래프에서 제외한다.
+  ============================================================
+  NODE + EDGE DATA
+  ------------------------------------------------------------
+  single.html의 게시물 네비게이션과 동일한 기준을 사용한다.
+
+  single.html:
+    $allPages := .Parent.RegularPages.ByDate
+
+  따라서 그래프도 각 게시물의 Parent section에서
+  RegularPages.ByDate를 그대로 사용한다.
+
+  연결:
+    현재 게시물 → +1
+    현재 게시물 → +2
+
+  반대 방향의 중복 관계는 JavaScript에서 제거한다.
+  ============================================================
 */}}
 
-{{- range $pages -}}
+{{- range $page := $pages -}}
 
-  {{- if ne .RelPermalink "/docs/guestbook/" -}}
+  {{- if ne $page.RelPermalink "/docs/guestbook/" -}}
 
-    {{- $page := . -}}
-    {{- $source := .RelPermalink -}}
+    {{- $source := $page.RelPermalink -}}
+
+    {{/*
+      Node
+    */}}
 
     {{- $nodes = $nodes | append (dict
       "id" $source
-      "title" .Title
+      "title" $page.Title
       "url" $source
     ) -}}
 
+
     {{/*
-      현재 게시물의 실제 게시판 네비게이션과
-      동일한 기준으로 Edge를 생성한다.
-
-      single.html에서 사용하는:
-      .Parent.RegularPages.ByDate
-
-      현재 게시물보다 날짜상 다음 1개, 2개만 연결한다.
-      반대 방향의 관계는 상대 게시물에서 이미 생성되므로
-      중복 Edge를 만들지 않는다.
+      single.html과 정확히 동일한 게시물 목록
     */}}
 
-    {{- $allPages := .Parent.RegularPages.ByDate -}}
+    {{- $allPages := $page.Parent.RegularPages.ByDate -}}
+
+
+    {{/*
+      현재 게시물의 위치
+    */}}
+
     {{- $currentIndex := -1 -}}
 
     {{- range $i, $p := $allPages -}}
-      {{- if eq $p.RelPermalink $page.RelPermalink -}}
+
+      {{- if eq $p.RelPermalink $source -}}
         {{- $currentIndex = $i -}}
       {{- end -}}
+
     {{- end -}}
+
+
+    {{/*
+      현재 게시물을 목록에서 찾은 경우에만 Edge 생성
+    */}}
 
     {{- if ne $currentIndex -1 -}}
 
       {{- $total := len $allPages -}}
 
+
       {{/*
-        바로 다음 게시물
+        +1
       */}}
 
       {{- if lt (add $currentIndex 1) $total -}}
 
-        {{- with index $allPages (add $currentIndex 1) -}}
+        {{- $target := index $allPages (add $currentIndex 1) -}}
 
-          {{- if and
-            (ne .RelPermalink "/docs/guestbook/")
-            (ne .RelPermalink $source)
-          -}}
+        {{- if and
+          (ne $target.RelPermalink "/docs/guestbook/")
+          (ne $target.RelPermalink $source)
+        -}}
 
-            {{- $edges = $edges | append (dict
-              "source" $source
-              "target" .RelPermalink
-            ) -}}
-
-          {{- end -}}
+          {{- $edges = $edges | append (dict
+            "source" $source
+            "target" $target.RelPermalink
+          ) -}}
 
         {{- end -}}
 
       {{- end -}}
 
+
       {{/*
-        두 번째 다음 게시물
+        +2
       */}}
 
       {{- if lt (add $currentIndex 2) $total -}}
 
-        {{- with index $allPages (add $currentIndex 2) -}}
+        {{- $target := index $allPages (add $currentIndex 2) -}}
 
-          {{- if and
-            (ne .RelPermalink "/docs/guestbook/")
-            (ne .RelPermalink $source)
-          -}}
+        {{- if and
+          (ne $target.RelPermalink "/docs/guestbook/")
+          (ne $target.RelPermalink $source)
+        -}}
 
-            {{- $edges = $edges | append (dict
-              "source" $source
-              "target" .RelPermalink
-            ) -}}
-
-          {{- end -}}
+          {{- $edges = $edges | append (dict
+            "source" $source
+            "target" $target.RelPermalink
+          ) -}}
 
         {{- end -}}
 
@@ -103,7 +125,9 @@
 
 
 {{/*
-  그래프 데이터
+  ============================================================
+  GRAPH DATA
+  ============================================================
 */}}
 
 {{- $graphData := dict
@@ -115,12 +139,28 @@
 <div class="graph-page">
 
   <header class="graph-header">
+
     <h1>{{ .Title }}</h1>
-    <p>soometro 게시물 사이의 연결 관계를 시각적으로 탐색합니다.</p>
+
+    <p>
+      soometro 게시물의 탐색 관계를 시각적으로 보여주는 콘텐츠 네트워크입니다.
+    </p>
+
+    <div class="graph-stats">
+      게시물 {{ len $nodes }}개
+      <span>·</span>
+      연결 {{ len $edges }}개
+    </div>
+
   </header>
 
+
   <div id="knowledge-graph" class="knowledge-graph">
-    <div class="graph-loading">게시물 연결망을 불러오는 중...</div>
+
+    <div class="graph-loading">
+      콘텐츠 네트워크를 불러오는 중...
+    </div>
+
   </div>
 
 </div>
@@ -147,6 +187,16 @@
 
 .graph-header p {
   opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.graph-stats {
+  font-size: 0.8rem;
+  opacity: 0.55;
+}
+
+.graph-stats span {
+  margin: 0 0.35rem;
 }
 
 .knowledge-graph {
@@ -173,6 +223,11 @@
 
 .graph-node {
   fill: currentColor;
+  cursor: pointer;
+}
+
+.graph-node:hover {
+  r: 5;
 }
 
 .graph-loading,
@@ -269,7 +324,9 @@
 
 
     /*
-     * Node 목록
+     * ========================================================
+     * NODE MAP
+     * ========================================================
      */
 
     var nodeMap =
@@ -287,9 +344,14 @@
 
 
     /*
-     * 실제 존재하는 Node끼리만 연결한다.
+     * ========================================================
+     * EDGE 중복 제거
      *
-     * 같은 관계가 중복으로 들어오는 경우를 방지한다.
+     * A → B
+     * B → A
+     *
+     * 두 관계를 하나의 선으로 만든다.
+     * ========================================================
      */
 
     var edgeMap =
@@ -314,25 +376,22 @@
       }
 
 
-      /*
-       * 방향에 관계없이 같은 두 Node 사이의
-       * 연결은 하나의 선으로 처리한다.
-       */
-
-      var a =
+      var first =
         edge.source < edge.target
           ? edge.source
           : edge.target;
 
 
-      var b =
+      var second =
         edge.source < edge.target
           ? edge.target
           : edge.source;
 
 
       var key =
-        a + "=>" + b;
+        first +
+        "=>" +
+        second;
 
 
       if (!edgeMap.has(key)) {
@@ -340,8 +399,8 @@
         edgeMap.set(
           key,
           {
-            source: a,
-            target: b
+            source: first,
+            target: second
           }
         );
 
@@ -357,7 +416,9 @@
 
 
     /*
-     * SVG 생성
+     * ========================================================
+     * SVG
+     * ========================================================
      */
 
     container.innerHTML = "";
@@ -419,7 +480,9 @@
 
 
     /*
-     * 초기 원형 배치
+     * ========================================================
+     * INITIAL NODE POSITION
+     * ========================================================
      */
 
     var count =
@@ -467,7 +530,9 @@
 
 
     /*
-     * 연결선 생성
+     * ========================================================
+     * EDGE ELEMENTS
+     * ========================================================
      */
 
     var edgeElements = [];
@@ -502,7 +567,9 @@
 
 
     /*
-     * Node 생성
+     * ========================================================
+     * NODE ELEMENTS
+     * ========================================================
      */
 
     var nodeElements =
@@ -530,6 +597,25 @@
       );
 
 
+      /*
+       * Node 클릭 → 게시물 이동
+       */
+
+      circle.addEventListener(
+        "click",
+        function () {
+
+          if (node.url) {
+
+            window.location.href =
+              node.url;
+
+          }
+
+        }
+      );
+
+
       nodeLayer.appendChild(
         circle
       );
@@ -544,7 +630,9 @@
 
 
     /*
-     * 위치 갱신
+     * ========================================================
+     * POSITION UPDATE
+     * ========================================================
      */
 
     function updatePositions() {
@@ -645,7 +733,9 @@
 
 
     /*
-     * 천천히 움직이는 효과
+     * ========================================================
+     * SLOW MOTION
+     * ========================================================
      */
 
     function animate() {
@@ -738,7 +828,9 @@
 
 
     /*
-     * 창 크기 변경
+     * ========================================================
+     * RESIZE
+     * ========================================================
      */
 
     window.addEventListener(
