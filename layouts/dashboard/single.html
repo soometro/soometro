@@ -71,18 +71,18 @@
       </div>
 
       <div>
-	<span class="dashboard-label">가장 짧은 글</span>
-	<strong>
-	{{ $shortestPost.Title }}
-	· {{ $shortestPost.WordCount }}단어
-	</strong>
+        <span class="dashboard-label">가장 긴 글</span>
+        <strong>
+          {{ $longestPost.Title }}
+          · {{ $longestPost.WordCount }}단어
+        </strong>
       </div>
 
       <div>
         <span class="dashboard-label">가장 짧은 글</span>
         <strong>
           {{ $shortestPost.Title }}
-          · {{ $shortestPost.WordCount | lang.NumFmt 0 }}단어
+          · {{ $shortestPost.WordCount }}단어
         </strong>
       </div>
 
@@ -111,6 +111,7 @@
         {{ end }}
 
         <div class="dashboard-timeline-row">
+
           <span class="dashboard-timeline-date">
             {{ .Key }}
           </span>
@@ -120,6 +121,7 @@
           <strong>
             {{ $monthCount }} posts
           </strong>
+
         </div>
       {{ end }}
 
@@ -131,11 +133,18 @@
 <script>
 (function () {
 
-  const totalViewsEl = document.getElementById("dashboard-total-views");
-  const topPostEl = document.getElementById("dashboard-top-post");
-  const lowPostEl = document.getElementById("dashboard-low-post");
+  const totalViewsEl =
+    document.getElementById("dashboard-total-views");
 
-  if (!totalViewsEl || !topPostEl || !lowPostEl) return;
+  const topPostEl =
+    document.getElementById("dashboard-top-post");
+
+  const lowPostEl =
+    document.getElementById("dashboard-low-post");
+
+  if (!totalViewsEl || !topPostEl || !lowPostEl) {
+    return;
+  }
 
   const postUrls = [
     {{ range $posts }}
@@ -149,22 +158,28 @@
     {{ end }}
   };
 
-  const supabaseUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
-  const supabaseKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+  const supabaseUrl =
+    "https://jmosoaoxjuudcffbeoxi.supabase.co";
 
-  fetch(`${supabaseUrl}/rest/v1/rpc/get_page_view_counts`, {
-    method: "POST",
+  const supabaseKey =
+    "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
 
-    headers: {
-      "Content-Type": "application/json",
-      "apikey": supabaseKey,
-      "Authorization": `Bearer ${supabaseKey}`
-    },
+  fetch(
+    `${supabaseUrl}/rest/v1/rpc/get_page_view_counts`,
+    {
+      method: "POST",
 
-    body: JSON.stringify({
-      p_urls: postUrls
-    })
-  })
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": supabaseKey,
+        "Authorization": `Bearer ${supabaseKey}`
+      },
+
+      body: JSON.stringify({
+        p_urls: postUrls
+      })
+    }
+  )
 
   .then(function (res) {
 
@@ -179,41 +194,59 @@
 
     console.log("Dashboard RPC:", data);
 
-    const rows = Array.isArray(data) ? data : [];
+    const rows =
+      Array.isArray(data) ? data : [];
 
-    /* 전체 조회수 */
+    /*
+     * 전체 조회수
+     */
 
-    const totalViews = rows.reduce(
-      function (sum, item) {
-        return sum + Number(item.page_hit || 0);
-      },
-      0
-    );
+    const totalViews =
+      rows.reduce(
+        function (sum, item) {
+          return sum +
+            Number(item.page_hit || 0);
+        },
+        0
+      );
 
     totalViewsEl.innerText =
       totalViews.toLocaleString();
 
-    /* 조회수 높은 글 */
+    /*
+     * 조회수 높은 글
+     *
+     * RPC가 page_hit DESC로 정렬하므로
+     * 첫 번째 항목이 최고 조회수 글
+     */
 
     if (rows.length > 0) {
 
       const topPost = rows[0];
 
       const topTitle =
-        postTitles[topPost.url] || topPost.url;
+        postTitles[topPost.url] ||
+        topPost.url;
 
       const topViews =
         Number(topPost.page_hit || 0);
 
       topPostEl.innerText =
         `${topTitle} · ${topViews.toLocaleString()}회`;
+
+    } else {
+
+      topPostEl.innerText =
+        "없음";
+
     }
 
-    else {
-      topPostEl.innerText = "없음";
-    }
-
-    /* 가장 안 읽힌 글 */
+    /*
+     * 가장 안 읽힌 글
+     *
+     * RPC가 page_hit DESC로 정렬하므로
+     * 마지막 항목이 최저 조회수 글
+     */
 
     if (rows.length > 0) {
 
@@ -221,17 +254,20 @@
         rows[rows.length - 1];
 
       const lowTitle =
-        postTitles[lowPost.url] || lowPost.url;
+        postTitles[lowPost.url] ||
+        lowPost.url;
 
       const lowViews =
         Number(lowPost.page_hit || 0);
 
       lowPostEl.innerText =
         `${lowTitle} · ${lowViews.toLocaleString()}회`;
-    }
 
-    else {
-      lowPostEl.innerText = "없음";
+    } else {
+
+      lowPostEl.innerText =
+        "없음";
+
     }
 
     console.log(
@@ -271,6 +307,7 @@
 
     lowPostEl.innerText =
       "확인 불가";
+
   });
 
 })();
@@ -296,6 +333,7 @@
 
 .dashboard-stats {
   display: grid;
+
   grid-template-columns:
     repeat(2, minmax(0, 1fr));
 
@@ -304,7 +342,9 @@
 
 .dashboard-stats > div {
   display: flex;
+
   justify-content: space-between;
+
   align-items: flex-start;
 
   gap: 1rem;
@@ -318,7 +358,8 @@
 .dashboard-label {
   opacity: 0.75;
 
-  flex: 0 0 auto;
+  flex:
+    0 0 auto;
 }
 
 .dashboard-stats strong {
