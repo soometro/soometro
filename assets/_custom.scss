@@ -335,6 +335,7 @@ main h1,
 /* 게시물 리스트 날짜·조회수 */
 .post-list-date,
 .post-list-hit {
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
     font-size: 0.8rem !important;
     color: #666666 !important;
 }
@@ -471,6 +472,8 @@ html.forced-dark .reaction-btn {
    11. 리스트 메타 정보(날짜/조회수/게시물개수) 색상 통일
    ========================================================================== */
 .meta-text-unified {
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+    font-size: 0.8rem !important;
     color: #666666 !important;
 }
 html.forced-dark .meta-text-unified {
