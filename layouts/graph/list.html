@@ -140,12 +140,14 @@
     var edges = Array.isArray(data.edges) ? data.edges : [];
 
     if (!nodes.length) {
-      container.innerHTML = '<div class="graph-empty">게시물이 없습니다.</div>';
+      container.innerHTML =
+        '<div class="graph-empty">' +
+        'RegularPages: {{ len .Site.RegularPages }} / AllPages: {{ len .Site.AllPages }}' +
+        '</div>';
       return;
     }
 
     var nodeMap = new Map();
-
     nodes.forEach(function (node) {
       nodeMap.set(node.id, node);
 
