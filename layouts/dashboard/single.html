@@ -40,30 +40,30 @@
 
     <div class="dashboard-recommendation">
 
-  <div class="dashboard-recommendation-date">
-    {{ now.Format "2006년 1월 2일" }} 오늘의 추천 아카이브
-  </div>
+      <div class="dashboard-recommendation-date">
+        {{ now.Format "2006년 1월 2일" }} 오늘의 추천 아카이브
+      </div>
 
-  <div class="dashboard-recommendation-content">
-    <a
-      class="dashboard-recommendation-title"
-      href="{{ $recommendedPost.RelPermalink }}"
-    >
-      {{ $recommendedPost.Title }}
-    </a>
+      <div class="dashboard-recommendation-content">
 
-    <span class="dashboard-recommendation-meta">
-      {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
-    </span>
-  </div>
+        <a
+          class="dashboard-recommendation-title"
+          href="{{ $recommendedPost.RelPermalink }}"
+        >
+          {{ $recommendedPost.Title }}
+        </a>
 
-</div>
+        <span class="dashboard-recommendation-meta">
+          {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
+        </span>
+
+      </div>
+
+    </div>
 
   </section>
 
   <section class="dashboard-section">
-
-    <h2>통계</h2>
 
     <div class="dashboard-stats">
 
@@ -548,6 +548,7 @@
 }
 
 /* Dashboard H1 */
+
 .dashboard-header h1 {
   font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
   font-size: 0.85rem !important;
@@ -560,7 +561,7 @@ html.forced-dark .dashboard-header h1 {
 }
 
 /*
- * Dashboard H2 (오늘의 추천 아카이브 · 통계 · 시간 축)
+ * Dashboard H2 (시간 축)
  */
 
 .dashboard-section h2 {
@@ -620,15 +621,45 @@ html.forced-dark .dashboard-recommendation-date {
     #a8a8a8 !important;
 }
 
+.dashboard-recommendation-content {
+  display:
+    flex;
+
+  align-items:
+    baseline;
+
+  justify-content:
+    space-between;
+
+  gap:
+    1rem;
+}
+
 .dashboard-recommendation-title,
 .dashboard-recommendation-title:visited {
-  display: block;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.55;
-  text-decoration: none;
-  color: var(--color-link) !important;
+  display:
+    block;
+
+  min-width:
+    0;
+
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
+  font-size:
+    0.8rem;
+
+  font-weight:
+    500;
+
+  line-height:
+    1.55;
+
+  text-decoration:
+    none;
+
+  color:
+    var(--color-link) !important;
 }
 
 .dashboard-recommendation-title:hover {
@@ -637,8 +668,11 @@ html.forced-dark .dashboard-recommendation-date {
 }
 
 .dashboard-recommendation-meta {
+  flex-shrink:
+    0;
+
   margin-top:
-    0.6rem;
+    0;
 
   font-family:
     "Malgun Gothic", "맑은 고딕", sans-serif !important;
@@ -646,11 +680,17 @@ html.forced-dark .dashboard-recommendation-date {
   font-size:
     0.75rem;
 
+  font-weight:
+    400;
+
   line-height:
     1.4;
 
   color:
     #666666 !important;
+
+  white-space:
+    nowrap;
 }
 
 html.forced-dark .dashboard-recommendation-meta {
@@ -798,6 +838,9 @@ html.forced-dark .dashboard-total-stat strong {
   font-size:
     0.75rem;
 
+  font-weight:
+    400;
+
   line-height:
     1.4;
 
@@ -824,7 +867,7 @@ html.forced-dark .dashboard-stat-meta .dashboard-label {
     0.75rem;
 
   font-weight:
-    500;
+    400;
 
   line-height:
     1.4;
@@ -840,14 +883,29 @@ html.forced-dark .dashboard-stat-meta strong {
 
 .dashboard-stat-title,
 .dashboard-stat-title:visited {
-  min-width: 0;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.5;
-  text-decoration: none;
-  overflow-wrap: anywhere;
-  color: var(--color-link) !important;
+  min-width:
+    0;
+
+  font-family:
+    "Malgun Gothic", "맑은 고딕", sans-serif !important;
+
+  font-size:
+    0.8rem;
+
+  font-weight:
+    500;
+
+  line-height:
+    1.5;
+
+  text-decoration:
+    none;
+
+  overflow-wrap:
+    anywhere;
+
+  color:
+    var(--color-link) !important;
 }
 
 .dashboard-stat-title:hover {
@@ -996,14 +1054,14 @@ html.forced-dark .dashboard-timeline-count {
   .dashboard-stat-meta .dashboard-label {
 
     font-size:
-      0.8rem;
+      0.75rem;
   }
 
   .dashboard-total-stat strong,
   .dashboard-stat-meta strong {
 
     font-size:
-      0.8rem;
+      0.75rem;
   }
 
   .dashboard-stat-title {
@@ -1019,6 +1077,21 @@ html.forced-dark .dashboard-timeline-count {
 
     flex-basis:
       140px;
+  }
+
+  .dashboard-recommendation-content {
+    gap:
+      0.75rem;
+  }
+
+  .dashboard-recommendation-title {
+    min-width:
+      0;
+  }
+
+  .dashboard-recommendation-meta {
+    font-size:
+      0.75rem;
   }
 
 }
