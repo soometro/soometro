@@ -1,10 +1,11 @@
 {{ define "main" }}
+
 {{ $posts := where .Site.RegularPages "Section" "docs" }}
 {{ $postCount := len $posts }}
 
-{{ $statsPosts := where $posts "File.Dir" "ne" "docs/guestbook/" }}
+{{ $statsPosts := where $posts "File.Path" "ne" "docs/guestbook/index.md" }}
 
-{{ $postsByDateAsc := sort $statsPosts "Date" "asc" }}
+{{ $postsByDateAsc := sort $posts "Date" "asc" }}
 {{ $postsByDateDesc := sort $statsPosts "Date" "desc" }}
 {{ $postsByWordDesc := sort $statsPosts "WordCount" "desc" }}
 {{ $postsByWordAsc := sort $statsPosts "WordCount" "asc" }}
@@ -105,6 +106,7 @@
     <div class="dashboard-timeline">
 
       {{ range $timelineGroups }}
+
         {{ $monthCount := len .Pages }}
         {{ $barWidth := 0 }}
 
@@ -118,13 +120,16 @@
             {{ .Key }}
           </span>
 
-          <i style="width: {{ $barWidth }}px;"></i>
+          <div class="dashboard-timeline-gauge">
+            <i style="width: {{ $barWidth }}px;"></i>
+          </div>
 
-          <strong>
+          <strong class="dashboard-timeline-count">
             {{ $monthCount }} posts
           </strong>
 
         </div>
+
       {{ end }}
 
     </div>
@@ -190,6 +195,7 @@
     }
 
     return res.json();
+
   })
 
   .then(function (data) {
@@ -217,14 +223,12 @@
 
     /*
      * 조회수 높은 글
-     *
-     * RPC가 page_hit DESC로 정렬하므로
-     * 첫 번째 항목이 최고 조회수 글
      */
 
     if (rows.length > 0) {
 
-      const topPost = rows[0];
+      const topPost =
+        rows[0];
 
       const topTitle =
         postTitles[topPost.url] ||
@@ -246,14 +250,25 @@
     /*
      * 가장 안 읽힌 글
      *
-     * RPC가 page_hit DESC로 정렬하므로
-     * 마지막 항목이 최저 조회수 글
+     * 방명록 URL이 stats 대상에 포함되지 않도록
+     * 현재 Hugo 게시물 배열 자체에서 제외한다.
      */
 
-    if (rows.length > 0) {
+    const statsUrls = [
+      {{ range $statsPosts }}
+        "{{ .RelPermalink }}",
+      {{ end }}
+    ];
+
+    const statsRows =
+      rows.filter(function (item) {
+        return statsUrls.includes(item.url);
+      });
+
+    if (statsRows.length > 0) {
 
       const lowPost =
-        rows[rows.length - 1];
+        statsRows[statsRows.length - 1];
 
       const lowTitle =
         postTitles[lowPost.url] ||
@@ -284,12 +299,17 @@
 
     console.log(
       "Dashboard low post:",
-      rows[rows.length - 1] || null
+      statsRows[statsRows.length - 1] || null
     );
 
     console.log(
       "Dashboard post URL count:",
       postUrls.length
+    );
+
+    console.log(
+      "Dashboard stats URL count:",
+      statsUrls.length
     );
 
   })
@@ -400,6 +420,8 @@
 
   align-items: center;
 
+  width: 100%;
+
   gap: 0.75rem;
 }
 
@@ -413,7 +435,18 @@
     0.9rem;
 }
 
-.dashboard-timeline-row i {
+.dashboard-timeline-gauge {
+  width: 180px;
+
+  flex:
+    0 0 180px;
+
+  display: flex;
+
+  align-items: center;
+}
+
+.dashboard-timeline-gauge i {
   display: block;
 
   height: 10px;
@@ -426,7 +459,13 @@
     var(--gray-200);
 }
 
-.dashboard-timeline-row strong {
+.dashboard-timeline-count {
+  margin-left: auto;
+
+  min-width: 5rem;
+
+  text-align: right;
+
   font-size:
     0.8rem;
 
@@ -439,15 +478,24 @@
 @media (max-width: 768px) {
 
   .dashboard-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns:
+      1fr;
   }
 
   .dashboard-stats > div {
-    align-items: center;
+    align-items:
+      center;
   }
 
   .dashboard-stats strong {
-    max-width: 70%;
+    max-width:
+      70%;
+  }
+
+  .dashboard-timeline-gauge {
+    width: 140px;
+
+    flex-basis: 140px;
   }
 
 }
