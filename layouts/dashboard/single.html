@@ -269,16 +269,16 @@
         <div class="dashboard-timeline-row">
 
           <span class="dashboard-timeline-date">
-            {{ .Key }}
-          </span>
+  {{ .Key }}
+</span>
 
-          <div class="dashboard-timeline-gauge">
-            <i style="width: {{ $barWidth }}px;"></i>
-          </div>
+<strong class="dashboard-timeline-count">
+  {{ $monthCount }} posts
+</strong>
 
-          <strong class="dashboard-timeline-count">
-            {{ $monthCount }} posts
-          </strong>
+<div class="dashboard-timeline-gauge">
+  <i style="width: {{ $barWidth }}px;"></i>
+</div>
 
         </div>
 
