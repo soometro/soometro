@@ -2,10 +2,12 @@
 {{ $posts := where .Site.RegularPages "Section" "docs" }}
 {{ $postCount := len $posts }}
 
-{{ $postsByDateAsc := sort $posts "Date" "asc" }}
-{{ $postsByDateDesc := sort $posts "Date" "desc" }}
-{{ $postsByWordDesc := sort $posts "WordCount" "desc" }}
-{{ $postsByWordAsc := sort $posts "WordCount" "asc" }}
+{{ $statsPosts := where $posts "File.Dir" "ne" "docs/guestbook/" }}
+
+{{ $postsByDateAsc := sort $statsPosts "Date" "asc" }}
+{{ $postsByDateDesc := sort $statsPosts "Date" "desc" }}
+{{ $postsByWordDesc := sort $statsPosts "WordCount" "desc" }}
+{{ $postsByWordAsc := sort $statsPosts "WordCount" "asc" }}
 
 {{ $oldestPost := index $postsByDateAsc 0 }}
 {{ $newestPost := index $postsByDateDesc 0 }}
