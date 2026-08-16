@@ -288,6 +288,101 @@
   </section>
 
 
+  <!-- Google Search Console -->
+
+  <section class="dashboard-section dashboard-search-console-section">
+
+    <div class="dashboard-search-console">
+
+      <div class="dashboard-search-console-title">
+        Google 검색
+      </div>
+
+
+      <!-- 클릭수 -->
+
+      <div class="dashboard-stat-row">
+
+        <span class="dashboard-label">
+          클릭수
+        </span>
+
+        <strong
+          id="dashboard-gsc-clicks"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
+
+        <span class="dashboard-stat-empty"></span>
+
+      </div>
+
+
+      <!-- 노출수 -->
+
+      <div class="dashboard-stat-row">
+
+        <span class="dashboard-label">
+          노출수
+        </span>
+
+        <strong
+          id="dashboard-gsc-impressions"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
+
+        <span class="dashboard-stat-empty"></span>
+
+      </div>
+
+
+      <!-- CTR -->
+
+      <div class="dashboard-stat-row">
+
+        <span class="dashboard-label">
+          CTR
+        </span>
+
+        <strong
+          id="dashboard-gsc-ctr"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
+
+        <span class="dashboard-stat-empty"></span>
+
+      </div>
+
+
+      <!-- 평균 순위 -->
+
+      <div class="dashboard-stat-row">
+
+        <span class="dashboard-label">
+          평균 순위
+        </span>
+
+        <strong
+          id="dashboard-gsc-position"
+          class="dashboard-stat-value"
+        >
+          불러오는 중
+        </strong>
+
+        <span class="dashboard-stat-empty"></span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
   <!-- 시간축 -->
 
   <section class="dashboard-section dashboard-timeline-section">
@@ -346,6 +441,19 @@
   const lowCountEl =
     document.getElementById("dashboard-low-count");
 
+  const gscClicksEl =
+    document.getElementById("dashboard-gsc-clicks");
+
+  const gscImpressionsEl =
+    document.getElementById("dashboard-gsc-impressions");
+
+  const gscCtrEl =
+    document.getElementById("dashboard-gsc-ctr");
+
+  const gscPositionEl =
+    document.getElementById("dashboard-gsc-position");
+
+
   if (
     !totalViewsEl ||
     !topPostEl ||
@@ -356,11 +464,21 @@
     return;
   }
 
+
+  /*
+   * 게시물 URL
+   */
+
   const postUrls = [
     {{ range $posts }}
       "{{ .RelPermalink }}",
     {{ end }}
   ];
+
+
+  /*
+   * 게시물 제목
+   */
 
   const postTitles = {
   {{ range $posts }}
@@ -368,11 +486,21 @@
   {{ end }}
 };
 
+
+  /*
+   * Supabase
+   */
+
   const supabaseUrl =
     "https://jmosoaoxjuudcffbeoxi.supabase.co";
 
   const supabaseKey =
     "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+
+
+  /*
+   * Supabase 조회수
+   */
 
   fetch(
     `${supabaseUrl}/rest/v1/rpc/get_page_view_counts`,
@@ -403,10 +531,15 @@
 
   .then(function (data) {
 
-    console.log("Dashboard RPC:", data);
+    console.log(
+      "Dashboard RPC:",
+      data
+    );
 
     const rows =
-      Array.isArray(data) ? data : [];
+      Array.isArray(data)
+        ? data
+        : [];
 
 
     /*
@@ -568,6 +701,120 @@
       "";
 
   });
+
+
+  /*
+   * Google Search Console
+   */
+
+  if (
+    gscClicksEl &&
+    gscImpressionsEl &&
+    gscCtrEl &&
+    gscPositionEl
+  ) {
+
+    fetch(
+      "https://noisy-forest-d168.soo8209.workers.dev/search-console"
+    )
+
+    .then(function (res) {
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      return res.json();
+
+    })
+
+    .then(function (data) {
+
+      console.log(
+        "Google Search Console:",
+        data
+      );
+
+
+      if (
+        !data ||
+        !data.analytics
+      ) {
+        throw new Error(
+          "Search Console 데이터가 없습니다."
+        );
+      }
+
+
+      const analytics =
+        data.analytics;
+
+
+      /*
+       * 클릭수
+       */
+
+      gscClicksEl.innerText =
+        Number(
+          analytics.clicks || 0
+        ).toLocaleString();
+
+
+      /*
+       * 노출수
+       */
+
+      gscImpressionsEl.innerText =
+        Number(
+          analytics.impressions || 0
+        ).toLocaleString();
+
+
+      /*
+       * CTR
+       */
+
+      gscCtrEl.innerText =
+        `${(
+          Number(
+            analytics.ctr || 0
+          ) * 100
+        ).toFixed(1)}%`;
+
+
+      /*
+       * 평균 순위
+       */
+
+      gscPositionEl.innerText =
+        Number(
+          analytics.position || 0
+        ).toFixed(1);
+
+    })
+
+    .catch(function (error) {
+
+      console.error(
+        "Google Search Console Error:",
+        error
+      );
+
+      gscClicksEl.innerText =
+        "확인 불가";
+
+      gscImpressionsEl.innerText =
+        "확인 불가";
+
+      gscCtrEl.innerText =
+        "확인 불가";
+
+      gscPositionEl.innerText =
+        "확인 불가";
+
+    });
+
+  }
 
 })();
 </script>
@@ -765,6 +1012,36 @@ html.forced-dark .dashboard-stat-value {
 
 .dashboard-stat-title:hover {
   text-decoration: underline;
+}
+
+
+/* =========================================================
+   Google Search Console
+   ========================================================= */
+
+.dashboard-search-console-section {
+  margin-top: 0.5rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.dashboard-search-console {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.dashboard-search-console-title {
+  margin-bottom: 0.15rem;
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #666666 !important;
+}
+
+html.forced-dark .dashboard-search-console-title {
+  color: #a8a8a8 !important;
 }
 
 
