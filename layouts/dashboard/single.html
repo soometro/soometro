@@ -68,10 +68,6 @@
           {{ $recommendedPost.Title }}
         </a>
 
-        <span class="dashboard-recommendation-meta">
-          {{ $recommendedPost.Date.Format "2006-01-02" }} 작성
-        </span>
-
       </div>
 
     </div>
@@ -1107,7 +1103,7 @@ html.forced-dark .dashboard-section-title {
 
 .dashboard-recommendation {
   margin-top: 0.5rem;
-  padding: 1.25rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   border: 1px solid var(--gray-200);
   border-radius: 10px;
   background: var(--body-background);
@@ -1115,8 +1111,7 @@ html.forced-dark .dashboard-section-title {
 
 .dashboard-recommendation-content {
   display: flex;
-  align-items: baseline;
-  gap: 1rem;
+  align-items: center;
 }
 
 .dashboard-recommendation-title,
@@ -1134,21 +1129,6 @@ html.forced-dark .dashboard-section-title {
 
 .dashboard-recommendation-title:hover {
   text-decoration: underline;
-}
-
-.dashboard-recommendation-meta {
-  flex: 0 0 auto;
-  margin-left: auto;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.8rem !important;
-  font-weight: 400 !important;
-  line-height: 1.4;
-  color: #666666 !important;
-  white-space: nowrap;
-}
-
-html.forced-dark .dashboard-recommendation-meta {
-  color: #a8a8a8 !important;
 }
 
 
@@ -1338,9 +1318,6 @@ html.forced-dark .dashboard-timeline-count {
     min-width: 0;
   }
 
-  .dashboard-recommendation-meta {
-    font-size: 0.8rem !important;
-  }
 
   .dashboard-stat-row {
     grid-template-columns: 90px 75px minmax(0, 1fr);
