@@ -221,27 +221,105 @@
             }
         });
     }
-    // 카카오 로그인 시작
+        // 카카오 로그인 시작
     window.sbSignInKakao = function (redirectPath) {
-    sessionStorage.setItem('scroll_before_login', window.scrollY);
 
-    const redirectTo = redirectPath
-        ? window.location.origin + redirectPath
-        : window.location.origin + window.location.pathname;
-
-    window.sb.auth.signInWithOAuth({
-        provider: 'kakao',
-        options: {
-            redirectTo: redirectTo
+        // 일반 댓글 로그인일 때만 기존 스크롤 위치 저장
+        if (!redirectPath) {
+            sessionStorage.setItem(
+                'scroll_before_login',
+                window.scrollY
+            );
         }
-    });
-};
+
+        const redirectTo = redirectPath
+            ? window.location.origin + redirectPath
+            : window.location.origin + window.location.pathname;
+
+        window.sb.auth.signInWithOAuth({
+            provider: 'kakao',
+            options: {
+                redirectTo: redirectTo
+            }
+        });
+    };
+
 
     // 로그아웃
     window.sbSignOut = async function () {
         await window.sb.auth.signOut();
         window.location.reload();
     };
+
+
+    // 현재 로그인 세션 확인
+    window.sbGetUser = async function () {
+
+        if (!window.sb) {
+            return null;
+        }
+
+        const { data, error } =
+            await window.sb.auth.getSession();
+
+        if (error) {
+            console.error(
+                'Supabase session check error:',
+                error
+            );
+
+            return null;
+        }
+
+        return data.session
+            ? data.session.user
+            : null;
+    };
+
+
+    // 방명록 접근
+    // 로그인 상태면 바로 방명록으로 이동
+    // 비로그인 상태면 카카오 로그인 후 방명록으로 이동
+    window.sbOpenGuestbook = async function (event) {
+
+        if (event) {
+            event.preventDefault();
+        }
+
+        const guestbookPath =
+            '/docs/guestbook/';
+
+        try {
+
+            const user =
+                await window.sbGetUser();
+
+            if (user) {
+
+                window.location.href =
+                    guestbookPath;
+
+                return false;
+            }
+
+            window.sbSignInKakao(
+                guestbookPath
+            );
+
+        } catch (error) {
+
+            console.error(
+                'Guestbook access error:',
+                error
+            );
+
+            window.location.href =
+                guestbookPath;
+        }
+
+        return false;
+    };
+</script>
 
     // 현재 로그인 세션 확인 (다른 스크립트에서 활용)
     window.sbGetUser = async function () {
