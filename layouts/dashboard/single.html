@@ -390,7 +390,7 @@
         </span>
 
         <strong class="dashboard-stat-value">
-          {{ $longestPost.WordCount }}단어
+          {{ $longestPost.WordCount }} 단어
         </strong>
 
         <span class="dashboard-stat-empty"></span>
@@ -414,7 +414,7 @@
         </span>
 
         <strong class="dashboard-stat-value">
-          {{ $averageWordCount }}단어
+          {{ $averageWordCount }} 단어
         </strong>
 
         <span class="dashboard-stat-empty"></span>
@@ -651,7 +651,7 @@
       );
 
     siteDaysEl.innerText =
-      `${days.toLocaleString()}일`;
+      `${days.toLocaleString()} 일`;
 
   }
 
@@ -752,7 +752,7 @@
 
 
     totalViewsEl.innerText =
-      totalViews.toLocaleString();
+      `${totalViews.toLocaleString()} 회`;
 
 
     const statsUrls = [
@@ -794,7 +794,7 @@
         topPost.url;
 
       topCountEl.innerText =
-        `${topViews.toLocaleString()}회`;
+        `${topViews.toLocaleString()} 회`;
 
     } else {
 
@@ -1106,10 +1106,6 @@ document.addEventListener(
     }
 
 
-    /*
-     * Supabase 확인
-     */
-
     if (
       !window.sb ||
       typeof window.sbGetUser !== "function"
@@ -1143,17 +1139,9 @@ document.addEventListener(
 
     try {
 
-      /*
-       * 현재 로그인 사용자
-       */
-
       const user =
         await window.sbGetUser();
 
-
-      /*
-       * 비로그인
-       */
 
       if (!user) {
 
@@ -1202,9 +1190,6 @@ document.addEventListener(
 
       /*
        * 사용자 이름
-       *
-       * 카카오에서 전달된 이름을 우선 사용하고
-       * 없으면 Supabase metadata를 사용한다.
        */
 
       const userMetadata =
@@ -1317,10 +1302,14 @@ document.addEventListener(
         data.kakao_id || "";
 
 
+      /*
+       * 회원 표시
+       */
+
       identityEl.innerText =
         kakaoId
-          ? "카카오 ID · " + kakaoId
-          : "카카오 ID 확인 불가";
+          ? "kakao ID(" + kakaoId + ")"
+          : "kakao ID 확인 불가";
 
 
       /*
@@ -1422,7 +1411,7 @@ document.addEventListener(
           data.total_visits || 0
         ).toLocaleString(
           "ko-KR"
-        )}회`;
+        )} 회`;
 
 
       readPostsEl.innerText =
@@ -1430,7 +1419,7 @@ document.addEventListener(
           data.read_posts || 0
         ).toLocaleString(
           "ko-KR"
-        )}편`;
+        )} 편`;
 
 
       commentsEl.innerText =
@@ -1438,7 +1427,7 @@ document.addEventListener(
           data.comments || 0
         ).toLocaleString(
           "ko-KR"
-        )}건`;
+        )} 건`;
 
 
     } catch (error) {
