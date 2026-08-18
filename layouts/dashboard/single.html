@@ -1081,9 +1081,90 @@ document.addEventListener("DOMContentLoaded", async function () {
     nameEl.innerText =
       "로그인 사용자";
 
+    <!-- =========================================================
+     로그인 사용자 + 방문자 식별 테스트
+     ========================================================= -->
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+
+  const nameEl =
+    document.getElementById("dashboard-my-name");
+
+  const identityEl =
+    document.getElementById("dashboard-my-identity");
+
+  if (!nameEl || !identityEl) {
+    return;
+  }
+
+
+  /*
+   * 현재 브라우저 visitor 식별자
+   *
+   * head.html의 기존 user_hash를 그대로 사용
+   */
+
+  const visitorId =
+    localStorage.getItem("user_hash");
+
+
+  if (
+    !window.sb ||
+    typeof window.sbGetUser !== "function"
+  ) {
+
+    nameEl.innerText =
+      "로그인 시스템 확인 불가";
+
+    identityEl.innerText =
+      visitorId
+        ? "방문자 ID · " + visitorId
+        : "방문자 ID 확인 불가";
+
+    return;
+  }
+
+
+  try {
+
+    const user =
+      await window.sbGetUser();
+
+
+    /*
+     * 비로그인
+     */
+
+    if (!user) {
+
+      nameEl.innerText =
+        "비로그인 사용자";
+
+      identityEl.innerText =
+        visitorId
+          ? "방문자 ID · " + visitorId
+          : "방문자 ID 생성 중";
+
+      return;
+    }
+
+
+    /*
+     * 로그인
+     */
+
+    nameEl.innerText =
+      "로그인 사용자";
+
     identityEl.innerText =
       "Supabase 사용자 ID · " +
-      user.id;
+      user.id +
+      " · 방문자 ID · " +
+      (
+        visitorId ||
+        "확인 불가"
+      );
 
   } catch (error) {
 
@@ -1096,7 +1177,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       "사용자 확인 실패";
 
     identityEl.innerText =
-      "Supabase Auth 오류";
+      visitorId
+        ? "방문자 ID · " + visitorId
+        : "Supabase Auth 오류";
 
   }
 
