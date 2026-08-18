@@ -8,12 +8,10 @@
 {{ $postsByDateAsc := sort $posts "Date" "asc" }}
 {{ $postsByDateDesc := sort $statsPosts "Date" "desc" }}
 {{ $postsByWordDesc := sort $statsPosts "WordCount" "desc" }}
-{{ $postsByWordAsc := sort $statsPosts "WordCount" "asc" }}
 
 {{ $oldestPost := index $postsByDateAsc 0 }}
 {{ $newestPost := index $postsByDateDesc 0 }}
 {{ $longestPost := index $postsByWordDesc 0 }}
-{{ $shortestPost := index $postsByWordAsc 0 }}
 
 {{ $totalWordCount := 0 }}
 
@@ -30,7 +28,7 @@
 {{ $archivePosts := where $posts "RelPermalink" "ne" "/docs/guestbook/" }}
 {{ $archivePosts = sort $archivePosts "Date" "asc" }}
 
-{{ $recommendIndex := mod (now.YearDay) (len $archivePosts) }}
+{{ $recommendIndex := mod now.YearDay (len $archivePosts) }}
 {{ $recommendedPost := index $archivePosts $recommendIndex }}
 
 {{ $timelineGroups := $posts.GroupByDate "2006-01" }}
@@ -42,6 +40,7 @@
   {{ end }}
 {{ end }}
 
+
 <main class="dashboard-page">
 
   <header class="dashboard-header">
@@ -49,12 +48,12 @@
   </header>
 
 
-  <!-- 오늘의 아카이브 -->
+  <!-- 오늘의 추천 -->
 
   <section class="dashboard-section dashboard-recommendation-section">
 
     <div class="dashboard-section-title">
-      오늘의 추천 아카이브
+      오늘의 추천
     </div>
 
     <div class="dashboard-recommendation">
@@ -94,11 +93,129 @@
   </section>
 
 
+  <!-- 마이 페이지 -->
+
+  <section class="dashboard-section dashboard-my-page-section">
+
+    <div class="dashboard-section-title">
+      마이 페이지
+    </div>
+
+    <div class="dashboard-my-page">
+
+      <!-- 회원 정보 -->
+
+      <div class="dashboard-my-row dashboard-my-user-row">
+
+        <strong class="dashboard-my-user">
+          회원 A
+        </strong>
+
+        <span class="dashboard-my-empty"></span>
+
+        <span class="dashboard-my-kakao">
+          카카오 연동아이디???
+        </span>
+
+      </div>
+
+
+      <!-- 첫 방문 -->
+
+      <div class="dashboard-my-row">
+
+        <span class="dashboard-my-label">
+          첫 방문:
+        </span>
+
+        <strong class="dashboard-my-value">
+          2026-08-18
+        </strong>
+
+        <span class="dashboard-my-empty"></span>
+
+      </div>
+
+
+      <!-- 최근 방문 -->
+
+      <div class="dashboard-my-row">
+
+        <span class="dashboard-my-label">
+          최근 방문:
+        </span>
+
+        <strong class="dashboard-my-value">
+          2031-04-12
+        </strong>
+
+        <span class="dashboard-my-empty"></span>
+
+      </div>
+
+
+      <!-- 총 방문 -->
+
+      <div class="dashboard-my-row">
+
+        <span class="dashboard-my-label">
+          총 방문:
+        </span>
+
+        <strong class="dashboard-my-value">
+          1247 회
+        </strong>
+
+        <span class="dashboard-my-empty"></span>
+
+      </div>
+
+
+      <!-- 읽은 글 -->
+
+      <div class="dashboard-my-row">
+
+        <span class="dashboard-my-label">
+          읽은 글:
+        </span>
+
+        <strong class="dashboard-my-value">
+          386 회
+        </strong>
+
+        <span class="dashboard-my-empty"></span>
+
+      </div>
+
+
+      <!-- 댓글 -->
+
+      <div class="dashboard-my-row">
+
+        <span class="dashboard-my-label">
+          댓글:
+        </span>
+
+        <strong class="dashboard-my-value">
+          42 건
+        </strong>
+
+        <span class="dashboard-my-empty"></span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
   <!-- 통계 -->
 
-  <section class="dashboard-section">
+  <section class="dashboard-section dashboard-stats-section">
 
-    <div class="dashboard-section-title dashboard-section-divider"></div>
+    <div class="dashboard-section-title dashboard-section-divider">
+      통계
+    </div>
 
     <div class="dashboard-stats">
 
@@ -108,11 +225,11 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          게시물
+          게시물:
         </span>
 
         <strong class="dashboard-stat-value">
-          {{ $postCount }}
+          {{ $postCount }} 건
         </strong>
 
         <span class="dashboard-stat-empty"></span>
@@ -125,7 +242,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          사이트 운영일
+          사이트 운영일:
         </span>
 
         <strong
@@ -146,7 +263,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          전체 조회수
+          전체 조회수:
         </span>
 
         <strong
@@ -166,7 +283,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          조회수 높은 글
+          조회수 높은 글:
         </span>
 
         <strong
@@ -187,38 +304,12 @@
       </div>
 
 
-      <!-- 가장 안 읽힌 글 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          가장 안 읽힌 글
-        </span>
-
-        <strong
-          id="dashboard-low-count"
-          class="dashboard-stat-value"
-        >
-          불러오는 중
-        </strong>
-
-        <a
-          id="dashboard-low-post"
-          class="dashboard-stat-title"
-          href="#"
-        >
-          불러오는 중
-        </a>
-
-      </div>
-
-
       <!-- 가장 오래된 글 -->
 
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          가장 오래된 글
+          가장 오래된 글:
         </span>
 
         <strong class="dashboard-stat-value">
@@ -240,7 +331,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          최근 작성
+          최근 작성:
         </span>
 
         <strong class="dashboard-stat-value">
@@ -262,7 +353,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          가장 긴 글
+          가장 긴 글:
         </span>
 
         <strong class="dashboard-stat-value">
@@ -279,34 +370,12 @@
       </div>
 
 
-      <!-- 가장 짧은 글 -->
-
-      <div class="dashboard-stat-row">
-
-        <span class="dashboard-label">
-          가장 짧은 글
-        </span>
-
-        <strong class="dashboard-stat-value">
-          {{ $shortestPost.WordCount }}단어
-        </strong>
-
-        <a
-          class="dashboard-stat-title"
-          href="{{ $shortestPost.RelPermalink }}"
-        >
-          {{ $shortestPost.Title }}
-        </a>
-
-      </div>
-
-
       <!-- 평균 글 길이 -->
 
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          평균 글 길이
+          평균 글 길이:
         </span>
 
         <strong class="dashboard-stat-value">
@@ -330,7 +399,7 @@
       id="dashboard-gsc-period"
       class="dashboard-section-title"
     >
-      Google 검색 · 28일
+      Google Search Console · 28일
     </div>
 
     <div class="dashboard-search-console">
@@ -341,7 +410,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          클릭수
+          클릭수:
         </span>
 
         <strong
@@ -364,7 +433,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          노출수
+          노출수:
         </span>
 
         <strong
@@ -387,7 +456,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          CTR
+          CTR:
         </span>
 
         <strong
@@ -410,7 +479,7 @@
       <div class="dashboard-stat-row">
 
         <span class="dashboard-label">
-          평균 순위
+          평균 순위:
         </span>
 
         <strong
@@ -491,12 +560,6 @@
   const topCountEl =
     document.getElementById("dashboard-top-count");
 
-  const lowPostEl =
-    document.getElementById("dashboard-low-post");
-
-  const lowCountEl =
-    document.getElementById("dashboard-low-count");
-
   const gscPeriodEl =
     document.getElementById("dashboard-gsc-period");
 
@@ -561,9 +624,7 @@
   if (
     !totalViewsEl ||
     !topPostEl ||
-    !topCountEl ||
-    !lowPostEl ||
-    !lowCountEl
+    !topCountEl
   ) {
     return;
   }
@@ -588,7 +649,7 @@
   {{ range $posts }}
     "{{ .RelPermalink }}": {{ .Title | jsonify | safeJS }},
   {{ end }}
-};
+  };
 
 
   /*
@@ -714,47 +775,6 @@
 
     }
 
-
-    if (statsRows.length > 0) {
-
-      const lowPost =
-        statsRows[
-          statsRows.length - 1
-        ];
-
-      const lowTitle =
-        postTitles[lowPost.url] ||
-        lowPost.url;
-
-      const lowViews =
-        Number(
-          lowPost.page_hit || 0
-        );
-
-
-      lowPostEl.innerText =
-        lowTitle;
-
-      lowPostEl.href =
-        lowPost.url;
-
-      lowCountEl.innerText =
-        `${lowViews.toLocaleString()}회`;
-
-    } else {
-
-      lowPostEl.innerText =
-        "없음";
-
-      lowPostEl.removeAttribute(
-        "href"
-      );
-
-      lowCountEl.innerText =
-        "";
-
-    }
-
   })
 
   .catch(function () {
@@ -766,12 +786,6 @@
       "확인 불가";
 
     topCountEl.innerText =
-      "";
-
-    lowPostEl.innerText =
-      "확인 불가";
-
-    lowCountEl.innerText =
       "";
 
   });
@@ -1002,8 +1016,21 @@
    Dashboard 기본
    ========================================================= */
 
+@font-face {
+  font-family: "CinemaM";
+  src: url("/fonts/acinemal.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .dashboard-page {
   width: 100%;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif;
 }
 
 .dashboard-header {
@@ -1014,50 +1041,21 @@
   margin-bottom: 0;
 }
 
-.dashboard-recommendation-section {
-  margin-bottom: 0;
-}
-
-.dashboard-quick-links {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.dashboard-quick-link {
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  background: var(--body-background);
-}
-
-.dashboard-quick-link a {
-  display: block;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.9735rem !important;
-  font-weight: 400 !important;
-  color: var(--color-link) !important;
-  text-decoration: none;
-}
-
-.dashboard-quick-link a:hover {
-  text-decoration: underline;
-}
-
-.dashboard-stats {
-  margin-top: 0.65rem;
-}
-
 
 /* =========================================================
    Dashboard H1
    ========================================================= */
 
 .dashboard-header h1 {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 1.5rem !important;
-  font-weight: 700 !important;
+  margin: 0;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
   color: #666666 !important;
 }
 
@@ -1067,15 +1065,19 @@ html.forced-dark .dashboard-header h1 {
 
 
 /* =========================================================
-   Dashboard H2
+   섹션 제목
    ========================================================= */
 
 .dashboard-section-title {
   margin-top: 0.5rem;
   margin-bottom: 0.35rem;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 1.25rem !important;
-  font-weight: 700 !important;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 1.125rem !important;
+  font-weight: 400 !important;
   line-height: 1.4;
   color: #666666 !important;
 }
@@ -1086,20 +1088,12 @@ html.forced-dark .dashboard-section-title {
 
 
 /* =========================================================
-   통계 구분선
+   오늘의 추천
    ========================================================= */
 
-.dashboard-section-divider {
-  height: 1px;
-  margin-top: 0.65rem;
-  margin-bottom: 0.35rem;
-  background: var(--gray-200);
+.dashboard-recommendation-section {
+  margin-bottom: 0;
 }
-
-
-/* =========================================================
-   오늘의 추천 아카이브
-   ========================================================= */
 
 .dashboard-recommendation {
   margin-top: 0.5rem;
@@ -1118,8 +1112,12 @@ html.forced-dark .dashboard-section-title {
 .dashboard-recommendation-title:visited {
   flex: 1 1 auto;
   min-width: 0;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.9735rem !important;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.875rem !important;
   font-weight: 400 !important;
   line-height: 1.55;
   text-decoration: none;
@@ -1133,10 +1131,163 @@ html.forced-dark .dashboard-section-title {
 
 
 /* =========================================================
+   빠른 링크
+   ========================================================= */
+
+.dashboard-quick-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dashboard-quick-link {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  background: var(--body-background);
+}
+
+.dashboard-quick-link a {
+  display: block;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 1.125rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+  color: var(--color-link) !important;
+  text-decoration: none;
+}
+
+.dashboard-quick-link a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   마이 페이지
+   ========================================================= */
+
+.dashboard-my-page-section {
+  margin-top: 0.5rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.dashboard-my-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.dashboard-my-row {
+  display: grid;
+  grid-template-columns: 110px 110px minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 0.6rem;
+  padding: 0.35rem 0;
+}
+
+.dashboard-my-user-row {
+  padding-top: 0.15rem;
+}
+
+.dashboard-my-user {
+  grid-column: 1 / 3;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+  color: #666666 !important;
+}
+
+html.forced-dark .dashboard-my-user {
+  color: #a8a8a8 !important;
+}
+
+.dashboard-my-kakao {
+  min-width: 0;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+  color: #666666 !important;
+  overflow-wrap: anywhere;
+}
+
+html.forced-dark .dashboard-my-kakao {
+  color: #a8a8a8 !important;
+}
+
+.dashboard-my-label {
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+  color: #666666 !important;
+}
+
+html.forced-dark .dashboard-my-label {
+  color: #a8a8a8 !important;
+}
+
+.dashboard-my-value {
+  display: block;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+  text-align: right;
+  color: #666666 !important;
+  white-space: nowrap;
+}
+
+html.forced-dark .dashboard-my-value {
+  color: #a8a8a8 !important;
+}
+
+.dashboard-my-empty {
+  display: block;
+}
+
+
+/* =========================================================
    통계
    ========================================================= */
 
+.dashboard-stats-section {
+  margin-top: 0.5rem;
+}
+
+.dashboard-section-divider {
+  height: auto;
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--gray-200);
+}
+
 .dashboard-stats {
+  margin-top: 0.65rem;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -1144,14 +1295,18 @@ html.forced-dark .dashboard-section-title {
 
 .dashboard-stat-row {
   display: grid;
-  grid-template-columns: 110px 90px minmax(0, 1fr);
+  grid-template-columns: 110px 110px minmax(0, 1fr);
   align-items: baseline;
   column-gap: 0.6rem;
-  padding: 0.4rem 0;
+  padding: 0.35rem 0;
 }
 
 .dashboard-label {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
   font-size: 0.8rem !important;
   font-weight: 400 !important;
   line-height: 1.4;
@@ -1164,8 +1319,12 @@ html.forced-dark .dashboard-label {
 
 .dashboard-stat-value {
   display: block;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.85rem !important;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.8rem !important;
   font-weight: 400 !important;
   line-height: 1.4;
   text-align: right;
@@ -1184,8 +1343,12 @@ html.forced-dark .dashboard-stat-value {
 .dashboard-stat-title,
 .dashboard-stat-title:visited {
   min-width: 0;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.875rem !important;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.85rem !important;
   font-weight: 400 !important;
   line-height: 1.5;
   text-decoration: none;
@@ -1216,8 +1379,12 @@ html.forced-dark .dashboard-stat-value {
 
 .dashboard-stat-change {
   display: block;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.75rem !important;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.8rem !important;
   font-weight: 400 !important;
   line-height: 1.4;
   text-align: left;
@@ -1231,7 +1398,7 @@ html.forced-dark .dashboard-stat-change {
 
 
 /* =========================================================
-   시간축
+   월별 집계
    ========================================================= */
 
 .dashboard-timeline-section {
@@ -1248,15 +1415,19 @@ html.forced-dark .dashboard-stat-change {
 
 .dashboard-timeline-row {
   display: grid;
-  grid-template-columns: 110px 90px minmax(0, 1fr);
+  grid-template-columns: 110px 110px minmax(0, 1fr);
   align-items: center;
   column-gap: 0.6rem;
   width: 100%;
 }
 
 .dashboard-timeline-date {
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.85rem !important;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.8rem !important;
   font-weight: 400 !important;
   line-height: 1.4;
   color: #666666 !important;
@@ -1270,8 +1441,12 @@ html.forced-dark .dashboard-timeline-date {
 .dashboard-timeline-count {
   display: block;
   margin: 0;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-  font-size: 0.85rem !important;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif !important;
+  font-size: 0.8rem !important;
   font-weight: 400 !important;
   line-height: 1.4;
   text-align: right;
@@ -1318,9 +1493,19 @@ html.forced-dark .dashboard-timeline-count {
     min-width: 0;
   }
 
-  .dashboard-stat-row {
+  .dashboard-my-row,
+  .dashboard-stat-row,
+  .dashboard-timeline-row {
     grid-template-columns: 90px 75px minmax(0, 1fr);
     column-gap: 0.4rem;
+  }
+
+  .dashboard-my-user {
+    grid-column: 1 / 3;
+  }
+
+  .dashboard-my-kakao {
+    font-size: 0.8rem !important;
   }
 
   .dashboard-label {
@@ -1328,31 +1513,24 @@ html.forced-dark .dashboard-timeline-count {
   }
 
   .dashboard-stat-value {
-    font-size: 0.85rem !important;
+    font-size: 0.8rem !important;
   }
 
   .dashboard-stat-title {
-    font-size: 0.875rem !important;
+    font-size: 0.85rem !important;
   }
 
   .dashboard-stat-change {
-    font-size: 0.75rem !important;
+    font-size: 0.8rem !important;
   }
 
-  .dashboard-timeline-row {
-    grid-template-columns: 90px 75px minmax(0, 1fr);
-    column-gap: 0.4rem;
-  }
-
-  .dashboard-timeline-date {
-    font-size: 0.85rem !important;
-  }
-
+  .dashboard-timeline-date,
   .dashboard-timeline-count {
-    font-size: 0.85rem !important;
+    font-size: 0.8rem !important;
   }
 
 }
+
 </style>
 
 {{ end }}
