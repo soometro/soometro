@@ -1027,8 +1027,80 @@
    }
 
 
-    })();
+        })();
 
+</script>
+
+
+<!-- =========================================================
+     로그인 사용자 인식 테스트
+     ========================================================= -->
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+
+  const nameEl =
+    document.getElementById("dashboard-my-name");
+
+  const identityEl =
+    document.getElementById("dashboard-my-identity");
+
+  if (!nameEl || !identityEl) {
+    return;
+  }
+
+  if (
+    !window.sb ||
+    typeof window.sbGetUser !== "function"
+  ) {
+    nameEl.innerText =
+      "로그인 시스템 확인 불가";
+
+    identityEl.innerText =
+      "Supabase Auth 연결 확인 필요";
+
+    return;
+  }
+
+  try {
+
+    const user =
+      await window.sbGetUser();
+
+    if (!user) {
+
+      nameEl.innerText =
+        "비로그인 사용자";
+
+      identityEl.innerText =
+        "방문자 ID · 로그인 필요";
+
+      return;
+    }
+
+    nameEl.innerText =
+      "로그인 사용자";
+
+    identityEl.innerText =
+      "Supabase 사용자 ID · " +
+      user.id;
+
+  } catch (error) {
+
+    console.error(
+      "Dashboard user check error:",
+      error
+    );
+
+    nameEl.innerText =
+      "사용자 확인 실패";
+
+    identityEl.innerText =
+      "Supabase Auth 오류";
+
+  }
+
+});
 </script>
 
 
