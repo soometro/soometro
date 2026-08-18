@@ -204,121 +204,228 @@
 <script>
     const _sbUrl = "https://jmosoaoxjuudcffbeoxi.supabase.co";
     const _sbKey = "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
-    window.sb = window.supabase.createClient(_sbUrl, _sbKey);
+    <script>
+    const _sbUrl =
+        "https://jmosoaoxjuudcffbeoxi.supabase.co";
+
+    const _sbKey =
+        "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+
+    window.sb =
+        window.supabase.createClient(
+            _sbUrl,
+            _sbKey
+        );
+
+
     // 로그인 후 원래 스크롤 위치로 복원
-    const savedScroll = sessionStorage.getItem('scroll_before_login');
+
+    const savedScroll =
+        sessionStorage.getItem(
+            'scroll_before_login'
+        );
+
     if (savedScroll !== null) {
-        window.addEventListener('load', function() {
-            window.scrollTo(0, parseInt(savedScroll, 10));
-            sessionStorage.removeItem('scroll_before_login');
-        });
-    }
-    // 로그인 성공 후 URL에 남는 #access_token 찌꺼기 제거
-    if (window.location.hash && window.location.hash.includes('access_token')) {
-        window.sb.auth.onAuthStateChange(function(event, session) {
-            if (event === 'SIGNED_IN') {
-                history.replaceState(null, '', window.location.pathname + window.location.search);
+
+        window.addEventListener(
+            'load',
+            function () {
+
+                window.scrollTo(
+                    0,
+                    parseInt(
+                        savedScroll,
+                        10
+                    )
+                );
+
+                sessionStorage.removeItem(
+                    'scroll_before_login'
+                );
+
             }
-        });
+        );
+
     }
-        // 카카오 로그인 시작
-    window.sbSignInKakao = function (redirectPath) {
 
-        // 일반 댓글 로그인일 때만 기존 스크롤 위치 저장
-        if (!redirectPath) {
-            sessionStorage.setItem(
-                'scroll_before_login',
-                window.scrollY
-            );
-        }
 
-        const redirectTo = redirectPath
-            ? window.location.origin + redirectPath
-            : window.location.origin + window.location.pathname;
+    // 로그인 성공 후 URL의 #access_token 제거
 
-        window.sb.auth.signInWithOAuth({
-            provider: 'kakao',
-            options: {
-                redirectTo: redirectTo
+    if (
+        window.location.hash &&
+        window.location.hash.includes(
+            'access_token'
+        )
+    ) {
+
+        window.sb.auth.onAuthStateChange(
+            function (
+                event,
+                session
+            ) {
+
+                if (
+                    event === 'SIGNED_IN'
+                ) {
+
+                    history.replaceState(
+                        null,
+                        '',
+                        window.location.pathname +
+                        window.location.search
+                    );
+
+                }
+
             }
-        });
-    };
+        );
+
+    }
+
+
+    // 카카오 로그인
+
+    window.sbSignInKakao =
+        function (
+            redirectPath
+        ) {
+
+            /*
+             * 일반 댓글 로그인일 때만
+             * 기존 스크롤 위치 저장
+             */
+
+            if (!redirectPath) {
+
+                sessionStorage.setItem(
+                    'scroll_before_login',
+                    window.scrollY
+                );
+
+            }
+
+
+            const redirectTo =
+                redirectPath
+                    ? window.location.origin +
+                      redirectPath
+                    : window.location.origin +
+                      window.location.pathname;
+
+
+            window.sb.auth.signInWithOAuth({
+                provider: 'kakao',
+
+                options: {
+                    redirectTo:
+                        redirectTo
+                }
+
+            });
+
+        };
 
 
     // 로그아웃
-    window.sbSignOut = async function () {
-        await window.sb.auth.signOut();
-        window.location.reload();
-    };
+
+    window.sbSignOut =
+        async function () {
+
+            await window.sb.auth.signOut();
+
+            window.location.reload();
+
+        };
 
 
     // 현재 로그인 세션 확인
-    window.sbGetUser = async function () {
 
-        if (!window.sb) {
-            return null;
-        }
+    window.sbGetUser =
+        async function () {
 
-        const { data, error } =
-            await window.sb.auth.getSession();
+            if (!window.sb) {
+                return null;
+            }
 
-        if (error) {
-            console.error(
-                'Supabase session check error:',
+
+            const {
+                data,
                 error
-            );
+            } =
+                await window.sb.auth.getSession();
 
-            return null;
-        }
 
-        return data.session
-            ? data.session.user
-            : null;
-    };
+            if (error) {
+
+                console.error(
+                    'Supabase session check error:',
+                    error
+                );
+
+                return null;
+
+            }
+
+
+            return data.session
+                ? data.session.user
+                : null;
+
+        };
 
 
     // 방명록 접근
-    // 로그인 상태면 바로 방명록으로 이동
-    // 비로그인 상태면 카카오 로그인 후 방명록으로 이동
-    window.sbOpenGuestbook = async function (event) {
 
-        if (event) {
-            event.preventDefault();
-        }
+    window.sbOpenGuestbook =
+        async function (event) {
 
-        const guestbookPath =
-            '/docs/guestbook/';
+            if (event) {
+                event.preventDefault();
+            }
 
-        try {
 
-            const user =
-                await window.sbGetUser();
+            const guestbookPath =
+                '/docs/guestbook/';
 
-            if (user) {
+
+            try {
+
+                const user =
+                    await window.sbGetUser();
+
+
+                if (user) {
+
+                    window.location.href =
+                        guestbookPath;
+
+                    return false;
+
+                }
+
+
+                window.sbSignInKakao(
+                    guestbookPath
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    'Guestbook access error:',
+                    error
+                );
 
                 window.location.href =
                     guestbookPath;
 
-                return false;
             }
 
-            window.sbSignInKakao(
-                guestbookPath
-            );
 
-        } catch (error) {
+            return false;
 
-            console.error(
-                'Guestbook access error:',
-                error
-            );
+        };
 
-            window.location.href =
-                guestbookPath;
-        }
-
-        return false;
-    };
 </script>
 
     // 현재 로그인 세션 확인 (다른 스크립트에서 활용)
