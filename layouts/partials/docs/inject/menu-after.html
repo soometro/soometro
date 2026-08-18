@@ -261,8 +261,44 @@
             });
         }
 
-        window.addEventListener('appinstalled', function() {
+                window.addEventListener('appinstalled', function() {
             if (installContainer) installContainer.style.display = 'none';
         });
     });
+</script>
+
+
+<!-- =========================================================
+     좌측 Guestbook 로그인 진입
+     ========================================================= -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const guestbookLinks =
+        document.querySelectorAll(
+            '.book-menu a[href="/docs/guestbook/"]'
+        );
+
+    guestbookLinks.forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    window.sbOpenGuestbook &&
+                    typeof window.sbOpenGuestbook === "function"
+                ) {
+
+                    window.sbOpenGuestbook(event);
+
+                }
+
+            }
+        );
+
+    });
+
+});
 </script>
