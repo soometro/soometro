@@ -490,43 +490,167 @@
 
     // 현재 로그인 세션 확인
 
-    window.sbGetUser =
-        async function () {
+window.sbGetUser =
+    async function () {
 
-            if (!window.sb) {
-                return null;
-            }
+        if (!window.sb) {
+            return null;
+        }
 
 
-            const {
-                data,
+        const {
+            data,
+            error
+        } =
+            await window.sb.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                'Supabase session check error:',
                 error
-            } =
-                await window.sb.auth.getSession();
+            );
+
+            return null;
+
+        }
+
+
+        return data.session
+            ? data.session.user
+            : null;
+
+    };
+
+
+// 현재 브라우저 visitor_id와
+// Supabase 사용자 연결
+
+window.sbLinkVisitorToUser =
+    async function (user) {
+
+        if (!user || !window.sb) {
+            return;
+        }
+
+
+        const visitorId =
+            localStorage.getItem(
+                'user_hash'
+            );
+
+
+        if (!visitorId) {
+            return;
+        }
+
+
+        try {
+
+            const { error } =
+                await window.sb
+                    .from('user_visitors')
+                    .upsert(
+                        {
+                            user_id:
+                                user.id,
+
+                            visitor_id:
+                                visitorId
+                        },
+                        {
+                            onConflict:
+                                'user_id,visitor_id'
+                        }
+                    );
 
 
             if (error) {
 
                 console.error(
-                    'Supabase session check error:',
+                    'Visitor link save error:',
                     error
                 );
 
-                return null;
-
+                return;
             }
 
 
-            return data.session
-                ? data.session.user
-                : null;
+            console.log(
+                'Visitor linked:',
+                visitorId,
+                '→',
+                user.id
+            );
 
-        };
+        } catch (error) {
+
+            console.error(
+                'Visitor link error:',
+                error
+            );
+
+        }
+
+    };
 
 
-    // 방명록 접근
+// 페이지 진입 시 이미 로그인되어 있는 사용자도 연결
 
-    window.sbOpenGuestbook =
+window.sbGetUser()
+    .then(function (user) {
+
+        if (user) {
+
+            window.sbLinkVisitorToUser(
+                user
+            );
+
+        }
+
+    })
+    .catch(function (error) {
+
+        console.error(
+            'Initial visitor link error:',
+            error
+        );
+
+    });
+
+
+// 로그인 성공 시 visitor_id 연결
+
+window.sb.auth.onAuthStateChange(
+    function (event, session) {
+
+        if (
+            event === 'SIGNED_IN' &&
+            session &&
+            session.user
+        ) {
+
+            setTimeout(
+                function () {
+
+                    window.sbLinkVisitorToUser(
+                        session.user
+                    );
+
+                },
+                0
+            );
+
+        }
+
+    }
+);
+
+
+// 방명록 접근
+
+window.sbOpenGuestbook =
         async function (event) {
 
             if (event) {
