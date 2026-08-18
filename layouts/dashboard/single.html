@@ -124,7 +124,7 @@
             id="dashboard-my-identity"
             class="dashboard-my-identity"
           >
-            Supabase 사용자 ID 확인 중
+            확인 중
           </span>
 
         </div>
@@ -132,16 +132,19 @@
       </div>
 
 
-      <!-- 첫 방문 -->
+      <!-- 회원 이용 시작 -->
 
       <div class="dashboard-my-row">
 
         <span class="dashboard-my-label">
-          첫 방문:
+          회원 이용 시작:
         </span>
 
-        <strong class="dashboard-my-value">
-          2026-08-18
+        <strong
+          id="dashboard-my-member-since"
+          class="dashboard-my-value"
+        >
+          불러오는 중
         </strong>
 
         <span class="dashboard-my-empty"></span>
@@ -157,8 +160,11 @@
           최근 방문:
         </span>
 
-        <strong class="dashboard-my-value">
-          2031-04-12
+        <strong
+          id="dashboard-my-last-visit"
+          class="dashboard-my-value"
+        >
+          불러오는 중
         </strong>
 
         <span class="dashboard-my-empty"></span>
@@ -174,8 +180,11 @@
           총 방문:
         </span>
 
-        <strong class="dashboard-my-value">
-          1,247 회
+        <strong
+          id="dashboard-my-total-visits"
+          class="dashboard-my-value"
+        >
+          불러오는 중
         </strong>
 
         <span class="dashboard-my-empty"></span>
@@ -191,8 +200,11 @@
           읽은 글:
         </span>
 
-        <strong class="dashboard-my-value">
-          386 회
+        <strong
+          id="dashboard-my-read-posts"
+          class="dashboard-my-value"
+        >
+          불러오는 중
         </strong>
 
         <span class="dashboard-my-empty"></span>
@@ -208,8 +220,11 @@
           댓글:
         </span>
 
-        <strong class="dashboard-my-value">
-          42 건
+        <strong
+          id="dashboard-my-comments"
+          class="dashboard-my-value"
+        >
+          불러오는 중
         </strong>
 
         <span class="dashboard-my-empty"></span>
@@ -1033,7 +1048,7 @@
 
 
 <!-- =========================================================
-     로그인 사용자 + 방문자 식별
+     로그인 사용자 + 회원 Dashboard
      ========================================================= -->
 
 <script>
@@ -1052,17 +1067,48 @@ document.addEventListener(
         "dashboard-my-identity"
       );
 
+    const memberSinceEl =
+      document.getElementById(
+        "dashboard-my-member-since"
+      );
 
-    if (!nameEl || !identityEl) {
+    const lastVisitEl =
+      document.getElementById(
+        "dashboard-my-last-visit"
+      );
+
+    const totalVisitsEl =
+      document.getElementById(
+        "dashboard-my-total-visits"
+      );
+
+    const readPostsEl =
+      document.getElementById(
+        "dashboard-my-read-posts"
+      );
+
+    const commentsEl =
+      document.getElementById(
+        "dashboard-my-comments"
+      );
+
+
+    if (
+      !nameEl ||
+      !identityEl ||
+      !memberSinceEl ||
+      !lastVisitEl ||
+      !totalVisitsEl ||
+      !readPostsEl ||
+      !commentsEl
+    ) {
       return;
     }
 
 
-    const visitorId =
-      localStorage.getItem(
-        "user_hash"
-      );
-
+    /*
+     * Supabase 확인
+     */
 
     if (
       !window.sb ||
@@ -1073,9 +1119,22 @@ document.addEventListener(
         "로그인 시스템 확인 불가";
 
       identityEl.innerText =
-        visitorId
-          ? "방문자 ID · " + visitorId
-          : "방문자 ID 확인 불가";
+        "";
+
+      memberSinceEl.innerText =
+        "-";
+
+      lastVisitEl.innerText =
+        "-";
+
+      totalVisitsEl.innerText =
+        "-";
+
+      readPostsEl.innerText =
+        "-";
+
+      commentsEl.innerText =
+        "-";
 
       return;
 
@@ -1084,9 +1143,17 @@ document.addEventListener(
 
     try {
 
+      /*
+       * 현재 로그인 사용자
+       */
+
       const user =
         await window.sbGetUser();
 
+
+      /*
+       * 비로그인
+       */
 
       if (!user) {
 
@@ -1094,45 +1161,314 @@ document.addEventListener(
           "비로그인 사용자";
 
         identityEl.innerText =
-          visitorId
-            ? "방문자 ID · " + visitorId
-            : "방문자 ID 생성 중";
+          "카카오 로그인 후 이용 기록이 표시됩니다.";
+
+        memberSinceEl.innerText =
+          "-";
+
+        lastVisitEl.innerText =
+          "-";
+
+        totalVisitsEl.innerText =
+          "-";
+
+        readPostsEl.innerText =
+          "-";
+
+        commentsEl.innerText =
+          "-";
 
         return;
 
       }
 
 
+      /*
+       * 현재 브라우저의 visitor를
+       * 로그인 계정에 먼저 연결
+       */
+
+      if (
+        typeof window.sbLinkVisitorToUser ===
+        "function"
+      ) {
+
+        await window.sbLinkVisitorToUser(
+          user
+        );
+
+      }
+
+
+      /*
+       * 사용자 이름
+       *
+       * 카카오에서 전달된 이름을 우선 사용하고
+       * 없으면 Supabase metadata를 사용한다.
+       */
+
+      const userMetadata =
+        user.user_metadata || {};
+
+
+      const displayName =
+        userMetadata.name ||
+        userMetadata.full_name ||
+        userMetadata.user_name ||
+        "회원";
+
+
       nameEl.innerText =
-        "로그인 사용자";
+        displayName;
+
+
+      /*
+       * 현재 Supabase 세션
+       */
+
+      const sessionResult =
+        await window.sb.auth.getSession();
+
+      const session =
+        sessionResult &&
+        sessionResult.data
+          ? sessionResult.data.session
+          : null;
+
+
+      if (
+        !session ||
+        !session.access_token
+      ) {
+
+        throw new Error(
+          "Supabase access token unavailable"
+        );
+
+      }
+
+
+      /*
+       * 회원 통계 RPC
+       */
+
+      const dashboardSupabaseUrl =
+        "https://jmosoaoxjuudcffbeoxi.supabase.co";
+
+      const dashboardSupabaseKey =
+        "sb_publishable_JDKL8SsX9JJX-gnHViqLOw_LBGxlKte";
+
+
+      const response =
+        await fetch(
+          `${dashboardSupabaseUrl}/rest/v1/rpc/get_my_dashboard_stats`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+              "apikey":
+                dashboardSupabaseKey,
+              "Authorization":
+                `Bearer ${session.access_token}`
+            },
+
+            body: JSON.stringify({})
+          }
+        );
+
+
+      if (!response.ok) {
+
+        const errorText =
+          await response.text();
+
+        throw new Error(
+          `Dashboard RPC ${response.status}: ${errorText}`
+        );
+
+      }
+
+
+      const result =
+        await response.json();
+
+
+      const data =
+        Array.isArray(result)
+          ? result[0]
+          : result;
+
+
+      if (!data) {
+
+        throw new Error(
+          "Dashboard statistics data unavailable"
+        );
+
+      }
+
+
+      /*
+       * 카카오 Service User ID
+       */
+
+      const kakaoId =
+        data.kakao_id || "";
 
 
       identityEl.innerText =
-        "Supabase 사용자 ID · " +
-        user.id +
-        " · 방문자 ID · " +
-        (
-          visitorId ||
-          "확인 불가"
+        kakaoId
+          ? "카카오 ID · " + kakaoId
+          : "카카오 ID 확인 불가";
+
+
+      /*
+       * 날짜
+       */
+
+      function formatDate(
+        value
+      ) {
+
+        if (!value) {
+          return "-";
+        }
+
+
+        const formatter =
+          new Intl.DateTimeFormat(
+            "ko-KR",
+            {
+              timeZone:
+                "Asia/Seoul",
+              year:
+                "numeric",
+              month:
+                "2-digit",
+              day:
+                "2-digit"
+            }
+          );
+
+
+        const parts =
+          formatter.formatToParts(
+            new Date(value)
+          );
+
+
+        let year = "";
+        let month = "";
+        let day = "";
+
+
+        parts.forEach(
+          function (part) {
+
+            if (
+              part.type ===
+              "year"
+            ) {
+              year =
+                part.value;
+            }
+
+            if (
+              part.type ===
+              "month"
+            ) {
+              month =
+                part.value;
+            }
+
+            if (
+              part.type ===
+              "day"
+            ) {
+              day =
+                part.value;
+            }
+
+          }
         );
+
+
+        return (
+          `${year}-${month}-${day}`
+        );
+
+      }
+
+
+      /*
+       * 실제 회원 데이터 표시
+       */
+
+      memberSinceEl.innerText =
+        formatDate(
+          data.member_since
+        );
+
+
+      lastVisitEl.innerText =
+        formatDate(
+          data.last_visit
+        );
+
+
+      totalVisitsEl.innerText =
+        `${Number(
+          data.total_visits || 0
+        ).toLocaleString(
+          "ko-KR"
+        )}회`;
+
+
+      readPostsEl.innerText =
+        `${Number(
+          data.read_posts || 0
+        ).toLocaleString(
+          "ko-KR"
+        )}편`;
+
+
+      commentsEl.innerText =
+        `${Number(
+          data.comments || 0
+        ).toLocaleString(
+          "ko-KR"
+        )}건`;
 
 
     } catch (error) {
 
       console.error(
-        "Dashboard user check error:",
+        "Dashboard user/statistics error:",
         error
       );
 
 
       nameEl.innerText =
-        "사용자 확인 실패";
-
+        "회원 정보 확인 실패";
 
       identityEl.innerText =
-        visitorId
-          ? "방문자 ID · " + visitorId
-          : "Supabase Auth 오류";
+        "";
+
+      memberSinceEl.innerText =
+        "-";
+
+      lastVisitEl.innerText =
+        "-";
+
+      totalVisitsEl.innerText =
+        "-";
+
+      readPostsEl.innerText =
+        "-";
+
+      commentsEl.innerText =
+        "-";
 
     }
 
@@ -1422,7 +1758,6 @@ html.forced-dark .dashboard-my-label {
     "CinemaM",
     "Malgun Gothic",
     "맑은 고딕",
-    "CinemaM",
     sans-serif !important;
   font-size: 0.8rem !important;
   font-weight: 400 !important;
