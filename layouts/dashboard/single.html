@@ -83,12 +83,13 @@
 	 </div>
 
 	<div class="dashboard-quick-link">
-	  <a href="/docs/guestbook/"
-	       onclick="return dashboardGuestbookAccess(event);"
-	  >
-	      💬 방명록 쓰기
-	    </a>
-	</div>
+  <a
+    href="/docs/guestbook/"
+    onclick="return window.sbOpenGuestbook(event);"
+  >
+    💬 방명록 쓰기
+  </a>
+</div>
 
    </div>
 
@@ -1026,51 +1027,8 @@
    }
 
 
-    /*
-   * Dashboard 방명록 접근
-   */
+    })();
 
-  window.dashboardGuestbookAccess = async function (event) {
-
-    event.preventDefault();
-
-    if (!window.sb || !window.sbGetUser) {
-      window.location.href = '/docs/guestbook/';
-      return false;
-    }
-
-    try {
-
-      const user =
-        await window.sbGetUser();
-
-      if (user) {
-
-        window.location.href =
-          '/docs/guestbook/';
-
-        return false;
-      }
-
-      window.sbSignInKakao(
-        '/docs/guestbook/'
-      );
-
-    } catch (error) {
-
-      console.error(
-        'Dashboard guestbook login check error:',
-        error
-      );
-
-      window.location.href =
-        '/docs/guestbook/';
-    }
-
-    return false;
-  };
-
-})();
 </script>
 
 
