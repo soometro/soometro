@@ -1026,11 +1026,11 @@
    }
 
 
-  /*
+    /*
    * Dashboard 방명록 접근
    */
 
-  async function dashboardGuestbookAccess(event) {
+  window.dashboardGuestbookAccess = async function (event) {
 
     event.preventDefault();
 
@@ -1068,7 +1068,7 @@
     }
 
     return false;
-  }
+  };
 
 })();
 </script>
