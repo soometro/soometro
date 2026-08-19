@@ -490,38 +490,38 @@
 
     // 현재 로그인 세션 확인
 
-window.sbGetUser =
-    async function () {
+    window.sbGetUser =
+        async function () {
 
-        if (!window.sb) {
-            return null;
-        }
-
-
-        const {
-            data,
-            error
-        } =
-            await window.sb.auth.getSession();
+            if (!window.sb) {
+                return null;
+            }
 
 
-        if (error) {
-
-            console.error(
-                'Supabase session check error:',
+            const {
+                data,
                 error
-            );
-
-            return null;
-
-        }
+            } =
+                await window.sb.auth.getSession();
 
 
-        return data.session
-            ? data.session.user
-            : null;
+            if (error) {
 
-    };
+                console.error(
+                    'Supabase session check error:',
+                    error
+                );
+
+                return null;
+
+            }
+
+
+            return data.session
+                ? data.session.user
+                : null;
+
+        };
 
 
 // =========================================================
@@ -531,157 +531,170 @@ window.sbGetUser =
 window.identifyUmamiUser =
     async function (user) {
 
-        if (!user || !window.sb) {
+    if (!user || !window.sb) {
+        return;
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await window.sb.auth.getUserIdentities();
+
+
+        if (error) {
+
+            console.error(
+                'Umami identity lookup error:',
+                error
+            );
+
+            return;
+
+        }
+
+
+        const identities =
+            data &&
+            Array.isArray(data.identities)
+                ? data.identities
+                : [];
+
+
+        const kakaoIdentity =
+            identities.find(
+                function (identity) {
+
+                    return (
+                        identity.provider ===
+                        'kakao'
+                    );
+
+                }
+            );
+
+
+        const kakaoId =
+            kakaoIdentity &&
+            kakaoIdentity.provider_id
+                ? String(
+                    kakaoIdentity.provider_id
+                )
+                : null;
+
+
+        if (!kakaoId) {
+
+            console.warn(
+                'Kakao provider_id not found.'
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Umami script가 defer로 로드되므로
+         * 준비될 때까지 잠시 대기한다.
+         */
+
+        const identify =
+            function () {
+
+                if (
+                    window.umami &&
+                    typeof window.umami.identify ===
+                        'function'
+                ) {
+
+                    window.umami.identify(
+                        {
+                            id: kakaoId
+                        }
+                    );
+
+
+                    if (
+                        typeof window.umami.track ===
+                            'function'
+                    ) {
+
+                        window.umami.track();
+
+                    }
+
+
+                    console.log(
+                        'Umami Distinct ID:',
+                        kakaoId
+                    );
+
+                    return true;
+
+                }
+
+                return false;
+
+            };
+
+
+        if (identify()) {
             return;
         }
 
 
-        try {
-
-            const {
-                data,
-                error
-            } =
-                await window.sb.auth.getUserIdentities();
+        let attempts = 0;
 
 
-            if (error) {
-
-                console.error(
-                    'Umami identity lookup error:',
-                    error
-                );
-
-                return;
-
-            }
-
-
-            const identities =
-                data &&
-                Array.isArray(data.identities)
-                    ? data.identities
-                    : [];
-
-
-            const kakaoIdentity =
-                identities.find(
-                    function (identity) {
-
-                        return (
-                            identity.provider ===
-                            'kakao'
-                        );
-
-                    }
-                );
-
-
-            const kakaoId =
-                kakaoIdentity &&
-                kakaoIdentity.provider_id
-                    ? String(
-                        kakaoIdentity.provider_id
-                    )
-                    : null;
-
-
-            if (!kakaoId) {
-
-                console.warn(
-                    'Kakao provider_id not found.'
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * Umami script가 defer로 로드되므로
-             * 준비될 때까지 잠시 대기한다.
-             */
-
-            const identify =
+        const timer =
+            setInterval(
                 function () {
 
-                    if (
-                        window.umami &&
-                        typeof window.umami.identify ===
-                            'function'
-                    ) {
+                    attempts++;
 
-                        window.umami.identify(
-                            kakaoId
+
+                    if (identify()) {
+
+                        clearInterval(
+                            timer
                         );
 
-                        console.log(
-                            'Umami Distinct ID:',
-                            kakaoId
-                        );
-
-                        return true;
+                        return;
 
                     }
 
-                    return false;
 
-                };
+                    if (attempts >= 50) {
 
+                        clearInterval(
+                            timer
+                        );
 
-            if (identify()) {
-                return;
-            }
+                        console.warn(
+                            'Umami identify timeout.'
+                        );
 
+                    }
 
-            let attempts = 0;
-
-
-            const timer =
-                setInterval(
-                    function () {
-
-                        attempts++;
-
-
-                        if (identify()) {
-
-                            clearInterval(
-                                timer
-                            );
-
-                            return;
-
-                        }
-
-
-                        if (attempts >= 50) {
-
-                            clearInterval(
-                                timer
-                            );
-
-                            console.warn(
-                                'Umami identify timeout.'
-                            );
-
-                        }
-
-                    },
-                    200
-                );
-
-
-        } catch (error) {
-
-            console.error(
-                'Umami identify error:',
-                error
+                },
+                200
             );
 
-        }
 
-    };
+    } catch (error) {
+
+        console.error(
+            'Umami identify error:',
+            error
+        );
+
+    }
+
+};
 
 
 // 현재 브라우저 visitor_id와
@@ -690,70 +703,72 @@ window.identifyUmamiUser =
 window.sbLinkVisitorToUser =
     async function (user) {
 
-        if (!user || !window.sb) {
-            return;
-        }
+    if (!user || !window.sb) {
+        return;
+    }
 
 
-        const visitorId =
-            localStorage.getItem(
-                'user_hash'
-            );
+    const visitorId =
+        localStorage.getItem(
+            'user_hash'
+        );
 
 
-        if (!visitorId) {
-            return;
-        }
+    if (!visitorId) {
+        return;
+    }
 
 
-        try {
+    try {
 
-            const { error } =
-                await window.sb
-                    .from('user_visitors')
-                    .upsert(
-                        {
-                            user_id:
-                                user.id,
+        const { error } =
+            await window.sb
+                .from('user_visitors')
+                .upsert(
+                    {
+                        user_id:
+                            user.id,
 
-                            visitor_id:
-                                visitorId
-                        },
-                        {
-                            onConflict:
-                                'user_id,visitor_id'
-                        }
-                    );
-
-
-            if (error) {
-
-                console.error(
-                    'Visitor link save error:',
-                    error
+                        visitor_id:
+                            visitorId
+                    },
+                    {
+                        onConflict:
+                            'user_id,visitor_id'
+                    }
                 );
 
-                return;
-            }
 
-
-            console.log(
-                'Visitor linked:',
-                visitorId,
-                '→',
-                user.id
-            );
-
-        } catch (error) {
+        if (error) {
 
             console.error(
-                'Visitor link error:',
+                'Visitor link save error:',
                 error
             );
 
+            return;
+
         }
 
-    };
+
+        console.log(
+            'Visitor linked:',
+            visitorId,
+            '→',
+            user.id
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            'Visitor link error:',
+            error
+        );
+
+    }
+
+};
 
 
 // 페이지 진입 시 이미 로그인되어 있는 사용자도 연결
@@ -819,53 +834,53 @@ window.sb.auth.onAuthStateChange(
 // 방명록 접근
 
 window.sbOpenGuestbook =
-        async function (event) {
+    async function (event) {
 
-            if (event) {
-                event.preventDefault();
-            }
-
-
-            const guestbookPath =
-                '/docs/guestbook/';
+        if (event) {
+            event.preventDefault();
+        }
 
 
-            try {
-
-                const user =
-                    await window.sbGetUser();
+        const guestbookPath =
+            '/docs/guestbook/';
 
 
-                if (user) {
+        try {
 
-                    window.location.href =
-                        guestbookPath;
-
-                    return false;
-
-                }
+            const user =
+                await window.sbGetUser();
 
 
-                window.sbSignInKakao(
-                    guestbookPath
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    'Guestbook access error:',
-                    error
-                );
+            if (user) {
 
                 window.location.href =
                     guestbookPath;
 
+                return false;
+
             }
 
 
-            return false;
+            window.sbSignInKakao(
+                guestbookPath
+            );
 
-        };
+
+        } catch (error) {
+
+            console.error(
+                'Guestbook access error:',
+                error
+            );
+
+            window.location.href =
+                guestbookPath;
+
+        }
+
+
+        return false;
+
+    };
 
 </script>
