@@ -1406,20 +1406,28 @@ document.addEventListener(
         );
 
 
+      const isAdmin =
+        localStorage.getItem("my_admin") === "true";
+
+
       totalVisitsEl.innerText =
-        `${Number(
-          data.total_visits || 0
-        ).toLocaleString(
-          "ko-KR"
-        )} 회`;
+        isAdmin
+          ? "관리자"
+          : `${Number(
+              data.total_visits || 0
+            ).toLocaleString(
+              "ko-KR"
+            )} 회`;
 
 
       readPostsEl.innerText =
-        `${Number(
-          data.read_posts || 0
-        ).toLocaleString(
-          "ko-KR"
-        )} 편`;
+        isAdmin
+          ? "관리자"
+          : `${Number(
+              data.read_posts || 0
+            ).toLocaleString(
+              "ko-KR"
+            )} 편`;
 
 
       commentsEl.innerText =
@@ -1746,6 +1754,7 @@ html.forced-dark .dashboard-my-label {
   font-family:
     "CinemaM",
     "Malgun Gothic",
+    "맑은 고딕",
     "맑은 고딕",
     sans-serif !important;
   font-size: 0.8rem !important;
