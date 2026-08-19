@@ -6,127 +6,81 @@
     <h1>관리자</h1>
   </header>
 
-
-  <section
-    id="admin-auth-check"
-    class="admin-section"
-  >
-    로그인 확인 중
+  <section id="admin-login-message">
+    관리자 인증 확인 중
   </section>
 
+  <section id="admin-content" hidden>
 
-  <section
-    id="admin-content"
-    class="admin-section"
-    hidden
-  >
-
-    <h2>카카오 아이디 조회</h2>
-
-
-    <div class="admin-period-buttons">
-
-      <button
-        type="button"
-        data-period="today"
-      >
-        오늘
-      </button>
-
-      <button
-        type="button"
-        data-period="7d"
-      >
-        1주일
-      </button>
-
-      <button
-        type="button"
-        data-period="1m"
-      >
-        1개월
-      </button>
-
-      <button
-        type="button"
-        data-period="3m"
-      >
-        3개월
-      </button>
-
-      <button
-        type="button"
-        data-period="6m"
-      >
-        6개월
-      </button>
-
-      <button
-        type="button"
-        data-period="1y"
-      >
-        1년
-      </button>
-
+    <div class="admin-section-title">
+      카카오 아이디 조회
     </div>
-
 
     <div class="admin-date-form">
 
       <label>
         시작일
-        <input
-          id="admin-start-date"
-          type="date"
-        >
+        <input id="admin-start-date" type="date">
       </label>
 
       <label>
         종료일
-        <input
-          id="admin-end-date"
-          type="date"
-        >
+        <input id="admin-end-date" type="date">
       </label>
 
-      <button
-        id="admin-search-button"
-        type="button"
-      >
+      <button id="admin-search-button" type="button">
         조회
       </button>
 
     </div>
 
+    <div class="admin-period-buttons">
 
-    <div
-      id="admin-status"
-      class="admin-status"
-    ></div>
+      <button type="button" data-period="today">
+        오늘
+      </button>
 
+      <button type="button" data-period="7d">
+        1주일
+      </button>
+
+      <button type="button" data-period="1m">
+        1개월
+      </button>
+
+      <button type="button" data-period="3m">
+        3개월
+      </button>
+
+      <button type="button" data-period="6m">
+        6개월
+      </button>
+
+      <button type="button" data-period="1y">
+        1년
+      </button>
+
+    </div>
+
+    <div id="admin-status"></div>
 
     <div class="admin-table-wrap">
 
       <table class="admin-table">
 
         <thead>
-
           <tr>
             <th>이름</th>
             <th>아이디</th>
             <th>우마미 ID</th>
             <th>회원 이용 시작</th>
           </tr>
-
         </thead>
 
         <tbody id="admin-member-list">
 
           <tr>
-            <td
-              colspan="4"
-              class="admin-empty"
-            >
+            <td colspan="4">
               조회 전
             </td>
           </tr>
@@ -143,14 +97,13 @@
 
 
 <script>
-
 document.addEventListener(
   "DOMContentLoaded",
   async function () {
 
-    const authCheckEl =
+    const loginMessageEl =
       document.getElementById(
-        "admin-auth-check"
+        "admin-login-message"
       );
 
     const adminContentEl =
@@ -189,6 +142,96 @@ document.addEventListener(
       );
 
 
+    function todayString() {
+
+      const now =
+        new Date();
+
+      return new Intl.DateTimeFormat(
+        "en-CA",
+        {
+          timeZone:
+            "Asia/Seoul"
+        }
+      ).format(now);
+
+    }
+
+
+    function dateString(
+      date
+    ) {
+
+      return (
+        date.getFullYear() +
+        "-" +
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0") +
+        "-" +
+        String(
+          date.getDate()
+        ).padStart(2, "0")
+      );
+
+    }
+
+
+    function setPeriod(
+      type
+    ) {
+
+      const end =
+        new Date();
+
+      const start =
+        new Date(end);
+
+
+      if (type === "today") {
+        // 시작일 = 종료일
+      }
+
+      if (type === "7d") {
+        start.setDate(
+          start.getDate() - 6
+        );
+      }
+
+      if (type === "1m") {
+        start.setMonth(
+          start.getMonth() - 1
+        );
+      }
+
+      if (type === "3m") {
+        start.setMonth(
+          start.getMonth() - 3
+        );
+      }
+
+      if (type === "6m") {
+        start.setMonth(
+          start.getMonth() - 6
+        );
+      }
+
+      if (type === "1y") {
+        start.setFullYear(
+          start.getFullYear() - 1
+        );
+      }
+
+
+      startDateEl.value =
+        dateString(start);
+
+      endDateEl.value =
+        todayString();
+
+    }
+
+
     function formatDate(
       value
     ) {
@@ -204,226 +247,21 @@ document.addEventListener(
         return "-";
       }
 
-      const formatter =
-        new Intl.DateTimeFormat(
-          "ko-KR",
-          {
-            timeZone:
-              "Asia/Seoul",
-            year:
-              "numeric",
-            month:
-              "2-digit",
-            day:
-              "2-digit"
-          }
-        );
-
-      const parts =
-        formatter.formatToParts(
-          date
-        );
-
-      let year = "";
-      let month = "";
-      let day = "";
-
-      parts.forEach(
-        function (part) {
-
-          if (
-            part.type ===
-            "year"
-          ) {
-            year =
-              part.value;
-          }
-
-          if (
-            part.type ===
-            "month"
-          ) {
-            month =
-              part.value;
-          }
-
-          if (
-            part.type ===
-            "day"
-          ) {
-            day =
-              part.value;
-          }
-
+      return new Intl.DateTimeFormat(
+        "ko-KR",
+        {
+          timeZone:
+            "Asia/Seoul",
+          year:
+            "numeric",
+          month:
+            "2-digit",
+          day:
+            "2-digit"
         }
-      );
-
-      return (
-        `${year}-${month}-${day}`
-      );
-
-    }
-
-
-    function getTodayString() {
-
-      const formatter =
-        new Intl.DateTimeFormat(
-          "en-CA",
-          {
-            timeZone:
-              "Asia/Seoul",
-            year:
-              "numeric",
-            month:
-              "2-digit",
-            day:
-              "2-digit"
-          }
-        );
-
-      return formatter.format(
-        new Date()
-      );
-
-    }
-
-
-    function getDateFromString(
-      value
-    ) {
-
-      const parts =
-        value.split("-");
-
-      return new Date(
-        Number(parts[0]),
-        Number(parts[1]) - 1,
-        Number(parts[2])
-      );
-
-    }
-
-
-    function toDateString(
-      date
-    ) {
-
-      const year =
-        date.getFullYear();
-
-      const month =
-        String(
-          date.getMonth() + 1
-        ).padStart(2, "0");
-
-      const day =
-        String(
-          date.getDate()
-        ).padStart(2, "0");
-
-      return (
-        `${year}-${month}-${day}`
-      );
-
-    }
-
-
-    function setPeriod(
-      period
-    ) {
-
-      const today =
-        getTodayString();
-
-      const endDate =
-        getDateFromString(
-          today
-        );
-
-      const startDate =
-        new Date(
-          endDate
-        );
-
-
-      if (
-        period ===
-        "today"
-      ) {
-
-        // 오늘 하루
-
-      }
-
-
-      if (
-        period ===
-        "7d"
-      ) {
-
-        startDate.setDate(
-          startDate.getDate() - 6
-        );
-
-      }
-
-
-      if (
-        period ===
-        "1m"
-      ) {
-
-        startDate.setMonth(
-          startDate.getMonth() - 1
-        );
-
-      }
-
-
-      if (
-        period ===
-        "3m"
-      ) {
-
-        startDate.setMonth(
-          startDate.getMonth() - 3
-        );
-
-      }
-
-
-      if (
-        period ===
-        "6m"
-      ) {
-
-        startDate.setMonth(
-          startDate.getMonth() - 6
-        );
-
-      }
-
-
-      if (
-        period ===
-        "1y"
-      ) {
-
-        startDate.setFullYear(
-          startDate.getFullYear() - 1
-        );
-
-      }
-
-
-      startDateEl.value =
-        toDateString(
-          startDate
-        );
-
-      endDateEl.value =
-        today;
+      ).format(date)
+        .replaceAll(". ", "-")
+        .replace(".", "");
 
     }
 
@@ -436,17 +274,14 @@ document.addEventListener(
         "";
 
       if (
-        !rows ||
+        !Array.isArray(rows) ||
         rows.length === 0
       ) {
 
         memberListEl.innerHTML =
           `
           <tr>
-            <td
-              colspan="4"
-              class="admin-empty"
-            >
+            <td colspan="4">
               조회 결과가 없습니다.
             </td>
           </tr>
@@ -461,66 +296,42 @@ document.addEventListener(
         function (row) {
 
           const tr =
-            document.createElement(
-              "tr"
-            );
+            document.createElement("tr");
+
+          const name =
+            document.createElement("td");
+
+          const kakaoId =
+            document.createElement("td");
+
+          const umamiId =
+            document.createElement("td");
+
+          const memberSince =
+            document.createElement("td");
 
 
-          const nameTd =
-            document.createElement(
-              "td"
-            );
-
-          const kakaoTd =
-            document.createElement(
-              "td"
-            );
-
-          const umamiTd =
-            document.createElement(
-              "td"
-            );
-
-          const memberSinceTd =
-            document.createElement(
-              "td"
-            );
-
-
-          nameTd.innerText =
+          name.textContent =
             row.name || "회원";
 
-          kakaoTd.innerText =
+          kakaoId.textContent =
             row.kakao_id || "-";
 
-          umamiTd.innerText =
+          umamiId.textContent =
             row.umami_id || "-";
 
-          memberSinceTd.innerText =
+          memberSince.textContent =
             formatDate(
               row.identity_created_at
             );
 
 
-          tr.appendChild(
-            nameTd
-          );
+          tr.appendChild(name);
+          tr.appendChild(kakaoId);
+          tr.appendChild(umamiId);
+          tr.appendChild(memberSince);
 
-          tr.appendChild(
-            kakaoTd
-          );
-
-          tr.appendChild(
-            umamiTd
-          );
-
-          tr.appendChild(
-            memberSinceTd
-          );
-
-          memberListEl.appendChild(
-            tr
-          );
+          memberListEl.appendChild(tr);
 
         }
       );
@@ -528,31 +339,84 @@ document.addEventListener(
     }
 
 
-    async function checkAdmin() {
+    async function loadMembers() {
 
-      if (
-        !window.sb ||
-        typeof window.sbGetUser !==
-          "function"
-      ) {
+      const startDate =
+        startDateEl.value;
 
-        throw new Error(
-          "Supabase 로그인 시스템을 사용할 수 없습니다."
-        );
+      const endDate =
+        endDateEl.value;
 
+
+      if (!startDate || !endDate) {
+        return;
       }
 
 
-      const user =
-        await window.sbGetUser();
+      statusEl.textContent =
+        "조회 중...";
 
 
-      if (!user) {
+      try {
 
-        throw new Error(
-          "로그인이 필요합니다."
+        const {
+          data,
+          error
+        } =
+          await window.sb.rpc(
+            "get_admin_kakao_members",
+            {
+              p_start_date:
+                startDate,
+              p_end_date:
+                endDate
+            }
+          );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        renderRows(data);
+
+
+        statusEl.textContent =
+          `${(data || []).length}명`;
+
+      } catch (error) {
+
+        console.error(
+          "Admin member query error:",
+          error
         );
 
+        statusEl.textContent =
+          "조회 실패";
+
+        memberListEl.innerHTML =
+          `
+          <tr>
+            <td colspan="4">
+              ${error.message || "조회 실패"}
+            </td>
+          </tr>
+          `;
+
+      }
+
+    }
+
+
+    try {
+
+      if (
+        !window.sb
+      ) {
+        throw new Error(
+          "Supabase가 초기화되지 않았습니다."
+        );
       }
 
 
@@ -578,130 +442,8 @@ document.addEventListener(
 
       }
 
-    }
 
-
-    async function searchMembers() {
-
-      const startDate =
-        startDateEl.value;
-
-      const endDate =
-        endDateEl.value;
-
-
-      if (
-        !startDate ||
-        !endDate
-      ) {
-
-        statusEl.innerText =
-          "조회 기간을 입력하세요.";
-
-        return;
-
-      }
-
-
-      if (
-        startDate >
-        endDate
-      ) {
-
-        statusEl.innerText =
-          "시작일이 종료일보다 늦을 수 없습니다.";
-
-        return;
-
-      }
-
-
-      statusEl.innerText =
-        "조회 중입니다...";
-
-
-      memberListEl.innerHTML =
-        `
-        <tr>
-          <td
-            colspan="4"
-            class="admin-empty"
-          >
-            조회 중입니다...
-          </td>
-        </tr>
-        `;
-
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await window.sb.rpc(
-            "get_admin_kakao_members",
-            {
-              p_start_date:
-                startDate,
-              p_end_date:
-                endDate
-            }
-          );
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        renderRows(
-          data || []
-        );
-
-
-        statusEl.innerText =
-          `${(
-            data || []
-          ).length.toLocaleString("ko-KR")}명 조회`;
-
-      } catch (
-        error
-      ) {
-
-        console.error(
-          "Admin member search error:",
-          error
-        );
-
-        memberListEl.innerHTML =
-          `
-          <tr>
-            <td
-              colspan="4"
-              class="admin-empty"
-            >
-              조회에 실패했습니다.
-            </td>
-          </tr>
-          `;
-
-        statusEl.innerText =
-          error &&
-          error.message
-            ? error.message
-            : "조회에 실패했습니다.";
-
-      }
-
-    }
-
-
-    try {
-
-      await checkAdmin();
-
-      authCheckEl.hidden =
+      loginMessageEl.hidden =
         true;
 
       adminContentEl.hidden =
@@ -724,7 +466,7 @@ document.addEventListener(
                 button.dataset.period
               );
 
-              searchMembers();
+              loadMembers();
 
             }
           );
@@ -735,36 +477,28 @@ document.addEventListener(
 
       searchButtonEl.addEventListener(
         "click",
-        searchMembers
+        loadMembers
       );
 
 
-      await searchMembers();
+      await loadMembers();
 
 
-    } catch (
-      error
-    ) {
+    } catch (error) {
 
       console.error(
-        "Admin authentication error:",
+        "Admin page error:",
         error
       );
 
-      authCheckEl.innerText =
-        error &&
-        error.message
-          ? error.message
-          : "관리자 인증에 실패했습니다.";
-
-      adminContentEl.hidden =
-        true;
+      loginMessageEl.textContent =
+        error.message ||
+        "관리자 페이지를 사용할 수 없습니다.";
 
     }
 
   }
 );
-
 </script>
 
 
@@ -789,23 +523,17 @@ document.addEventListener(
   font-weight: 400 !important;
 }
 
-.admin-section h2 {
-  margin:
-    0 0 1rem;
-  font-size: 1rem !important;
-  font-weight: 400 !important;
+.admin-section-title {
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
-.admin-period-buttons,
-.admin-date-form {
+.admin-date-form,
+.admin-period-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.admin-date-form {
-  align-items: end;
+  margin-bottom: 0.75rem;
 }
 
 .admin-date-form label {
@@ -815,35 +543,26 @@ document.addEventListener(
   font-size: 0.8rem;
 }
 
-.admin-date-form input {
+.admin-page input,
+.admin-page button {
   min-height: 32px;
-  padding:
-    0.35rem
-    0.5rem;
+}
+
+.admin-page input {
+  padding: 0.35rem 0.5rem;
 }
 
 .admin-page button {
-  min-height: 32px;
-  padding:
-    0.35rem
-    0.75rem;
-  border:
-    1px solid
-    #d2d2d2;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #d2d2d2;
   border-radius: 6px;
-  background:
-    var(--body-background);
+  background: var(--body-background);
   cursor: pointer;
 }
 
-.admin-status {
-  margin-bottom: 0.75rem;
+#admin-status {
+  margin: 0.75rem 0;
   font-size: 0.8rem;
-  color: #666666;
-}
-
-html.forced-dark .admin-status {
-  color: #a8a8a8;
 }
 
 .admin-table-wrap {
@@ -859,12 +578,8 @@ html.forced-dark .admin-status {
 
 .admin-table th,
 .admin-table td {
-  padding:
-    0.55rem
-    0.5rem;
-  border-bottom:
-    1px solid
-    #e8e8e8;
+  padding: 0.55rem 0.5rem;
+  border-bottom: 1px solid #e8e8e8;
   text-align: left;
   white-space: nowrap;
 }
@@ -874,18 +589,9 @@ html.forced-dark .admin-table td {
   border-bottom-color: #3a3a3a;
 }
 
-.admin-empty {
-  padding:
-    1rem
-    0.5rem !important;
-  text-align: center !important;
-  color: #888888;
-}
-
 @media (max-width: 768px) {
 
   .admin-date-form {
-    align-items: stretch;
     flex-direction: column;
   }
 
