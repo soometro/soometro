@@ -136,11 +136,9 @@
 
 <script>
     window.addEventListener("load", function () {
-        // 브라우저가 완전히 렌더링을 끝내고 여유가 생길 때(Idle) 통계 처리를 수행하여 LCP 병목 방지
         (window.requestIdleCallback || window.setTimeout)(function () {
             const userAgent = navigator.userAgent.toLowerCase();
 
-            // PageSpeed Insights 측정을 우회하기 위해 'lighthouse' 키워드 추가
             const botKeywords = [
                 'bot',
                 'spider',
@@ -440,11 +438,6 @@
             redirectPath
         ) {
 
-            /*
-             * 일반 댓글 로그인일 때만
-             * 기존 스크롤 위치 저장
-             */
-
             if (!redirectPath) {
 
                 sessionStorage.setItem(
@@ -490,335 +483,343 @@
 
     // 현재 로그인 세션 확인
 
-window.sbGetUser =
-    async function () {
+    window.sbGetUser =
+        async function () {
 
-        if (!window.sb) {
-            return null;
-        }
-
-
-        const {
-            data,
-            error
-        } =
-            await window.sb.auth.getSession();
-
-
-        if (error) {
-
-            console.error(
-                'Supabase session check error:',
-                error
-            );
-
-            return null;
-
-        }
-
-
-        return data.session
-            ? data.session.user
-            : null;
-
-    };
-
-
-// =========================================================
-// Umami 회원 식별
-// =========================================================
-
-window.identifyUmamiUser =
-    async function (user) {
-
-        if (!user || !window.sb) {
-            return;
-        }
-
-
-        try {
+            if (!window.sb) {
+                return null;
+            }
 
             const {
                 data,
                 error
             } =
-                await window.sb.auth.getUserIdentities();
-
+                await window.sb.auth.getSession();
 
             if (error) {
 
                 console.error(
-                    'Umami identity lookup error:',
+                    'Supabase session check error:',
                     error
                 );
 
-                return;
+                return null;
 
             }
 
+            return data.session
+                ? data.session.user
+                : null;
 
-            const identities =
-                data &&
-                Array.isArray(data.identities)
-                    ? data.identities
-                    : [];
-
-
-            const kakaoIdentity =
-                identities.find(
-                    function (identity) {
-
-                        return (
-                            identity.provider ===
-                            'kakao'
-                        );
-
-                    }
-                );
+        };
 
 
-            const kakaoId =
-                kakaoIdentity &&
-                kakaoIdentity.provider_id
-                    ? String(
-                        kakaoIdentity.provider_id
-                    )
-                    : null;
+    // =========================================================
+    // Umami 회원 식별
+    // =========================================================
 
+    window.identifyUmamiUser =
+        async function (user) {
 
-            if (!kakaoId) {
-
-                console.warn(
-                    'Kakao provider_id not found.'
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * Umami script가 defer로 로드되므로
-             * 준비될 때까지 잠시 대기한다.
-             */
-
-            const identify =
-                function () {
-
-                    if (
-                        window.umami &&
-                        typeof window.umami.identify ===
-                            'function'
-                    ) {
-
-                        window.umami.identify(
-                            kakaoId
-                        );
-
-                        console.log(
-                            'Umami Distinct ID:',
-                            kakaoId
-                        );
-
-                        return true;
-
-                    }
-
-                    return false;
-
-                };
-
-
-            if (identify()) {
+            if (!user || !window.sb) {
                 return;
             }
 
 
-            let attempts = 0;
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await window.sb.auth.getUserIdentities();
 
 
-            const timer =
-                setInterval(
+                if (error) {
+
+                    console.error(
+                        'Umami identity lookup error:',
+                        error
+                    );
+
+                    return;
+
+                }
+
+
+                const identities =
+                    data &&
+                    Array.isArray(data.identities)
+                        ? data.identities
+                        : [];
+
+
+                const kakaoIdentity =
+                    identities.find(
+                        function (identity) {
+
+                            return (
+                                identity.provider ===
+                                'kakao'
+                            );
+
+                        }
+                    );
+
+
+                const kakaoId =
+                    kakaoIdentity &&
+                    kakaoIdentity.provider_id
+                        ? String(
+                            kakaoIdentity.provider_id
+                        )
+                        : null;
+
+
+                if (!kakaoId) {
+
+                    console.warn(
+                        'Kakao provider_id not found.'
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Umami script가 defer로 로드되므로
+                 * 준비될 때까지 잠시 대기
+                 */
+
+                const identify =
                     function () {
 
-                        attempts++;
+                        if (
+                            window.umami &&
+                            typeof window.umami.identify ===
+                                'function'
+                        ) {
 
-
-                        if (identify()) {
-
-                            clearInterval(
-                                timer
+                            window.umami.identify(
+                                kakaoId
                             );
 
-                            return;
+                            /*
+                             * 현재 세션에 Distinct ID를
+                             * 실제 이벤트와 함께 전송
+                             */
+                            window.umami.track();
+
+                            console.log(
+                                'Umami Distinct ID:',
+                                kakaoId
+                            );
+
+                            return true;
 
                         }
 
+                        return false;
 
-                        if (attempts >= 50) {
-
-                            clearInterval(
-                                timer
-                            );
-
-                            console.warn(
-                                'Umami identify timeout.'
-                            );
-
-                        }
-
-                    },
-                    200
-                );
+                    };
 
 
-        } catch (error) {
-
-            console.error(
-                'Umami identify error:',
-                error
-            );
-
-        }
-
-    };
+                if (identify()) {
+                    return;
+                }
 
 
-// 현재 브라우저 visitor_id와
-// Supabase 사용자 연결
-
-window.sbLinkVisitorToUser =
-    async function (user) {
-
-        if (!user || !window.sb) {
-            return;
-        }
+                let attempts = 0;
 
 
-        const visitorId =
-            localStorage.getItem(
-                'user_hash'
-            );
+                const timer =
+                    setInterval(
+                        function () {
+
+                            attempts++;
 
 
-        if (!visitorId) {
-            return;
-        }
+                            if (identify()) {
+
+                                clearInterval(
+                                    timer
+                                );
+
+                                return;
+
+                            }
 
 
-        try {
+                            if (attempts >= 50) {
 
-            const { error } =
-                await window.sb
-                    .from('user_visitors')
-                    .upsert(
-                        {
-                            user_id:
-                                user.id,
+                                clearInterval(
+                                    timer
+                                );
 
-                            visitor_id:
-                                visitorId
+                                console.warn(
+                                    'Umami identify timeout.'
+                                );
+
+                            }
+
                         },
-                        {
-                            onConflict:
-                                'user_id,visitor_id'
-                        }
+                        200
                     );
 
 
-            if (error) {
+            } catch (error) {
 
                 console.error(
-                    'Visitor link save error:',
+                    'Umami identify error:',
                     error
                 );
 
+            }
+
+        };
+
+
+    // 현재 브라우저 visitor_id와
+    // Supabase 사용자 연결
+
+    window.sbLinkVisitorToUser =
+        async function (user) {
+
+            if (!user || !window.sb) {
                 return;
             }
 
 
-            console.log(
-                'Visitor linked:',
-                visitorId,
-                '→',
-                user.id
-            );
+            const visitorId =
+                localStorage.getItem(
+                    'user_hash'
+                );
 
-        } catch (error) {
+
+            if (!visitorId) {
+                return;
+            }
+
+
+            try {
+
+                const { error } =
+                    await window.sb
+                        .from('user_visitors')
+                        .upsert(
+                            {
+                                user_id:
+                                    user.id,
+
+                                visitor_id:
+                                    visitorId
+                            },
+                            {
+                                onConflict:
+                                    'user_id,visitor_id'
+                            }
+                        );
+
+
+                if (error) {
+
+                    console.error(
+                        'Visitor link save error:',
+                        error
+                    );
+
+                    return;
+
+                }
+
+
+                console.log(
+                    'Visitor linked:',
+                    visitorId,
+                    '→',
+                    user.id
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    'Visitor link error:',
+                    error
+                );
+
+            }
+
+        };
+
+
+    // 페이지 진입 시 이미 로그인되어 있는 사용자도 연결
+
+    window.sbGetUser()
+        .then(function (user) {
+
+            if (user) {
+
+                window.sbLinkVisitorToUser(
+                    user
+                );
+
+                window.identifyUmamiUser(
+                    user
+                );
+
+            }
+
+        })
+        .catch(function (error) {
 
             console.error(
-                'Visitor link error:',
+                'Initial visitor link error:',
                 error
             );
 
-        }
-
-    };
+        });
 
 
-// 페이지 진입 시 이미 로그인되어 있는 사용자도 연결
+    // 로그인 성공 시 visitor_id 연결
 
-window.sbGetUser()
-    .then(function (user) {
-
-        if (user) {
-
-            window.sbLinkVisitorToUser(
-                user
-            );
-
-            window.identifyUmamiUser(
-                user
-            );
-
-        }
-
-    })
-    .catch(function (error) {
-
-        console.error(
-            'Initial visitor link error:',
-            error
-        );
-
-    });
-
-
-// 로그인 성공 시 visitor_id 연결
-
-window.sb.auth.onAuthStateChange(
-    function (event, session) {
-
-        if (
-            event === 'SIGNED_IN' &&
-            session &&
-            session.user
+    window.sb.auth.onAuthStateChange(
+        function (
+            event,
+            session
         ) {
 
-            setTimeout(
-                function () {
+            if (
+                event === 'SIGNED_IN' &&
+                session &&
+                session.user
+            ) {
 
-                    window.sbLinkVisitorToUser(
-                        session.user
-                    );
+                setTimeout(
+                    function () {
 
-                    window.identifyUmamiUser(
-                        session.user
-                    );
+                        window.sbLinkVisitorToUser(
+                            session.user
+                        );
 
-                },
-                0
-            );
+                        window.identifyUmamiUser(
+                            session.user
+                        );
+
+                    },
+                    0
+                );
+
+            }
 
         }
-
-    }
-);
+    );
 
 
-// 방명록 접근
+    // 방명록 접근
 
-window.sbOpenGuestbook =
+    window.sbOpenGuestbook =
         async function (event) {
 
             if (event) {
