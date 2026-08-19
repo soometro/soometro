@@ -611,21 +611,14 @@ window.identifyUmamiUser =
                         'function'
                 ) {
 
-                    window.umami.identify(
-                        {
-                            id: kakaoId
-                        }
-                    );
-
-
-                    if (
-                        typeof window.umami.track ===
-                            'function'
-                    ) {
-
-                        window.umami.track();
-
-                    }
+                    window.umami.track(
+    function (props) {
+        return {
+            ...props,
+            id: kakaoId
+        };
+    }
+);
 
 
                     console.log(
