@@ -3,82 +3,163 @@
 
     <!-- 통합 영역: 사이트 통계 + 조회수 카운터 -->
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
-    <div style="display: flex; justify-content: space-between;">
-        <span class="sidebar-stat-label">• TOTAL POSTS:</span>
-        <span class="sidebar-stat-value">{{ len .Site.RegularPages }}</span>
+        <div style="display: flex; justify-content: space-between;">
+            <span class="sidebar-stat-label">• TOTAL POSTS:</span>
+            <span class="sidebar-stat-value">{{ len .Site.RegularPages }}</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <span class="sidebar-stat-label">• TODAY:</span>
+            <span id="counter-today" class="sidebar-stat-value">0</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <span class="sidebar-stat-label">• THIS MONTH:</span>
+            <span id="counter-monthly" class="sidebar-stat-value">0</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <span class="sidebar-stat-label">• THIS YEAR:</span>
+            <span id="counter-year" class="sidebar-stat-value">0</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <span class="sidebar-stat-label">• ALL TIME:</span>
+            <span id="counter-total" class="sidebar-stat-value">0</span>
+        </div>
     </div>
-    <div style="display: flex; justify-content: space-between;">
-        <span class="sidebar-stat-label">• TODAY:</span>
-        <span id="counter-today" class="sidebar-stat-value">0</span>
-    </div>
-    <div style="display: flex; justify-content: space-between;">
-        <span class="sidebar-stat-label">• THIS MONTH:</span>
-        <span id="counter-monthly" class="sidebar-stat-value">0</span>
-    </div>
-    <div style="display: flex; justify-content: space-between;">
-        <span class="sidebar-stat-label">• THIS YEAR:</span>
-        <span id="counter-year" class="sidebar-stat-value">0</span>
-    </div>
-    <div style="display: flex; justify-content: space-between;">
-        <span class="sidebar-stat-label">• ALL TIME:</span>
-        <span id="counter-total" class="sidebar-stat-value">0</span>
-    </div>
-</div>
 
 </div>
-    <!-- 중간 구분선 2 (색상 보정) -->
-    <div style="border-top: 1px dashed #ccc; opacity: 0.8; margin: 0.2rem 0 1rem 0;"></div>
-    <!-- 3. 수동 테마 토글 버튼 영역 (하단 배치) -->
-    <div class="theme-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0;">
-        <span class="sidebar-subheading" style="white-space: nowrap;">SITE THEME</span>
-        <button id="theme-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
-            🌓 모드 전환하기
-        </button>
-    </div>
 
-    <div class="bgm-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
-        <span class="sidebar-subheading" style="white-space: nowrap;">BACKGROUND MUSIC</span>
-        <button id="bgm-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
-            🎵 BGM ON
-        </button>
-    </div>
 
-    <div class="rss-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
-        <span class="sidebar-subheading" style="white-space: nowrap;">SUBSCRIBE FEED</span>
-        <a id="rss-link-btn" href="/index.xml" onclick="copyRssLink(event)" style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none !important; cursor: pointer; width: auto !important; max-width: none !important; flex: 0 0 auto !important; display: inline-block !important; text-align: right !important;">
-            🧡 RSS FEED
-        </a>
-    </div>
+<!-- 중간 구분선 2 (색상 보정) -->
+<div style="border-top: 1px dashed #ccc; opacity: 0.8; margin: 0.2rem 0 1rem 0;"></div>
 
-    <div class="install-container" id="install-container" style="display: none; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
-        <span class="sidebar-subheading" style="white-space: nowrap;">INSTALL APP</span>
-        <button id="install-toggle-btn" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;">
-            📲 홈 화면에 추가
-        </button>
-    </div>
+
+<!-- 3. 수동 테마 토글 버튼 영역 (하단 배치) -->
+<div class="theme-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0;">
+    <span class="sidebar-subheading" style="white-space: nowrap;">SITE THEME</span>
+
+    <button
+        id="theme-toggle-btn"
+        style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;"
+    >
+        🌓 모드 전환하기
+    </button>
+</div>
+
+
+<div class="bgm-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
+    <span class="sidebar-subheading" style="white-space: nowrap;">BACKGROUND MUSIC</span>
+
+    <button
+        id="bgm-toggle-btn"
+        style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;"
+    >
+        🎵 BGM ON
+    </button>
+</div>
+
+
+<div class="rss-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
+    <span class="sidebar-subheading" style="white-space: nowrap;">SUBSCRIBE FEED</span>
+
+    <a
+        id="rss-link-btn"
+        href="/index.xml"
+        onclick="copyRssLink(event)"
+        style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none !important; cursor: pointer; width: auto !important; max-width: none !important; flex: 0 0 auto !important; display: inline-block !important; text-align: right !important;"
+    >
+        🧡 RSS FEED
+    </a>
+</div>
+
+
+<div
+    class="install-container"
+    id="install-container"
+    style="display: none; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;"
+>
+    <span class="sidebar-subheading" style="white-space: nowrap;">INSTALL APP</span>
+
+    <button
+        id="install-toggle-btn"
+        style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; padding: 0; text-decoration: none; text-align: right;"
+    >
+        📲 홈 화면에 추가
+    </button>
+</div>
+
+
+<!-- 관리자: 카카오 관리자 로그인 시에만 표시 -->
+<div
+    class="admin-container"
+    id="admin-container"
+    hidden
+    style="align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;"
+>
+    <span class="sidebar-subheading" style="white-space: nowrap;">ADMIN</span>
+
+    <a
+        id="admin-link"
+        href="/admin/"
+        style="font-size: 0.85rem; color: var(--color-link) !important; font-weight: bold; text-decoration: none !important; cursor: pointer; width: auto !important; max-width: none !important; flex: 0 0 auto !important; display: inline-block !important; text-align: right !important;"
+    >
+        관리자 페이지
+    </a>
+</div>
+
 
 <!-- iOS 안내 모달 -->
-<div id="ios-install-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
-    <div style="background:var(--body-background, #fff); color:var(--color-text, #111); max-width:300px; width:85%; padding:1.2rem; border-radius:12px; text-align:center; font-family:'Malgun Gothic','맑은 고딕',-apple-system,sans-serif; box-shadow:0 8px 24px rgba(0,0,0,0.25);">
-        <div style="font-size:0.95rem; font-weight:bold; margin-bottom:0.6rem;">홈 화면에 추가하기</div>
+<div
+    id="ios-install-modal"
+    style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;"
+>
+    <div
+        style="background:var(--body-background, #fff); color:var(--color-text, #111); max-width:300px; width:85%; padding:1.2rem; border-radius:12px; text-align:center; font-family:'Malgun Gothic','맑은 고딕',-apple-system,sans-serif; box-shadow:0 8px 24px rgba(0,0,0,0.25);"
+    >
+        <div style="font-size:0.95rem; font-weight:bold; margin-bottom:0.6rem;">
+            홈 화면에 추가하기
+        </div>
+
         <div style="font-size:0.85rem; line-height:1.6; margin-bottom:1rem;">
             Safari 하단(또는 상단)의 공유 버튼 <strong>⬆️</strong> 을 누른 뒤<br>
             <strong>&quot;홈 화면에 추가&quot;</strong>를 선택해주세요.
         </div>
-        <button id="ios-install-modal-close" style="background:var(--color-link,#8ab4f8); color:#fff; border:none; padding:0.5rem 1.2rem; border-radius:8px; font-size:0.85rem; cursor:pointer;">확인</button>
+
+        <button
+            id="ios-install-modal-close"
+            style="background:var(--color-link,#8ab4f8); color:#fff; border:none; padding:0.5rem 1.2rem; border-radius:8px; font-size:0.85rem; cursor:pointer;"
+        >
+            확인
+        </button>
     </div>
 </div>
+
 
 <!-- BGM 오디오 요소 -->
 <audio id="bgm-audio" loop preload="metadata">
     <source src="/music/somewhere96.mp3" type="audio/mpeg">
 </audio>
 
+
 <!-- 테마 스타일 오버라이드 -->
 <style>
-    .sidebar-stat-label { color: #666; }
-    .sidebar-stat-value { color: #666; }
-    .sidebar-subheading { font-size: 0.75rem; color: #666; font-weight: 600; letter-spacing: -0.02rem; }
+
+    .sidebar-stat-label {
+        color: #666;
+    }
+
+    .sidebar-stat-value {
+        color: #666;
+    }
+
+    .sidebar-subheading {
+        font-size: 0.75rem;
+        color: #666;
+        font-weight: 600;
+        letter-spacing: -0.02rem;
+    }
 
     html.forced-dark .sidebar-stat-label,
     html.forced-dark .sidebar-stat-value,
@@ -97,6 +178,7 @@
         background-color: #111111 !important;
         color: #e0e0e0 !important;
     }
+
     html.forced-dark .book-menu,
     html.forced-dark .book-page,
     html.forced-dark aside {
@@ -106,165 +188,589 @@
 
     /* 버튼 호버 효과 통합 */
     #bgm-toggle-btn:hover,
-    #rss-link-btn:hover {
+    #rss-link-btn:hover,
+    #admin-link:hover {
         color: var(--color-link) !important;
         text-decoration: underline !important;
     }
+
 </style>
 
+
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
         // === [A] 테마 제어 로직 ===
-        var htmlEl = document.documentElement;
-        var toggleBtn = document.getElementById('theme-toggle-btn');
-       
+
+        var htmlEl =
+            document.documentElement;
+
+        var toggleBtn =
+            document.getElementById(
+                'theme-toggle-btn'
+            );
+
+
         if (toggleBtn) {
-            var hasSaved = localStorage.getItem('forced_theme');
-            var isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var initialTheme = hasSaved ? hasSaved : (isSystemDark ? 'dark' : 'light');
-           
-            applyTheme(initialTheme);
-            toggleBtn.addEventListener('click', function() {
-                var isDark = htmlEl.classList.contains('forced-dark');
-                applyTheme(isDark ? 'light' : 'dark');
-            });
+
+            var hasSaved =
+                localStorage.getItem(
+                    'forced_theme'
+                );
+
+            var isSystemDark =
+                window.matchMedia(
+                    '(prefers-color-scheme: dark)'
+                ).matches;
+
+            var initialTheme =
+                hasSaved
+                    ? hasSaved
+                    : (
+                        isSystemDark
+                            ? 'dark'
+                            : 'light'
+                    );
+
+
+            applyTheme(
+                initialTheme
+            );
+
+
+            toggleBtn.addEventListener(
+                'click',
+                function() {
+
+                    var isDark =
+                        htmlEl.classList.contains(
+                            'forced-dark'
+                        );
+
+                    applyTheme(
+                        isDark
+                            ? 'light'
+                            : 'dark'
+                    );
+
+                }
+            );
+
         }
 
-        function applyTheme(theme) {
-            if (!toggleBtn) return;
-            if (theme === 'dark') {
-                htmlEl.classList.add('forced-dark');
-                htmlEl.setAttribute('data-theme', 'dark');
-                localStorage.setItem('forced_theme', 'dark');
-                toggleBtn.innerText = "☀️ 라이트 모드로 보기";
-            } else {
-                htmlEl.classList.remove('forced-dark');
-                htmlEl.setAttribute('data-theme', 'light');
-                localStorage.setItem('forced_theme', 'light');
-                toggleBtn.innerText = "🌙 다크 모드로 보기";
+
+        function applyTheme(
+            theme
+        ) {
+
+            if (!toggleBtn) {
+                return;
             }
+
+
+            if (theme === 'dark') {
+
+                htmlEl.classList.add(
+                    'forced-dark'
+                );
+
+                htmlEl.setAttribute(
+                    'data-theme',
+                    'dark'
+                );
+
+                localStorage.setItem(
+                    'forced_theme',
+                    'dark'
+                );
+
+                toggleBtn.innerText =
+                    "☀️ 라이트 모드로 보기";
+
+            } else {
+
+                htmlEl.classList.remove(
+                    'forced-dark'
+                );
+
+                htmlEl.setAttribute(
+                    'data-theme',
+                    'light'
+                );
+
+                localStorage.setItem(
+                    'forced_theme',
+                    'light'
+                );
+
+                toggleBtn.innerText =
+                    "🌙 다크 모드로 보기";
+
+            }
+
         }
+
 
         // === [B] BGM 제어 로직 ===
-        const audio = document.getElementById('bgm-audio');
-        const bgmBtn = document.getElementById('bgm-toggle-btn');
 
-        if (!audio || !bgmBtn) return;
+        const audio =
+            document.getElementById(
+                'bgm-audio'
+            );
 
-        const DEFAULT_VOLUME = 0.7;
+        const bgmBtn =
+            document.getElementById(
+                'bgm-toggle-btn'
+            );
 
-        let isPlaying = localStorage.getItem('bgm_playing') === 'true';
-        let savedTime = parseFloat(localStorage.getItem('bgm_time')) || 0;
-        let savedVolume = parseFloat(localStorage.getItem('bgm_volume')) || DEFAULT_VOLUME;
+
+        if (!audio || !bgmBtn) {
+            return;
+        }
+
+
+        const DEFAULT_VOLUME =
+            0.7;
+
+
+        let isPlaying =
+            localStorage.getItem(
+                'bgm_playing'
+            ) === 'true';
+
+
+        let savedTime =
+            parseFloat(
+                localStorage.getItem(
+                    'bgm_time'
+                )
+            ) || 0;
+
+
+        let savedVolume =
+            parseFloat(
+                localStorage.getItem(
+                    'bgm_volume'
+                )
+            ) || DEFAULT_VOLUME;
+
 
         function updateButton() {
-            bgmBtn.innerText = isPlaying ? '🔇 BGM OFF' : '🎵 BGM ON';
+
+            bgmBtn.innerText =
+                isPlaying
+                    ? '🔇 BGM OFF'
+                    : '🎵 BGM ON';
+
         }
+
 
         function toggleBGM() {
+
             if (isPlaying) {
+
                 audio.pause();
                 isPlaying = false;
+
             } else {
-                if (savedTime > 0) audio.currentTime = savedTime;
-                audio.volume = savedVolume;
-                audio.play().catch(err => console.warn("Play blocked:", err));
+
+                if (savedTime > 0) {
+                    audio.currentTime =
+                        savedTime;
+                }
+
+                audio.volume =
+                    savedVolume;
+
+                audio.play().catch(
+                    err =>
+                        console.warn(
+                            "Play blocked:",
+                            err
+                        )
+                );
+
                 isPlaying = true;
+
             }
-            localStorage.setItem('bgm_playing', isPlaying);
+
+
+            localStorage.setItem(
+                'bgm_playing',
+                isPlaying
+            );
+
             updateButton();
+
         }
 
-        bgmBtn.addEventListener('click', toggleBGM);
+
+        bgmBtn.addEventListener(
+            'click',
+            toggleBGM
+        );
+
         updateButton();
 
+
         if (isPlaying) {
-            audio.volume = savedVolume;
-            audio.currentTime = savedTime;
-            audio.play().catch(() => {});
+
+            audio.volume =
+                savedVolume;
+
+            audio.currentTime =
+                savedTime;
+
+            audio.play().catch(
+                () => {}
+            );
+
         }
 
-        audio.addEventListener('timeupdate', () => {
-            if (isPlaying && audio.currentTime > 1) {
-                localStorage.setItem('bgm_time', audio.currentTime.toFixed(1));
-            }
-        });
 
-        window.addEventListener('beforeunload', () => {
-            if (isPlaying && audio) {
-                localStorage.setItem('bgm_time', audio.currentTime.toFixed(1));
+        audio.addEventListener(
+            'timeupdate',
+            () => {
+
+                if (
+                    isPlaying &&
+                    audio.currentTime > 1
+                ) {
+
+                    localStorage.setItem(
+                        'bgm_time',
+                        audio.currentTime.toFixed(
+                            1
+                        )
+                    );
+
+                }
+
             }
-        });
+        );
+
+
+        window.addEventListener(
+            'beforeunload',
+            () => {
+
+                if (
+                    isPlaying &&
+                    audio
+                ) {
+
+                    localStorage.setItem(
+                        'bgm_time',
+                        audio.currentTime.toFixed(
+                            1
+                        )
+                    );
+
+                }
+
+            }
+        );
+
 
         // === [C] RSS 링크 복사 로직 ===
-        window.copyRssLink = function(event) {
-            if (event) event.preventDefault();
-            
-            const rssUrl = window.location.origin + "/index.xml";
-            
-            navigator.clipboard.writeText(rssUrl).then(function() {
-                alert("RSS 주소가 클립보드에 복사되었습니다!\n리더기(Feedly 등)에 등록하여 구독해 보세요. 👍");
-            }).catch(function(err) {
-                alert("RSS 주소: " + rssUrl + "\n이 주소를 수동으로 복사하여 사용해 주세요.");
-            });
-        };
+
+        window.copyRssLink =
+            function(event) {
+
+                if (event) {
+                    event.preventDefault();
+                }
+
+
+                const rssUrl =
+                    window.location.origin +
+                    "/index.xml";
+
+
+                navigator.clipboard
+                    .writeText(
+                        rssUrl
+                    )
+                    .then(
+                        function() {
+
+                            alert(
+                                "RSS 주소가 클립보드에 복사되었습니다!\n리더기(Feedly 등)에 등록하여 구독해 보세요. 👍"
+                            );
+
+                        }
+                    )
+                    .catch(
+                        function(err) {
+
+                            alert(
+                                "RSS 주소: " +
+                                rssUrl +
+                                "\n이 주소를 수동으로 복사하여 사용해 주세요."
+                            );
+
+                        }
+                    );
+
+            };
+
 
         // === [D] 홈 화면에 추가(PWA 설치) 로직 ===
-        const installContainer = document.getElementById('install-container');
-        const installBtn = document.getElementById('install-toggle-btn');
-        const iosModal = document.getElementById('ios-install-modal');
-        const iosModalClose = document.getElementById('ios-install-modal-close');
 
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-            || window.navigator.standalone === true;
+        const installContainer =
+            document.getElementById(
+                'install-container'
+            );
 
-        const ua = window.navigator.userAgent;
-        const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+        const installBtn =
+            document.getElementById(
+                'install-toggle-btn'
+            );
 
-        let deferredInstallPrompt = null;
+        const iosModal =
+            document.getElementById(
+                'ios-install-modal'
+            );
+
+        const iosModalClose =
+            document.getElementById(
+                'ios-install-modal-close'
+            );
+
+
+        const isStandalone =
+            window.matchMedia(
+                '(display-mode: standalone)'
+            ).matches
+            ||
+            window.navigator.standalone === true;
+
+
+        const ua =
+            window.navigator.userAgent;
+
+
+        const isIOS =
+            /iPad|iPhone|iPod/.test(
+                ua
+            )
+            &&
+            !window.MSStream;
+
+
+        let deferredInstallPrompt =
+            null;
+
 
         if (!isStandalone) {
-            // 안드로이드 / PC 크롬 계열: 설치 가능해지는 시점에 버튼 노출
-            window.addEventListener('beforeinstallprompt', function(e) {
-                e.preventDefault();
-                deferredInstallPrompt = e;
-                if (installContainer) installContainer.style.display = 'flex';
-            });
 
-            // iOS: 이벤트가 없으므로 즉시 버튼 노출 (안내 모달용)
-            if (isIOS && installContainer) {
-                installContainer.style.display = 'flex';
+            window.addEventListener(
+                'beforeinstallprompt',
+                function(e) {
+
+                    e.preventDefault();
+
+                    deferredInstallPrompt =
+                        e;
+
+
+                    if (
+                        installContainer
+                    ) {
+
+                        installContainer.style.display =
+                            'flex';
+
+                    }
+
+                }
+            );
+
+
+            if (
+                isIOS &&
+                installContainer
+            ) {
+
+                installContainer.style.display =
+                    'flex';
+
             }
+
         }
+
 
         if (installBtn) {
-            installBtn.addEventListener('click', async function() {
-                if (deferredInstallPrompt) {
-                    deferredInstallPrompt.prompt();
-                    const choice = await deferredInstallPrompt.userChoice;
-                    deferredInstallPrompt = null;
-                    if (choice.outcome === 'accepted' && installContainer) {
-                        installContainer.style.display = 'none';
+
+            installBtn.addEventListener(
+                'click',
+                async function() {
+
+                    if (
+                        deferredInstallPrompt
+                    ) {
+
+                        deferredInstallPrompt.prompt();
+
+
+                        const choice =
+                            await deferredInstallPrompt.userChoice;
+
+
+                        deferredInstallPrompt =
+                            null;
+
+
+                        if (
+                            choice.outcome ===
+                                'accepted' &&
+                            installContainer
+                        ) {
+
+                            installContainer.style.display =
+                                'none';
+
+                        }
+
+                    } else if (
+                        isIOS &&
+                        iosModal
+                    ) {
+
+                        iosModal.style.display =
+                            'flex';
+
                     }
-                } else if (isIOS && iosModal) {
-                    iosModal.style.display = 'flex';
+
                 }
-            });
+            );
+
         }
 
-        if (iosModalClose && iosModal) {
-            iosModalClose.addEventListener('click', function() {
-                iosModal.style.display = 'none';
-            });
-            iosModal.addEventListener('click', function(e) {
-                if (e.target === iosModal) iosModal.style.display = 'none';
-            });
+
+        if (
+            iosModalClose &&
+            iosModal
+        ) {
+
+            iosModalClose.addEventListener(
+                'click',
+                function() {
+
+                    iosModal.style.display =
+                        'none';
+
+                }
+            );
+
+
+            iosModal.addEventListener(
+                'click',
+                function(e) {
+
+                    if (
+                        e.target ===
+                        iosModal
+                    ) {
+
+                        iosModal.style.display =
+                            'none';
+
+                    }
+
+                }
+            );
+
         }
 
-                window.addEventListener('appinstalled', function() {
-            if (installContainer) installContainer.style.display = 'none';
-        });
-    });
+
+        window.addEventListener(
+            'appinstalled',
+            function() {
+
+                if (
+                    installContainer
+                ) {
+
+                    installContainer.style.display =
+                        'none';
+
+                }
+
+            }
+        );
+
+
+        // === [E] 카카오 관리자 인증 ===
+
+        const adminContainer =
+            document.getElementById(
+                'admin-container'
+            );
+
+
+        async function checkAdminAccess() {
+
+            if (
+                !adminContainer ||
+                !window.sb
+            ) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await window.sb.rpc(
+                        'is_admin'
+                    );
+
+
+                if (
+                    error ||
+                    data !== true
+                ) {
+
+                    return;
+
+                }
+
+
+                adminContainer.hidden =
+                    false;
+
+                adminContainer.style.display =
+                    'flex';
+
+
+            } catch (
+                error
+            ) {
+
+                console.error(
+                    'Admin access check error:',
+                    error
+                );
+
+            }
+
+        }
+
+
+        checkAdminAccess();
+
+    }
+);
+
 </script>
 
 
@@ -273,32 +779,43 @@
      ========================================================= -->
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    const guestbookLinks =
-        document.querySelectorAll(
-            '.book-menu a[href="/docs/guestbook/"]'
-        );
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    guestbookLinks.forEach(function (link) {
+        const guestbookLinks =
+            document.querySelectorAll(
+                '.book-menu a[href="/docs/guestbook/"]'
+            );
 
-        link.addEventListener(
-            "click",
-            function (event) {
 
-                if (
-                    window.sbOpenGuestbook &&
-                    typeof window.sbOpenGuestbook === "function"
-                ) {
+        guestbookLinks.forEach(
+            function (link) {
 
-                    window.sbOpenGuestbook(event);
+                link.addEventListener(
+                    "click",
+                    function (event) {
 
-                }
+                        if (
+                            window.sbOpenGuestbook &&
+                            typeof window.sbOpenGuestbook ===
+                                "function"
+                        ) {
+
+                            window.sbOpenGuestbook(
+                                event
+                            );
+
+                        }
+
+                    }
+                );
 
             }
         );
 
-    });
+    }
+);
 
-});
 </script>
