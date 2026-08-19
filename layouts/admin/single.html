@@ -6,81 +6,130 @@
     <h1>관리자</h1>
   </header>
 
-  <section id="admin-login-message">
+
+  <section
+    id="admin-login-message"
+    class="admin-login-message"
+  >
     관리자 인증 확인 중
   </section>
 
-  <section id="admin-content" hidden>
+
+  <section
+    id="admin-content"
+    hidden
+  >
 
     <div class="admin-section-title">
       카카오 아이디 조회
     </div>
 
+
     <div class="admin-date-form">
 
       <label>
         시작일
-        <input id="admin-start-date" type="date">
+        <input
+          id="admin-start-date"
+          type="date"
+        >
       </label>
 
       <label>
         종료일
-        <input id="admin-end-date" type="date">
+        <input
+          id="admin-end-date"
+          type="date"
+        >
       </label>
 
-      <button id="admin-search-button" type="button">
+      <button
+        id="admin-search-button"
+        type="button"
+      >
         조회
       </button>
 
     </div>
 
+
     <div class="admin-period-buttons">
 
-      <button type="button" data-period="today">
+      <button
+        type="button"
+        data-period="today"
+      >
         오늘
       </button>
 
-      <button type="button" data-period="7d">
+      <button
+        type="button"
+        data-period="7d"
+      >
         1주일
       </button>
 
-      <button type="button" data-period="1m">
+      <button
+        type="button"
+        data-period="1m"
+      >
         1개월
       </button>
 
-      <button type="button" data-period="3m">
+      <button
+        type="button"
+        data-period="3m"
+      >
         3개월
       </button>
 
-      <button type="button" data-period="6m">
+      <button
+        type="button"
+        data-period="6m"
+      >
         6개월
       </button>
 
-      <button type="button" data-period="1y">
+      <button
+        type="button"
+        data-period="1y"
+      >
         1년
       </button>
 
     </div>
 
-    <div id="admin-status"></div>
+
+    <div
+      id="admin-status"
+      class="admin-status"
+    ></div>
+
 
     <div class="admin-table-wrap">
 
       <table class="admin-table">
 
         <thead>
+
           <tr>
             <th>이름</th>
             <th>아이디</th>
             <th>우마미 ID</th>
+            <th>Supabase User ID</th>
             <th>회원 이용 시작</th>
+            <th>프로필</th>
           </tr>
+
         </thead>
 
         <tbody id="admin-member-list">
 
           <tr>
-            <td colspan="4">
+            <td
+              colspan="6"
+              class="admin-empty"
+            >
               조회 전
             </td>
           </tr>
@@ -97,6 +146,7 @@
 
 
 <script>
+
 document.addEventListener(
   "DOMContentLoaded",
   async function () {
@@ -144,16 +194,21 @@ document.addEventListener(
 
     function todayString() {
 
-      const now =
-        new Date();
-
       return new Intl.DateTimeFormat(
         "en-CA",
         {
           timeZone:
-            "Asia/Seoul"
+            "Asia/Seoul",
+          year:
+            "numeric",
+          month:
+            "2-digit",
+          day:
+            "2-digit"
         }
-      ).format(now);
+      ).format(
+        new Date()
+      );
 
     }
 
@@ -188,38 +243,48 @@ document.addEventListener(
         new Date(end);
 
 
-      if (type === "today") {
-        // 시작일 = 종료일
-      }
-
       if (type === "7d") {
+
         start.setDate(
           start.getDate() - 6
         );
+
       }
 
+
       if (type === "1m") {
+
         start.setMonth(
           start.getMonth() - 1
         );
+
       }
 
+
       if (type === "3m") {
+
         start.setMonth(
           start.getMonth() - 3
         );
+
       }
 
+
       if (type === "6m") {
+
         start.setMonth(
           start.getMonth() - 6
         );
+
       }
 
+
       if (type === "1y") {
+
         start.setFullYear(
           start.getFullYear() - 1
         );
+
       }
 
 
@@ -240,28 +305,91 @@ document.addEventListener(
         return "-";
       }
 
+
       const date =
         new Date(value);
 
-      if (Number.isNaN(date.getTime())) {
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
         return "-";
+
       }
 
-      return new Intl.DateTimeFormat(
-        "ko-KR",
-        {
-          timeZone:
-            "Asia/Seoul",
-          year:
-            "numeric",
-          month:
-            "2-digit",
-          day:
-            "2-digit"
+
+      const formatter =
+        new Intl.DateTimeFormat(
+          "ko-KR",
+          {
+            timeZone:
+              "Asia/Seoul",
+            year:
+              "numeric",
+            month:
+              "2-digit",
+            day:
+              "2-digit"
+          }
+        );
+
+
+      const parts =
+        formatter.formatToParts(
+          date
+        );
+
+
+      let year = "";
+      let month = "";
+      let day = "";
+
+
+      parts.forEach(
+        function (part) {
+
+          if (
+            part.type ===
+            "year"
+          ) {
+
+            year =
+              part.value;
+
+          }
+
+
+          if (
+            part.type ===
+            "month"
+          ) {
+
+            month =
+              part.value;
+
+          }
+
+
+          if (
+            part.type ===
+            "day"
+          ) {
+
+            day =
+              part.value;
+
+          }
+
         }
-      ).format(date)
-        .replaceAll(". ", "-")
-        .replace(".", "");
+      );
+
+
+      return (
+        `${year}-${month}-${day}`
+      );
 
     }
 
@@ -273,19 +401,22 @@ document.addEventListener(
       memberListEl.innerHTML =
         "";
 
+
       if (
         !Array.isArray(rows) ||
         rows.length === 0
       ) {
 
-        memberListEl.innerHTML =
-          `
+        memberListEl.innerHTML = `
           <tr>
-            <td colspan="4">
+            <td
+              colspan="6"
+              class="admin-empty"
+            >
               조회 결과가 없습니다.
             </td>
           </tr>
-          `;
+        `;
 
         return;
 
@@ -296,42 +427,101 @@ document.addEventListener(
         function (row) {
 
           const tr =
-            document.createElement("tr");
-
-          const name =
-            document.createElement("td");
-
-          const kakaoId =
-            document.createElement("td");
-
-          const umamiId =
-            document.createElement("td");
-
-          const memberSince =
-            document.createElement("td");
-
-
-          name.textContent =
-            row.name || "회원";
-
-          kakaoId.textContent =
-            row.kakao_id || "-";
-
-          umamiId.textContent =
-            row.umami_id || "-";
-
-          memberSince.textContent =
-            formatDate(
-              row.identity_created_at
+            document.createElement(
+              "tr"
             );
 
 
-          tr.appendChild(name);
-          tr.appendChild(kakaoId);
-          tr.appendChild(umamiId);
-          tr.appendChild(memberSince);
+          const name =
+            document.createElement(
+              "td"
+            );
 
-          memberListEl.appendChild(tr);
+          const kakaoId =
+            document.createElement(
+              "td"
+            );
+
+          const umamiId =
+            document.createElement(
+              "td"
+            );
+
+          const supabaseUserId =
+            document.createElement(
+              "td"
+            );
+
+          const memberSince =
+            document.createElement(
+              "td"
+            );
+
+          const profileStatus =
+            document.createElement(
+              "td"
+            );
+
+
+          name.textContent =
+            row.name ||
+            "회원";
+
+
+          kakaoId.textContent =
+            row.kakao_id ||
+            "-";
+
+
+          umamiId.textContent =
+            row.umami_id ||
+            "-";
+
+
+          supabaseUserId.textContent =
+            row.supabase_user_id ||
+            "-";
+
+
+          memberSince.textContent =
+            formatDate(
+              row.member_since
+            );
+
+
+          profileStatus.textContent =
+            row.profile_status ||
+            "-";
+
+
+          tr.appendChild(
+            name
+          );
+
+          tr.appendChild(
+            kakaoId
+          );
+
+          tr.appendChild(
+            umamiId
+          );
+
+          tr.appendChild(
+            supabaseUserId
+          );
+
+          tr.appendChild(
+            memberSince
+          );
+
+          tr.appendChild(
+            profileStatus
+          );
+
+
+          memberListEl.appendChild(
+            tr
+          );
 
         }
       );
@@ -348,13 +538,30 @@ document.addEventListener(
         endDateEl.value;
 
 
-      if (!startDate || !endDate) {
+      if (
+        !startDate ||
+        !endDate
+      ) {
+
         return;
+
       }
 
 
       statusEl.textContent =
         "조회 중...";
+
+
+      memberListEl.innerHTML = `
+        <tr>
+          <td
+            colspan="6"
+            class="admin-empty"
+          >
+            조회 중...
+          </td>
+        </tr>
+      `;
 
 
       try {
@@ -368,6 +575,7 @@ document.addEventListener(
             {
               p_start_date:
                 startDate,
+
               p_end_date:
                 endDate
             }
@@ -375,34 +583,53 @@ document.addEventListener(
 
 
         if (error) {
+
           throw error;
+
         }
 
 
-        renderRows(data);
+        renderRows(
+          data || []
+        );
 
 
         statusEl.textContent =
-          `${(data || []).length}명`;
+          `${(
+            data || []
+          ).length.toLocaleString(
+            "ko-KR"
+          )}명`;
 
-      } catch (error) {
+      } catch (
+        error
+      ) {
 
         console.error(
           "Admin member query error:",
           error
         );
 
+
         statusEl.textContent =
           "조회 실패";
 
-        memberListEl.innerHTML =
-          `
+
+        memberListEl.innerHTML = `
           <tr>
-            <td colspan="4">
-              ${error.message || "조회 실패"}
+            <td
+              colspan="6"
+              class="admin-empty"
+            >
+              ${
+                error &&
+                error.message
+                  ? error.message
+                  : "조회 실패"
+              }
             </td>
           </tr>
-          `;
+        `;
 
       }
 
@@ -411,12 +638,12 @@ document.addEventListener(
 
     try {
 
-      if (
-        !window.sb
-      ) {
+      if (!window.sb) {
+
         throw new Error(
           "Supabase가 초기화되지 않았습니다."
         );
+
       }
 
 
@@ -430,7 +657,9 @@ document.addEventListener(
 
 
       if (error) {
+
         throw error;
+
       }
 
 
@@ -484,21 +713,27 @@ document.addEventListener(
       await loadMembers();
 
 
-    } catch (error) {
+    } catch (
+      error
+    ) {
 
       console.error(
         "Admin page error:",
         error
       );
 
+
       loginMessageEl.textContent =
-        error.message ||
-        "관리자 페이지를 사용할 수 없습니다.";
+        error &&
+        error.message
+          ? error.message
+          : "관리자 페이지를 사용할 수 없습니다.";
 
     }
 
   }
 );
+
 </script>
 
 
@@ -513,9 +748,11 @@ document.addEventListener(
     sans-serif;
 }
 
+
 .admin-header {
   margin-bottom: 2rem;
 }
+
 
 .admin-header h1 {
   margin: 0;
@@ -523,10 +760,12 @@ document.addEventListener(
   font-weight: 400 !important;
 }
 
+
 .admin-section-title {
   margin-bottom: 1rem;
   font-size: 1rem;
 }
+
 
 .admin-date-form,
 .admin-period-buttons {
@@ -536,6 +775,12 @@ document.addEventListener(
   margin-bottom: 0.75rem;
 }
 
+
+.admin-date-form {
+  align-items: end;
+}
+
+
 .admin-date-form label {
   display: flex;
   flex-direction: column;
@@ -543,32 +788,51 @@ document.addEventListener(
   font-size: 0.8rem;
 }
 
+
 .admin-page input,
 .admin-page button {
   min-height: 32px;
 }
 
+
 .admin-page input {
   padding: 0.35rem 0.5rem;
 }
 
+
 .admin-page button {
   padding: 0.35rem 0.75rem;
-  border: 1px solid #d2d2d2;
+  border:
+    1px solid
+    #d2d2d2;
   border-radius: 6px;
-  background: var(--body-background);
+  background:
+    var(--body-background);
   cursor: pointer;
 }
 
-#admin-status {
-  margin: 0.75rem 0;
-  font-size: 0.8rem;
+
+.admin-status {
+  margin:
+    0.75rem 0;
+  font-size:
+    0.8rem;
+  color:
+    #666666;
 }
+
+
+html.forced-dark .admin-status {
+  color:
+    #a8a8a8;
+}
+
 
 .admin-table-wrap {
   width: 100%;
   overflow-x: auto;
 }
+
 
 .admin-table {
   width: 100%;
@@ -576,29 +840,53 @@ document.addEventListener(
   font-size: 0.8rem;
 }
 
+
 .admin-table th,
 .admin-table td {
-  padding: 0.55rem 0.5rem;
-  border-bottom: 1px solid #e8e8e8;
+  padding:
+    0.55rem
+    0.5rem;
+  border-bottom:
+    1px solid
+    #e8e8e8;
   text-align: left;
   white-space: nowrap;
 }
 
+
 html.forced-dark .admin-table th,
 html.forced-dark .admin-table td {
-  border-bottom-color: #3a3a3a;
+  border-bottom-color:
+    #3a3a3a;
 }
+
+
+.admin-empty {
+  padding:
+    1rem
+    0.5rem !important;
+  text-align:
+    center !important;
+  color:
+    #888888;
+}
+
 
 @media (max-width: 768px) {
 
   .admin-date-form {
-    flex-direction: column;
+    align-items:
+      stretch;
+    flex-direction:
+      column;
   }
+
 
   .admin-date-form label,
   .admin-date-form input,
   .admin-date-form button {
-    width: 100%;
+    width:
+      100%;
   }
 
 }
