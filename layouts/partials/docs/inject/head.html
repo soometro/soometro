@@ -524,172 +524,6 @@
         };
 
 
-// =========================================================
-// Umami 회원 식별
-// =========================================================
-
-window.identifyUmamiUser =
-    async function (user) {
-
-    if (!user || !window.sb) {
-        return;
-    }
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await window.sb.auth.getUserIdentities();
-
-
-        if (error) {
-
-            console.error(
-                'Umami identity lookup error:',
-                error
-            );
-
-            return;
-
-        }
-
-
-        const identities =
-            data &&
-            Array.isArray(data.identities)
-                ? data.identities
-                : [];
-
-
-        const kakaoIdentity =
-            identities.find(
-                function (identity) {
-
-                    return (
-                        identity.provider ===
-                        'kakao'
-                    );
-
-                }
-            );
-
-
-        const kakaoId =
-            kakaoIdentity &&
-            kakaoIdentity.provider_id
-                ? String(
-                    kakaoIdentity.provider_id
-                )
-                : null;
-
-
-        if (!kakaoId) {
-
-            console.warn(
-                'Kakao provider_id not found.'
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * Umami script가 defer로 로드되므로
-         * 준비될 때까지 잠시 대기한다.
-         */
-
-        const identify =
-            function () {
-
-                if (
-                    window.umami &&
-                    typeof window.umami.identify ===
-                        'function'
-                ) {
-
-                    window.umami.track(
-    function (props) {
-        return {
-            ...props,
-            id: kakaoId
-        };
-    }
-);
-
-
-                    console.log(
-                        'Umami Distinct ID:',
-                        kakaoId
-                    );
-
-                    return true;
-
-                }
-
-                return false;
-
-            };
-
-
-        if (identify()) {
-            return;
-        }
-
-
-        let attempts = 0;
-
-
-        const timer =
-            setInterval(
-                function () {
-
-                    attempts++;
-
-
-                    if (identify()) {
-
-                        clearInterval(
-                            timer
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (attempts >= 50) {
-
-                        clearInterval(
-                            timer
-                        );
-
-                        console.warn(
-                            'Umami identify timeout.'
-                        );
-
-                    }
-
-                },
-                200
-            );
-
-
-    } catch (error) {
-
-        console.error(
-            'Umami identify error:',
-            error
-        );
-
-    }
-
-};
-
-
 // 현재 브라우저 visitor_id와
 // Supabase 사용자 연결
 
@@ -775,10 +609,6 @@ window.sbGetUser()
                 user
             );
 
-            window.identifyUmamiUser(
-                user
-            );
-
         }
 
     })
@@ -807,10 +637,6 @@ window.sb.auth.onAuthStateChange(
                 function () {
 
                     window.sbLinkVisitorToUser(
-                        session.user
-                    );
-
-                    window.identifyUmamiUser(
                         session.user
                     );
 
