@@ -1,0 +1,902 @@
+{{ define "main" }}
+
+<main class="admin-page">
+
+  <header class="admin-header">
+    <h1>관리자</h1>
+  </header>
+
+
+  <section
+    id="admin-auth-check"
+    class="admin-section"
+  >
+    로그인 확인 중
+  </section>
+
+
+  <section
+    id="admin-content"
+    class="admin-section"
+    hidden
+  >
+
+    <h2>카카오 아이디 조회</h2>
+
+
+    <div class="admin-period-buttons">
+
+      <button
+        type="button"
+        data-period="today"
+      >
+        오늘
+      </button>
+
+      <button
+        type="button"
+        data-period="7d"
+      >
+        1주일
+      </button>
+
+      <button
+        type="button"
+        data-period="1m"
+      >
+        1개월
+      </button>
+
+      <button
+        type="button"
+        data-period="3m"
+      >
+        3개월
+      </button>
+
+      <button
+        type="button"
+        data-period="6m"
+      >
+        6개월
+      </button>
+
+      <button
+        type="button"
+        data-period="1y"
+      >
+        1년
+      </button>
+
+    </div>
+
+
+    <div class="admin-date-form">
+
+      <label>
+        시작일
+        <input
+          id="admin-start-date"
+          type="date"
+        >
+      </label>
+
+      <label>
+        종료일
+        <input
+          id="admin-end-date"
+          type="date"
+        >
+      </label>
+
+      <button
+        id="admin-search-button"
+        type="button"
+      >
+        조회
+      </button>
+
+    </div>
+
+
+    <div
+      id="admin-status"
+      class="admin-status"
+    ></div>
+
+
+    <div class="admin-table-wrap">
+
+      <table class="admin-table">
+
+        <thead>
+
+          <tr>
+            <th>이름</th>
+            <th>아이디</th>
+            <th>우마미 ID</th>
+            <th>회원 이용 시작</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="admin-member-list">
+
+          <tr>
+            <td
+              colspan="4"
+              class="admin-empty"
+            >
+              조회 전
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async function () {
+
+    const authCheckEl =
+      document.getElementById(
+        "admin-auth-check"
+      );
+
+    const adminContentEl =
+      document.getElementById(
+        "admin-content"
+      );
+
+    const startDateEl =
+      document.getElementById(
+        "admin-start-date"
+      );
+
+    const endDateEl =
+      document.getElementById(
+        "admin-end-date"
+      );
+
+    const searchButtonEl =
+      document.getElementById(
+        "admin-search-button"
+      );
+
+    const statusEl =
+      document.getElementById(
+        "admin-status"
+      );
+
+    const memberListEl =
+      document.getElementById(
+        "admin-member-list"
+      );
+
+    const periodButtons =
+      document.querySelectorAll(
+        ".admin-period-buttons button"
+      );
+
+
+    function formatDate(
+      value
+    ) {
+
+      if (!value) {
+        return "-";
+      }
+
+      const date =
+        new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "-";
+      }
+
+      const formatter =
+        new Intl.DateTimeFormat(
+          "ko-KR",
+          {
+            timeZone:
+              "Asia/Seoul",
+            year:
+              "numeric",
+            month:
+              "2-digit",
+            day:
+              "2-digit"
+          }
+        );
+
+      const parts =
+        formatter.formatToParts(
+          date
+        );
+
+      let year = "";
+      let month = "";
+      let day = "";
+
+      parts.forEach(
+        function (part) {
+
+          if (
+            part.type ===
+            "year"
+          ) {
+            year =
+              part.value;
+          }
+
+          if (
+            part.type ===
+            "month"
+          ) {
+            month =
+              part.value;
+          }
+
+          if (
+            part.type ===
+            "day"
+          ) {
+            day =
+              part.value;
+          }
+
+        }
+      );
+
+      return (
+        `${year}-${month}-${day}`
+      );
+
+    }
+
+
+    function getTodayString() {
+
+      const formatter =
+        new Intl.DateTimeFormat(
+          "en-CA",
+          {
+            timeZone:
+              "Asia/Seoul",
+            year:
+              "numeric",
+            month:
+              "2-digit",
+            day:
+              "2-digit"
+          }
+        );
+
+      return formatter.format(
+        new Date()
+      );
+
+    }
+
+
+    function getDateFromString(
+      value
+    ) {
+
+      const parts =
+        value.split("-");
+
+      return new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+      );
+
+    }
+
+
+    function toDateString(
+      date
+    ) {
+
+      const year =
+        date.getFullYear();
+
+      const month =
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0");
+
+      const day =
+        String(
+          date.getDate()
+        ).padStart(2, "0");
+
+      return (
+        `${year}-${month}-${day}`
+      );
+
+    }
+
+
+    function setPeriod(
+      period
+    ) {
+
+      const today =
+        getTodayString();
+
+      const endDate =
+        getDateFromString(
+          today
+        );
+
+      const startDate =
+        new Date(
+          endDate
+        );
+
+
+      if (
+        period ===
+        "today"
+      ) {
+
+        // 오늘 하루
+
+      }
+
+
+      if (
+        period ===
+        "7d"
+      ) {
+
+        startDate.setDate(
+          startDate.getDate() - 6
+        );
+
+      }
+
+
+      if (
+        period ===
+        "1m"
+      ) {
+
+        startDate.setMonth(
+          startDate.getMonth() - 1
+        );
+
+      }
+
+
+      if (
+        period ===
+        "3m"
+      ) {
+
+        startDate.setMonth(
+          startDate.getMonth() - 3
+        );
+
+      }
+
+
+      if (
+        period ===
+        "6m"
+      ) {
+
+        startDate.setMonth(
+          startDate.getMonth() - 6
+        );
+
+      }
+
+
+      if (
+        period ===
+        "1y"
+      ) {
+
+        startDate.setFullYear(
+          startDate.getFullYear() - 1
+        );
+
+      }
+
+
+      startDateEl.value =
+        toDateString(
+          startDate
+        );
+
+      endDateEl.value =
+        today;
+
+    }
+
+
+    function renderRows(
+      rows
+    ) {
+
+      memberListEl.innerHTML =
+        "";
+
+      if (
+        !rows ||
+        rows.length === 0
+      ) {
+
+        memberListEl.innerHTML =
+          `
+          <tr>
+            <td
+              colspan="4"
+              class="admin-empty"
+            >
+              조회 결과가 없습니다.
+            </td>
+          </tr>
+          `;
+
+        return;
+
+      }
+
+
+      rows.forEach(
+        function (row) {
+
+          const tr =
+            document.createElement(
+              "tr"
+            );
+
+
+          const nameTd =
+            document.createElement(
+              "td"
+            );
+
+          const kakaoTd =
+            document.createElement(
+              "td"
+            );
+
+          const umamiTd =
+            document.createElement(
+              "td"
+            );
+
+          const memberSinceTd =
+            document.createElement(
+              "td"
+            );
+
+
+          nameTd.innerText =
+            row.name || "회원";
+
+          kakaoTd.innerText =
+            row.kakao_id || "-";
+
+          umamiTd.innerText =
+            row.umami_id || "-";
+
+          memberSinceTd.innerText =
+            formatDate(
+              row.identity_created_at
+            );
+
+
+          tr.appendChild(
+            nameTd
+          );
+
+          tr.appendChild(
+            kakaoTd
+          );
+
+          tr.appendChild(
+            umamiTd
+          );
+
+          tr.appendChild(
+            memberSinceTd
+          );
+
+          memberListEl.appendChild(
+            tr
+          );
+
+        }
+      );
+
+    }
+
+
+    async function checkAdmin() {
+
+      if (
+        !window.sb ||
+        typeof window.sbGetUser !==
+          "function"
+      ) {
+
+        throw new Error(
+          "Supabase 로그인 시스템을 사용할 수 없습니다."
+        );
+
+      }
+
+
+      const user =
+        await window.sbGetUser();
+
+
+      if (!user) {
+
+        throw new Error(
+          "로그인이 필요합니다."
+        );
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await window.sb.rpc(
+          "is_admin"
+        );
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      if (data !== true) {
+
+        throw new Error(
+          "관리자 권한이 없습니다."
+        );
+
+      }
+
+    }
+
+
+    async function searchMembers() {
+
+      const startDate =
+        startDateEl.value;
+
+      const endDate =
+        endDateEl.value;
+
+
+      if (
+        !startDate ||
+        !endDate
+      ) {
+
+        statusEl.innerText =
+          "조회 기간을 입력하세요.";
+
+        return;
+
+      }
+
+
+      if (
+        startDate >
+        endDate
+      ) {
+
+        statusEl.innerText =
+          "시작일이 종료일보다 늦을 수 없습니다.";
+
+        return;
+
+      }
+
+
+      statusEl.innerText =
+        "조회 중입니다...";
+
+
+      memberListEl.innerHTML =
+        `
+        <tr>
+          <td
+            colspan="4"
+            class="admin-empty"
+          >
+            조회 중입니다...
+          </td>
+        </tr>
+        `;
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await window.sb.rpc(
+            "get_admin_kakao_members",
+            {
+              p_start_date:
+                startDate,
+              p_end_date:
+                endDate
+            }
+          );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        renderRows(
+          data || []
+        );
+
+
+        statusEl.innerText =
+          `${(
+            data || []
+          ).length.toLocaleString("ko-KR")}명 조회`;
+
+      } catch (
+        error
+      ) {
+
+        console.error(
+          "Admin member search error:",
+          error
+        );
+
+        memberListEl.innerHTML =
+          `
+          <tr>
+            <td
+              colspan="4"
+              class="admin-empty"
+            >
+              조회에 실패했습니다.
+            </td>
+          </tr>
+          `;
+
+        statusEl.innerText =
+          error &&
+          error.message
+            ? error.message
+            : "조회에 실패했습니다.";
+
+      }
+
+    }
+
+
+    try {
+
+      await checkAdmin();
+
+      authCheckEl.hidden =
+        true;
+
+      adminContentEl.hidden =
+        false;
+
+
+      setPeriod(
+        "today"
+      );
+
+
+      periodButtons.forEach(
+        function (button) {
+
+          button.addEventListener(
+            "click",
+            function () {
+
+              setPeriod(
+                button.dataset.period
+              );
+
+              searchMembers();
+
+            }
+          );
+
+        }
+      );
+
+
+      searchButtonEl.addEventListener(
+        "click",
+        searchMembers
+      );
+
+
+      await searchMembers();
+
+
+    } catch (
+      error
+    ) {
+
+      console.error(
+        "Admin authentication error:",
+        error
+      );
+
+      authCheckEl.innerText =
+        error &&
+        error.message
+          ? error.message
+          : "관리자 인증에 실패했습니다.";
+
+      adminContentEl.hidden =
+        true;
+
+    }
+
+  }
+);
+
+</script>
+
+
+<style>
+
+.admin-page {
+  width: 100%;
+  font-family:
+    "CinemaM",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif;
+}
+
+.admin-header {
+  margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 1.25rem !important;
+  font-weight: 400 !important;
+}
+
+.admin-section h2 {
+  margin:
+    0 0 1rem;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+}
+
+.admin-period-buttons,
+.admin-date-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.admin-date-form {
+  align-items: end;
+}
+
+.admin-date-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.admin-date-form input {
+  min-height: 32px;
+  padding:
+    0.35rem
+    0.5rem;
+}
+
+.admin-page button {
+  min-height: 32px;
+  padding:
+    0.35rem
+    0.75rem;
+  border:
+    1px solid
+    #d2d2d2;
+  border-radius: 6px;
+  background:
+    var(--body-background);
+  cursor: pointer;
+}
+
+.admin-status {
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  color: #666666;
+}
+
+html.forced-dark .admin-status {
+  color: #a8a8a8;
+}
+
+.admin-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding:
+    0.55rem
+    0.5rem;
+  border-bottom:
+    1px solid
+    #e8e8e8;
+  text-align: left;
+  white-space: nowrap;
+}
+
+html.forced-dark .admin-table th,
+html.forced-dark .admin-table td {
+  border-bottom-color: #3a3a3a;
+}
+
+.admin-empty {
+  padding:
+    1rem
+    0.5rem !important;
+  text-align: center !important;
+  color: #888888;
+}
+
+@media (max-width: 768px) {
+
+  .admin-date-form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-date-form label,
+  .admin-date-form input,
+  .admin-date-form button {
+    width: 100%;
+  }
+
+}
+
+</style>
+
+{{ end }}
