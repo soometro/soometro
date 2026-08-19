@@ -7,6 +7,10 @@
   </header>
 
 
+  <!-- =========================================================
+       프로그램 1 — 카카오 아이디 조회
+       ========================================================= -->
+
   <section
     id="admin-login-message"
     class="admin-login-message"
@@ -140,6 +144,222 @@
 
     </div>
 
+
+    <!-- =========================================================
+         프로그램 2 — 방문자 분석
+         ========================================================= -->
+
+    <section class="admin-visitor-section">
+
+      <div class="admin-section-title">
+        방문자 분석
+      </div>
+
+
+      <div class="admin-search-form">
+
+        <label>
+          이름
+          <input
+            id="visitor-name"
+            type="text"
+          >
+        </label>
+
+        <label>
+          kakao ID
+          <input
+            id="visitor-kakao-id"
+            type="text"
+          >
+        </label>
+
+      </div>
+
+
+      <div class="admin-date-form">
+
+        <label>
+          시작일
+          <input
+            id="visitor-start-date"
+            type="date"
+          >
+        </label>
+
+        <label>
+          종료일
+          <input
+            id="visitor-end-date"
+            type="date"
+          >
+        </label>
+
+        <button
+          id="visitor-search-button"
+          type="button"
+        >
+          조회
+        </button>
+
+      </div>
+
+
+      <div
+        class="admin-period-buttons visitor-period-buttons"
+      >
+
+        <button
+          type="button"
+          data-period="today"
+        >
+          오늘
+        </button>
+
+        <button
+          type="button"
+          data-period="7d"
+        >
+          1주일
+        </button>
+
+        <button
+          type="button"
+          data-period="1m"
+        >
+          1개월
+        </button>
+
+        <button
+          type="button"
+          data-period="3m"
+        >
+          3개월
+        </button>
+
+        <button
+          type="button"
+          data-period="6m"
+        >
+          6개월
+        </button>
+
+        <button
+          type="button"
+          data-period="1y"
+        >
+          1년
+        </button>
+
+      </div>
+
+
+      <div
+        id="visitor-status"
+        class="admin-status"
+      ></div>
+
+
+      <!-- 회원 요약 -->
+
+      <div
+        id="visitor-summary"
+        hidden
+      >
+
+        <table
+          class="admin-table admin-summary-table"
+        >
+
+          <tbody>
+
+            <tr>
+              <th>이름</th>
+              <td id="visitor-summary-name"></td>
+            </tr>
+
+            <tr>
+              <th>아이디</th>
+              <td id="visitor-summary-kakao-id"></td>
+            </tr>
+
+            <tr>
+              <th>우마미 ID</th>
+              <td id="visitor-summary-umami-id"></td>
+            </tr>
+
+            <tr>
+              <th>회원 이용 시작</th>
+              <td id="visitor-summary-member-since"></td>
+            </tr>
+
+            <tr>
+              <th>최근 방문</th>
+              <td id="visitor-summary-last-visit"></td>
+            </tr>
+
+            <tr>
+              <th>총 방문</th>
+              <td id="visitor-summary-total-visits"></td>
+            </tr>
+
+            <tr>
+              <th>읽은 글</th>
+              <td id="visitor-summary-read-posts"></td>
+            </tr>
+
+            <tr>
+              <th>댓글</th>
+              <td id="visitor-summary-comments"></td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- 방문 로그 -->
+
+      <div
+        id="visitor-log-section"
+        hidden
+      >
+
+        <div class="admin-log-title">
+          방문 로그
+        </div>
+
+        <div class="admin-table-wrap">
+
+          <table class="admin-table">
+
+            <thead>
+
+              <tr>
+                <th>이름</th>
+                <th>아이디</th>
+                <th>우마미 ID</th>
+                <th>접속일</th>
+                <th>접속시간</th>
+                <th>URL</th>
+              </tr>
+
+            </thead>
+
+            <tbody
+              id="visitor-log-list"
+            ></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
   </section>
 
 </main>
@@ -151,67 +371,9 @@ document.addEventListener(
   "DOMContentLoaded",
   async function () {
 
-    const loginMessageEl =
-      document.getElementById(
-        "admin-login-message"
-      );
-
-    const adminContentEl =
-      document.getElementById(
-        "admin-content"
-      );
-
-    const startDateEl =
-      document.getElementById(
-        "admin-start-date"
-      );
-
-    const endDateEl =
-      document.getElementById(
-        "admin-end-date"
-      );
-
-    const searchButtonEl =
-      document.getElementById(
-        "admin-search-button"
-      );
-
-    const statusEl =
-      document.getElementById(
-        "admin-status"
-      );
-
-    const memberListEl =
-      document.getElementById(
-        "admin-member-list"
-      );
-
-    const periodButtons =
-      document.querySelectorAll(
-        ".admin-period-buttons button"
-      );
-
-
-    function todayString() {
-
-      return new Intl.DateTimeFormat(
-        "en-CA",
-        {
-          timeZone:
-            "Asia/Seoul",
-          year:
-            "numeric",
-          month:
-            "2-digit",
-          day:
-            "2-digit"
-        }
-      ).format(
-        new Date()
-      );
-
-    }
-
+    /* =========================================================
+       공통
+       ========================================================= */
 
     function dateString(
       date
@@ -232,7 +394,151 @@ document.addEventListener(
     }
 
 
+    function todayString() {
+
+      const formatter =
+        new Intl.DateTimeFormat(
+          "en-CA",
+          {
+            timeZone:
+              "Asia/Seoul",
+            year:
+              "numeric",
+            month:
+              "2-digit",
+            day:
+              "2-digit"
+          }
+        );
+
+      return formatter.format(
+        new Date()
+      );
+
+    }
+
+
+    function formatDate(
+      value
+    ) {
+
+      if (!value) {
+        return "-";
+      }
+
+      const date =
+        new Date(value);
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+        return "-";
+      }
+
+      const formatter =
+        new Intl.DateTimeFormat(
+          "ko-KR",
+          {
+            timeZone:
+              "Asia/Seoul",
+            year:
+              "numeric",
+            month:
+              "2-digit",
+            day:
+              "2-digit"
+          }
+        );
+
+      const parts =
+        formatter.formatToParts(
+          date
+        );
+
+      let year = "";
+      let month = "";
+      let day = "";
+
+      parts.forEach(
+        function (part) {
+
+          if (
+            part.type ===
+            "year"
+          ) {
+            year =
+              part.value;
+          }
+
+          if (
+            part.type ===
+            "month"
+          ) {
+            month =
+              part.value;
+          }
+
+          if (
+            part.type ===
+            "day"
+          ) {
+            day =
+              part.value;
+          }
+
+        }
+      );
+
+      return (
+        `${year}-${month}-${day}`
+      );
+
+    }
+
+
+    function formatTime(
+      value
+    ) {
+
+      if (!value) {
+        return "-";
+      }
+
+      const date =
+        new Date(value);
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+        return "-";
+      }
+
+      return new Intl.DateTimeFormat(
+        "ko-KR",
+        {
+          timeZone:
+            "Asia/Seoul",
+          hour:
+            "2-digit",
+          minute:
+            "2-digit",
+          second:
+            "2-digit",
+          hour12:
+            false
+        }
+      ).format(date);
+
+    }
+
+
     function setPeriod(
+      startDateEl,
+      endDateEl,
       type
     ) {
 
@@ -297,108 +603,116 @@ document.addEventListener(
     }
 
 
-    function formatDate(
-      value
+    /* =========================================================
+       관리자 인증
+       ========================================================= */
+
+    const loginMessageEl =
+      document.getElementById(
+        "admin-login-message"
+      );
+
+    const adminContentEl =
+      document.getElementById(
+        "admin-content"
+      );
+
+
+    try {
+
+      if (!window.sb) {
+
+        throw new Error(
+          "Supabase가 초기화되지 않았습니다."
+        );
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await window.sb.rpc(
+          "is_admin"
+        );
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      if (data !== true) {
+
+        throw new Error(
+          "관리자 권한이 없습니다."
+        );
+
+      }
+
+
+      loginMessageEl.hidden =
+        true;
+
+      adminContentEl.hidden =
+        false;
+
+    } catch (
+      error
     ) {
 
-      if (!value) {
-        return "-";
-      }
-
-
-      const date =
-        new Date(value);
-
-
-      if (
-        Number.isNaN(
-          date.getTime()
-        )
-      ) {
-
-        return "-";
-
-      }
-
-
-      const formatter =
-        new Intl.DateTimeFormat(
-          "ko-KR",
-          {
-            timeZone:
-              "Asia/Seoul",
-            year:
-              "numeric",
-            month:
-              "2-digit",
-            day:
-              "2-digit"
-          }
-        );
-
-
-      const parts =
-        formatter.formatToParts(
-          date
-        );
-
-
-      let year = "";
-      let month = "";
-      let day = "";
-
-
-      parts.forEach(
-        function (part) {
-
-          if (
-            part.type ===
-            "year"
-          ) {
-
-            year =
-              part.value;
-
-          }
-
-
-          if (
-            part.type ===
-            "month"
-          ) {
-
-            month =
-              part.value;
-
-          }
-
-
-          if (
-            part.type ===
-            "day"
-          ) {
-
-            day =
-              part.value;
-
-          }
-
-        }
+      console.error(
+        "Admin authentication error:",
+        error
       );
 
+      loginMessageEl.textContent =
+        error &&
+        error.message
+          ? error.message
+          : "관리자 인증에 실패했습니다.";
 
-      return (
-        `${year}-${month}-${day}`
-      );
+      return;
 
     }
 
 
-    function renderRows(
+    /* =========================================================
+       프로그램 1 — 카카오 아이디 조회
+       ========================================================= */
+
+    const adminStartDateEl =
+      document.getElementById(
+        "admin-start-date"
+      );
+
+    const adminEndDateEl =
+      document.getElementById(
+        "admin-end-date"
+      );
+
+    const adminSearchButtonEl =
+      document.getElementById(
+        "admin-search-button"
+      );
+
+    const adminStatusEl =
+      document.getElementById(
+        "admin-status"
+      );
+
+    const adminMemberListEl =
+      document.getElementById(
+        "admin-member-list"
+      );
+
+
+    function renderMembers(
       rows
     ) {
 
-      memberListEl.innerHTML =
+      adminMemberListEl.innerHTML =
         "";
 
 
@@ -407,7 +721,7 @@ document.addEventListener(
         rows.length === 0
       ) {
 
-        memberListEl.innerHTML = `
+        adminMemberListEl.innerHTML = `
           <tr>
             <td
               colspan="6"
@@ -432,94 +746,50 @@ document.addEventListener(
             );
 
 
-          const name =
-            document.createElement(
-              "td"
-            );
+          const values = [
 
-          const kakaoId =
-            document.createElement(
-              "td"
-            );
-
-          const umamiId =
-            document.createElement(
-              "td"
-            );
-
-          const supabaseUserId =
-            document.createElement(
-              "td"
-            );
-
-          const memberSince =
-            document.createElement(
-              "td"
-            );
-
-          const profileStatus =
-            document.createElement(
-              "td"
-            );
-
-
-          name.textContent =
             row.name ||
-            "회원";
+              "회원",
 
-
-          kakaoId.textContent =
             row.kakao_id ||
-            "-";
+              "-",
 
-
-          umamiId.textContent =
             row.umami_id ||
-            "-";
+              "-",
 
-
-          supabaseUserId.textContent =
             row.supabase_user_id ||
-            "-";
+              "-",
 
-
-          memberSince.textContent =
             formatDate(
               row.member_since
-            );
+            ),
 
-
-          profileStatus.textContent =
             row.profile_status ||
-            "-";
+              "-"
+
+          ];
 
 
-          tr.appendChild(
-            name
-          );
+          values.forEach(
+            function (value) {
 
-          tr.appendChild(
-            kakaoId
-          );
+              const td =
+                document.createElement(
+                  "td"
+                );
 
-          tr.appendChild(
-            umamiId
-          );
+              td.textContent =
+                value;
 
-          tr.appendChild(
-            supabaseUserId
-          );
+              tr.appendChild(
+                td
+              );
 
-          tr.appendChild(
-            memberSince
-          );
-
-          tr.appendChild(
-            profileStatus
+            }
           );
 
 
-          memberListEl.appendChild(
+          adminMemberListEl.appendChild(
             tr
           );
 
@@ -532,10 +802,10 @@ document.addEventListener(
     async function loadMembers() {
 
       const startDate =
-        startDateEl.value;
+        adminStartDateEl.value;
 
       const endDate =
-        endDateEl.value;
+        adminEndDateEl.value;
 
 
       if (
@@ -543,16 +813,32 @@ document.addEventListener(
         !endDate
       ) {
 
+        adminStatusEl.textContent =
+          "조회 기간을 입력하세요.";
+
         return;
 
       }
 
 
-      statusEl.textContent =
+      if (
+        startDate >
+        endDate
+      ) {
+
+        adminStatusEl.textContent =
+          "시작일이 종료일보다 늦을 수 없습니다.";
+
+        return;
+
+      }
+
+
+      adminStatusEl.textContent =
         "조회 중...";
 
 
-      memberListEl.innerHTML = `
+      adminMemberListEl.innerHTML = `
         <tr>
           <td
             colspan="6"
@@ -583,18 +869,16 @@ document.addEventListener(
 
 
         if (error) {
-
           throw error;
-
         }
 
 
-        renderRows(
+        renderMembers(
           data || []
         );
 
 
-        statusEl.textContent =
+        adminStatusEl.textContent =
           `${(
             data || []
           ).length.toLocaleString(
@@ -611,11 +895,11 @@ document.addEventListener(
         );
 
 
-        statusEl.textContent =
+        adminStatusEl.textContent =
           "조회 실패";
 
 
-        memberListEl.innerHTML = `
+        adminMemberListEl.innerHTML = `
           <tr>
             <td
               colspan="6"
@@ -636,55 +920,18 @@ document.addEventListener(
     }
 
 
-    try {
-
-      if (!window.sb) {
-
-        throw new Error(
-          "Supabase가 초기화되지 않았습니다."
-        );
-
-      }
+    setPeriod(
+      adminStartDateEl,
+      adminEndDateEl,
+      "today"
+    );
 
 
-      const {
-        data,
-        error
-      } =
-        await window.sb.rpc(
-          "is_admin"
-        );
-
-
-      if (error) {
-
-        throw error;
-
-      }
-
-
-      if (data !== true) {
-
-        throw new Error(
-          "관리자 권한이 없습니다."
-        );
-
-      }
-
-
-      loginMessageEl.hidden =
-        true;
-
-      adminContentEl.hidden =
-        false;
-
-
-      setPeriod(
-        "today"
-      );
-
-
-      periodButtons.forEach(
+    document
+      .querySelectorAll(
+        "#admin-content > .admin-period-buttons button"
+      )
+      .forEach(
         function (button) {
 
           button.addEventListener(
@@ -692,6 +939,8 @@ document.addEventListener(
             function () {
 
               setPeriod(
+                adminStartDateEl,
+                adminEndDateEl,
                 button.dataset.period
               );
 
@@ -704,32 +953,417 @@ document.addEventListener(
       );
 
 
-      searchButtonEl.addEventListener(
-        "click",
-        loadMembers
+    adminSearchButtonEl.addEventListener(
+      "click",
+      loadMembers
+    );
+
+
+    await loadMembers();
+
+
+    /* =========================================================
+       프로그램 2 — 방문자 분석
+       ========================================================= */
+
+    const visitorNameEl =
+      document.getElementById(
+        "visitor-name"
+      );
+
+    const visitorKakaoIdEl =
+      document.getElementById(
+        "visitor-kakao-id"
+      );
+
+    const visitorStartDateEl =
+      document.getElementById(
+        "visitor-start-date"
+      );
+
+    const visitorEndDateEl =
+      document.getElementById(
+        "visitor-end-date"
+      );
+
+    const visitorSearchButtonEl =
+      document.getElementById(
+        "visitor-search-button"
+      );
+
+    const visitorStatusEl =
+      document.getElementById(
+        "visitor-status"
+      );
+
+    const visitorSummaryEl =
+      document.getElementById(
+        "visitor-summary"
+      );
+
+    const visitorLogSectionEl =
+      document.getElementById(
+        "visitor-log-section"
+      );
+
+    const visitorLogListEl =
+      document.getElementById(
+        "visitor-log-list"
       );
 
 
-      await loadMembers();
-
-
-    } catch (
-      error
+    function renderVisitorSummary(
+      data
     ) {
 
-      console.error(
-        "Admin page error:",
-        error
+      document.getElementById(
+        "visitor-summary-name"
+      ).textContent =
+        data.name ||
+        "-";
+
+
+      document.getElementById(
+        "visitor-summary-kakao-id"
+      ).textContent =
+        data.kakao_id ||
+        "-";
+
+
+      document.getElementById(
+        "visitor-summary-umami-id"
+      ).textContent =
+        data.umami_id ||
+        "-";
+
+
+      document.getElementById(
+        "visitor-summary-member-since"
+      ).textContent =
+        formatDate(
+          data.member_since
+        );
+
+
+      document.getElementById(
+        "visitor-summary-last-visit"
+      ).textContent =
+        formatDate(
+          data.last_visit
+        );
+
+
+      document.getElementById(
+        "visitor-summary-total-visits"
+      ).textContent =
+        `${Number(
+          data.total_visits || 0
+        ).toLocaleString(
+          "ko-KR"
+        )} 회`;
+
+
+      document.getElementById(
+        "visitor-summary-read-posts"
+      ).textContent =
+        `${Number(
+          data.read_posts || 0
+        ).toLocaleString(
+          "ko-KR"
+        )} 편`;
+
+
+      document.getElementById(
+        "visitor-summary-comments"
+      ).textContent =
+        `${Number(
+          data.comments || 0
+        ).toLocaleString(
+          "ko-KR"
+        )} 건`;
+
+
+      visitorSummaryEl.hidden =
+        false;
+
+    }
+
+
+    function renderVisitorLogs(
+      logs
+    ) {
+
+      visitorLogListEl.innerHTML =
+        "";
+
+
+      if (
+        !Array.isArray(logs) ||
+        logs.length === 0
+      ) {
+
+        visitorLogListEl.innerHTML = `
+          <tr>
+            <td
+              colspan="6"
+              class="admin-empty"
+            >
+              해당 기간 방문 기록이 없습니다.
+            </td>
+          </tr>
+        `;
+
+        visitorLogSectionEl.hidden =
+          false;
+
+        return;
+
+      }
+
+
+      logs.forEach(
+        function (log) {
+
+          const tr =
+            document.createElement(
+              "tr"
+            );
+
+
+          const values = [
+
+            log.name ||
+              "-",
+
+            log.kakao_id ||
+              "-",
+
+            log.umami_id ||
+              "-",
+
+            formatDate(
+              log.created_at
+            ),
+
+            formatTime(
+              log.created_at
+            ),
+
+            log.url ||
+              "-"
+
+          ];
+
+
+          values.forEach(
+            function (value) {
+
+              const td =
+                document.createElement(
+                  "td"
+                );
+
+              td.textContent =
+                value;
+
+              tr.appendChild(
+                td
+              );
+
+            }
+          );
+
+
+          visitorLogListEl.appendChild(
+            tr
+          );
+
+        }
       );
 
 
-      loginMessageEl.textContent =
-        error &&
-        error.message
-          ? error.message
-          : "관리자 페이지를 사용할 수 없습니다.";
+      visitorLogSectionEl.hidden =
+        false;
 
     }
+
+
+    async function searchVisitor() {
+
+      const name =
+        visitorNameEl.value.trim();
+
+      const kakaoId =
+        visitorKakaoIdEl.value.trim();
+
+      const startDate =
+        visitorStartDateEl.value;
+
+      const endDate =
+        visitorEndDateEl.value;
+
+
+      if (
+        !name &&
+        !kakaoId
+      ) {
+
+        visitorStatusEl.textContent =
+          "이름 또는 kakao ID를 입력하세요.";
+
+        return;
+
+      }
+
+
+      if (
+        !startDate ||
+        !endDate
+      ) {
+
+        visitorStatusEl.textContent =
+          "조회 기간을 입력하세요.";
+
+        return;
+
+      }
+
+
+      if (
+        startDate >
+        endDate
+      ) {
+
+        visitorStatusEl.textContent =
+          "시작일이 종료일보다 늦을 수 없습니다.";
+
+        return;
+
+      }
+
+
+      visitorStatusEl.textContent =
+        "조회 중...";
+
+
+      visitorSummaryEl.hidden =
+        true;
+
+      visitorLogSectionEl.hidden =
+        true;
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await window.sb.rpc(
+            "get_admin_visitor_analysis",
+            {
+              p_name:
+                name,
+
+              p_kakao_id:
+                kakaoId,
+
+              p_start_date:
+                startDate,
+
+              p_end_date:
+                endDate
+            }
+          );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        if (
+          !data ||
+          data.found !== true
+        ) {
+
+          visitorStatusEl.textContent =
+            "회원을 찾을 수 없습니다.";
+
+          return;
+
+        }
+
+
+        renderVisitorSummary(
+          data
+        );
+
+
+        renderVisitorLogs(
+          data.logs || []
+        );
+
+
+        visitorStatusEl.textContent =
+          "조회 완료";
+
+      } catch (
+        error
+      ) {
+
+        console.error(
+          "Visitor analysis error:",
+          error
+        );
+
+
+        visitorStatusEl.textContent =
+          error &&
+          error.message
+            ? error.message
+            : "조회에 실패했습니다.";
+
+      }
+
+    }
+
+
+    setPeriod(
+      visitorStartDateEl,
+      visitorEndDateEl,
+      "today"
+    );
+
+
+    document
+      .querySelectorAll(
+        ".visitor-period-buttons button"
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            "click",
+            function () {
+
+              setPeriod(
+                visitorStartDateEl,
+                visitorEndDateEl,
+                button.dataset.period
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    visitorSearchButtonEl.addEventListener(
+      "click",
+      searchVisitor
+    );
 
   }
 );
@@ -767,6 +1401,23 @@ document.addEventListener(
 }
 
 
+.admin-visitor-section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #d2d2d2;
+}
+
+
+.admin-log-title {
+  margin:
+    1rem 0
+    0.75rem;
+  font-size:
+    0.9rem;
+}
+
+
+.admin-search-form,
 .admin-date-form,
 .admin-period-buttons {
   display: flex;
@@ -781,6 +1432,7 @@ document.addEventListener(
 }
 
 
+.admin-search-form label,
 .admin-date-form label {
   display: flex;
   flex-direction: column;
@@ -796,19 +1448,25 @@ document.addEventListener(
 
 
 .admin-page input {
-  padding: 0.35rem 0.5rem;
+  padding:
+    0.35rem
+    0.5rem;
 }
 
 
 .admin-page button {
-  padding: 0.35rem 0.75rem;
+  padding:
+    0.35rem
+    0.75rem;
   border:
     1px solid
     #d2d2d2;
-  border-radius: 6px;
+  border-radius:
+    6px;
   background:
     var(--body-background);
-  cursor: pointer;
+  cursor:
+    pointer;
 }
 
 
@@ -829,15 +1487,20 @@ html.forced-dark .admin-status {
 
 
 .admin-table-wrap {
-  width: 100%;
-  overflow-x: auto;
+  width:
+    100%;
+  overflow-x:
+    auto;
 }
 
 
 .admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.8rem;
+  width:
+    100%;
+  border-collapse:
+    collapse;
+  font-size:
+    0.8rem;
 }
 
 
@@ -849,13 +1512,25 @@ html.forced-dark .admin-status {
   border-bottom:
     1px solid
     #e8e8e8;
-  text-align: left;
-  white-space: nowrap;
+  text-align:
+    left;
+  white-space:
+    nowrap;
 }
 
 
-html.forced-dark .admin-table th,
-html.forced-dark .admin-table td {
+.admin-summary-table th {
+  width:
+    120px;
+  font-weight:
+    400;
+}
+
+
+html.forced-dark
+.admin-table th,
+html.forced-dark
+.admin-table td {
   border-bottom-color:
     #3a3a3a;
 }
@@ -874,15 +1549,18 @@ html.forced-dark .admin-table td {
 
 @media (max-width: 768px) {
 
+  .admin-search-form,
   .admin-date-form {
-    align-items:
-      stretch;
     flex-direction:
       column;
+    align-items:
+      stretch;
   }
 
 
+  .admin-search-form label,
   .admin-date-form label,
+  .admin-search-form input,
   .admin-date-form input,
   .admin-date-form button {
     width:
