@@ -4,27 +4,27 @@
     <!-- 통합 영역: 사이트 통계 + 조회수 카운터 -->
     <div style="display: flex; flex-direction: column; gap: 0.2rem;">
         <div style="display: flex; justify-content: space-between;">
-            <span class="sidebar-stat-label"> TOTAL POSTS:</span>
+            <span class="sidebar-stat-label">• TOTAL POSTS:</span>
             <span class="sidebar-stat-value">{{ len .Site.RegularPages }}</span>
         </div>
 
         <div style="display: flex; justify-content: space-between;">
-            <span class="sidebar-stat-label"> TODAY:</span>
+            <span class="sidebar-stat-label">• TODAY:</span>
             <span id="counter-today" class="sidebar-stat-value">0</span>
         </div>
 
         <div style="display: flex; justify-content: space-between;">
-            <span class="sidebar-stat-label"> THIS MONTH:</span>
+            <span class="sidebar-stat-label">• THIS MONTH:</span>
             <span id="counter-monthly" class="sidebar-stat-value">0</span>
         </div>
 
         <div style="display: flex; justify-content: space-between;">
-            <span class="sidebar-stat-label"> THIS YEAR:</span>
+            <span class="sidebar-stat-label">• THIS YEAR:</span>
             <span id="counter-year" class="sidebar-stat-value">0</span>
         </div>
 
         <div style="display: flex; justify-content: space-between;">
-            <span class="sidebar-stat-label"> ALL TIME:</span>
+            <span class="sidebar-stat-label">• ALL TIME:</span>
             <span id="counter-total" class="sidebar-stat-value">0</span>
         </div>
     </div>
@@ -38,7 +38,7 @@
 
 <!-- 3. 수동 테마 토글 버튼 영역 (하단 배치) -->
 <div class="theme-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0;">
-    <span class="sidebar-subheading" style="white-space: nowrap;"> SITE THEME</span>
+    <span class="sidebar-subheading" style="white-space: nowrap;">• SITE THEME</span>
 
     <button
         id="theme-toggle-btn"
@@ -50,7 +50,7 @@
 
 
 <div class="bgm-toggle-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
-    <span class="sidebar-subheading" style="white-space: nowrap;"> MUSIC</span>
+    <span class="sidebar-subheading" style="white-space: nowrap;">• MUSIC</span>
 
     <button
         id="bgm-toggle-btn"
@@ -62,7 +62,7 @@
 
 
 <div class="rss-container" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;">
-    <span class="sidebar-subheading" style="white-space: nowrap;"> SUBSCRIBE</span>
+    <span class="sidebar-subheading" style="white-space: nowrap;">• SUBSCRIBE</span>
 
     <a
         id="rss-link-btn"
@@ -80,7 +80,7 @@
     id="install-container"
     style="display: none; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;"
 >
-    <span class="sidebar-subheading" style="white-space: nowrap;"> INSTALL APP</span>
+    <span class="sidebar-subheading" style="white-space: nowrap;">• INSTALL APP</span>
 
     <button
         id="install-toggle-btn"
@@ -98,7 +98,7 @@
     hidden
     style="align-items: center; justify-content: space-between; gap: 0.5rem; padding: 8px 0; border-top: 1px dashed #ccc;"
 >
-    <span class="sidebar-subheading" style="white-space: nowrap;"> ADMIN</span>
+    <span class="sidebar-subheading" style="white-space: nowrap;">• ADMIN</span>
 
     <a
         id="admin-link"
