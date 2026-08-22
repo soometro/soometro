@@ -66,14 +66,6 @@ description = "이곳은 시간을 두고 들여다본 관심사들을 살펴보
 ---
 
 <div class="category-row">
-  <a href="/docs/aIjournal/" class="category-title">AI Journal</a>
-  <span class="category-meta">{{< category-stats "aIjournal" >}}</span>
-</div>
-<span class="category-desc">AI 최신 뉴스를 직접 검색하여 만듬.</span>
-
----
-
-<div class="category-row">
   <a href="/docs/tools/" class="category-title">Tools</a>
   <span class="category-meta">{{< category-stats "tools" >}}</span>
 </div>
