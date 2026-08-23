@@ -1,7 +1,7 @@
 ---
 title: "OTT가 TV를 넘어선 시대, 국내 미디어 시장은 어떻게 바뀌나?"
 date: 2026-08-16
-lastmod: 2026-08-21
+lastmod: 2026-08-23
 bookHidden: true
 description: "네덜란드에서 OTT 매출이 TV를 처음 추월한 가운데 국내 유료방송도 플랫폼에서 콘텐츠·IP·광고를 묶는 사업 구조로 빠르게 전환하고 있다."
 ---
