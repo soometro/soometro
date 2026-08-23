@@ -1,5 +1,5 @@
 +++
-title = "🥃 Whisky"
+title = "Whisky"
 draft = false
 weight = 50
 description = "와인은 만든 순간 늙어가고, 위스키는 오랜 시간 익어간다."

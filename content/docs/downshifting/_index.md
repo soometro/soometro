@@ -1,5 +1,5 @@
 +++
-title = "☕ Downshifting"
+title = "Downshifting"
 draft = false
 weight = 70
 description = "무거운 가속 페달에서 발을 떼고, 오롯이 나만의 속도로 일상을 채워가는 시간"

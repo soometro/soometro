@@ -1,5 +1,5 @@
 +++
-title = "🎞️ Media"
+title = "Media"
 draft = false
 weight = 30
 description = "스크린의 잔상부터 책장의 여백까지, 작품을 향한 날카로운 시선과 자유로운 상상"

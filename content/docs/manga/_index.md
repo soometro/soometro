@@ -1,5 +1,5 @@
 +++
-title = "📚 Manga"
+title = "Manga"
 draft = false
 weight = 20
 description = "책장을 넘기는 찰나의 침묵과 기대감. 현대인이 잃어버린 시각적 문해력의 정점"
