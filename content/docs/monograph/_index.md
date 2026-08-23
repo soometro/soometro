@@ -2,7 +2,7 @@
 title = "📝 Monograph"
 draft = false
 weight = 10
-description = "사전적 정의는 하나의 주제나 인물, 현상 등에 대해 집중적으로 다룬 연구 논문이나 저술을 뜻합니다"
+description = "하나의 주제나 인물, 현상 등에 대해 집중적으로 다룬 연구 논문이나 저술을 뜻합니다"
 # ★ 핵심: 이 카테고리 하위의 모든 메뉴를 접어두겠다는 테마 고유 설정
 # bookCollapseSection = true  
 # bookFlatSection = true
@@ -10,5 +10,5 @@ description = "사전적 정의는 하나의 주제나 인물, 현상 등에 대
 
 ## <strong>Monograph</strong>
 
-사전적 정의는 하나의 주제나 인물, 현상 등에 대해 집중적으로 다룬 연구 논문이나 저술을 뜻합니다
+사전적 정의는 하나의 주제나 현상 등에 대해 집중적으로 다룬 연구 논문이나 저술을 뜻합니다
 
