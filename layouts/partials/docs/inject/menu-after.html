@@ -7,7 +7,7 @@
         opacity: 0.8;
         font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif;
         font-size: 0.8rem;
-        color: #777;
+        color: #666;
         font-weight: 500;
     "
 >
@@ -157,28 +157,40 @@
 <!-- 테마 스타일 오버라이드 -->
 <style>
 
-    .sidebar-stat-label {
-        color: #666;
-    }
-
+    /* ================================
+       통계 영역
+       ================================ */
+    .sidebar-stat-label,
     .sidebar-stat-value {
         color: #666;
+        font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 500;
     }
 
-    .sidebar-subheading {
-    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif;
-    font-size: 0.8rem;
-    color: #777;
-    font-weight: 500;
-    letter-spacing: -0.02rem;
-    opacity: 0.8;
-}
 
+    /* ================================
+       하단 기능 영역 제목
+       ================================ */
+    .sidebar-subheading {
+        font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif;
+        font-size: 0.8rem;
+        color: #666;
+        font-weight: 500;
+        letter-spacing: -0.02rem;
+        /* opacity 제거 */
+    }
+
+
+    /* ================================
+       다크모드
+       ================================ */
     html.forced-dark .sidebar-stat-label,
     html.forced-dark .sidebar-stat-value,
     html.forced-dark .sidebar-subheading {
         color: #a8a8a8 !important;
     }
+
 
     html.forced-dark {
         --color-diagram-bg: #fff;
@@ -192,12 +204,14 @@
         color: #e0e0e0 !important;
     }
 
+
     html.forced-dark .book-menu,
     html.forced-dark .book-page,
     html.forced-dark aside {
         background-color: #111111 !important;
         color: #e0e0e0 !important;
     }
+
 
     /* 버튼 호버 효과 통합 */
     #bgm-toggle-btn:hover,
