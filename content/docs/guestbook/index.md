@@ -1,5 +1,5 @@
 ---
-title: "💬 Guestbook"
+title: "Guestbook"
 date: 2026-08-14
 lastmod: 2026-08-14
 bookHidden: false
