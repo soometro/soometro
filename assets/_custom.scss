@@ -65,6 +65,15 @@ html.forced-dark .book-menu nav ul li a {
     margin-right: 0.6rem !important;
 }
 
+/* 사이드바 하단 5개 오른쪽 요소 여백 통일 */
+#theme-toggle-btn,
+#bgm-toggle-btn,
+#rss-link-btn,
+#install-toggle-btn,
+#admin-link {
+    margin-right: 0.6rem !important;
+}
+
 html.forced-dark .book-menu-post-count {
     color: #a8a8a8 !important; /* 다크모드 전용 */
 }
