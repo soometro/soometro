@@ -69,6 +69,6 @@ description = "시간을 들여 관심사들을 기록해 둔 아카이브의 �
   <a href="/docs/tools/" class="category-title">Tools</a>
   <span class="category-meta">{{< category-stats "tools" >}}</span>
 </div>
-<span class="category-desc">여러가지 기능들을 구현할 예정입니다.</span>
+<span class="category-desc">여러가지 기능들을 구현할 예정.</span>
 
 ---
