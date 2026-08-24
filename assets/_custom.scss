@@ -11,7 +11,7 @@ aside .book-menu nav ul li a,
     padding: 9px 0 !important;          /* 메뉴 항목 간격 */
     display: block !important;
     line-height: 1.0 !important;
-    font-weight: 500;
+    font-weight: 550;
     letter-spacing: 0em !important;     /* 자간 정상화 */
 }
 
@@ -59,7 +59,7 @@ html.forced-dark .book-menu nav ul li a {
     display: inline-block !important;
     float: right !important;
     font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif !important;
-    font-size: 0.5rem !important;
+    font-size: 0.8rem !important;
     font-weight: 500 !important;
     font-style: normal !important; /* 부모 메뉴의 이탤릭(기울임) 무력화 */
     color: #666 !important; /* 라이트모드 기본값 복원 */
