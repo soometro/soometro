@@ -1,0 +1,110 @@
+<div class="tool-box dday-tool">
+    <div class="dday-field">
+        <label for="dday-base-date">기준일</label>
+        <input type="date" id="dday-base-date">
+    </div>
+
+    <div class="dday-field">
+        <label for="dday-target-date">목표일</label>
+        <input type="date" id="dday-target-date">
+    </div>
+
+    <div class="dday-result" id="dday-result" aria-live="polite">
+        이곳에 D-Day가 표시됩니다.
+    </div>
+</div>
+
+<style>
+.dday-tool {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin: 24px 0;
+}
+
+.dday-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dday-field label {
+    font-weight: 600;
+}
+
+.dday-field input {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 8px 10px;
+}
+
+.dday-result {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 16px;
+    border: 2px solid currentColor;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+</style>
+
+<script>
+(function () {
+    const baseDateInput = document.getElementById("dday-base-date");
+    const targetDateInput = document.getElementById("dday-target-date");
+    const resultBox = document.getElementById("dday-result");
+
+    if (!baseDateInput || !targetDateInput || !resultBox) {
+        return;
+    }
+
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
+
+    function parseDate(value) {
+        const [year, month, day] = value.split("-").map(Number);
+        return new Date(year, month - 1, day);
+    }
+
+    function setToday() {
+        baseDateInput.value = formatDate(new Date());
+    }
+
+    function calculateDday() {
+        if (!baseDateInput.value || !targetDateInput.value) {
+            resultBox.textContent = "이곳에 D-Day가 표시됩니다.";
+            return;
+        }
+
+        const baseDate = parseDate(baseDateInput.value);
+        const targetDate = parseDate(targetDateInput.value);
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        const difference = Math.round(
+            (targetDate - baseDate) / oneDay
+        );
+
+        if (difference > 0) {
+            resultBox.textContent = `D-${difference}`;
+        } else if (difference === 0) {
+            resultBox.textContent = "D-Day";
+        } else {
+            resultBox.textContent = `D+${Math.abs(difference)}`;
+        }
+    }
+
+    setToday();
+
+    baseDateInput.addEventListener("change", calculateDday);
+    targetDateInput.addEventListener("change", calculateDday);
+})();
+</script>
