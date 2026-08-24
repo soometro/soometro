@@ -1,0 +1,249 @@
+<div class="tool-box textsort-tool">
+    <div class="textsort-input-wrap">
+        <label for="textsort-input">텍스트 입력</label>
+        <textarea
+            id="textsort-input"
+            rows="12"
+            placeholder="한 줄에 하나씩 입력하세요."
+        ></textarea>
+    </div>
+
+    <div class="textsort-controls">
+        <button type="button" id="textsort-ascending">가나다순</button>
+        <button type="button" id="textsort-descending">역순</button>
+    </div>
+
+    <div class="textsort-summary" aria-live="polite">
+        <div class="textsort-count">
+            입력 <strong id="textsort-before">0</strong>줄
+        </div>
+
+        <div class="textsort-count">
+            결과 <strong id="textsort-after">0</strong>줄
+        </div>
+    </div>
+
+    <div class="textsort-result-wrap">
+        <label for="textsort-result">정렬 결과</label>
+        <textarea
+            id="textsort-result"
+            rows="12"
+            readonly
+            placeholder="정렬 결과가 여기에 표시됩니다."
+        ></textarea>
+    </div>
+
+    <div class="textsort-actions">
+        <button type="button" id="textsort-copy">결과 복사</button>
+        <button type="button" id="textsort-clear">지우기</button>
+    </div>
+</div>
+
+<style>
+.textsort-tool {
+    margin: 24px 0;
+}
+
+.textsort-input-wrap,
+.textsort-result-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.textsort-input-wrap label,
+.textsort-result-wrap label {
+    font-weight: 600;
+}
+
+.textsort-input-wrap textarea,
+.textsort-result-wrap textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 240px;
+    padding: 12px;
+    resize: vertical;
+    font: inherit;
+    line-height: 1.6;
+}
+
+.textsort-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.textsort-controls button,
+.textsort-actions button {
+    min-height: 44px;
+    padding: 8px 16px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.textsort-controls button {
+    flex: 1;
+}
+
+.textsort-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 16px 0 20px;
+}
+
+.textsort-count {
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.textsort-count strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 1.35rem;
+}
+
+.textsort-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.textsort-actions button {
+    flex: 1;
+}
+
+@media (min-width: 700px) {
+    .textsort-controls {
+        justify-content: flex-start;
+    }
+
+    .textsort-controls button {
+        flex: 0 0 auto;
+        min-width: 120px;
+    }
+
+    .textsort-actions {
+        justify-content: flex-end;
+    }
+
+    .textsort-actions button {
+        flex: 0 0 auto;
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .textsort-summary {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+(function () {
+    const input = document.getElementById("textsort-input");
+    const result = document.getElementById("textsort-result");
+
+    const beforeCount = document.getElementById("textsort-before");
+    const afterCount = document.getElementById("textsort-after");
+
+    const ascendingButton = document.getElementById("textsort-ascending");
+    const descendingButton = document.getElementById("textsort-descending");
+
+    const copyButton = document.getElementById("textsort-copy");
+    const clearButton = document.getElementById("textsort-clear");
+
+    if (
+        !input ||
+        !result ||
+        !beforeCount ||
+        !afterCount ||
+        !ascendingButton ||
+        !descendingButton ||
+        !copyButton ||
+        !clearButton
+    ) {
+        return;
+    }
+
+    let sortOrder = "ascending";
+
+    function getLines() {
+        return input.value
+            .split(/\r\n|\r|\n/)
+            .filter(function (line) {
+                return line.trim() !== "";
+            });
+    }
+
+    function sortLines(lines, order) {
+        return [...lines].sort(function (a, b) {
+            const comparison = a.localeCompare(
+                b,
+                "ko",
+                {
+                    numeric: true,
+                    sensitivity: "base"
+                }
+            );
+
+            return order === "ascending"
+                ? comparison
+                : -comparison;
+        });
+    }
+
+    function updateResult() {
+        const lines = getLines();
+        const sortedLines = sortLines(lines, sortOrder);
+
+        beforeCount.textContent = lines.length;
+        afterCount.textContent = sortedLines.length;
+
+        result.value = sortedLines.join("\n");
+    }
+
+    ascendingButton.addEventListener("click", function () {
+        sortOrder = "ascending";
+        updateResult();
+    });
+
+    descendingButton.addEventListener("click", function () {
+        sortOrder = "descending";
+        updateResult();
+    });
+
+    input.addEventListener("input", updateResult);
+
+    copyButton.addEventListener("click", async function () {
+        if (!result.value) {
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(result.value);
+        } catch (error) {
+            result.select();
+            document.execCommand("copy");
+        }
+
+        copyButton.textContent = "복사 완료";
+
+        setTimeout(function () {
+            copyButton.textContent = "결과 복사";
+        }, 1200);
+    });
+
+    clearButton.addEventListener("click", function () {
+        input.value = "";
+        updateResult();
+        input.focus();
+    });
+
+    updateResult();
+})();
+</script>
