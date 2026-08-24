@@ -1,0 +1,269 @@
+<div class="tool-box textcounter-tool">
+    <div class="textcounter-input-wrap">
+        <label for="textcounter-input">텍스트 입력</label>
+        <textarea
+            id="textcounter-input"
+            rows="12"
+            placeholder="여기에 텍스트를 입력하세요."
+        ></textarea>
+    </div>
+
+    <div class="textcounter-stats">
+        <div class="textcounter-stat">
+            <span class="textcounter-label">글자 수</span>
+            <strong id="textcounter-char-count">0</strong>
+        </div>
+
+        <div class="textcounter-stat">
+            <span class="textcounter-label">공백 포함</span>
+            <strong id="textcounter-char-space-count">0</strong>
+        </div>
+
+        <div class="textcounter-stat">
+            <span class="textcounter-label">공백 제외</span>
+            <strong id="textcounter-char-no-space-count">0</strong>
+        </div>
+
+        <div class="textcounter-stat">
+            <span class="textcounter-label">바이트</span>
+            <strong id="textcounter-byte-count">0</strong>
+        </div>
+
+        <div class="textcounter-stat">
+            <span class="textcounter-label">단어 수</span>
+            <strong id="textcounter-word-count">0</strong>
+        </div>
+
+        <div class="textcounter-stat">
+            <span class="textcounter-label">문단 수</span>
+            <strong id="textcounter-paragraph-count">0</strong>
+        </div>
+
+        <div class="textcounter-stat">
+            <span class="textcounter-label">문장 수</span>
+            <strong id="textcounter-sentence-count">0</strong>
+        </div>
+
+        <div class="textcounter-stat">
+            <span class="textcounter-label">줄 수</span>
+            <strong id="textcounter-line-count">0</strong>
+        </div>
+    </div>
+
+    <div class="textcounter-actions">
+        <button type="button" id="textcounter-copy">복사</button>
+        <button type="button" id="textcounter-clear">지우기</button>
+    </div>
+</div>
+
+<style>
+.textcounter-tool {
+    margin: 24px 0;
+}
+
+.textcounter-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.textcounter-input-wrap label {
+    font-weight: 600;
+}
+
+.textcounter-input-wrap textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 240px;
+    padding: 12px;
+    resize: vertical;
+    font: inherit;
+    line-height: 1.6;
+}
+
+.textcounter-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.textcounter-stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    min-height: 78px;
+    padding: 14px;
+    box-sizing: border-box;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+}
+
+.textcounter-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.textcounter-stat strong {
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+.textcounter-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.textcounter-actions button {
+    flex: 1;
+    min-height: 44px;
+    padding: 8px 12px;
+    font: inherit;
+    cursor: pointer;
+}
+
+@media (min-width: 700px) {
+    .textcounter-stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .textcounter-actions {
+        justify-content: flex-end;
+    }
+
+    .textcounter-actions button {
+        flex: 0 0 auto;
+        min-width: 100px;
+    }
+}
+</style>
+
+<script>
+(function () {
+    const input = document.getElementById("textcounter-input");
+    const charCount = document.getElementById("textcounter-char-count");
+    const charSpaceCount = document.getElementById("textcounter-char-space-count");
+    const charNoSpaceCount = document.getElementById("textcounter-char-no-space-count");
+    const byteCount = document.getElementById("textcounter-byte-count");
+    const wordCount = document.getElementById("textcounter-word-count");
+    const paragraphCount = document.getElementById("textcounter-paragraph-count");
+    const sentenceCount = document.getElementById("textcounter-sentence-count");
+    const lineCount = document.getElementById("textcounter-line-count");
+    const copyButton = document.getElementById("textcounter-copy");
+    const clearButton = document.getElementById("textcounter-clear");
+
+    if (
+        !input ||
+        !charCount ||
+        !charSpaceCount ||
+        !charNoSpaceCount ||
+        !byteCount ||
+        !wordCount ||
+        !paragraphCount ||
+        !sentenceCount ||
+        !lineCount ||
+        !copyButton ||
+        !clearButton
+    ) {
+        return;
+    }
+
+    function countBytes(text) {
+        return new TextEncoder().encode(text).length;
+    }
+
+    function countWords(text) {
+        const trimmed = text.trim();
+
+        if (!trimmed) {
+            return 0;
+        }
+
+        return trimmed.split(/\s+/).length;
+    }
+
+    function countParagraphs(text) {
+        const trimmed = text.trim();
+
+        if (!trimmed) {
+            return 0;
+        }
+
+        return trimmed
+            .split(/\r?\n\s*\r?\n+/)
+            .filter(function (paragraph) {
+                return paragraph.trim() !== "";
+            })
+            .length;
+    }
+
+    function countSentences(text) {
+        const trimmed = text.trim();
+
+        if (!trimmed) {
+            return 0;
+        }
+
+        const matches = trimmed.match(/[.!?。！？]+(?=\s|$)/g);
+
+        return matches ? matches.length : 0;
+    }
+
+    function countLines(text) {
+        if (!text) {
+            return 0;
+        }
+
+        return text.split(/\r\n|\r|\n/).length;
+    }
+
+    function updateStats() {
+        const text = input.value;
+
+        charCount.textContent = text.length;
+        charSpaceCount.textContent = text.length;
+        charNoSpaceCount.textContent = text.replace(/\s/g, "").length;
+        byteCount.textContent = countBytes(text);
+        wordCount.textContent = countWords(text);
+        paragraphCount.textContent = countParagraphs(text);
+        sentenceCount.textContent = countSentences(text);
+        lineCount.textContent = countLines(text);
+    }
+
+    input.addEventListener("input", updateStats);
+
+    copyButton.addEventListener("click", async function () {
+        if (!input.value) {
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(input.value);
+            copyButton.textContent = "복사 완료";
+
+            setTimeout(function () {
+                copyButton.textContent = "복사";
+            }, 1200);
+        } catch (error) {
+            input.select();
+            document.execCommand("copy");
+
+            copyButton.textContent = "복사 완료";
+
+            setTimeout(function () {
+                copyButton.textContent = "복사";
+            }, 1200);
+        }
+    });
+
+    clearButton.addEventListener("click", function () {
+        input.value = "";
+        updateStats();
+        input.focus();
+    });
+
+    updateStats();
+})();
+</script>

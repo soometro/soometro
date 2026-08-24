@@ -1,0 +1,200 @@
+<div class="tool-box textdeduplicate-tool">
+    <div class="textdeduplicate-input-wrap">
+        <label for="textdeduplicate-input">텍스트 입력</label>
+        <textarea
+            id="textdeduplicate-input"
+            rows="12"
+            placeholder="중복을 제거할 텍스트를 입력하세요."
+        ></textarea>
+    </div>
+
+    <div class="textdeduplicate-summary" aria-live="polite">
+        <div class="textdeduplicate-count">
+            입력 <strong id="textdeduplicate-before">0</strong>줄
+        </div>
+
+        <div class="textdeduplicate-count">
+            중복 제거 후 <strong id="textdeduplicate-after">0</strong>줄
+        </div>
+
+        <div class="textdeduplicate-count">
+            제거 <strong id="textdeduplicate-removed">0</strong>줄
+        </div>
+    </div>
+
+    <div class="textdeduplicate-result-wrap">
+        <label for="textdeduplicate-result">중복 제거 결과</label>
+        <textarea
+            id="textdeduplicate-result"
+            rows="12"
+            readonly
+            placeholder="중복 제거 결과가 여기에 표시됩니다."
+        ></textarea>
+    </div>
+
+    <div class="textdeduplicate-actions">
+        <button type="button" id="textdeduplicate-copy">결과 복사</button>
+        <button type="button" id="textdeduplicate-clear">지우기</button>
+    </div>
+</div>
+
+<style>
+.textdeduplicate-tool {
+    margin: 24px 0;
+}
+
+.textdeduplicate-input-wrap,
+.textdeduplicate-result-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.textdeduplicate-input-wrap label,
+.textdeduplicate-result-wrap label {
+    font-weight: 600;
+}
+
+.textdeduplicate-input-wrap textarea,
+.textdeduplicate-result-wrap textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 240px;
+    padding: 12px;
+    resize: vertical;
+    font: inherit;
+    line-height: 1.6;
+}
+
+.textdeduplicate-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 16px 0 20px;
+}
+
+.textdeduplicate-count {
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.textdeduplicate-count strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 1.35rem;
+}
+
+.textdeduplicate-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.textdeduplicate-actions button {
+    flex: 1;
+    min-height: 44px;
+    padding: 8px 12px;
+    font: inherit;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .textdeduplicate-summary {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+(function () {
+    const input = document.getElementById("textdeduplicate-input");
+    const result = document.getElementById("textdeduplicate-result");
+
+    const beforeCount = document.getElementById("textdeduplicate-before");
+    const afterCount = document.getElementById("textdeduplicate-after");
+    const removedCount = document.getElementById("textdeduplicate-removed");
+
+    const copyButton = document.getElementById("textdeduplicate-copy");
+    const clearButton = document.getElementById("textdeduplicate-clear");
+
+    if (
+        !input ||
+        !result ||
+        !beforeCount ||
+        !afterCount ||
+        !removedCount ||
+        !copyButton ||
+        !clearButton
+    ) {
+        return;
+    }
+
+    function removeDuplicates(text) {
+        const lines = text.split(/\r\n|\r|\n/);
+
+        const nonEmptyLines = lines.filter(function (line) {
+            return line.trim() !== "";
+        });
+
+        const uniqueLines = [];
+        const seen = new Set();
+
+        nonEmptyLines.forEach(function (line) {
+            const normalized = line.trim();
+
+            if (!seen.has(normalized)) {
+                seen.add(normalized);
+                uniqueLines.push(line);
+            }
+        });
+
+        return {
+            before: nonEmptyLines.length,
+            after: uniqueLines.length,
+            removed: nonEmptyLines.length - uniqueLines.length,
+            result: uniqueLines.join("\n")
+        };
+    }
+
+    function updateResult() {
+        const data = removeDuplicates(input.value);
+
+        beforeCount.textContent = data.before;
+        afterCount.textContent = data.after;
+        removedCount.textContent = data.removed;
+        result.value = data.result;
+    }
+
+    input.addEventListener("input", updateResult);
+
+    copyButton.addEventListener("click", async function () {
+        if (!result.value) {
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(result.value);
+        } catch (error) {
+            result.select();
+            document.execCommand("copy");
+        }
+
+        copyButton.textContent = "복사 완료";
+
+        setTimeout(function () {
+            copyButton.textContent = "결과 복사";
+        }, 1200);
+    });
+
+    clearButton.addEventListener("click", function () {
+        input.value = "";
+        updateResult();
+        input.focus();
+    });
+
+    updateResult();
+})();
+</script>
