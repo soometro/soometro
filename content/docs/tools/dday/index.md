@@ -1,6 +1,6 @@
 ---
 title: "D-Day 디데이 계산기"
-date: 2026-08-24
+date: 2026-08-04
 lastmod: 2026-08-24
 bookHidden: true
 description: "기준일은 오늘 날짜로 자동 입력됩니다. 목표일만 선택하면 D-Day를 바로 계산할 수 있습니다."
