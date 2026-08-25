@@ -682,3 +682,23 @@ html.forced-dark .meta-text-unified {
 html.forced-dark #scroll-progress-ribbon .bar { 
   background: linear-gradient(90deg, #d17a91, #cfa84f); 
 }
+
+/* ========================================================================== 
+   메인 페이지 전용 글자 스타일 복원
+   전역 .markdown 스타일 변경과 무관하게 원래 크기·색상 유지
+   ========================================================================== */
+
+/* Starting Point / Current Focus */
+.home-columns .home-box > p {
+    font-size: 1.5em !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+}
+
+/* "어디서 무슨 소리 들리지 않아?" */
+div[style*="text-align: center"] > p {
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 400 !important;
+    color: #970fac !important;
+}
