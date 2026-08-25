@@ -57,7 +57,7 @@ sakura = true
   <p 
     style="
         font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; 
-        color: #970fac !important; 
+        color: #c04ed4 !important; 
         font-size: 0.85rem !important; 
         margin-bottom: 0.8rem; 
         border: none !important;
