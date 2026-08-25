@@ -12,11 +12,11 @@ aside .book-menu nav ul li a,
     /* font-weight: bold !important; */ /* 볼드 잠시 해제 */
     font-size: 1rem !important;
     color: #666666 !important;          /* 라이트모드 메뉴 */
-    padding: 9px 0 !important;           /* 메뉴 항목 간격 */
+    padding: 9px 0 !important;          /* 메뉴 항목 간격 */
     display: block !important;
     line-height: 1.0 !important;
     font-weight: 550;
-    letter-spacing: 0em !important;      /* 자간 정상화 */
+    letter-spacing: 0em !important;     /* 자간 정상화 */
 }
 
 /* 다크모드 메뉴 */
@@ -66,6 +66,7 @@ html.forced-dark .book-menu nav ul li a {
     color: #555555 !important;
 }
 
+
 /* --------------------------------------------------------------------------
    2-2. 라이트모드 제목
    -------------------------------------------------------------------------- */
@@ -98,6 +99,7 @@ html.forced-dark .post-content li {
     font-weight: 400 !important;
     color: #b8b8b8 !important;
 }
+
 
 /* --------------------------------------------------------------------------
    2-4. 다크모드 제목
@@ -156,6 +158,7 @@ html.forced-dark .post-content h3 {
     font-weight: bold !important;
     font-size: 1.6rem !important;
 }
+
 
 /* --------------------------------------------------------------------------
    3-2. 검색창
@@ -336,6 +339,7 @@ html.forced-dark .category-meta {
     margin-bottom: 0px !important;
 }
 
+
 /* --------------------------------------------------------------------------
    7-2. 로고 부모 여백
    -------------------------------------------------------------------------- */
@@ -343,6 +347,7 @@ html.forced-dark .category-meta {
     margin-bottom: 0px !important;
     padding-bottom: 16px !important;
 }
+
 
 /* --------------------------------------------------------------------------
    7-3. 로고 옆 사이트 타이틀 숨김
@@ -576,21 +581,6 @@ html.forced-dark .share-btn {
 
 /* --------------------------------------------------------------------------
    12-4. 카테고리 설명
-   -------------------------------------------------------------------------- */
-.category-desc {
-    font-style: italic !important;
-    display: block !important;
-    font-size: 0.875rem !important;
-    color: #666666 !important;
-}
-
-html.forced-dark .category-desc {
-    color: #a8a8a8 !important;
-}
-
-
-/* --------------------------------------------------------------------------
-   12-5. 카테고리 설명
    -------------------------------------------------------------------------- */
 .category-desc {
     font-style: italic !important;
@@ -870,79 +860,4 @@ html.forced-dark .reaction-btn {
    -------------------------------------------------------------------------- */
 html.forced-dark #scroll-progress-ribbon .bar {
     background: linear-gradient(90deg, #d17a91, #cfa84f);
-}
-
-
-/* ==========================================================================
-   18. 메인 페이지 전용 스타일
-   --------------------------------------------------------------------------
-   전역 게시물 타이포그래피와 분리하여
-   Starting Point / Current Focus / 하단 문구가
-   게시물 CSS의 영향을 받지 않도록 별도 지정
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   18-1. Starting Point / Current Focus
-   -------------------------------------------------------------------------- */
-.home-columns .home-box > p {
-    font-size: 1.5em !important;
-    font-weight: bold !important;
-    color: #000000 !important;
-}
-
-
-/* --------------------------------------------------------------------------
-   18-2. 하단 미니홈피 문구
-   -------------------------------------------------------------------------- */
-div[style*="text-align: center"] > p {
-    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-    font-size: 0.85rem !important;
-    font-weight: 400 !important;
-    color: #970fac !important;
-}
-
-
-/* ==========================================================================
-   19. 메인 페이지 다크모드 기존 스타일
-   --------------------------------------------------------------------------
-   메인 페이지는 게시물 본문과 별도의 디자인을 유지
-   ========================================================================== */
-
-html.forced-dark body {
-    background-color: #181a1b !important;
-    background-image: none !important;
-    color: #dee2e6 !important;
-}
-
-html.forced-dark h1 {
-    color: #f8f9fa !important;
-}
-
-html.forced-dark blockquote,
-html.forced-dark blockquote b,
-html.forced-dark blockquote strong {
-    color: #f8f9fa !important;
-}
-
-html.forced-dark i,
-html.forced-dark .home-box i {
-    color: #ced4da !important;
-}
-
-html.forced-dark .visitor-counter {
-    border-top-color: #343a40 !important;
-    color: #adb5bd !important;
-}
-
-html.forced-dark .visitor-counter div {
-    color: #ced4da !important;
-}
-
-html.forced-dark #count-today,
-html.forced-dark #count-weekly {
-    color: #f8f9fa !important;
-}
-
-html.forced-dark #count-total {
-    color: #ffffff !important;
 }
