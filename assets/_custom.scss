@@ -455,8 +455,9 @@ main h1,
 .category-desc { 
     font-style: italic !important; 
     display: block !important; 
-    font-size: 0.875rem !important;    /* 수정 전: 15px → 수정 후: 14px 목표값 정확 환산 */ 
-} 
+    font-size: 0.875rem !important;    /* 수정 전: 15px → 수정 후: 14px 목표값 정확 환산 */
+    color: #555555 !important;
+}
  
  
 /* 게시물 리스트 날짜·조회수 */ 
