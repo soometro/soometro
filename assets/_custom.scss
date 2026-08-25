@@ -456,7 +456,11 @@ main h1,
     font-style: italic !important; 
     display: block !important; 
     font-size: 0.875rem !important;    /* 수정 전: 15px → 수정 후: 14px 목표값 정확 환산 */
-    color: #555555 !important;
+    color: #666666 !important;
+}
+
+html.forced-dark .category-desc {
+    color: #a8a8a8 !important;
 }
  
  
