@@ -14,8 +14,8 @@ sakura = true
  
 <p 
     style="
-        font-size: 1.5em; !important; 
-        font-weight: 500; !important; 
+        font-size: 1.25em; !important; 
+        font-weight: 600; !important; 
         color: #555555 !important; 
         margin: 0.3em 0 0.4em 0 !important;
     "
@@ -35,7 +35,7 @@ sakura = true
  
 <p 
     style="
-        font-size: 1.5em; !important; 
+        font-size: 1.25em; !important; 
         font-weight: 500; !important; 
         color: #555555 !important; 
         margin: 0.3em 0 0.4em 0 !important;
@@ -93,7 +93,7 @@ sakura = true
 
   /* Starting Point 본문 전용 스타일 */
   .home-starting-text {
-    font-size: 16px !important;
+    font-size: 14px !important;
     font-style: normal !important;
     font-weight: 400 !important;
     color: #555555 !important;
