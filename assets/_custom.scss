@@ -9,14 +9,14 @@ aside .book-menu nav ul li a,
 .book-menu nav ul li a {
     font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
     /* font-style: italic !important; */ /* 이탤릭 잠시 해제 */
-    /* font-weight: bold !important; */ /* 볼드 잠시 해제 */
+    /* font-weight: bold !important; */  /* 볼드 잠시 해제 */
     font-size: 1rem !important;
-    color: #666666 !important;          /* 라이트모드 메뉴 */
-    padding: 9px 0 !important;          /* 메뉴 항목 간격 */
+    color: #666666 !important;
+    padding: 9px 0 !important;
     display: block !important;
-    line-height: 1.0 !important;
+    line-height: 1 !important;
     font-weight: 550;
-    letter-spacing: 0em !important;     /* 자간 정상화 */
+    letter-spacing: 0em !important;
 }
 
 /* 다크모드 메뉴 */
@@ -95,8 +95,6 @@ html.forced-dark .book-menu nav ul li a {
 html.forced-dark .post-content,
 html.forced-dark .post-content p,
 html.forced-dark .post-content li {
-    font-size: 1rem !important;
-    font-weight: 400 !important;
     color: #b8b8b8 !important;
 }
 
@@ -105,20 +103,14 @@ html.forced-dark .post-content li {
    2-4. 다크모드 제목
    -------------------------------------------------------------------------- */
 html.forced-dark .post-content h1 {
-    font-size: 2rem !important;
-    font-weight: 400 !important;
     color: #b8b8b8 !important;
 }
 
 html.forced-dark .post-content h2 {
-    font-size: 1.5rem !important;
-    font-weight: 400 !important;
     color: #b8b8b8 !important;
 }
 
 html.forced-dark .post-content h3 {
-    font-size: 1.25rem !important;
-    font-weight: 400 !important;
     color: #b8b8b8 !important;
 }
 
@@ -147,9 +139,9 @@ html.forced-dark .post-content h3 {
    -------------------------------------------------------------------------- */
 .book-brand {
     margin-top: 5px !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    margin-bottom: 0px !important;
+    padding-top: 0 !important;
+    padding-bottom: 16px !important;
+    margin-bottom: 0 !important;
 }
 
 .book-brand a {
@@ -237,7 +229,6 @@ html.forced-dark .nav-title {
 /* 게시물 상단 날짜 영역 */
 html.forced-dark .book-post-date {
     border-bottom: 1px solid #444 !important;
-    color: #a8a8a8 !important;
 }
 
 
@@ -335,22 +326,13 @@ html.forced-dark .category-meta {
     width: 180px !important;
     max-width: 100% !important;
     height: auto !important;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 
 /* --------------------------------------------------------------------------
-   7-2. 로고 부모 여백
-   -------------------------------------------------------------------------- */
-.book-brand {
-    margin-bottom: 0px !important;
-    padding-bottom: 16px !important;
-}
-
-
-/* --------------------------------------------------------------------------
-   7-3. 로고 옆 사이트 타이틀 숨김
+   7-2. 로고 옆 사이트 타이틀 숨김
    -------------------------------------------------------------------------- */
 .book-brand a span {
     display: none !important;
@@ -656,7 +638,7 @@ html.forced-dark .category-desc {
     overflow: hidden !important;
     background: transparent !important;
     margin-top: -5px !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
 }
 
 
@@ -679,7 +661,7 @@ html.forced-dark .category-desc {
     padding-left: 100%;
 
     /* 글자 크기 */
-    font-size: 14px;
+    font-size: 0.875rem;
 
     /* 글자 색상 */
     color: #ff69b4 !important;
