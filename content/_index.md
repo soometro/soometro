@@ -93,7 +93,7 @@ sakura = true
 
   /* Starting Point 본문 전용 스타일 */
   .home-starting-text {
-    font-size: 14px !important;
+    font-size: 15px !important;
     font-style: normal !important;
     font-weight: 400 !important;
     color: #555555 !important;
