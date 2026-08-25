@@ -12,7 +12,16 @@ sakura = true
 <div class="home-columns"> 
   <div class="home-box"> 
  
-<p style="font-size: 1.5em; font-weight: bold; margin: 0.3em 0 0.4em 0 !important;">Starting Point</p> 
+<p 
+    style="
+        font-size: 1.5em; 
+        font-weight: bold; 
+        color: #555555 !important; 
+        margin: 0.3em 0 0.4em 0 !important;
+    "
+>
+    Starting Point
+</p>
 &nbsp;&nbsp;&nbsp;<b><i>"우연한 연결의 시대가 끝나며, 무대는 사라졌다."</i></b><br> 
 &nbsp;&nbsp;&nbsp;친구들과 밤새 몰려다니던 시절의 활기, 누군가의 로그인에 설레던 시절이 있었다... 
 거리는 비었고, 24시간 연결된 세상에서 대화는 단절되었다.  
@@ -22,7 +31,16 @@ sakura = true
 <div class="home-columns"> 
   <div class="home-box"> 
  
-<p style="font-size: 1.5em; font-weight: bold; margin: 0.3em 0 0.4em 0 !important;">Current Focus</p> 
+<p 
+    style="
+        font-size: 1.5em; 
+        font-weight: bold; 
+        color: #555555 !important; 
+        margin: 0.3em 0 0.4em 0 !important;
+    "
+>
+    Current Focus
+</p>
 &nbsp;&nbsp;&nbsp;<b><i>“좋아했던 것을 다시 들여다보는 일."</i></b><br> 
 &nbsp;&nbsp;&nbsp;피드를 채우는 연출된 과시에 동참하지 않고, 시간을 거친 안목을 남길 뿐이다... 
 무엇을 보았는가가 아닌, 우리는 무엇을 남겼는가?</i> 
@@ -31,10 +49,18 @@ sakura = true
  
 <!-- 미니홈피 감성 글귀 및 아카이브 바로가기 링크 --> 
 <div style="margin-top: 1.5rem; text-align: center; border: none !important; margin-bottom: 20px !important;"> 
-  <p style="font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; color: #970fac; font-size: 0.85rem; margin-bottom: 0.8rem; border: none !important;"> 
-    "어디서 무슨 소리 들리지 않아? 💜 너를 향해 뛰는 내 심장소리." 
-  </p> 
-  <div style="display: flex; gap: 1.0rem; justify-content: center; align-items: center; flex-wrap: wrap;"> 
+  <p 
+    style="
+        font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; 
+        color: #970fac !important; 
+        font-size: 0.85rem; 
+        margin-bottom: 0.8rem; 
+        border: none !important;
+    "
+>
+    "어디서 무슨 소리 들리지 않아? 💜 너를 향해 뛰는 내 심장소리."
+</p> 
+<div style="display: flex; gap: 1.0rem; justify-content: center; align-items: center; flex-wrap: wrap;"> 
     <a href="/docs/" style="display: inline-block; width: fit-content !important; flex: 0 0 auto !important; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important; font-size: 0.9rem; font-weight: bold; color: #2f8f9f; text-decoration: none; border: 1px solid #2f8f9f; padding: 4px 10px; border-radius: 20px; background-color: rgba(47, 143, 159, 0.05); transition: all 0.2s; white-space: nowrap;">
   📂 Archive 입장
 </a>
