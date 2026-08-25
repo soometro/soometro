@@ -230,28 +230,3 @@ html.forced-dark i,
 html.forced-dark .home-box i {
   color: #ced4da !important;
 }
-
-
-/* ==========================================================================
-   5. 방문자 카운터
-   ========================================================================== */
-
-html.forced-dark .visitor-counter {
-  border-top-color: #343a40 !important;
-  color: #adb5bd !important;
-}
-
-html.forced-dark .visitor-counter div {
-  color: #ced4da !important;
-}
-
-html.forced-dark #count-today,
-html.forced-dark #count-weekly {
-  color: #f8f9fa !important;
-}
-
-html.forced-dark #count-total {
-  color: #ffffff !important;
-}
-
-</style>
