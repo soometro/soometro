@@ -1,563 +1,679 @@
-/* ==========================================================================
-   1. 사이드바 메뉴 및 폰트 스타일
+/* ========================================================================== 
+   1. 사이드바 메뉴 및 폰트 스타일 
+   ========================================================================== */ 
+aside .book-menu nav ul li a, 
+.book-menu nav ul li a { 
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important; 
+    /* font-style: italic !important; */ /* 이탤릭 잠시 해제 */ 
+    /* font-weight: bold !important; */ /* 볼드 잠시 해제 */ 
+    font-size: 1rem !important; 
+    color: #666666 !important;          /* 라이트모드 메뉴 */ 
+    padding: 9px 0 !important;          /* 메뉴 항목 간격 */ 
+    display: block !important; 
+    line-height: 1.0 !important; 
+    font-weight: 550; 
+    letter-spacing: 0em !important;     /* 자간 정상화 */ 
+} 
+ 
+/* 다크모드 메뉴 */ 
+html.forced-dark aside .book-menu nav ul li a, 
+html.forced-dark .book-menu nav ul li a { 
+    color: #a8a8a8 !important; 
+} 
+ 
+/* 1) 사이트 전체 폰트 기본값 */ 
+:root { 
+    --book-font-family: "Georgia", "Times New Roman", "바탕", serif; 
+    --font-size: 1rem !important; 
+} 
+
+/* ========================================================================== 
+   1-1. 본문 및 제목 타이포그래피 통일
+   --------------------------------------------------------------------------
+   H1  : 2rem   / 32px / 400
+   H2  : 1.5rem / 24px / 400
+   H3  : 1.25rem/ 20px / 400
+   본문: 1rem   / 16px / 400
+
+   라이트모드 : #555555
+   다크모드   : #b8b8b8
    ========================================================================== */
-aside .book-menu nav ul li a,
-.book-menu nav ul li a {
-    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-    /* font-style: italic !important; */ /* 이탤릭 잠시 해제 */
-    /* font-weight: bold !important; */ /* 볼드 잠시 해제 */
+
+/* 라이트모드 기본 본문 */
+.markdown,
+.markdown p,
+.markdown li {
     font-size: 1rem !important;
-    color: #666666 !important;          /* 라이트모드 메뉴 */
-    padding: 9px 0 !important;          /* 메뉴 항목 간격 */
-    display: block !important;
-    line-height: 1.0 !important;
-    font-weight: 550;
-    letter-spacing: 0em !important;     /* 자간 정상화 */
+    font-weight: 400 !important;
+    color: #555555 !important;
 }
 
-/* 다크모드 메뉴 */
-html.forced-dark aside .book-menu nav ul li a,
-html.forced-dark .book-menu nav ul li a {
-    color: #a8a8a8 !important;
-}
-
-/* 1) 사이트 전체 폰트 기본값 */
-:root {
-    --book-font-family: "Georgia", "Times New Roman", "바탕", serif;
-    --font-size: 1rem !important;
-}
-
-/* 2) 사이트 브랜드(로고) 및 검색창 간격 */
-.book-brand {
-  margin-top: 5px !important; 	/* 💡 로고 위쪽에 여백을 주어 아래로 내립니다 */
-  padding-top: 0px !important; 	/* 💡 위쪽 안쪽 여백도 완전히 없앱니다 */
-  padding-bottom: 0px !important; 	/* 💡 패딩 값도 함께 줄여서 조절할 수 있습니다 */
-  margin-bottom: 0px !important; 	/* 💡 로고와 검색창 사이의 간격 */
-}
-
-.book-brand a {
-    font-family: "Georgia", "Times New Roman", "바탕", serif !important;
-    font-style: italic !important; 
-    font-weight: bold !important;
-    font-size: 1.6rem !important;
-}
-
-.book-search {
-  margin-top: -10px !important;     /* 💡 핵심: 검색창의 뚝배기를 위로 강제 흡착 (-값으로) */
-  margin-bottom: 10px !important;   /* 검색창과 선 사이 간격 */
-}
-
-.book-search input {
-    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-    width: 80% !important;
-}
-
-/* ==========================================================================
-   2. 좌측 메뉴 게시물 숫자 폰트 스타일 최적화
-   ========================================================================== */
-.book-menu-post-count {
-    display: inline-block !important;
-    float: right !important;
-    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif !important;
-    font-size: 0.8rem !important;
-    font-weight: 500 !important;
-    font-style: normal !important; /* 부모 메뉴의 이탤릭(기울임) 무력화 */
-    color: #666 !important; /* 라이트모드 기본값 복원 */
-    margin-right: 0.6rem !important;
-}
-
-/* 사이드바 하단 5개 오른쪽 요소 여백 통일 */
-#theme-toggle-btn,
-#bgm-toggle-btn,
-#rss-link-btn,
-#install-toggle-btn,
-#admin-link {
-    margin-right: 0.6rem !important;
-}
-
-html.forced-dark .book-menu-post-count {
-    color: #a8a8a8 !important; /* 다크모드 전용 */
-}
-
-/* ==========================================================================
-   3. 다크 모드 관련 스타일
-   ========================================================================== */
-/* 3-1) 라이트/다크 모드 공통 가독성 보정 (날짜, 조회수, 아카이브) */
-.book-post-date,
-.book-post-date span,
-#archive,
-#archive a,
-.nav-title {
-    color: #666666 !important; /* 라이트모드 기본값 */
-}
-
-html.forced-dark .book-post-date,
-html.forced-dark .book-post-date span,
-html.forced-dark #archive,
-html.forced-dark #archive a,
-html.forced-dark .nav-title {
-    color: #a8a8a8 !important; /* 다크모드 전용 */
-}
-
-/* 게시물 상단 날짜 영역 테두리 다크모드 대응 + 인라인 스타일 무시 */
-html.forced-dark .book-post-date {
-    border-bottom: 1px solid #444 !important;
-    color: #a8a8a8 !important;
-}
-
-/* 3-2) PC 및 모바일 다크모드 햄버거 메뉴 아이콘 가시성 */
-html.forced-dark main img.book-icon,
-body.forced-dark main img.book-icon,
-html[data-theme="dark"] main img.book-icon {
-    filter: invert(1) !important;
-    -webkit-filter: invert(1) !important; /* 아이폰 Safari 및 안드로이드 크롬 엔진 강제 대응 */
-}
-
-/* 3-3) PC 창 최대화 시 다크모드 가장자리 여백 블랙 강제 적용 */
-html.forced-dark,
-html.forced-dark body {
-    background: #000000 !important; /* 다크모드 시 바깥 여백을 완벽한 블랙으로 채움 */
-    background-image: none !important; /* 종이질감 배경 이미지가 있다면 강제로 제거 */
-}
-
-/* 3-4) 다크 모드 전용 로고 반전 */
-html.forced-dark .book-brand img {
-  filter: invert(1) !important;
-}
-
-/* 3-5) 다크 모드 본문 및 제목 눈부심 방지 (미세 밝기 조정) */
-html.forced-dark, 
-body.forced-dark, 
-html[data-theme="dark"],
-.book-dark {
-    --body-font-color: #b8b8b8 !important; /* 본문/메뉴: a8a8a8와 c8c8c8의 중간톤 */
-    --heading-color: #bebebe !important;   /* 제목: 본문보다 아주 살짝 더 밝은 회색 */
-}
-
-/* 3-5-1) 변수가 먹지 않는 일반 마크다운 본문 텍스트 색상 강제 보정 */
-html.forced-dark main,
-html.forced-dark .markdown,
-html.forced-dark p,
-html.forced-dark .markdown p,
-html.forced-dark li,
-html[data-theme="dark"] .markdown p {
-    color: #b8b8b8 !important;
-}
-
-/* 3-6) Docs 아카이브 카테고리 메타(개수·날짜) 다크모드 가독성 보정 */
-html.forced-dark .category-meta {
-    color: #a8a8a8 !important;
-}
-
-/* ==========================================================================
-   4. 로고 및 브랜드 최적화
-   ========================================================================== */
-/* 4-1) 로고 이미지 크기 및 여백 최적화 */
-.book-brand img {
-  width: 180px !important;      /* 💡 실제 표시 크기 180px, 360×76 2x 원본으로 고화질 유지 */
-  max-width: 100% !important;   
-  height: auto !important;      
-  margin-top: 0px !important;   /* 상단 여백 최소화 */
-  margin-bottom: 0px !important;/* 💡 이미지 자체의 하단 마진을 완전히 제거 */
-}
-
-/* 4-2) 로고 부모 태그 여백 압축 */
-.book-brand {
-  margin-bottom: 0px !important; /* 💡 음수 마진으로 검색창을 위로 바짝 끌어올림 */
-  padding-bottom: 16px !important;
-}
-
-/* 4-3) 로고 옆 사이트 타이틀 텍스트 숨기기 */
-.book-brand a span {
-  display: none !important;
-}
-
-/* ==========================================================================
-   5. 모바일 레이아웃 및 여백 최적화
-   ========================================================================== */
-@media screen and (max-width: 60rem) { 
-    /* 5-1) 모바일 사이드바 및 TOC(목차) 슬라이드 효과 */
-    .book-header aside {
-        display: block !important;
-        position: fixed !important;
-        top: 0 !important;
-        bottom: 0 !important;
-        right: 0 !important;
-        left: auto !important;
-        width: 16rem !important;
-        padding: 4rem 1.5rem 2rem 1.5rem !important;
-        background: var(--body-background) !important;
-        box-shadow: -0.1rem 0 0.5rem rgba(0, 0, 0, 0.15) !important;
-        z-index: 9999 !important;
-        transform: translateX(100%) !important; 
-        transition: transform 0.2s ease-in-out !important; 
-        overflow-y: auto !important;
-
-        nav > ul {
-            padding-left: 0;
-            list-style: none;
-            li {
-                margin: 0.6rem 0;
-                a {
-                    color: var(--color-link) !important;
-                    text-decoration: none;
-                    font-size: 1rem;
-                    display: block;
-                    &:hover { text-decoration: underline; }
-                }
-            }
-        }
-    }
-
-    #toc-control:checked ~ main {
-        .book-header aside {
-            transform: translateX(0) !important; 
-        }
-        .book-toc-overlay {
-            display: block !important;
-            position: fixed !important; 
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important; 
-            height: 100vh !important;
-            background: rgba(0, 0, 0, 0.4) !important;
-            z-index: 9998 !important;
-            cursor: pointer;
-            transform: none !important;
-            bottom: auto !important;
-            right: auto !important;
-        }
-    }
-
-    /* 5-2) 레이아웃 정리 (헤더 중복 제거) */
-    .book-header h3 { display: none !important; }
-
-    /* 5-3) 모바일 여백 최적화 (본문 확장) */
-    .book-page { padding: 1rem 0.5rem !important; }
-    .markdown { padding: 0 !important; }
-}
-
-@media screen and (min-width: 54rem) { 
-    /* 5-4) PC에서 TOC 및 aside 숨김 */
-    main .book-page .book-toc,
-    main .book-page aside { display: none !important; }
-}
-
-/* ==========================================================================
-   6. 게시물 하단 여백 조정 (푸터 인라인 강제 오버라이드)
-   ========================================================================== */
-/* 6-1) 좋아요 컨테이너 여백 통일 */
-main.book-page .markdown .page-actions-container {
-    margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-}
-
-/* 수정 후 */
-/* 6-3) 푸터 여백 축소 */
-.book-footer {
-    padding-top: 0 !important;         /* 테마 기본 1rem(16px) 제거 */
-}
-
-footer.book-footer > div,
-.book-footer > div {
-    margin-top: 5px !important;
-    padding-top: 5px !important;
-}
-
-/* 6-4) 공유 버튼 (URL복사 / 카카오톡 / 더보기) */
-
-.share-btn {
-    background: #f8f9fa !important;
-    border: 1px solid #e5e5e5 !important;
-    border-radius: 50% !important;
-    width: 40px !important;
-    height: 40px !important;
-    font-size: 1.1rem !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.2s !important;
-}
-
-/* 다크모드 대응 */
-html.forced-dark .share-btn {
-    background: #2a2a2a !important;
-    border: 1px solid #444 !important;
-}
-
-/* ==========================================================================
-   7. 게시물 리스트 및 링크, 제목 스타일
-   ========================================================================== */
-/* 7-1) 읽은 링크(:visited) 색상 보정 */
-.markdown a:visited,
-.book-page a:visited {
-    color: #00a49c !important;
-}
-
-/* 7-2) 게시물 제목(H1, H2, H3) 줄 간격 최적화 */
+/* 라이트모드 제목 */
 .markdown h1,
-main h1,
+main h1 {
+    font-size: 2rem !important;
+    font-weight: 400 !important;
+    color: #555555 !important;
+}
+
 .markdown h2,
-.markdown h3 {
-    line-height: 1.3 !important; /* 줄 바꿈 시 위아래 글자가 겹치지 않도록 간격 확보 */
+main h2 {
+    font-size: 1.5rem !important;
+    font-weight: 400 !important;
+    color: #555555 !important;
 }
 
-/* 7-2b) 본문 최상단 H1만 상단 여백 축소 (다른 h1/h2/h3 간격에는 영향 없음) */
-.post-content > h1:first-child {
-    margin-top: 2rem !important;   /* 기존 3rem(1.5em) → 2rem */
+.markdown h3,
+main h3 {
+    font-size: 1.25rem !important;
+    font-weight: 400 !important;
+    color: #555555 !important;
 }
 
-/* 7-3) 브레드크럼 링크 색상 통일 (라이트/다크 안정) */
-.book-breadcrumbs a,
-.book-breadcrumbs a:link,
-.book-breadcrumbs a:visited,
-.breadcrumbs a,
-.breadcrumbs a:link,
-.breadcrumbs a:visited {
-    color: #00a49c !important;
-}
-
-.book-breadcrumbs a:hover,
-.breadcrumbs a:hover {
-    color: #00857a !important;
-}
-
-/* 7-4) Docs 아카이브 카테고리 목록 레이아웃 (제목 좌측, 개수·날짜 우측 정렬) */
-.category-row {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: baseline !important;
-}
-
-.category-title {
-    font-size: 0.9375rem !important;   /* 추가: 16px → 15px 목표값 정확 환산 */
-}
-
-.category-meta {
-    font-size: 0.8rem !important;
-    color: #666666 !important;
-    white-space: nowrap !important;
-}
-
-.category-desc {
-    font-style: italic !important;
-    display: block !important;
-    font-size: 0.875rem !important;    /* 수정 전: 15px → 수정 후: 14px 목표값 정확 환산 */
-}
-
-
-/* 게시물 리스트 날짜·조회수 */
-.post-list-date,
-.post-list-hit {
-    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-    font-size: 0.8rem !important;
-    color: #666666 !important;
-}
-html.forced-dark .post-list-date,
-html.forced-dark .post-list-hit {
-    color: #a8a8a8 !important;
-}
-/* ==========================================================================
-   8. OS 다크모드 + 사용자 라이트모드 선택 시 충돌 방지
-   (book.min.css의 @media(prefers-color-scheme: dark) 강제 발동을 무력화)
-   ========================================================================== */
-@media (prefers-color-scheme: dark) {
-  html:not(.forced-dark) {
-    --body-background: white;
-    --body-background-tint: none;
-    --body-font-color: black;
-    --color-link: #0055bb;
-    --color-visited-link: #5500bb;
-    --icon-filter: none;
-    --gray-100: #f8f9fa;
-    --gray-200: #e9ecef;
-    --gray-500: #adb5bd;
-    --color-accent-default: #64748b;
-    --color-accent-default-tint: rgba(100, 116, 139, 0.1);
-    --color-accent-note: #4486dd;
-    --color-accent-note-tint: rgba(68, 134, 221, 0.1);
-    --color-accent-tip: #3bad3b;
-    --color-accent-tip-tint: rgba(59, 173, 59, 0.1);
-    --color-accent-important: #8144dd;
-    --color-accent-important-tint: rgba(129, 68, 221, 0.1);
-    --color-accent-warning: #f59e42;
-    --color-accent-warning-tint: rgba(245, 158, 66, 0.1);
-    --color-accent-caution: #d84747;
-    --color-accent-caution-tint: rgba(216, 71, 71, 0.1);
-    --color-accent-info: #4486dd;
-    --color-accent-info-tint: rgba(68, 134, 221, 0.1);
-    --color-accent-success: #3bad3b;
-    --color-accent-success-tint: rgba(59, 173, 59, 0.1);
-    --color-accent-danger: #d84747;
-    --color-accent-danger-tint: rgba(216, 71, 71, 0.1);
-  }
-}
-
-/* ====================================================================
-   9. 메인 푸터 가로줄 밑 레트로 전광판 (기본 플랫 디자인)
-   ==================================================================== */
-.retro-footer-marquee {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  background: transparent !important;
-  margin-top: -5px !important;
-  margin-bottom: 0px !important;
-}
-
-.marquee-text {
-  display: block !important;
-  white-space: nowrap;
-  animation: marquee-speed 20s linear infinite; 
-}
-
-.marquee-text span {
-  font-family: "Malgun Gothic", "맑은 고딕", apple-system, sans-serif !important;
-  padding-left: 100%;
-  
-  /* [크기 설정] 원하시는 크기로 숫자를 변경하세요 */
-  font-size: 14px; 
-
-  /* [색상 설정] 원하시는 글자 색상 코드로 변경하세요 */
-  color: #ff69b4 !important; 
-
-  /* 두께 설정 (일반 두께는 normal, 굵게는 bold) */
-  font-weight: normal !important; 
-}
-
-@keyframes marquee-speed {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-100vw, 0, 0); }
-}
-
-/* ==========================================================================
-   10. 댓글 시스템 (로그아웃 버튼 / 입력창 / 등록 버튼) 다크·라이트 모드 대응
-   ========================================================================== */
-
-/* 10-1) 로그아웃 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */
-.comment-signout-btn {
-    background: #f8f9fa !important;
-    color: #000000 !important;
-    border: 1px solid #e5e5e5 !important;
-}
-html.forced-dark .comment-signout-btn {
-    background: #2a2a2a !important;
+/* 다크모드 본문 */
+html.forced-dark .markdown,
+html.forced-dark .markdown p,
+html.forced-dark .markdown li,
+html[data-theme="dark"] .markdown,
+html[data-theme="dark"] .markdown p,
+html[data-theme="dark"] .markdown li {
+    font-size: 1rem !important;
+    font-weight: 400 !important;
     color: #b8b8b8 !important;
-    border: 1px solid #444 !important;
 }
 
-/* 10-2) 댓글 입력창 (라이트: 흰바탕+검정글자 / 다크: 검정바탕+흰글자) */
-.comment-textarea {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: 1px solid #e5e5e5 !important;
-}
-html.forced-dark .comment-textarea {
-    background: #1a1a1a !important;
+/* 다크모드 제목 */
+html.forced-dark .markdown h1,
+html.forced-dark main h1,
+html[data-theme="dark"] .markdown h1,
+html[data-theme="dark"] main h1 {
+    font-size: 2rem !important;
+    font-weight: 400 !important;
     color: #b8b8b8 !important;
-    border: 1px solid #444 !important;
 }
 
-/* 10-3) 댓글 등록 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */
-.comment-submit-btn {
-    background: #f8f9fa !important;
-    color: #000000 !important;
-    border: 1px solid #e5e5e5 !important;
-}
-html.forced-dark .comment-submit-btn {
-    background: #2a2a2a !important;
+html.forced-dark .markdown h2,
+html.forced-dark main h2,
+html[data-theme="dark"] .markdown h2,
+html[data-theme="dark"] main h2 {
+    font-size: 1.5rem !important;
+    font-weight: 400 !important;
     color: #b8b8b8 !important;
-    border: 1px solid #444 !important;
 }
-/* 10-4) 좋아요/싫어요 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */
-.reaction-btn {
-    background: #f8f9fa !important;
-    color: #000000 !important;
-    border: 1px solid #e5e5e5 !important;
-}
-html.forced-dark .reaction-btn {
-    background: #2a2a2a !important;
+
+html.forced-dark .markdown h3,
+html.forced-dark main h3,
+html[data-theme="dark"] .markdown h3,
+html[data-theme="dark"] main h3 {
+    font-size: 1.25rem !important;
+    font-weight: 400 !important;
     color: #b8b8b8 !important;
-    border: 1px solid #444 !important;
-}
-/* ==========================================================================
-   11. 리스트 메타 정보(날짜/조회수/게시물개수) 색상 통일
-   ========================================================================== */
-.meta-text-unified {
-    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
-    font-size: 0.8rem !important;
-    color: #666666 !important;
-}
-html.forced-dark .meta-text-unified {
-    color: #a8a8a8 !important;
 }
 
-/* ==========================================================================
-   12. 마우스효과
-   ========================================================================== */
-  /* 커서 본체 (선두) */
-  .mt-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--mt-color, #ff9eb5); /* 다크/라이트 모드 색상은 JS에서 CSS 변수로 제어 */
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.9;
-    will-change: transform;
-    transform: translate3d(-50%, -50%, 0);
-  }
+/* 2) 사이트 브랜드(로고) 및 검색창 간격 */ 
+.book-brand { 
+  margin-top: 5px !important; 	/* 💡 로고 위쪽에 여백을 주어 아래로 내립니다 */ 
+  padding-top: 0px !important; 	/* 💡 위쪽 안쪽 여백도 완전히 없앱니다 */ 
+  padding-bottom: 0px !important; 	/* 💡 패딩 값도 함께 줄여서 조절할 수 있습니다 */ 
+  margin-bottom: 0px !important; 	/* 💡 로고와 검색창 사이의 간격 */ 
+} 
+ 
+.book-brand a { 
+    font-family: "Georgia", "Times New Roman", "바탕", serif !important; 
+    font-style: italic !important;  
+    font-weight: bold !important; 
+    font-size: 1.6rem !important; 
+} 
+ 
+.book-search { 
+  margin-top: -10px !important;     /* 💡 핵심: 검색창의 뚝배기를 위로 강제 흡착 (-값으로) */ 
+  margin-bottom: 10px !important;   /* 검색창과 선 사이 간격 */ 
+} 
+ 
+.book-search input { 
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important; 
+    width: 80% !important; 
+} 
+ 
+/* ========================================================================== 
+   2. 좌측 메뉴 게시물 숫자 폰트 스타일 최적화 
+   ========================================================================== */ 
+.book-menu-post-count { 
+    display: inline-block !important; 
+    float: right !important; 
+    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, Dotum, 돋움, sans-serif !important; 
+    font-size: 0.8rem !important; 
+    font-weight: 500 !important; 
+    font-style: normal !important; /* 부모 메뉴의 이탤릭(기울임) 무력화 */ 
+    color: #666 !important; /* 라이트모드 기본값 복원 */ 
+    margin-right: 0.6rem !important; 
+} 
+ 
+/* 사이드바 하단 5개 오른쪽 요소 여백 통일 */ 
+#theme-toggle-btn, 
+#bgm-toggle-btn, 
+#rss-link-btn, 
+#install-toggle-btn, 
+#admin-link { 
+    margin-right: 0.6rem !important; 
+} 
+ 
+html.forced-dark .book-menu-post-count { 
+    color: #a8a8a8 !important; /* 다크모드 전용 */ 
+} 
+ 
+/* ========================================================================== 
+   3. 다크 모드 관련 스타일 
+   ========================================================================== */ 
+/* 3-1) 라이트/다크 모드 공통 가독성 보정 (날짜, 조회수, 아카이브) */ 
+.book-post-date, 
+.book-post-date span, 
+#archive, 
+#archive a, 
+.nav-title { 
+    color: #666666 !important; /* 라이트모드 기본값 */ 
+} 
+ 
+html.forced-dark .book-post-date, 
+html.forced-dark .book-post-date span, 
+html.forced-dark #archive, 
+html.forced-dark #archive a, 
+html.forced-dark .nav-title { 
+    color: #a8a8a8 !important; /* 다크모드 전용 */ 
+} 
+ 
+/* 게시물 상단 날짜 영역 테두리 다크모드 대응 + 인라인 스타일 무시 */ 
+html.forced-dark .book-post-date { 
+    border-bottom: 1px solid #444 !important; 
+    color: #a8a8a8 !important; 
+} 
+ 
+/* 3-2) PC 및 모바일 다크모드 햄버거 메뉴 아이콘 가시성 */ 
+html.forced-dark main img.book-icon, 
+body.forced-dark main img.book-icon, 
+html[data-theme="dark"] main img.book-icon { 
+    filter: invert(1) !important; 
+    -webkit-filter: invert(1) !important; /* 아이폰 Safari 및 안드로이드 크롬 엔진 강제 대응 */ 
+} 
+ 
+/* 3-3) PC 창 최대화 시 다크모드 가장자리 여백 블랙 강제 적용 */ 
+html.forced-dark, 
+html.forced-dark body { 
+    background: #000000 !important; /* 다크모드 시 바깥 여백을 완벽한 블랙으로 채움 */ 
+    background-image: none !important; /* 종이질감 배경 이미지가 있다면 강제로 제거 */ 
+} 
+ 
+/* 3-4) 다크 모드 전용 로고 반전 */ 
+html.forced-dark .book-brand img { 
+  filter: invert(1) !important; 
+} 
+ 
+/* 3-5) 다크 모드 본문 및 제목 눈부심 방지 */ 
+html.forced-dark,  
+body.forced-dark,  
+html[data-theme="dark"], 
+.book-dark { 
+    --body-font-color: #b8b8b8 !important; /* 본문/제목 공통 */ 
+    --heading-color: #b8b8b8 !important;   /* 제목도 본문과 동일한 밝기 */ 
+} 
+ 
+/* 3-5-1) 변수가 먹지 않는 일반 마크다운 본문 텍스트 색상 강제 보정 */ 
+html.forced-dark main, 
+html.forced-dark .markdown, 
+html.forced-dark p, 
+html.forced-dark .markdown p, 
+html.forced-dark li, 
+html[data-theme="dark"] .markdown p { 
+    color: #b8b8b8 !important; 
+} 
 
-  /* 뒤따라오는 트레일 점들 */
-  .mt-trail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    background: var(--mt-color, #ff9eb5);
-    pointer-events: none;
-    z-index: 9998;
-    will-change: transform;
-    transform: translate3d(-50%, -50%, 0);
-  }
-
-  /* 모바일/태블릿에서는 완전히 숨김 (터치 기기는 JS에서도 아예 초기화 안 하지만, 이중 안전장치) */
-  @media (hover: none) and (pointer: coarse) {
-    .mt-cursor,
-    .mt-trail {
-      display: none !important;
-    }
-  }
-/* ==========================================================================
-   13. 스크롤 진행률 리본
-   ========================================================================== */
-#scroll-progress-ribbon {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: transparent;
-  z-index: 10000;
-  pointer-events: none;
+/* 3-5-2) 다크모드 제목 색상 및 크기 강제 보정
+   위의 본문 강제 규칙보다 제목 규칙이 확실하게 적용되도록 별도 지정 */
+html.forced-dark .markdown h1,
+html.forced-dark main h1,
+html.forced-dark .markdown h2,
+html.forced-dark main h2,
+html.forced-dark .markdown h3,
+html.forced-dark main h3 {
+    color: #b8b8b8 !important;
+    font-weight: 400 !important;
 }
 
-#scroll-progress-ribbon .bar {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, #ff9eb5, #ffd166);
-  transform: scaleX(0);
-  transform-origin: left center;
-  will-change: transform;
+html.forced-dark .markdown h1,
+html.forced-dark main h1 {
+    font-size: 2rem !important;
 }
 
-html.forced-dark #scroll-progress-ribbon .bar {
-  background: linear-gradient(90deg, #d17a91, #cfa84f);
+html.forced-dark .markdown h2,
+html.forced-dark main h2 {
+    font-size: 1.5rem !important;
+}
+
+html.forced-dark .markdown h3,
+html.forced-dark main h3 {
+    font-size: 1.25rem !important;
+}
+ 
+/* 3-6) Docs 아카이브 카테고리 메타(개수·날짜) 다크모드 가독성 보정 */ 
+html.forced-dark .category-meta { 
+    color: #a8a8a8 !important; 
+} 
+ 
+/* ========================================================================== 
+   4. 로고 및 브랜드 최적화 
+   ========================================================================== */ 
+/* 4-1) 로고 이미지 크기 및 여백 최적화 */ 
+.book-brand img { 
+  width: 180px !important;      /* 💡 실제 표시 크기 180px, 360×76 2x 원본으로 고화질 유지 */ 
+  max-width: 100% !important;    
+  height: auto !important;       
+  margin-top: 0px !important;   /* 상단 여백 최소화 */ 
+  margin-bottom: 0px !important;/* 💡 이미지 자체의 하단 마진을 완전히 제거 */ 
+} 
+ 
+/* 4-2) 로고 부모 태그 여백 압축 */ 
+.book-brand { 
+  margin-bottom: 0px !important; /* 💡 음수 마진으로 검색창을 위로 바짝 끌어올림 */ 
+  padding-bottom: 16px !important; 
+} 
+ 
+/* 4-3) 로고 옆 사이트 타이틀 텍스트 숨기기 */ 
+.book-brand a span { 
+  display: none !important; 
+} 
+ 
+/* ========================================================================== 
+   5. 모바일 레이아웃 및 여백 최적화 
+   ========================================================================== */ 
+@media screen and (max-width: 60rem) {  
+    /* 5-1) 모바일 사이드바 및 TOC(목차) 슬라이드 효과 */ 
+    .book-header aside { 
+        display: block !important; 
+        position: fixed !important; 
+        top: 0 !important; 
+        bottom: 0 !important; 
+        right: 0 !important; 
+        left: auto !important; 
+        width: 16rem !important; 
+        padding: 4rem 1.5rem 2rem 1.5rem !important; 
+        background: var(--body-background) !important; 
+        box-shadow: -0.1rem 0 0.5rem rgba(0, 0, 0, 0.15) !important; 
+        z-index: 9999 !important; 
+        transform: translateX(100%) !important;  
+        transition: transform 0.2s ease-in-out !important;  
+        overflow-y: auto !important; 
+ 
+        nav > ul { 
+            padding-left: 0; 
+            list-style: none; 
+            li { 
+                margin: 0.6rem 0; 
+                a { 
+                    color: var(--color-link) !important; 
+                    text-decoration: none; 
+                    font-size: 1rem; 
+                    display: block; 
+                    &:hover { text-decoration: underline; } 
+                } 
+            } 
+        } 
+    } 
+ 
+    #toc-control:checked ~ main { 
+        .book-header aside { 
+            transform: translateX(0) !important;  
+        } 
+        .book-toc-overlay { 
+            display: block !important; 
+            position: fixed !important;  
+            top: 0 !important; 
+            left: 0 !important; 
+            width: 100vw !important;  
+            height: 100vh !important; 
+            background: rgba(0, 0, 0, 0.4) !important; 
+            z-index: 9998 !important; 
+            cursor: pointer; 
+            transform: none !important; 
+            bottom: auto !important; 
+            right: auto !important; 
+        } 
+    } 
+ 
+    /* 5-2) 레이아웃 정리 (헤더 중복 제거) */ 
+    .book-header h3 { display: none !important; } 
+ 
+    /* 5-3) 모바일 여백 최적화 (본문 확장) */ 
+    .book-page { padding: 1rem 0.5rem !important; } 
+    .markdown { padding: 0 !important; } 
+} 
+ 
+@media screen and (min-width: 54rem) {  
+    /* 5-4) PC에서 TOC 및 aside 숨김 */ 
+    main .book-page .book-toc, 
+    main .book-page aside { display: none !important; } 
+} 
+ 
+/* ========================================================================== 
+   6. 게시물 하단 여백 조정 (푸터 인라인 강제 오버라이드) 
+   ========================================================================== */ 
+/* 6-1) 좋아요 컨테이너 여백 통일 */ 
+main.book-page .markdown .page-actions-container { 
+    margin-top: 1.5rem !important; 
+    margin-bottom: 1.5rem !important; 
+    padding-top: 1.5rem !important; 
+    padding-bottom: 1.5rem !important; 
+} 
+ 
+/* 수정 후 */ 
+/* 6-3) 푸터 여백 축소 */ 
+.book-footer { 
+    padding-top: 0 !important;         /* 테마 기본 1rem(16px) 제거 */ 
+} 
+ 
+footer.book-footer > div, 
+.book-footer > div { 
+    margin-top: 5px !important; 
+    padding-top: 5px !important; 
+} 
+ 
+/* 6-4) 공유 버튼 (URL복사 / 카카오톡 / 더보기) */ 
+ 
+.share-btn { 
+    background: #f8f9fa !important; 
+    border: 1px solid #e5e5e5 !important; 
+    border-radius: 50% !important; 
+    width: 40px !important; 
+    height: 40px !important; 
+    font-size: 1.1rem !important; 
+    cursor: pointer !important; 
+    display: flex !important; 
+    align-items: center !important; 
+    justify-content: center !important; 
+    transition: all 0.2s !important; 
+} 
+ 
+/* 다크모드 대응 */ 
+html.forced-dark .share-btn { 
+    background: #2a2a2a !important; 
+    border: 1px solid #444 !important; 
+} 
+ 
+/* ========================================================================== 
+   7. 게시물 리스트 및 링크, 제목 스타일 
+   ========================================================================== */ 
+/* 7-1) 읽은 링크(:visited) 색상 보정 */ 
+.markdown a:visited, 
+.book-page a:visited { 
+    color: #00a49c !important; 
+} 
+ 
+/* 7-2) 게시물 제목(H1, H2, H3) 줄 간격 최적화 */ 
+.markdown h1, 
+main h1, 
+.markdown h2, 
+.markdown h3 { 
+    line-height: 1.3 !important; /* 줄 바꿈 시 위아래 글자가 겹치지 않도록 간격 확보 */ 
+} 
+ 
+/* 7-2b) 본문 최상단 H1만 상단 여백 축소 (다른 h1/h2/h3 간격에는 영향 없음) */ 
+.post-content > h1:first-child { 
+    margin-top: 2rem !important;   /* 기존 3rem(1.5em) → 2rem */ 
+} 
+ 
+/* 7-3) 브레드크럼 링크 색상 통일 (라이트/다크 안정) */ 
+.book-breadcrumbs a, 
+.book-breadcrumbs a:link, 
+.book-breadcrumbs a:visited, 
+.breadcrumbs a, 
+.breadcrumbs a:link, 
+.breadcrumbs a:visited { 
+    color: #00a49c !important; 
+} 
+ 
+.book-breadcrumbs a:hover, 
+.breadcrumbs a:hover { 
+    color: #00857a !important; 
+} 
+ 
+/* 7-4) Docs 아카이브 카테고리 목록 레이아웃 (제목 좌측, 개수·날짜 우측 정렬) */ 
+.category-row { 
+    display: flex !important; 
+    justify-content: space-between !important; 
+    align-items: baseline !important; 
+} 
+ 
+.category-title { 
+    font-size: 0.9375rem !important;   /* 추가: 16px → 15px 목표값 정확 환산 */ 
+} 
+ 
+.category-meta { 
+    font-size: 0.8rem !important; 
+    color: #666666 !important; 
+    white-space: nowrap !important; 
+} 
+ 
+.category-desc { 
+    font-style: italic !important; 
+    display: block !important; 
+    font-size: 0.875rem !important;    /* 수정 전: 15px → 수정 후: 14px 목표값 정확 환산 */ 
+} 
+ 
+ 
+/* 게시물 리스트 날짜·조회수 */ 
+.post-list-date, 
+.post-list-hit { 
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important; 
+    font-size: 0.8rem !important; 
+    color: #666666 !important; 
+} 
+
+html.forced-dark .post-list-date, 
+html.forced-dark .post-list-hit { 
+    color: #a8a8a8 !important; 
+} 
+
+/* ========================================================================== 
+   8. OS 다크모드 + 사용자 라이트모드 선택 시 충돌 방지 
+   (book.min.css의 @media(prefers-color-scheme: dark) 강제 발동을 무력화) 
+   ========================================================================== */ 
+@media (prefers-color-scheme: dark) { 
+  html:not(.forced-dark) { 
+    --body-background: white; 
+    --body-background-tint: none; 
+    --body-font-color: black; 
+    --color-link: #0055bb; 
+    --color-visited-link: #5500bb; 
+    --icon-filter: none; 
+    --gray-100: #f8f9fa; 
+    --gray-200: #e9ecef; 
+    --gray-500: #adb5bd; 
+    --color-accent-default: #64748b; 
+    --color-accent-default-tint: rgba(100, 116, 139, 0.1); 
+    --color-accent-note: #4486dd; 
+    --color-accent-note-tint: rgba(68, 134, 221, 0.1); 
+    --color-accent-tip: #3bad3b; 
+    --color-accent-tip-tint: rgba(59, 173, 59, 0.1); 
+    --color-accent-important: #8144dd; 
+    --color-accent-important-tint: rgba(129, 68, 221, 0.1); 
+    --color-accent-important-tint: rgba(129, 68, 221, 0.1); 
+    --color-accent-warning: #f59e42; 
+    --color-accent-warning-tint: rgba(245, 158, 66, 0.1); 
+    --color-accent-caution: #d84747; 
+    --color-accent-caution-tint: rgba(216, 71, 71, 0.1); 
+    --color-accent-info: #4486dd; 
+    --color-accent-info-tint: rgba(68, 134, 221, 0.1); 
+    --color-accent-success: #3bad3b; 
+    --color-accent-success-tint: rgba(59, 173, 59, 0.1); 
+    --color-accent-danger: #d84747; 
+    --color-accent-danger-tint: rgba(216, 71, 71, 0.1); 
+  } 
+} 
+ 
+/* ==================================================================== 
+   9. 메인 푸터 가로줄 밑 레트로 전광판 (기본 플랫 디자인) 
+   ==================================================================== */ 
+.retro-footer-marquee { 
+  position: relative !important; 
+  display: block !important; 
+  width: 100% !important; 
+  overflow: hidden !important; 
+  background: transparent !important; 
+  margin-top: -5px !important; 
+  margin-bottom: 0px !important; 
+} 
+ 
+.marquee-text { 
+  display: block !important; 
+  white-space: nowrap; 
+  animation: marquee-speed 20s linear infinite;  
+} 
+ 
+.marquee-text span { 
+  font-family: "Malgun Gothic", "맑은 고딕", apple-system, sans-serif !important; 
+  padding-left: 100%; 
+   
+  /* [크기 설정] 원하시는 크기로 숫자를 변경하세요 */ 
+  font-size: 14px;  
+ 
+  /* [색상 설정] 원하시는 색상 코드로 변경하세요 */ 
+  color: #ff69b4 !important;  
+ 
+  /* 두께 설정 (일반 두께는 normal, 굵게는 bold) */ 
+  font-weight: normal !important;  
+} 
+ 
+@keyframes marquee-speed { 
+  0% { transform: translate3d(0, 0, 0); } 
+  100% { transform: translate3d(-100vw, 0, 0); } 
+} 
+ 
+/* ========================================================================== 
+   10. 댓글 시스템 (로그아웃 버튼 / 입력창 / 등록 버튼) 다크·라이트 모드 대응 
+   ========================================================================== */ 
+ 
+/* 10-1) 로그아웃 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */ 
+.comment-signout-btn { 
+    background: #f8f9fa !important; 
+    color: #000000 !important; 
+    border: 1px solid #e5e5e5 !important; 
+} 
+html.forced-dark .comment-signout-btn { 
+    background: #2a2a2a !important; 
+    color: #b8b8b8 !important; 
+    border: 1px solid #444 !important; 
+} 
+ 
+/* 10-2) 댓글 입력창 (라이트: 흰바탕+검정글자 / 다크: 검정바탕+흰글자) */ 
+.comment-textarea { 
+    background: #ffffff !important; 
+    color: #000000 !important; 
+    border: 1px solid #e5e5e5 !important; 
+} 
+html.forced-dark .comment-textarea { 
+    background: #1a1a1a !important; 
+    color: #b8b8b8 !important; 
+    border: 1px solid #444 !important; 
+} 
+ 
+/* 10-3) 댓글 등록 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */ 
+.comment-submit-btn { 
+    background: #f8f9fa !important; 
+    color: #000000 !important; 
+    border: 1px solid #e5e5e5 !important; 
+} 
+html.forced-dark .comment-submit-btn { 
+    background: #2a2a2a !important; 
+    color: #b8b8b8 !important; 
+    border: 1px solid #444 !important; 
+} 
+
+/* 10-4) 좋아요/싫어요 버튼 (라이트: 회색바탕+검정글자 / 다크: 회색바탕+흰글자) */ 
+.reaction-btn { 
+    background: #f8f9fa !important; 
+    color: #000000 !important; 
+    border: 1px solid #e5e5e5 !important; 
+} 
+html.forced-dark .reaction-btn { 
+    background: #2a2a2a !important; 
+    color: #b8b8b8 !important; 
+    border: 1px solid #444 !important; 
+} 
+
+/* ========================================================================== 
+   11. 리스트 메타 정보(날짜/조회수/게시물개수) 색상 통일 
+   ========================================================================== */ 
+.meta-text-unified { 
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important; 
+    font-size: 0.8rem !important; 
+    color: #666666 !important; 
+} 
+html.forced-dark .meta-text-unified { 
+    color: #a8a8a8 !important; 
+} 
+
+/* ========================================================================== 
+   12. 마우스효과 
+   ========================================================================== */ 
+/* 커서 본체 (선두) */ 
+.mt-cursor { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 10px; 
+    height: 10px; 
+    border-radius: 50%; 
+    background: var(--mt-color, #ff9eb5); /* 다크/라이트 모드 색상은 JS에서 CSS 변수로 제어 */ 
+    pointer-events: none; 
+    z-index: 9999; 
+    opacity: 0.9; 
+    will-change: transform; 
+    transform: translate3d(-50%, -50%, 0); 
+} 
+
+/* 뒤따라오는 트레일 점들 */ 
+.mt-trail { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    border-radius: 50%; 
+    background: var(--mt-color, #ff9eb5); 
+    pointer-events: none; 
+    z-index: 9998; 
+    will-change: transform; 
+    transform: translate3d(-50%, -50%, 0); 
+} 
+
+/* 모바일/태블릿에서는 완전히 숨김 (터치 기기는 JS에서도 아예 초기화 안 하지만, 이중 안전장치) */ 
+@media (hover: none) and (pointer: coarse) { 
+    .mt-cursor, 
+    .mt-trail { 
+      display: none !important; 
+    } 
+} 
+
+/* ========================================================================== 
+   13. 스크롤 진행률 리본 
+   ========================================================================== */ 
+#scroll-progress-ribbon { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 3px; 
+  background: transparent; 
+  z-index: 10000; 
+  pointer-events: none; 
+} 
+ 
+#scroll-progress-ribbon .bar { 
+  height: 100%; 
+  width: 100%; 
+  background: linear-gradient(90deg, #ff9eb5, #ffd166); 
+  transform: scaleX(0); 
+  transform-origin: left center; 
+  will-change: transform; 
+} 
+ 
+html.forced-dark #scroll-progress-ribbon .bar { 
+  background: linear-gradient(90deg, #d17a91, #cfa84f); 
 }
