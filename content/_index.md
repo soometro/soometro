@@ -16,7 +16,6 @@ sakura = true
     style="
         font-size: 1.25rem !important;
         font-weight: 500 !important;
-        color: #555555 !important; 
         margin: 0.3em 0 0.4em 0 !important;
     "
 >
@@ -37,7 +36,6 @@ sakura = true
     style="
         font-size: 1.25rem !important;
         font-weight: 500 !important; 
-        color: #555555 !important; 
         margin: 0.3em 0 0.4em 0 !important;
     "
 >
