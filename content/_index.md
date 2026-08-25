@@ -96,7 +96,7 @@ sakura = true
   }
 
   html.forced-dark .home-section-title {
-    color: #b8b8b8 !important;
+    color: #aaaaaa !important;
   }
 
   /* Starting Point 본문 전용 스타일 */
@@ -118,13 +118,13 @@ sakura = true
 
   /* Starting Point 본문 다크모드 */
   html.forced-dark .home-starting-text {
-    color: #b8b8b8 !important;
+    color: #aaaaaa !important;
   }
 
   /* Starting Point 첫 문장 다크모드 */
   html.forced-dark .home-starting-text b,
   html.forced-dark .home-starting-text i {
-    color: #ced4da !important;
+    color: #aaaaaa !important;
   }
 
   /* 🌙 [사용자가 사이트에서 직접 '다크'를 선택했을 때만 적용] */  
