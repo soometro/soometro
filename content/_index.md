@@ -12,7 +12,8 @@ sakura = true
 <div class="home-columns"> 
   <div class="home-box"> 
  
-<p 
+<p
+    class="home-section-title"
     style="
         font-size: 1.25rem !important;
         font-weight: 500 !important;
@@ -32,15 +33,17 @@ sakura = true
 <div class="home-columns"> 
   <div class="home-box"> 
  
-<p 
+<p
+    class="home-section-title"
     style="
         font-size: 1.25rem !important;
-        font-weight: 500 !important; 
+        font-weight: 500 !important;
         margin: 0.3em 0 0.4em 0 !important;
     "
 >
     Current Focus
 </p>
+
 <div class="home-starting-text">
   <b><i>“좋아했던 것을 다시 들여다보는 일."</i></b><br>
   피드를 채우는 연출된 과시에 동참하지 않고, 시간을 거친 안목을 남길 뿐이다...
@@ -87,6 +90,13 @@ sakura = true
     font-style: normal !important;  
     letter-spacing: -0.01em !important;  
     color: #1a1a1a !important;  
+  }
+  .home-section-title {
+    color: #555555 !important;
+  }
+
+  html.forced-dark .home-section-title {
+    color: #b8b8b8 !important;
   }
 
   /* Starting Point 본문 전용 스타일 */
