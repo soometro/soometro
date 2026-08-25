@@ -7,7 +7,7 @@ aside .book-menu nav ul li a,
     /* font-style: italic !important; */ /* 이탤릭 잠시 해제 */
     /* font-weight: bold !important; */ /* 볼드 잠시 해제 */
     font-size: 1rem !important;
-    color: #555555 !important;          /* 라이트모드 메뉴 */
+    color: #666666 !important;          /* 라이트모드 메뉴 */
     padding: 9px 0 !important;          /* 메뉴 항목 간격 */
     display: block !important;
     line-height: 1.0 !important;
@@ -18,7 +18,7 @@ aside .book-menu nav ul li a,
 /* 다크모드 메뉴 */
 html.forced-dark aside .book-menu nav ul li a,
 html.forced-dark .book-menu nav ul li a {
-    color: #bebebe !important;
+    color: #a8a8a8 !important;
 }
 
 /* 1) 사이트 전체 폰트 기본값 */
