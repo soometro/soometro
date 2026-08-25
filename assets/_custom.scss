@@ -461,7 +461,7 @@ main.book-page .markdown .page-actions-container {
 
 
 /* --------------------------------------------------------------------------
-   9-2. 푸터 여백
+   9-2. 푸터 여백 및 다크모드 색상
    -------------------------------------------------------------------------- */
 .book-footer {
     padding-top: 0 !important;
@@ -471,8 +471,13 @@ footer.book-footer > div,
 .book-footer > div {
     margin-top: 5px !important;
     padding-top: 5px !important;
+    color: #666666 !important;
 }
 
+html.forced-dark footer.book-footer > div,
+html.forced-dark .book-footer > div {
+    color: #b8b8b8 !important;
+}
 
 /* ==========================================================================
    10. 공유 버튼
@@ -664,7 +669,7 @@ html.forced-dark .category-desc {
     font-size: 0.875rem;
 
     /* 글자 색상 */
-    color: #ff69b4 !important;
+    color: #ff80bd !important;
 
     /* 글자 두께 */
     font-weight: normal !important;
