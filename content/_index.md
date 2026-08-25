@@ -1,141 +1,3 @@
-+++
-title = "독립 아카이브 박스터 위스키 만화 블러드본"
-og_title = "시간을 거친 안목을 남기는 아카이브"
-description = "명품과 연출된 과시에 동참하지 않고 718 Boxter, 위스키, 만화, 게임등에 관한 깊이 있는 고찰과 가치를 남기는 개인 저장소입니다"
-draft = false
-sakura = true
-+++
-
-<h1 dir="ltr" style="color: inherit !important;">soometro Archive</h1>
-
-<div class="home-columns">
-  <div class="home-box">
-
-    <p
-      style="
-        font-size: 1.5em !important;
-        font-weight: 500 !important;
-        color: #555555 !important;
-        margin: 0.3em 0 0.4em 0 !important;
-      "
-    >
-      Starting Point
-    </p>
-
-    <div class="home-description">
-      <b><i>"우연한 연결의 시대가 끝나며, 무대는 사라졌다."</i></b><br>
-      친구들과 밤새 몰려다니던 시절의 활기, 누군가의 로그인에 설레던 시절이 있었다...
-      거리는 비었고, 24시간 연결된 세상에서 대화는 단절되었다.
-    </div>
-
-  </div>
-</div>
-
-
-<div class="home-columns">
-  <div class="home-box">
-
-    <p
-      style="
-        font-size: 1.5em !important;
-        font-weight: 500 !important;
-        color: #555555 !important;
-        margin: 0.3em 0 0.4em 0 !important;
-      "
-    >
-      Current Focus
-    </p>
-
-    <div class="home-description">
-      <b><i>“좋아했던 것을 다시 들여다보는 일."</i></b><br>
-      피드를 채우는 연출된 과시에 동참하지 않고, 시간을 거친 안목을 남길 뿐이다...
-      무엇을 보았는가가 아닌, 우리는 무엇을 남겼는가?
-    </div>
-
-  </div>
-</div>
-
-
-<!-- 미니홈피 감성 글귀 및 아카이브 바로가기 링크 -->
-<div
-  style="
-    margin-top: 1.5rem;
-    text-align: center;
-    border: none !important;
-    margin-bottom: 20px !important;
-  "
->
-
-  <p
-    style="
-      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important;
-      color: #970fac !important;
-      font-size: 0.85rem !important;
-      margin-bottom: 0.8rem !important;
-      border: none !important;
-    "
-  >
-    "어디서 무슨 소리 들리지 않아? 💜 너를 향해 뛰는 내 심장소리."
-  </p>
-
-  <div
-    style="
-      display: flex;
-      gap: 1.0rem;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    "
-  >
-
-    <a
-      href="/docs/"
-      style="
-        display: inline-block;
-        width: fit-content !important;
-        flex: 0 0 auto !important;
-        font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important;
-        font-size: 0.9rem;
-        font-weight: bold;
-        color: #2f8f9f;
-        text-decoration: none;
-        border: 1px solid #2f8f9f;
-        padding: 4px 10px;
-        border-radius: 20px;
-        background-color: rgba(47, 143, 159, 0.05);
-        transition: all 0.2s;
-        white-space: nowrap;
-      "
-    >
-      📂 Archive 입장
-    </a>
-
-    <a
-      href="/dashboard/"
-      style="
-        display: inline-block;
-        width: fit-content !important;
-        flex: 0 0 auto !important;
-        font-family: 'Malgun Gothic', '맑은 고딕', sans-serif !important;
-        font-size: 0.9rem;
-        font-weight: bold;
-        color: #2f8f9f;
-        text-decoration: none;
-        border: 1px solid #2f8f9f;
-        padding: 4px 10px;
-        border-radius: 20px;
-        background-color: rgba(47, 143, 159, 0.05);
-        transition: all 0.2s;
-        white-space: nowrap;
-      "
-    >
-      📊 Dashboard 확인
-    </a>
-
-  </div>
-</div>
-
-
 <style>
 
 /* ==========================================================================
@@ -156,39 +18,127 @@ body {
 
 /* ==========================================================================
    2. 메인 페이지 H1
+   --------------------------------------------------------------------------
+   크기      : 32px / 2rem
+   스타일    : normal
+   굵기      : 700
+   라이트    : #1a1a1a
+   다크      : #f8f9fa
    ========================================================================== */
 
 h1 {
   font-family: 'Bodoni MT', 'Didot', 'Georgia', serif !important;
-  font-weight: 700 !important;
+  font-size: 2rem !important;
   font-style: normal !important;
+  font-weight: 700 !important;
   letter-spacing: -0.01em !important;
   color: #1a1a1a !important;
 }
 
 
 /* ==========================================================================
-   3. Starting Point / Current Focus 본문
+   3. Starting Point / Current Focus 제목
    --------------------------------------------------------------------------
-   메인 페이지에서만 사용하는 전용 본문 스타일
-   게시물의 .post-content 스타일과 분리
+   크기      : 24px / 1.5rem
+   스타일    : normal
+   굵기      : 500
+   라이트    : #555555
+   다크      : #b8b8b8
+   ========================================================================== */
+
+.home-box > p {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 1.5rem !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  color: #555555 !important;
+  margin: 0.3em 0 0.4em 0 !important;
+}
+
+
+/* ==========================================================================
+   4. Starting Point / Current Focus 본문
+   --------------------------------------------------------------------------
+   크기      : 16px / 1rem
+   스타일    : normal
+   굵기      : 400
+   라이트    : #555555
+   다크      : #b8b8b8
    ========================================================================== */
 
 .home-description {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
   font-size: 1rem !important;
+  font-style: normal !important;
   font-weight: 400 !important;
   color: #555555 !important;
   line-height: 1.6 !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   4-1. Starting Point / Current Focus 본문 강조문구
+   --------------------------------------------------------------------------
+   크기      : 본문과 동일 16px / 1rem
+   스타일    : italic
+   굵기      : 400
+   라이트    : #555555
+   다크      : #ced4da
+   -------------------------------------------------------------------------- */
+
 .home-description b,
 .home-description i {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 1rem !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
   color: #555555 !important;
 }
 
 
 /* ==========================================================================
-   4. 메인 페이지 다크모드
+   5. 하단 미니홈피 감성 문구
+   --------------------------------------------------------------------------
+   크기      : 0.85rem
+   스타일    : normal
+   굵기      : 400
+   라이트    : #970fac
+   다크      : #970fac
+   ========================================================================== */
+
+div[style*="text-align: center"] > p {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.85rem !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  color: #970fac !important;
+  margin-bottom: 0.8rem !important;
+  border: none !important;
+}
+
+
+/* ==========================================================================
+   6. Archive / Dashboard 버튼
+   --------------------------------------------------------------------------
+   크기      : 0.9rem
+   스타일    : normal
+   굵기      : 700
+   라이트    : #2f8f9f
+   다크      : #2f8f9f
+   ========================================================================== */
+
+.home-columns a[href="/docs/"],
+.home-columns a[href="/dashboard/"] {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.9rem !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  color: #2f8f9f !important;
+}
+
+
+/* ==========================================================================
+   7. 메인 페이지 다크모드
    ========================================================================== */
 
 html.forced-dark body {
@@ -197,36 +147,99 @@ html.forced-dark body {
   color: #dee2e6 !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   7-1. H1 다크모드
+   -------------------------------------------------------------------------- */
+
 html.forced-dark h1 {
+  font-family: 'Bodoni MT', 'Didot', 'Georgia', serif !important;
+  font-size: 2rem !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
   color: #f8f9fa !important;
 }
 
 
 /* --------------------------------------------------------------------------
-   4-1. Starting Point / Current Focus 다크모드
+   7-2. Starting Point / Current Focus 제목 다크모드
    -------------------------------------------------------------------------- */
 
-html.forced-dark .home-description {
+html.forced-dark .home-box > p {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 1.5rem !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
   color: #b8b8b8 !important;
 }
 
+
+/* --------------------------------------------------------------------------
+   7-3. Starting Point / Current Focus 본문 다크모드
+   -------------------------------------------------------------------------- */
+
+html.forced-dark .home-description {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 1rem !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  color: #b8b8b8 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   7-4. 본문 강조문구 다크모드
+   -------------------------------------------------------------------------- */
+
 html.forced-dark .home-description b,
 html.forced-dark .home-description i {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 1rem !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
   color: #ced4da !important;
 }
 
 
 /* --------------------------------------------------------------------------
-   4-2. 기타 메인 페이지 강조 요소
+   7-5. 하단 미니홈피 감성 문구 다크모드
    -------------------------------------------------------------------------- */
+
+html.forced-dark div[style*="text-align: center"] > p {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.85rem !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  color: #970fac !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   7-6. Archive / Dashboard 버튼 다크모드
+   -------------------------------------------------------------------------- */
+
+html.forced-dark .home-columns a[href="/docs/"],
+html.forced-dark .home-columns a[href="/dashboard/"] {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 0.9rem !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  color: #2f8f9f !important;
+}
+
+
+/* ==========================================================================
+   8. 기타 메인 페이지 강조 요소
+   ========================================================================== */
 
 html.forced-dark blockquote,
 html.forced-dark blockquote b,
 html.forced-dark blockquote strong {
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif !important;
+  font-size: 1rem !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
   color: #f8f9fa !important;
 }
 
-html.forced-dark i,
-html.forced-dark .home-box i {
-  color: #ced4da !important;
-}
+</style>
