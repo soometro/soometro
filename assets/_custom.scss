@@ -102,14 +102,8 @@ html.forced-dark .post-content li {
 /* --------------------------------------------------------------------------
    2-4. 다크모드 제목
    -------------------------------------------------------------------------- */
-html.forced-dark .post-content h1 {
-    color: #aaaaaa !important;
-}
-
-html.forced-dark .post-content h2 {
-    color: #aaaaaa !important;
-}
-
+html.forced-dark .post-content h1,
+html.forced-dark .post-content h2,
 html.forced-dark .post-content h3 {
     color: #aaaaaa !important;
 }
@@ -273,8 +267,8 @@ html.forced-dark,
 body.forced-dark,
 html[data-theme="dark"],
 .book-dark {
-    --body-font-color: #b8b8b8 !important;
-    --heading-color: #b8b8b8 !important;
+    --body-font-color: #aaaaaa !important;
+    --heading-color: #aaaaaa !important;
 }
 
 
@@ -467,16 +461,14 @@ main.book-page .markdown .page-actions-container {
     padding-top: 0 !important;
 }
 
-footer.book-footer > div,
-.book-footer > div {
-    margin-top: 5px !important;
-    padding-top: 5px !important;
-    color: #666666 !important;
+.book-footer > div { 
+    margin-top: 5px !important; 
+    padding-top: 5px !important; 
+    color: #666666 !important; 
 }
 
-html.forced-dark footer.book-footer > div,
-html.forced-dark .book-footer > div {
-    color: #b8b8b8 !important;
+html.forced-dark .book-footer > div { 
+    color: #aaaaaa !important; 
 }
 
 /* ==========================================================================
