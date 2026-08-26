@@ -188,25 +188,39 @@
 .textcompare-result-line {
     display: flex;
     gap: 8px;
-    padding: 4px 0;
+    margin: 2px 0;
+    padding: 7px 10px;
+    border-radius: 6px;
     white-space: pre-wrap;
     word-break: break-word;
 }
 
 .textcompare-result-line.added {
-    padding-left: 6px;
-    border-left: 3px solid currentColor;
+    background: rgba(0, 128, 0, 0.08);
+    border-left: 4px solid currentColor;
 }
 
 .textcompare-result-line.deleted {
-    padding-left: 6px;
-    border-left: 3px solid currentColor;
-    opacity: 0.8;
+    background: rgba(200, 0, 0, 0.08);
+    border-left: 4px solid currentColor;
+}
+
+.textcompare-result-line.added .textcompare-line-text,
+.textcompare-result-line.deleted .textcompare-line-text {
+    font-weight: 700;
 }
 
 .textcompare-marker {
     flex: 0 0 18px;
     font-weight: 700;
+}
+
+.textcompare-result-line.added .textcompare-marker {
+    font-weight: 800;
+}
+
+.textcompare-result-line.deleted .textcompare-marker {
+    font-weight: 800;
 }
 
 .textcompare-line-text {
