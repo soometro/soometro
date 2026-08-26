@@ -1,147 +1,320 @@
+
+### 2. `C:\soometro\layouts\shortcodes\textdeduplicate.html`
+
+```html
 <div class="tool-box textdeduplicate-tool">
+
     <div class="textdeduplicate-input-wrap">
         <label for="textdeduplicate-input">텍스트 입력</label>
+
         <textarea
             id="textdeduplicate-input"
             rows="12"
             placeholder="중복을 제거할 텍스트를 입력하세요."
+            spellcheck="false"
         ></textarea>
     </div>
 
+
+    <!-- 통계 -->
     <div class="textdeduplicate-summary" aria-live="polite">
-        <div class="textdeduplicate-count">
-            <span>입력</span>
-            <strong><span id="textdeduplicate-before">0</span>줄</strong>
+
+        <div class="textdeduplicate-summary-item">
+            <span>입력 줄 수</span>
+            <strong id="textdeduplicate-input-count">0</strong>
         </div>
 
-        <div class="textdeduplicate-count">
+        <div class="textdeduplicate-summary-item">
             <span>중복 제거 후</span>
-            <strong><span id="textdeduplicate-after">0</span>줄</strong>
+            <strong id="textdeduplicate-result-count">0</strong>
         </div>
 
-        <div class="textdeduplicate-count">
-            <span>제거</span>
-            <strong><span id="textdeduplicate-removed">0</span>줄</strong>
+        <div class="textdeduplicate-summary-item">
+            <span>제거된 줄 수</span>
+            <strong id="textdeduplicate-removed-count">0</strong>
         </div>
+
     </div>
 
+
+    <!-- 결과 -->
     <div class="textdeduplicate-result-wrap">
-        <label for="textdeduplicate-result">중복 제거 결과</label>
+
+        <label for="textdeduplicate-result">결과</label>
+
         <textarea
             id="textdeduplicate-result"
             rows="12"
             readonly
             placeholder="중복 제거 결과가 여기에 표시됩니다."
+            spellcheck="false"
         ></textarea>
+
     </div>
 
+
+    <!-- 버튼 -->
     <div class="textdeduplicate-actions">
-        <button type="button" id="textdeduplicate-copy">결과 복사</button>
-        <button type="button" id="textdeduplicate-clear">지우기</button>
+
+        <button
+            type="button"
+            id="textdeduplicate-copy"
+            class="textdeduplicate-btn"
+        >
+            결과 복사
+        </button>
+
+        <button
+            type="button"
+            id="textdeduplicate-clear"
+            class="textdeduplicate-btn"
+        >
+            지우기
+        </button>
+
     </div>
+
 </div>
+
 
 <style>
 .textdeduplicate-tool {
-    margin: 24px 0;
+    width: 100%;
+    margin: 2rem 0;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
 }
 
 .textdeduplicate-input-wrap,
 .textdeduplicate-result-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    width: 100%;
 }
 
 .textdeduplicate-input-wrap label,
 .textdeduplicate-result-wrap label {
-    font-weight: 600;
-}
-
-.textdeduplicate-input-wrap textarea,
-.textdeduplicate-result-wrap textarea {
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 240px;
-    padding: 12px;
-    resize: vertical;
-    font: inherit;
-    line-height: 1.6;
-}
-
-.textdeduplicate-summary {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-    border: 1px solid currentColor;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.textdeduplicate-count {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 44px;
-    padding: 10px 14px;
-    box-sizing: border-box;
+    display: block;
+    margin-bottom: 0.6rem;
     font-size: 0.95rem;
-    border-bottom: 1px solid currentColor;
-}
-
-.textdeduplicate-count:last-child {
-    border-bottom: none;
-}
-
-.textdeduplicate-count strong {
-    margin: 0;
-    font-size: 1.1rem;
     font-weight: 600;
+    color: var(--body-font-color);
 }
 
+#textdeduplicate-input,
+#textdeduplicate-result {
+    display: block;
+    width: 100%;
+    min-height: 240px;
+    box-sizing: border-box;
+    padding: 0.9rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #222222;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+}
+
+#textdeduplicate-input:focus {
+    border-color: var(--color-link, #888);
+}
+
+#textdeduplicate-result {
+    background: #fafafa;
+}
+
+#textdeduplicate-input::placeholder,
+#textdeduplicate-result::placeholder {
+    color: #999999;
+}
+
+
+/* 통계 영역 */
+.textdeduplicate-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.textdeduplicate-summary-item {
+    box-sizing: border-box;
+    padding: 0.8rem;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    background: #fafafa;
+    text-align: center;
+}
+
+.textdeduplicate-summary-item span {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    color: #777777;
+}
+
+.textdeduplicate-summary-item strong {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--body-font-color);
+}
+
+
+/* 버튼 */
 .textdeduplicate-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 16px;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
 }
 
-.textdeduplicate-actions button {
-    flex: 1;
-    min-height: 44px;
-    padding: 8px 12px;
-    font: inherit;
+.textdeduplicate-btn {
+    min-width: 110px;
+    padding: 0.65rem 1rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background: #f8f8f8;
+    color: #222222;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 0.9rem;
     cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-@media (min-width: 700px) {
-    .textdeduplicate-actions {
-        justify-content: flex-end;
+.textdeduplicate-btn:hover {
+    background: #eeeeee;
+    border-color: #c8c8c8;
+}
+
+.textdeduplicate-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* 다크 모드 */
+html.forced-dark #textdeduplicate-input,
+html.forced-dark #textdeduplicate-result,
+html[data-theme="dark"] #textdeduplicate-input,
+html[data-theme="dark"] #textdeduplicate-result,
+body.forced-dark #textdeduplicate-input,
+body.forced-dark #textdeduplicate-result {
+    background: #1a1a1a;
+    color: #eeeeee;
+    border-color: #444444;
+}
+
+html.forced-dark #textdeduplicate-result,
+html[data-theme="dark"] #textdeduplicate-result,
+body.forced-dark #textdeduplicate-result {
+    background: #151515;
+}
+
+html.forced-dark .textdeduplicate-summary-item,
+html[data-theme="dark"] .textdeduplicate-summary-item,
+body.forced-dark .textdeduplicate-summary-item {
+    background: #1a1a1a;
+    border-color: #444444;
+}
+
+html.forced-dark .textdeduplicate-summary-item span,
+html[data-theme="dark"] .textdeduplicate-summary-item span,
+body.forced-dark .textdeduplicate-summary-item span {
+    color: #aaaaaa;
+}
+
+html.forced-dark .textdeduplicate-btn,
+html[data-theme="dark"] .textdeduplicate-btn,
+body.forced-dark .textdeduplicate-btn {
+    background: #2a2a2a;
+    color: #eeeeee;
+    border-color: #444444;
+}
+
+html.forced-dark .textdeduplicate-btn:hover,
+html[data-theme="dark"] .textdeduplicate-btn:hover,
+body.forced-dark .textdeduplicate-btn:hover {
+    background: #333333;
+    border-color: #555555;
+}
+
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+    .textdeduplicate-tool {
+        margin: 1.5rem 0;
     }
 
-    .textdeduplicate-actions button {
-        flex: 0 0 auto;
-        min-width: 100px;
+    #textdeduplicate-input,
+    #textdeduplicate-result {
+        min-height: 210px;
+        font-size: 0.9rem;
+    }
+
+    .textdeduplicate-summary {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .textdeduplicate-summary-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.7rem 0.8rem;
+    }
+
+    .textdeduplicate-summary-item span {
+        margin-bottom: 0;
+    }
+
+    .textdeduplicate-summary-item strong {
+        font-size: 1rem;
+    }
+
+    .textdeduplicate-actions {
+        width: 100%;
+    }
+
+    .textdeduplicate-btn {
+        flex: 1;
+        min-width: 0;
     }
 }
 </style>
+
 
 <script>
 (function () {
     const input = document.getElementById("textdeduplicate-input");
     const result = document.getElementById("textdeduplicate-result");
 
-    const beforeCount = document.getElementById("textdeduplicate-before");
-    const afterCount = document.getElementById("textdeduplicate-after");
-    const removedCount = document.getElementById("textdeduplicate-removed");
+    const inputCount = document.getElementById(
+        "textdeduplicate-input-count"
+    );
 
-    const copyButton = document.getElementById("textdeduplicate-copy");
-    const clearButton = document.getElementById("textdeduplicate-clear");
+    const resultCount = document.getElementById(
+        "textdeduplicate-result-count"
+    );
+
+    const removedCount = document.getElementById(
+        "textdeduplicate-removed-count"
+    );
+
+    const copyButton = document.getElementById(
+        "textdeduplicate-copy"
+    );
+
+    const clearButton = document.getElementById(
+        "textdeduplicate-clear"
+    );
+
 
     if (
         !input ||
         !result ||
-        !beforeCount ||
-        !afterCount ||
+        !inputCount ||
+        !resultCount ||
         !removedCount ||
         !copyButton ||
         !clearButton
@@ -149,69 +322,148 @@
         return;
     }
 
-    function removeDuplicates(text) {
-        const lines = text.split(/\r\n|\r|\n/);
 
-        const nonEmptyLines = lines.filter(function (line) {
-            return line.trim() !== "";
-        });
+    /*
+     * 실제 중복 제거
+     *
+     * - 줄 단위로 처리
+     * - 빈 줄은 입력 줄 수에서는 제외
+     * - 앞뒤 공백은 제거
+     * - 동일한 줄은 처음 등장한 것만 유지
+     * - 원래 입력 순서는 유지
+     */
+    function deduplicateText() {
+
+        const rawText = input.value;
+
+        if (!rawText.trim()) {
+            inputCount.textContent = "0";
+            resultCount.textContent = "0";
+            removedCount.textContent = "0";
+            result.value = "";
+            return;
+        }
+
+
+        const lines = rawText
+            .split(/\r?\n/)
+            .map(function (line) {
+                return line.trim();
+            })
+            .filter(function (line) {
+                return line !== "";
+            });
+
 
         const uniqueLines = [];
         const seen = new Set();
 
-        nonEmptyLines.forEach(function (line) {
-            const normalized = line.trim();
 
-            if (!seen.has(normalized)) {
-                seen.add(normalized);
+        lines.forEach(function (line) {
+
+            if (!seen.has(line)) {
+                seen.add(line);
                 uniqueLines.push(line);
             }
+
         });
 
-        return {
-            before: nonEmptyLines.length,
-            after: uniqueLines.length,
-            removed: nonEmptyLines.length - uniqueLines.length,
-            result: uniqueLines.join("\n")
-        };
+
+        inputCount.textContent = lines.length;
+        resultCount.textContent = uniqueLines.length;
+        removedCount.textContent =
+            lines.length - uniqueLines.length;
+
+        result.value = uniqueLines.join("\n");
     }
 
-    function updateResult() {
-        const data = removeDuplicates(input.value);
 
-        beforeCount.textContent = data.before;
-        afterCount.textContent = data.after;
-        removedCount.textContent = data.removed;
-        result.value = data.result;
-    }
+    /*
+     * 입력 즉시 자동 처리
+     */
+    input.addEventListener("input", deduplicateText);
 
-    input.addEventListener("input", updateResult);
 
-    copyButton.addEventListener("click", async function () {
-        if (!result.value) {
+    /*
+     * 결과 복사
+     */
+    copyButton.addEventListener("click", function () {
+
+        const text = result.value;
+
+        if (!text) {
+            alert("복사할 결과가 없습니다.");
             return;
         }
 
-        try {
-            await navigator.clipboard.writeText(result.value);
-        } catch (error) {
-            result.select();
-            document.execCommand("copy");
+
+        if (
+            navigator.clipboard &&
+            typeof navigator.clipboard.writeText === "function"
+        ) {
+
+            navigator.clipboard.writeText(text)
+                .then(function () {
+                    alert("결과가 클립보드에 복사되었습니다.");
+                })
+                .catch(function () {
+                    fallbackCopy(text);
+                });
+
+        } else {
+            fallbackCopy(text);
         }
 
-        copyButton.textContent = "복사 완료";
-
-        setTimeout(function () {
-            copyButton.textContent = "결과 복사";
-        }, 1200);
     });
 
+
+    /*
+     * 클립보드 API를 사용할 수 없는 환경용
+     */
+    function fallbackCopy(text) {
+
+        const temp = document.createElement("textarea");
+
+        temp.value = text;
+        temp.style.position = "fixed";
+        temp.style.left = "-9999px";
+
+        document.body.appendChild(temp);
+
+        temp.focus();
+        temp.select();
+
+        try {
+            document.execCommand("copy");
+            alert("결과가 클립보드에 복사되었습니다.");
+        } catch (error) {
+            alert("복사하지 못했습니다. 결과를 직접 선택해 복사해주세요.");
+        }
+
+        document.body.removeChild(temp);
+    }
+
+
+    /*
+     * 지우기
+     */
     clearButton.addEventListener("click", function () {
+
         input.value = "";
-        updateResult();
+        result.value = "";
+
+        inputCount.textContent = "0";
+        resultCount.textContent = "0";
+        removedCount.textContent = "0";
+
         input.focus();
     });
 
-    updateResult();
+
+    /*
+     * 초기 상태
+     */
+    deduplicateText();
+
 })();
 </script>
