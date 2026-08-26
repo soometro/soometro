@@ -4,7 +4,7 @@
         <strong>사용 방법</strong>
         <p>
             수정 전 텍스트와 수정 후 텍스트를 각각 입력한 뒤
-            <strong>비교하기</strong>를 누르면 달라진 줄을 확인할 수 있습니다.
+            <strong>비교하기</strong>를 누르면 달라진 부분을 확인할 수 있습니다.
         </p>
     </div>
 
@@ -69,8 +69,8 @@
     </div>
 
     <div class="textcompare-result-guide">
-        <div><strong>+</strong> 수정 후 추가된 줄</div>
-        <div><strong>-</strong> 수정 후 삭제된 줄</div>
+        <div><strong>−</strong> 수정 전 내용</div>
+        <div><strong>+</strong> 수정 후 내용</div>
     </div>
 
 </div>
@@ -80,6 +80,7 @@
     margin: 24px 0;
 }
 
+/* 사용 방법 */
 .textcompare-guide {
     margin-bottom: 24px;
     padding: 14px;
@@ -97,6 +98,7 @@
     line-height: 1.6;
 }
 
+/* 입력 영역 */
 .textcompare-input-wrap {
     display: flex;
     flex-direction: column;
@@ -116,9 +118,11 @@
     padding: 12px;
     resize: vertical;
     font: inherit;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
+/* 버튼 */
 .textcompare-actions {
     display: flex;
     gap: 10px;
@@ -133,6 +137,7 @@
     cursor: pointer;
 }
 
+/* 요약 */
 .textcompare-summary {
     display: flex;
     flex-direction: column;
@@ -163,11 +168,14 @@
     font-weight: 600;
 }
 
+/* 상태 메시지 */
 .textcompare-message {
     margin: 0 0 16px;
+    font-size: 0.95rem;
     font-weight: 600;
 }
 
+/* 비교 결과 */
 .textcompare-result-wrap {
     display: flex;
     flex-direction: column;
@@ -178,67 +186,83 @@
     width: 100%;
     min-height: 120px;
     box-sizing: border-box;
-    padding: 12px;
+    padding: 10px;
     border: 1px solid currentColor;
     border-radius: 8px;
+    font-size: 0.95rem;
     line-height: 1.6;
     overflow-x: auto;
 }
 
+/* 변경된 한 줄 */
 .textcompare-result-line {
     display: flex;
+    align-items: flex-start;
     gap: 8px;
-    margin: 2px 0;
+    margin: 3px 0;
     padding: 7px 10px;
     border-radius: 6px;
+    font-size: 0.95rem;
+    line-height: 1.6;
     white-space: pre-wrap;
     word-break: break-word;
 }
 
-.textcompare-result-line.added {
-    background: rgba(0, 128, 0, 0.08);
-    border-left: 4px solid currentColor;
-}
-
+/* 삭제된 줄 */
 .textcompare-result-line.deleted {
-    background: rgba(200, 0, 0, 0.08);
-    border-left: 4px solid currentColor;
+    border-left: 3px solid currentColor;
 }
 
-.textcompare-result-line.added .textcompare-line-text,
-.textcompare-result-line.deleted .textcompare-line-text {
-    font-weight: 700;
+/* 추가된 줄 */
+.textcompare-result-line.added {
+    border-left: 3px solid currentColor;
 }
 
+/* 문장 전체는 굵게 하지 않음 */
+.textcompare-line-text {
+    flex: 1;
+    min-width: 0;
+    font-weight: 400;
+}
+
+/* + / - */
 .textcompare-marker {
     flex: 0 0 18px;
     font-weight: 700;
 }
 
-.textcompare-result-line.added .textcompare-marker {
-    font-weight: 800;
+/* 실제로 달라진 부분 */
+.textcompare-diff-token {
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
 }
 
-.textcompare-result-line.deleted .textcompare-marker {
-    font-weight: 800;
+/* 삭제된 실제 변경 부분 */
+.textcompare-result-line.deleted .textcompare-diff-token {
+    background: rgba(200, 0, 0, 0.10);
 }
 
-.textcompare-line-text {
-    flex: 1;
-    min-width: 0;
+/* 추가된 실제 변경 부분 */
+.textcompare-result-line.added .textcompare-diff-token {
+    background: rgba(0, 128, 0, 0.10);
 }
 
+/* 결과 없음 */
 .textcompare-empty {
+    font-size: 0.95rem;
     opacity: 0.7;
 }
 
+/* 안내 */
 .textcompare-result-guide {
     display: flex;
     flex-direction: column;
     gap: 4px;
     margin-top: 10px;
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 0.85rem;
+    opacity: 0.75;
 }
 
 .textcompare-result-guide strong {
@@ -246,6 +270,7 @@
     width: 18px;
 }
 
+/* 데스크톱 */
 @media (min-width: 700px) {
     .textcompare-actions {
         justify-content: flex-end;
@@ -310,6 +335,9 @@
         return;
     }
 
+    /*
+     * 줄 단위 분리
+     */
     function splitLines(text) {
         if (!text) {
             return [];
@@ -318,6 +346,120 @@
         return text.split(/\r\n|\r|\n/);
     }
 
+    /*
+     * 단어·공백·구두점 단위로 분리합니다.
+     *
+     * 한글, 영문, 숫자 덩어리는 하나의 토큰으로 보고
+     * 공백과 구두점도 각각 비교할 수 있게 합니다.
+     */
+    function tokenize(text) {
+        if (!text) {
+            return [];
+        }
+
+        return text.match(
+            /[가-힣]+|[A-Za-z]+|[0-9]+|[^\s가-힣A-Za-z0-9]|\s+/g
+        ) || [];
+    }
+
+    /*
+     * 두 토큰 배열에서 공통 부분을 찾아
+     * 실제 변경된 부분을 구분합니다.
+     */
+    function diffTokens(oldText, newText) {
+        const oldTokens = tokenize(oldText);
+        const newTokens = tokenize(newText);
+
+        const n = oldTokens.length;
+        const m = newTokens.length;
+
+        const dp = Array.from(
+            { length: n + 1 },
+            function () {
+                return new Uint32Array(m + 1);
+            }
+        );
+
+        for (let i = n - 1; i >= 0; i--) {
+            for (let j = m - 1; j >= 0; j--) {
+                if (oldTokens[i] === newTokens[j]) {
+                    dp[i][j] =
+                        dp[i + 1][j + 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(
+                        dp[i + 1][j],
+                        dp[i][j + 1]
+                    );
+                }
+            }
+        }
+
+        const oldResult = [];
+        const newResult = [];
+
+        let i = 0;
+        let j = 0;
+
+        while (i < n && j < m) {
+            if (oldTokens[i] === newTokens[j]) {
+                oldResult.push({
+                    text: oldTokens[i],
+                    changed: false
+                });
+
+                newResult.push({
+                    text: newTokens[j],
+                    changed: false
+                });
+
+                i++;
+                j++;
+            } else if (
+                dp[i + 1][j] >= dp[i][j + 1]
+            ) {
+                oldResult.push({
+                    text: oldTokens[i],
+                    changed: true
+                });
+
+                i++;
+            } else {
+                newResult.push({
+                    text: newTokens[j],
+                    changed: true
+                });
+
+                j++;
+            }
+        }
+
+        while (i < n) {
+            oldResult.push({
+                text: oldTokens[i],
+                changed: true
+            });
+
+            i++;
+        }
+
+        while (j < m) {
+            newResult.push({
+                text: newTokens[j],
+                changed: true
+            });
+
+            j++;
+        }
+
+        return {
+            oldResult: oldResult,
+            newResult: newResult
+        };
+    }
+
+    /*
+     * 줄 단위 diff
+     */
     function buildDiff(beforeText, afterText) {
         const beforeLines = splitLines(beforeText);
         const afterLines = splitLines(afterText);
@@ -335,7 +477,8 @@
         for (let i = n - 1; i >= 0; i--) {
             for (let j = m - 1; j >= 0; j--) {
                 if (beforeLines[i] === afterLines[j]) {
-                    dp[i][j] = dp[i + 1][j + 1] + 1;
+                    dp[i][j] =
+                        dp[i + 1][j + 1] + 1;
                 } else {
                     dp[i][j] = Math.max(
                         dp[i + 1][j],
@@ -354,7 +497,8 @@
             if (beforeLines[i] === afterLines[j]) {
                 diff.push({
                     type: "same",
-                    text: beforeLines[i]
+                    oldText: beforeLines[i],
+                    newText: afterLines[j]
                 });
 
                 i++;
@@ -364,14 +508,14 @@
             ) {
                 diff.push({
                     type: "deleted",
-                    text: beforeLines[i]
+                    oldText: beforeLines[i]
                 });
 
                 i++;
             } else {
                 diff.push({
                     type: "added",
-                    text: afterLines[j]
+                    newText: afterLines[j]
                 });
 
                 j++;
@@ -381,7 +525,7 @@
         while (i < n) {
             diff.push({
                 type: "deleted",
-                text: beforeLines[i]
+                oldText: beforeLines[i]
             });
 
             i++;
@@ -390,13 +534,50 @@
         while (j < m) {
             diff.push({
                 type: "added",
-                text: afterLines[j]
+                newText: afterLines[j]
             });
 
             j++;
         }
 
         return diff;
+    }
+
+    /*
+     * 연속된 삭제 + 추가를 하나의 "수정"으로 묶습니다.
+     *
+     * 예:
+     * - 아침부터
+     * + 저녁부터
+     *
+     * 를 한 쌍으로 보고 실제 변경 단어만 강조합니다.
+     */
+    function normalizeDiff(diff) {
+        const normalized = [];
+
+        let i = 0;
+
+        while (i < diff.length) {
+            if (
+                diff[i].type === "deleted" &&
+                i + 1 < diff.length &&
+                diff[i + 1].type === "added"
+            ) {
+                normalized.push({
+                    type: "changed",
+                    oldText: diff[i].oldText,
+                    newText: diff[i + 1].newText
+                });
+
+                i += 2;
+                continue;
+            }
+
+            normalized.push(diff[i]);
+            i++;
+        }
+
+        return normalized;
     }
 
     function updateSummary(diff) {
@@ -411,6 +592,9 @@
                 added++;
             } else if (item.type === "deleted") {
                 deleted++;
+            } else if (item.type === "changed") {
+                deleted++;
+                added++;
             }
         });
 
@@ -425,49 +609,206 @@
         };
     }
 
+    /*
+     * 토큰을 실제 DOM으로 출력합니다.
+     */
+    function renderTokens(container, tokens) {
+        tokens.forEach(function (token) {
+            if (token.changed && token.text.trim() !== "") {
+                const mark =
+                    document.createElement("span");
+
+                mark.className =
+                    "textcompare-diff-token";
+
+                mark.textContent = token.text;
+
+                container.appendChild(mark);
+            } else {
+                container.appendChild(
+                    document.createTextNode(token.text)
+                );
+            }
+        });
+    }
+
+    /*
+     * 일반 줄 출력
+     */
+    function createLine(type, text) {
+        const line =
+            document.createElement("div");
+
+        line.className =
+            "textcompare-result-line " + type;
+
+        const marker =
+            document.createElement("span");
+
+        marker.className =
+            "textcompare-marker";
+
+        marker.textContent =
+            type === "added" ? "+" : "−";
+
+        const textContainer =
+            document.createElement("span");
+
+        textContainer.className =
+            "textcompare-line-text";
+
+        textContainer.textContent =
+            text === ""
+                ? "(빈 줄)"
+                : text;
+
+        line.appendChild(marker);
+        line.appendChild(textContainer);
+
+        return line;
+    }
+
+    /*
+     * 변경 줄 출력
+     */
+    function createChangedLines(oldText, newText) {
+        const pair = diffTokens(
+            oldText,
+            newText
+        );
+
+        const oldLine =
+            document.createElement("div");
+
+        oldLine.className =
+            "textcompare-result-line deleted";
+
+        const oldMarker =
+            document.createElement("span");
+
+        oldMarker.className =
+            "textcompare-marker";
+
+        oldMarker.textContent = "−";
+
+        const oldTextContainer =
+            document.createElement("span");
+
+        oldTextContainer.className =
+            "textcompare-line-text";
+
+        renderTokens(
+            oldTextContainer,
+            pair.oldResult
+        );
+
+        oldLine.appendChild(oldMarker);
+        oldLine.appendChild(oldTextContainer);
+
+        const newLine =
+            document.createElement("div");
+
+        newLine.className =
+            "textcompare-result-line added";
+
+        const newMarker =
+            document.createElement("span");
+
+        newMarker.className =
+            "textcompare-marker";
+
+        newMarker.textContent = "+";
+
+        const newTextContainer =
+            document.createElement("span");
+
+        newTextContainer.className =
+            "textcompare-line-text";
+
+        renderTokens(
+            newTextContainer,
+            pair.newResult
+        );
+
+        newLine.appendChild(newMarker);
+        newLine.appendChild(newTextContainer);
+
+        return {
+            oldLine: oldLine,
+            newLine: newLine
+        };
+    }
+
     function renderResult(diff) {
         result.innerHTML = "";
 
-        const changedLines = diff.filter(function (item) {
-            return item.type !== "same";
-        });
+        const changedLines = diff.filter(
+            function (item) {
+                return item.type !== "same";
+            }
+        );
 
         if (changedLines.length === 0) {
-            const empty = document.createElement("div");
+            const empty =
+                document.createElement("div");
 
-            empty.className = "textcompare-empty";
-            empty.textContent = "달라진 내용이 없습니다.";
+            empty.className =
+                "textcompare-empty";
+
+            empty.textContent =
+                "달라진 내용이 없습니다.";
 
             result.appendChild(empty);
             return;
         }
 
         changedLines.forEach(function (item) {
-            const line = document.createElement("div");
+            if (item.type === "changed") {
+                const changed =
+                    createChangedLines(
+                        item.oldText,
+                        item.newText
+                    );
 
-            line.className =
-                "textcompare-result-line " + item.type;
+                result.appendChild(
+                    changed.oldLine
+                );
 
-            const marker = document.createElement("span");
-            marker.className = "textcompare-marker";
-            marker.textContent =
-                item.type === "added" ? "+" : "-";
+                result.appendChild(
+                    changed.newLine
+                );
 
-            const text = document.createElement("span");
-            text.className = "textcompare-line-text";
-            text.textContent =
-                item.text === "" ? "(빈 줄)" : item.text;
+                return;
+            }
 
-            line.appendChild(marker);
-            line.appendChild(text);
+            if (item.type === "deleted") {
+                result.appendChild(
+                    createLine(
+                        "deleted",
+                        item.oldText
+                    )
+                );
 
-            result.appendChild(line);
+                return;
+            }
+
+            if (item.type === "added") {
+                result.appendChild(
+                    createLine(
+                        "added",
+                        item.newText
+                    )
+                );
+            }
         });
     }
 
     function compareTexts() {
-        const beforeText = beforeInput.value;
-        const afterText = afterInput.value;
+        const beforeText =
+            beforeInput.value;
+
+        const afterText =
+            afterInput.value;
 
         if (!beforeText && !afterText) {
             sameCount.textContent = "0줄";
@@ -484,12 +825,17 @@
             return;
         }
 
-        const diff = buildDiff(
-            beforeText,
-            afterText
-        );
+        const rawDiff =
+            buildDiff(
+                beforeText,
+                afterText
+            );
 
-        const summary = updateSummary(diff);
+        const diff =
+            normalizeDiff(rawDiff);
+
+        const summary =
+            updateSummary(diff);
 
         if (
             summary.added === 0 &&
@@ -500,7 +846,10 @@
         } else {
             message.textContent =
                 "변경된 줄: " +
-                (summary.added + summary.deleted) +
+                (
+                    summary.added +
+                    summary.deleted
+                ) +
                 "줄";
         }
 
