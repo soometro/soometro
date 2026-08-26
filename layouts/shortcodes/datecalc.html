@@ -1,0 +1,437 @@
+<div class="tool-box datecalc-tool">
+
+    <div class="datecalc-input-wrap">
+        <label for="datecalc-start">시작일</label>
+        <input
+            type="date"
+            id="datecalc-start"
+        >
+    </div>
+
+    <div class="datecalc-input-wrap">
+        <label for="datecalc-end">종료일</label>
+        <input
+            type="date"
+            id="datecalc-end"
+        >
+    </div>
+
+    <div class="datecalc-option">
+        <label>
+            <input
+                type="checkbox"
+                id="datecalc-include-start"
+                checked
+            >
+            시작일 포함
+        </label>
+    </div>
+
+    <div class="datecalc-actions">
+        <button type="button" id="datecalc-calculate">
+            계산하기
+        </button>
+
+        <button type="button" id="datecalc-clear">
+            지우기
+        </button>
+    </div>
+
+    <div
+        class="datecalc-result"
+        id="datecalc-result"
+        aria-live="polite"
+    >
+        <div class="datecalc-result-row">
+            <span>총 일수</span>
+            <strong id="datecalc-total-days">0일</strong>
+        </div>
+
+        <div class="datecalc-result-row">
+            <span>주 단위</span>
+            <strong id="datecalc-weeks">0주 0일</strong>
+        </div>
+
+        <div class="datecalc-result-row">
+            <span>기간</span>
+            <strong id="datecalc-period">0년 0개월 0일</strong>
+        </div>
+    </div>
+
+    <div
+        class="datecalc-message"
+        id="datecalc-message"
+        aria-live="polite"
+    ></div>
+
+</div>
+
+<style>
+.datecalc-tool {
+    margin: 24px 0;
+}
+
+.datecalc-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.datecalc-input-wrap label {
+    font-weight: 600;
+}
+
+.datecalc-input-wrap input {
+    width: 100%;
+    min-height: 44px;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    font: inherit;
+}
+
+.datecalc-option {
+    margin: 4px 0 18px;
+}
+
+.datecalc-option label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.datecalc-option input {
+    width: 16px;
+    height: 16px;
+}
+
+.datecalc-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.datecalc-actions button {
+    flex: 1;
+    min-height: 44px;
+    padding: 8px 12px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.datecalc-result {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.datecalc-result-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    border-bottom: 1px solid currentColor;
+}
+
+.datecalc-result-row:last-child {
+    border-bottom: none;
+}
+
+.datecalc-result-row span {
+    font-size: 0.95rem;
+}
+
+.datecalc-result-row strong {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.datecalc-message {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (min-width: 700px) {
+    .datecalc-actions {
+        justify-content: flex-end;
+    }
+
+    .datecalc-actions button {
+        flex: 0 0 auto;
+        min-width: 100px;
+    }
+}
+</style>
+
+<script>
+(function () {
+    const startInput = document.getElementById(
+        "datecalc-start"
+    );
+
+    const endInput = document.getElementById(
+        "datecalc-end"
+    );
+
+    const includeStartInput = document.getElementById(
+        "datecalc-include-start"
+    );
+
+    const calculateButton = document.getElementById(
+        "datecalc-calculate"
+    );
+
+    const clearButton = document.getElementById(
+        "datecalc-clear"
+    );
+
+    const totalDays = document.getElementById(
+        "datecalc-total-days"
+    );
+
+    const weeks = document.getElementById(
+        "datecalc-weeks"
+    );
+
+    const period = document.getElementById(
+        "datecalc-period"
+    );
+
+    const message = document.getElementById(
+        "datecalc-message"
+    );
+
+    if (
+        !startInput ||
+        !endInput ||
+        !includeStartInput ||
+        !calculateButton ||
+        !clearButton ||
+        !totalDays ||
+        !weeks ||
+        !period ||
+        !message
+    ) {
+        return;
+    }
+
+    function parseDate(value) {
+        if (!value) {
+            return null;
+        }
+
+        const parts = value.split("-");
+
+        if (parts.length !== 3) {
+            return null;
+        }
+
+        const year = Number(parts[0]);
+        const month = Number(parts[1]);
+        const day = Number(parts[2]);
+
+        const date = new Date(
+            year,
+            month - 1,
+            day
+        );
+
+        if (
+            date.getFullYear() !== year ||
+            date.getMonth() !== month - 1 ||
+            date.getDate() !== day
+        ) {
+            return null;
+        }
+
+        date.setHours(0, 0, 0, 0);
+
+        return date;
+    }
+
+    function dateDiffInDays(startDate, endDate) {
+        const milliseconds =
+            endDate.getTime() -
+            startDate.getTime();
+
+        return Math.round(
+            milliseconds / 86400000
+        );
+    }
+
+    function calculateCalendarPeriod(startDate, endDate) {
+        let years =
+            endDate.getFullYear() -
+            startDate.getFullYear();
+
+        let months =
+            endDate.getMonth() -
+            startDate.getMonth();
+
+        let days =
+            endDate.getDate() -
+            startDate.getDate();
+
+        if (days < 0) {
+            months--;
+
+            const previousMonth = new Date(
+                endDate.getFullYear(),
+                endDate.getMonth(),
+                0
+            );
+
+            days += previousMonth.getDate();
+        }
+
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        return {
+            years: years,
+            months: months,
+            days: days
+        };
+    }
+
+    function calculate() {
+        const startDate = parseDate(
+            startInput.value
+        );
+
+        const endDate = parseDate(
+            endInput.value
+        );
+
+        if (!startDate || !endDate) {
+            totalDays.textContent = "0일";
+            weeks.textContent = "0주 0일";
+            period.textContent = "0년 0개월 0일";
+
+            message.textContent =
+                "시작일과 종료일을 모두 입력해주세요.";
+
+            return;
+        }
+
+        if (endDate < startDate) {
+            totalDays.textContent = "0일";
+            weeks.textContent = "0주 0일";
+            period.textContent = "0년 0개월 0일";
+
+            message.textContent =
+                "종료일은 시작일보다 빠를 수 없습니다.";
+
+            return;
+        }
+
+        let days = dateDiffInDays(
+            startDate,
+            endDate
+        );
+
+        if (includeStartInput.checked) {
+            days += 1;
+        }
+
+        const weekCount = Math.floor(days / 7);
+        const remainingDays = days % 7;
+
+        const calendarPeriod =
+            calculateCalendarPeriod(
+                startDate,
+                endDate
+            );
+
+        totalDays.textContent =
+            days + "일";
+
+        weeks.textContent =
+            weekCount +
+            "주 " +
+            remainingDays +
+            "일";
+
+        period.textContent =
+            calendarPeriod.years +
+            "년 " +
+            calendarPeriod.months +
+            "개월 " +
+            calendarPeriod.days +
+            "일";
+
+        message.textContent =
+            includeStartInput.checked
+                ? "시작일을 포함하여 계산했습니다."
+                : "시작일을 제외하고 계산했습니다.";
+    }
+
+    calculateButton.addEventListener(
+        "click",
+        calculate
+    );
+
+    clearButton.addEventListener(
+        "click",
+        function () {
+            startInput.value = "";
+            endInput.value = "";
+
+            includeStartInput.checked = true;
+
+            totalDays.textContent = "0일";
+            weeks.textContent = "0주 0일";
+            period.textContent =
+                "0년 0개월 0일";
+
+            message.textContent = "";
+
+            startInput.focus();
+        }
+    );
+
+    startInput.addEventListener(
+        "change",
+        function () {
+            if (
+                startInput.value &&
+                endInput.value
+            ) {
+                calculate();
+            }
+        }
+    );
+
+    endInput.addEventListener(
+        "change",
+        function () {
+            if (
+                startInput.value &&
+                endInput.value
+            ) {
+                calculate();
+            }
+        }
+    );
+
+    includeStartInput.addEventListener(
+        "change",
+        function () {
+            if (
+                startInput.value &&
+                endInput.value
+            ) {
+                calculate();
+            }
+        }
+    );
+})();
+</script>
