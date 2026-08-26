@@ -506,6 +506,16 @@ html.forced-dark .share-btn {
 }
 
 
+/* 현재 게시물 제목 */
+.book-breadcrumb > span:last-child {
+    color: #555555 !important;
+}
+
+html.forced-dark .book-breadcrumb > span:last-child {
+    color: #aaaaaa !important;
+}
+
+
 /* ==========================================================================
    12. Docs 아카이브 카테고리
    ========================================================================== */
