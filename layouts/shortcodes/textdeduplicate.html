@@ -1,3 +1,4 @@
+```html id="48217"
 <div class="tool-box textdeduplicate-tool">
     <div class="textdeduplicate-input-wrap">
         <label for="textdeduplicate-input">텍스트 입력</label>
@@ -10,15 +11,18 @@
 
     <div class="textdeduplicate-summary" aria-live="polite">
         <div class="textdeduplicate-count">
-            입력 <strong id="textdeduplicate-before">0</strong>줄
+            <span>입력</span>
+            <strong><span id="textdeduplicate-before">0</span>줄</strong>
         </div>
 
         <div class="textdeduplicate-count">
-            중복 제거 후 <strong id="textdeduplicate-after">0</strong>줄
+            <span>중복 제거 후</span>
+            <strong><span id="textdeduplicate-after">0</span>줄</strong>
         </div>
 
         <div class="textdeduplicate-count">
-            제거 <strong id="textdeduplicate-removed">0</strong>줄
+            <span>제거</span>
+            <strong><span id="textdeduplicate-removed">0</span>줄</strong>
         </div>
     </div>
 
@@ -66,25 +70,35 @@
     line-height: 1.6;
 }
 
+/* 결과 줄 수 표시 */
 .textdeduplicate-summary {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    margin: 16px 0 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .textdeduplicate-count {
-    padding: 12px 8px;
-    text-align: center;
-    border: 1px solid currentColor;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 44px;
+    padding: 10px 14px;
+    box-sizing: border-box;
     font-size: 0.95rem;
+    border-bottom: 1px solid currentColor;
+}
+
+.textdeduplicate-count:last-child {
+    border-bottom: none;
 }
 
 .textdeduplicate-count strong {
-    display: block;
-    margin-top: 4px;
-    font-size: 1.35rem;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .textdeduplicate-actions {
@@ -101,9 +115,14 @@
     cursor: pointer;
 }
 
-@media (max-width: 480px) {
-    .textdeduplicate-summary {
-        grid-template-columns: 1fr;
+@media (min-width: 700px) {
+    .textdeduplicate-actions {
+        justify-content: flex-end;
+    }
+
+    .textdeduplicate-actions button {
+        flex: 0 0 auto;
+        min-width: 100px;
     }
 }
 </style>
@@ -198,3 +217,4 @@
     updateResult();
 })();
 </script>
+```
