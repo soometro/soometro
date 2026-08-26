@@ -1,127 +1,217 @@
 <div class="tool-box textsort-tool">
+
     <div class="textsort-input-wrap">
         <label for="textsort-input">텍스트 입력</label>
+
         <textarea
             id="textsort-input"
             rows="12"
             placeholder="한 줄에 하나씩 입력하세요."
+            spellcheck="false"
         ></textarea>
     </div>
 
+
     <div class="textsort-controls">
-        <button type="button" id="textsort-ascending">가나다순</button>
-        <button type="button" id="textsort-descending">역순</button>
+        <button type="button" id="textsort-ascending" class="textsort-btn">
+            가나다순
+        </button>
+
+        <button type="button" id="textsort-descending" class="textsort-btn">
+            역순
+        </button>
     </div>
+
 
     <div class="textsort-summary" aria-live="polite">
+
         <div class="textsort-count">
-            입력 <strong id="textsort-before">0</strong>줄
+            <span>입력 줄 수</span>
+            <strong id="textsort-before">0</strong>
         </div>
 
         <div class="textsort-count">
-            결과 <strong id="textsort-after">0</strong>줄
+            <span>결과 줄 수</span>
+            <strong id="textsort-after">0</strong>
         </div>
+
     </div>
+
 
     <div class="textsort-result-wrap">
         <label for="textsort-result">정렬 결과</label>
+
         <textarea
             id="textsort-result"
             rows="12"
             readonly
             placeholder="정렬 결과가 여기에 표시됩니다."
+            spellcheck="false"
         ></textarea>
     </div>
 
+
     <div class="textsort-actions">
-        <button type="button" id="textsort-copy">결과 복사</button>
-        <button type="button" id="textsort-clear">지우기</button>
+
+        <button
+            type="button"
+            id="textsort-copy"
+            class="textsort-btn"
+        >
+            결과 복사
+        </button>
+
+        <button
+            type="button"
+            id="textsort-clear"
+            class="textsort-btn"
+        >
+            지우기
+        </button>
+
     </div>
+
 </div>
+
 
 <style>
 .textsort-tool {
-    margin: 24px 0;
+    width: 100%;
+    margin: 2rem 0;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
 }
 
 .textsort-input-wrap,
 .textsort-result-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    width: 100%;
 }
 
 .textsort-input-wrap label,
 .textsort-result-wrap label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
     font-weight: 600;
+    color: var(--body-font-color);
 }
 
-.textsort-input-wrap textarea,
-.textsort-result-wrap textarea {
+#textsort-input,
+#textsort-result {
+    display: block;
     width: 100%;
-    box-sizing: border-box;
     min-height: 240px;
-    padding: 12px;
-    resize: vertical;
-    font: inherit;
+    box-sizing: border-box;
+    padding: 0.9rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #222222;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 0.95rem;
     line-height: 1.6;
+    resize: vertical;
+    outline: none;
 }
 
+#textsort-input:focus {
+    border-color: var(--color-link, #888);
+}
+
+#textsort-result {
+    background: #fafafa;
+}
+
+#textsort-input::placeholder,
+#textsort-result::placeholder {
+    color: #999999;
+}
+
+
+/* 정렬 버튼 */
 .textsort-controls {
     display: flex;
-    gap: 10px;
-    margin-top: 16px;
+    gap: 0.6rem;
+    margin-top: 1rem;
 }
 
-.textsort-controls button,
-.textsort-actions button {
-    min-height: 44px;
-    padding: 8px 16px;
-    font: inherit;
-    cursor: pointer;
-}
-
-.textsort-controls button {
+.textsort-controls .textsort-btn {
     flex: 1;
 }
 
+
+/* 통계 */
 .textsort-summary {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin: 16px 0 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin: 1rem 0;
 }
 
 .textsort-count {
-    padding: 12px 8px;
-    text-align: center;
-    border: 1px solid currentColor;
+    box-sizing: border-box;
+    padding: 0.8rem;
+    border: 1px solid #e2e2e2;
     border-radius: 8px;
-    font-size: 0.95rem;
+    background: #fafafa;
+    text-align: center;
+}
+
+.textsort-count span {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    color: #777777;
 }
 
 .textsort-count strong {
     display: block;
-    margin-top: 4px;
-    font-size: 1.35rem;
+    font-size: 1.05rem;
+    color: var(--body-font-color);
 }
 
+
+/* 버튼 */
 .textsort-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 16px;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
 }
 
-.textsort-actions button {
-    flex: 1;
+.textsort-btn {
+    min-width: 110px;
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background: #f8f8f8;
+    color: #222222;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
 }
 
+.textsort-btn:hover {
+    background: #eeeeee;
+    border-color: #c8c8c8;
+}
+
+.textsort-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* 데스크톱 */
 @media (min-width: 700px) {
+
     .textsort-controls {
         justify-content: flex-start;
     }
 
-    .textsort-controls button {
+    .textsort-controls .textsort-btn {
         flex: 0 0 auto;
         min-width: 120px;
     }
@@ -130,32 +220,130 @@
         justify-content: flex-end;
     }
 
-    .textsort-actions button {
+    .textsort-actions .textsort-btn {
         flex: 0 0 auto;
         min-width: 100px;
     }
 }
 
-@media (max-width: 480px) {
+
+/* 다크 모드 */
+html.forced-dark #textsort-input,
+html.forced-dark #textsort-result,
+html[data-theme="dark"] #textsort-input,
+html[data-theme="dark"] #textsort-result,
+body.forced-dark #textsort-input,
+body.forced-dark #textsort-result {
+    background: #1a1a1a;
+    color: #eeeeee;
+    border-color: #444444;
+}
+
+html.forced-dark #textsort-result,
+html[data-theme="dark"] #textsort-result,
+body.forced-dark #textsort-result {
+    background: #151515;
+}
+
+html.forced-dark .textsort-count,
+html[data-theme="dark"] .textsort-count,
+body.forced-dark .textsort-count {
+    background: #1a1a1a;
+    border-color: #444444;
+}
+
+html.forced-dark .textsort-count span,
+html[data-theme="dark"] .textsort-count span,
+body.forced-dark .textsort-count span {
+    color: #aaaaaa;
+}
+
+html.forced-dark .textsort-btn,
+html[data-theme="dark"] .textsort-btn,
+body.forced-dark .textsort-btn {
+    background: #2a2a2a;
+    color: #eeeeee;
+    border-color: #444444;
+}
+
+html.forced-dark .textsort-btn:hover,
+html[data-theme="dark"] .textsort-btn:hover,
+body.forced-dark .textsort-btn:hover {
+    background: #333333;
+    border-color: #555555;
+}
+
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+    .textsort-tool {
+        margin: 1.5rem 0;
+    }
+
+    #textsort-input,
+    #textsort-result {
+        min-height: 210px;
+        font-size: 0.9rem;
+    }
+
     .textsort-summary {
         grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .textsort-count {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.7rem 0.8rem;
+    }
+
+    .textsort-count span {
+        margin-bottom: 0;
+    }
+
+    .textsort-count strong {
+        font-size: 1rem;
+    }
+
+    .textsort-controls {
+        gap: 0.5rem;
+    }
+
+    .textsort-actions {
+        width: 100%;
+    }
+
+    .textsort-actions .textsort-btn {
+        flex: 1;
+        min-width: 0;
     }
 }
 </style>
 
+
 <script>
 (function () {
+
     const input = document.getElementById("textsort-input");
     const result = document.getElementById("textsort-result");
 
     const beforeCount = document.getElementById("textsort-before");
     const afterCount = document.getElementById("textsort-after");
 
-    const ascendingButton = document.getElementById("textsort-ascending");
-    const descendingButton = document.getElementById("textsort-descending");
+    const ascendingButton =
+        document.getElementById("textsort-ascending");
 
-    const copyButton = document.getElementById("textsort-copy");
-    const clearButton = document.getElementById("textsort-clear");
+    const descendingButton =
+        document.getElementById("textsort-descending");
+
+    const copyButton =
+        document.getElementById("textsort-copy");
+
+    const clearButton =
+        document.getElementById("textsort-clear");
+
 
     if (
         !input ||
@@ -170,18 +358,28 @@
         return;
     }
 
+
     let sortOrder = "ascending";
 
+
     function getLines() {
+
         return input.value
             .split(/\r\n|\r|\n/)
+            .map(function (line) {
+                return line.trim();
+            })
             .filter(function (line) {
-                return line.trim() !== "";
+                return line !== "";
             });
+
     }
 
+
     function sortLines(lines, order) {
+
         return [...lines].sort(function (a, b) {
+
             const comparison = a.localeCompare(
                 b,
                 "ko",
@@ -194,56 +392,119 @@
             return order === "ascending"
                 ? comparison
                 : -comparison;
+
         });
+
     }
+
 
     function updateResult() {
+
         const lines = getLines();
-        const sortedLines = sortLines(lines, sortOrder);
 
-        beforeCount.textContent = lines.length;
-        afterCount.textContent = sortedLines.length;
+        const sortedLines =
+            sortLines(lines, sortOrder);
 
-        result.value = sortedLines.join("\n");
+        beforeCount.textContent =
+            lines.length;
+
+        afterCount.textContent =
+            sortedLines.length;
+
+        result.value =
+            sortedLines.join("\n");
+
     }
 
-    ascendingButton.addEventListener("click", function () {
-        sortOrder = "ascending";
-        updateResult();
-    });
 
-    descendingButton.addEventListener("click", function () {
-        sortOrder = "descending";
-        updateResult();
-    });
+    ascendingButton.addEventListener(
+        "click",
+        function () {
 
-    input.addEventListener("input", updateResult);
+            sortOrder = "ascending";
 
-    copyButton.addEventListener("click", async function () {
-        if (!result.value) {
-            return;
+            updateResult();
+
         }
+    );
 
-        try {
-            await navigator.clipboard.writeText(result.value);
-        } catch (error) {
-            result.select();
-            document.execCommand("copy");
+
+    descendingButton.addEventListener(
+        "click",
+        function () {
+
+            sortOrder = "descending";
+
+            updateResult();
+
         }
+    );
 
-        copyButton.textContent = "복사 완료";
 
-        setTimeout(function () {
-            copyButton.textContent = "결과 복사";
-        }, 1200);
-    });
+    input.addEventListener(
+        "input",
+        updateResult
+    );
 
-    clearButton.addEventListener("click", function () {
-        input.value = "";
-        updateResult();
-        input.focus();
-    });
+
+    copyButton.addEventListener(
+        "click",
+        async function () {
+
+            if (!result.value) {
+                return;
+            }
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    result.value
+                );
+
+            } catch (error) {
+
+                result.select();
+
+                document.execCommand(
+                    "copy"
+                );
+
+            }
+
+
+            copyButton.textContent =
+                "복사 완료";
+
+
+            setTimeout(
+                function () {
+
+                    copyButton.textContent =
+                        "결과 복사";
+
+                },
+                1200
+            );
+
+        }
+    );
+
+
+    clearButton.addEventListener(
+        "click",
+        function () {
+
+            input.value = "";
+
+            updateResult();
+
+            input.focus();
+
+        }
+    );
+
 
     updateResult();
+
 })();
 </script>

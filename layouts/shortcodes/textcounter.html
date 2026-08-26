@@ -1,14 +1,19 @@
 <div class="tool-box textcounter-tool">
+
     <div class="textcounter-input-wrap">
         <label for="textcounter-input">텍스트 입력</label>
+
         <textarea
             id="textcounter-input"
             rows="12"
             placeholder="여기에 텍스트를 입력하세요."
+            spellcheck="false"
         ></textarea>
     </div>
 
-    <div class="textcounter-stats">
+
+    <div class="textcounter-stats" aria-live="polite">
+
         <div class="textcounter-stat">
             <span class="textcounter-label">글자 수</span>
             <strong id="textcounter-char-count">0</strong>
@@ -48,83 +53,147 @@
             <span class="textcounter-label">줄 수</span>
             <strong id="textcounter-line-count">0</strong>
         </div>
+
     </div>
 
+
     <div class="textcounter-actions">
-        <button type="button" id="textcounter-copy">복사</button>
-        <button type="button" id="textcounter-clear">지우기</button>
+
+        <button
+            type="button"
+            id="textcounter-copy"
+            class="textcounter-btn"
+        >
+            복사
+        </button>
+
+        <button
+            type="button"
+            id="textcounter-clear"
+            class="textcounter-btn"
+        >
+            지우기
+        </button>
+
     </div>
+
 </div>
+
 
 <style>
 .textcounter-tool {
-    margin: 24px 0;
+    width: 100%;
+    margin: 2rem 0;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
 }
 
 .textcounter-input-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    width: 100%;
 }
 
 .textcounter-input-wrap label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
     font-weight: 600;
+    color: var(--body-font-color);
 }
 
-.textcounter-input-wrap textarea {
+#textcounter-input {
+    display: block;
     width: 100%;
-    box-sizing: border-box;
     min-height: 240px;
-    padding: 12px;
-    resize: vertical;
-    font: inherit;
+    box-sizing: border-box;
+    padding: 0.9rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #222222;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 0.95rem;
     line-height: 1.6;
+    resize: vertical;
+    outline: none;
 }
 
+#textcounter-input:focus {
+    border-color: var(--color-link, #888);
+}
+
+#textcounter-input::placeholder {
+    color: #999999;
+}
+
+
+/* 통계 */
 .textcounter-stats {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin: 1rem 0;
 }
 
 .textcounter-stat {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
-    min-height: 78px;
-    padding: 14px;
     box-sizing: border-box;
-    border: 1px solid currentColor;
+    padding: 0.8rem;
+    border: 1px solid #e2e2e2;
     border-radius: 8px;
+    background: #fafafa;
+    text-align: center;
 }
 
 .textcounter-label {
-    font-size: 0.9rem;
-    opacity: 0.8;
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    color: #777777;
 }
 
 .textcounter-stat strong {
-    font-size: 1.35rem;
+    display: block;
+    font-size: 1.05rem;
+    color: var(--body-font-color);
     line-height: 1.2;
 }
 
+
+/* 버튼 */
 .textcounter-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 16px;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
 }
 
-.textcounter-actions button {
-    flex: 1;
+.textcounter-btn {
+    min-width: 110px;
     min-height: 44px;
-    padding: 8px 12px;
-    font: inherit;
+    padding: 0.65rem 1rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background: #f8f8f8;
+    color: #222222;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 0.9rem;
     cursor: pointer;
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
 }
 
+.textcounter-btn:hover {
+    background: #eeeeee;
+    border-color: #c8c8c8;
+}
+
+.textcounter-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* 데스크톱 */
 @media (min-width: 700px) {
+
     .textcounter-stats {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -133,26 +202,132 @@
         justify-content: flex-end;
     }
 
-    .textcounter-actions button {
+    .textcounter-actions .textcounter-btn {
         flex: 0 0 auto;
         min-width: 100px;
     }
 }
+
+
+/* 다크 모드 */
+html.forced-dark #textcounter-input,
+html[data-theme="dark"] #textcounter-input,
+body.forced-dark #textcounter-input {
+    background: #1a1a1a;
+    color: #eeeeee;
+    border-color: #444444;
+}
+
+html.forced-dark .textcounter-stat,
+html[data-theme="dark"] .textcounter-stat,
+body.forced-dark .textcounter-stat {
+    background: #1a1a1a;
+    border-color: #444444;
+}
+
+html.forced-dark .textcounter-label,
+html[data-theme="dark"] .textcounter-label,
+body.forced-dark .textcounter-label {
+    color: #aaaaaa;
+}
+
+html.forced-dark .textcounter-btn,
+html[data-theme="dark"] .textcounter-btn,
+body.forced-dark .textcounter-btn {
+    background: #2a2a2a;
+    color: #eeeeee;
+    border-color: #444444;
+}
+
+html.forced-dark .textcounter-btn:hover,
+html[data-theme="dark"] .textcounter-btn:hover,
+body.forced-dark .textcounter-btn:hover {
+    background: #333333;
+    border-color: #555555;
+}
+
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+    .textcounter-tool {
+        margin: 1.5rem 0;
+    }
+
+    #textcounter-input {
+        min-height: 210px;
+        font-size: 0.9rem;
+    }
+
+    .textcounter-stats {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .textcounter-stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.7rem 0.8rem;
+        text-align: left;
+    }
+
+    .textcounter-label {
+        margin-bottom: 0;
+    }
+
+    .textcounter-stat strong {
+        font-size: 1rem;
+    }
+
+    .textcounter-actions {
+        width: 100%;
+    }
+
+    .textcounter-actions .textcounter-btn {
+        flex: 1;
+        min-width: 0;
+    }
+}
 </style>
+
 
 <script>
 (function () {
-    const input = document.getElementById("textcounter-input");
-    const charCount = document.getElementById("textcounter-char-count");
-    const charSpaceCount = document.getElementById("textcounter-char-space-count");
-    const charNoSpaceCount = document.getElementById("textcounter-char-no-space-count");
-    const byteCount = document.getElementById("textcounter-byte-count");
-    const wordCount = document.getElementById("textcounter-word-count");
-    const paragraphCount = document.getElementById("textcounter-paragraph-count");
-    const sentenceCount = document.getElementById("textcounter-sentence-count");
-    const lineCount = document.getElementById("textcounter-line-count");
-    const copyButton = document.getElementById("textcounter-copy");
-    const clearButton = document.getElementById("textcounter-clear");
+
+    const input =
+        document.getElementById("textcounter-input");
+
+    const charCount =
+        document.getElementById("textcounter-char-count");
+
+    const charSpaceCount =
+        document.getElementById("textcounter-char-space-count");
+
+    const charNoSpaceCount =
+        document.getElementById("textcounter-char-no-space-count");
+
+    const byteCount =
+        document.getElementById("textcounter-byte-count");
+
+    const wordCount =
+        document.getElementById("textcounter-word-count");
+
+    const paragraphCount =
+        document.getElementById("textcounter-paragraph-count");
+
+    const sentenceCount =
+        document.getElementById("textcounter-sentence-count");
+
+    const lineCount =
+        document.getElementById("textcounter-line-count");
+
+    const copyButton =
+        document.getElementById("textcounter-copy");
+
+    const clearButton =
+        document.getElementById("textcounter-clear");
+
 
     if (
         !input ||
@@ -170,11 +345,18 @@
         return;
     }
 
+
     function countBytes(text) {
-        return new TextEncoder().encode(text).length;
+
+        return new TextEncoder()
+            .encode(text)
+            .length;
+
     }
 
+
     function countWords(text) {
+
         const trimmed = text.trim();
 
         if (!trimmed) {
@@ -182,9 +364,12 @@
         }
 
         return trimmed.split(/\s+/).length;
+
     }
 
+
     function countParagraphs(text) {
+
         const trimmed = text.trim();
 
         if (!trimmed) {
@@ -197,73 +382,138 @@
                 return paragraph.trim() !== "";
             })
             .length;
+
     }
 
+
     function countSentences(text) {
+
         const trimmed = text.trim();
 
         if (!trimmed) {
             return 0;
         }
 
-        const matches = trimmed.match(/[.!?。！？]+(?=\s|$)/g);
+        const matches =
+            trimmed.match(
+                /[.!?。！？]+(?=\s|$)/g
+            );
 
-        return matches ? matches.length : 0;
+        return matches
+            ? matches.length
+            : 0;
+
     }
 
+
     function countLines(text) {
+
         if (!text) {
             return 0;
         }
 
-        return text.split(/\r\n|\r|\n/).length;
+        return text
+            .split(/\r\n|\r|\n/)
+            .length;
+
     }
+
 
     function updateStats() {
+
         const text = input.value;
 
-        charCount.textContent = text.length;
-        charSpaceCount.textContent = text.length;
-        charNoSpaceCount.textContent = text.replace(/\s/g, "").length;
-        byteCount.textContent = countBytes(text);
-        wordCount.textContent = countWords(text);
-        paragraphCount.textContent = countParagraphs(text);
-        sentenceCount.textContent = countSentences(text);
-        lineCount.textContent = countLines(text);
+        charCount.textContent =
+            text.length;
+
+        charSpaceCount.textContent =
+            text.length;
+
+        charNoSpaceCount.textContent =
+            text.replace(/\s/g, "").length;
+
+        byteCount.textContent =
+            countBytes(text);
+
+        wordCount.textContent =
+            countWords(text);
+
+        paragraphCount.textContent =
+            countParagraphs(text);
+
+        sentenceCount.textContent =
+            countSentences(text);
+
+        lineCount.textContent =
+            countLines(text);
+
     }
 
-    input.addEventListener("input", updateStats);
 
-    copyButton.addEventListener("click", async function () {
-        if (!input.value) {
-            return;
+    input.addEventListener(
+        "input",
+        updateStats
+    );
+
+
+    copyButton.addEventListener(
+        "click",
+        async function () {
+
+            if (!input.value) {
+                return;
+            }
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    input.value
+                );
+
+            } catch (error) {
+
+                input.select();
+
+                document.execCommand(
+                    "copy"
+                );
+
+            }
+
+
+            copyButton.textContent =
+                "복사 완료";
+
+
+            setTimeout(
+                function () {
+
+                    copyButton.textContent =
+                        "복사";
+
+                },
+                1200
+            );
+
         }
+    );
 
-        try {
-            await navigator.clipboard.writeText(input.value);
-            copyButton.textContent = "복사 완료";
 
-            setTimeout(function () {
-                copyButton.textContent = "복사";
-            }, 1200);
-        } catch (error) {
-            input.select();
-            document.execCommand("copy");
+    clearButton.addEventListener(
+        "click",
+        function () {
 
-            copyButton.textContent = "복사 완료";
+            input.value = "";
 
-            setTimeout(function () {
-                copyButton.textContent = "복사";
-            }, 1200);
+            updateStats();
+
+            input.focus();
+
         }
-    });
+    );
 
-    clearButton.addEventListener("click", function () {
-        input.value = "";
-        updateStats();
-        input.focus();
-    });
 
     updateStats();
+
 })();
 </script>
