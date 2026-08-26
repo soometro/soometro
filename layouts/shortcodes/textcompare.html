@@ -1,0 +1,463 @@
+<div class="tool-box textcompare-tool">
+    <div class="textcompare-input-wrap">
+        <label for="textcompare-input-a">텍스트 1</label>
+        <textarea
+            id="textcompare-input-a"
+            rows="12"
+            placeholder="비교할 첫 번째 텍스트를 입력하세요."
+        ></textarea>
+    </div>
+
+    <div class="textcompare-input-wrap">
+        <label for="textcompare-input-b">텍스트 2</label>
+        <textarea
+            id="textcompare-input-b"
+            rows="12"
+            placeholder="비교할 두 번째 텍스트를 입력하세요."
+        ></textarea>
+    </div>
+
+    <div class="textcompare-actions">
+        <button type="button" id="textcompare-compare">비교하기</button>
+        <button type="button" id="textcompare-clear">지우기</button>
+    </div>
+
+    <div
+        class="textcompare-summary"
+        id="textcompare-summary"
+        aria-live="polite"
+    >
+        <div class="textcompare-count">
+            <span>같은 줄</span>
+            <strong id="textcompare-same-count">0줄</strong>
+        </div>
+
+        <div class="textcompare-count">
+            <span>추가된 줄</span>
+            <strong id="textcompare-added-count">0줄</strong>
+        </div>
+
+        <div class="textcompare-count">
+            <span>삭제된 줄</span>
+            <strong id="textcompare-deleted-count">0줄</strong>
+        </div>
+    </div>
+
+    <div
+        class="textcompare-message"
+        id="textcompare-message"
+        aria-live="polite"
+    ></div>
+
+    <div class="textcompare-result-wrap">
+        <label>비교 결과</label>
+
+        <div
+            class="textcompare-result"
+            id="textcompare-result"
+            aria-live="polite"
+        ></div>
+    </div>
+</div>
+
+<style>
+.textcompare-tool {
+    margin: 24px 0;
+}
+
+.textcompare-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.textcompare-input-wrap label,
+.textcompare-result-wrap > label {
+    font-weight: 600;
+}
+
+.textcompare-input-wrap textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 240px;
+    padding: 12px;
+    resize: vertical;
+    font: inherit;
+    line-height: 1.6;
+}
+
+.textcompare-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.textcompare-actions button {
+    flex: 1;
+    min-height: 44px;
+    padding: 8px 12px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.textcompare-summary {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.textcompare-count {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 44px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    border-bottom: 1px solid currentColor;
+}
+
+.textcompare-count:last-child {
+    border-bottom: none;
+}
+
+.textcompare-count strong {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.textcompare-message {
+    margin: 0 0 20px;
+    font-weight: 600;
+}
+
+.textcompare-result-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.textcompare-result {
+    width: 100%;
+    min-height: 120px;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    font-family: inherit;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+.textcompare-result-line {
+    display: flex;
+    gap: 8px;
+    padding: 4px 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.textcompare-result-line.same {
+    opacity: 0.8;
+}
+
+.textcompare-result-line.added {
+    border-left: 3px solid currentColor;
+    padding-left: 8px;
+}
+
+.textcompare-result-line.deleted {
+    border-left: 3px solid currentColor;
+    padding-left: 8px;
+    opacity: 0.8;
+}
+
+.textcompare-marker {
+    flex: 0 0 18px;
+    font-weight: 700;
+}
+
+.textcompare-line-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.textcompare-empty {
+    opacity: 0.7;
+}
+
+@media (min-width: 700px) {
+    .textcompare-actions {
+        justify-content: flex-end;
+    }
+
+    .textcompare-actions button {
+        flex: 0 0 auto;
+        min-width: 100px;
+    }
+}
+</style>
+
+<script>
+(function () {
+    const inputA = document.getElementById("textcompare-input-a");
+    const inputB = document.getElementById("textcompare-input-b");
+
+    const compareButton = document.getElementById("textcompare-compare");
+    const clearButton = document.getElementById("textcompare-clear");
+
+    const sameCount = document.getElementById("textcompare-same-count");
+    const addedCount = document.getElementById("textcompare-added-count");
+    const deletedCount = document.getElementById("textcompare-deleted-count");
+
+    const message = document.getElementById("textcompare-message");
+    const result = document.getElementById("textcompare-result");
+
+    if (
+        !inputA ||
+        !inputB ||
+        !compareButton ||
+        !clearButton ||
+        !sameCount ||
+        !addedCount ||
+        !deletedCount ||
+        !message ||
+        !result
+    ) {
+        return;
+    }
+
+    function splitLines(text) {
+        if (!text) {
+            return [];
+        }
+
+        return text.split(/\r\n|\r|\n/);
+    }
+
+    function buildDiff(textA, textB) {
+        const linesA = splitLines(textA);
+        const linesB = splitLines(textB);
+
+        const n = linesA.length;
+        const m = linesB.length;
+
+        /*
+         * LCS(Longest Common Subsequence)를 이용해
+         * 두 텍스트의 공통 줄을 찾습니다.
+         */
+        const dp = Array.from(
+            { length: n + 1 },
+            function () {
+                return new Uint32Array(m + 1);
+            }
+        );
+
+        for (let i = n - 1; i >= 0; i--) {
+            for (let j = m - 1; j >= 0; j--) {
+                if (linesA[i] === linesB[j]) {
+                    dp[i][j] = dp[i + 1][j + 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(
+                        dp[i + 1][j],
+                        dp[i][j + 1]
+                    );
+                }
+            }
+        }
+
+        const diff = [];
+
+        let i = 0;
+        let j = 0;
+
+        while (i < n && j < m) {
+            if (linesA[i] === linesB[j]) {
+                diff.push({
+                    type: "same",
+                    text: linesA[i]
+                });
+
+                i++;
+                j++;
+            } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+                diff.push({
+                    type: "deleted",
+                    text: linesA[i]
+                });
+
+                i++;
+            } else {
+                diff.push({
+                    type: "added",
+                    text: linesB[j]
+                });
+
+                j++;
+            }
+        }
+
+        while (i < n) {
+            diff.push({
+                type: "deleted",
+                text: linesA[i]
+            });
+
+            i++;
+        }
+
+        while (j < m) {
+            diff.push({
+                type: "added",
+                text: linesB[j]
+            });
+
+            j++;
+        }
+
+        return diff;
+    }
+
+    function updateSummary(diff) {
+        let same = 0;
+        let added = 0;
+        let deleted = 0;
+
+        diff.forEach(function (item) {
+            if (item.type === "same") {
+                same++;
+            } else if (item.type === "added") {
+                added++;
+            } else if (item.type === "deleted") {
+                deleted++;
+            }
+        });
+
+        sameCount.textContent = same + "줄";
+        addedCount.textContent = added + "줄";
+        deletedCount.textContent = deleted + "줄";
+
+        return {
+            same: same,
+            added: added,
+            deleted: deleted
+        };
+    }
+
+    function renderResult(diff) {
+        result.innerHTML = "";
+
+        if (diff.length === 0) {
+            const empty = document.createElement("div");
+            empty.className = "textcompare-empty";
+            empty.textContent = "비교할 내용이 없습니다.";
+            result.appendChild(empty);
+            return;
+        }
+
+        const hasDifference = diff.some(function (item) {
+            return item.type !== "same";
+        });
+
+        if (!hasDifference) {
+            message.textContent = "두 텍스트가 같습니다.";
+            return;
+        }
+
+        diff.forEach(function (item) {
+            if (item.type === "same") {
+                return;
+            }
+
+            const line = document.createElement("div");
+            line.className =
+                "textcompare-result-line " + item.type;
+
+            const marker = document.createElement("span");
+            marker.className = "textcompare-marker";
+
+            marker.textContent =
+                item.type === "added" ? "+" : "-";
+
+            const text = document.createElement("span");
+            text.className = "textcompare-line-text";
+
+            text.textContent =
+                item.text === ""
+                    ? "(빈 줄)"
+                    : item.text;
+
+            line.appendChild(marker);
+            line.appendChild(text);
+
+            result.appendChild(line);
+        });
+    }
+
+    function compareTexts() {
+        const textA = inputA.value;
+        const textB = inputB.value;
+
+        if (!textA && !textB) {
+            sameCount.textContent = "0줄";
+            addedCount.textContent = "0줄";
+            deletedCount.textContent = "0줄";
+
+            message.textContent = "";
+            result.innerHTML =
+                '<div class="textcompare-empty">텍스트를 입력한 후 비교하기를 눌러주세요.</div>';
+
+            return;
+        }
+
+        const diff = buildDiff(textA, textB);
+        const summary = updateSummary(diff);
+
+        if (
+            summary.added === 0 &&
+            summary.deleted === 0
+        ) {
+            message.textContent = "두 텍스트가 같습니다.";
+        } else {
+            message.textContent =
+                "변경된 줄: " +
+                (summary.added + summary.deleted) +
+                "줄";
+        }
+
+        renderResult(diff);
+    }
+
+    compareButton.addEventListener(
+        "click",
+        compareTexts
+    );
+
+    clearButton.addEventListener(
+        "click",
+        function () {
+            inputA.value = "";
+            inputB.value = "";
+
+            sameCount.textContent = "0줄";
+            addedCount.textContent = "0줄";
+            deletedCount.textContent = "0줄";
+
+            message.textContent = "";
+
+            result.innerHTML =
+                '<div class="textcompare-empty">텍스트를 입력한 후 비교하기를 눌러주세요.</div>';
+
+            inputA.focus();
+        }
+    );
+
+    result.innerHTML =
+        '<div class="textcompare-empty">텍스트를 입력한 후 비교하기를 눌러주세요.</div>';
+})();
+</script>
