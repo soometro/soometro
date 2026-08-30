@@ -203,6 +203,30 @@
 }
 
 
+/* 번호 마커 */
+.gpsmap-marker-icon {
+    background: transparent;
+    border: none;
+}
+
+.gpsmap-marker-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 28px;
+    height: 28px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    background: #3388ff;
+    color: #ffffff;
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+
 /* 지도 */
 .gpsmap-map {
     width: 100%;
@@ -539,7 +563,7 @@ body.forced-dark .gpsmap-map {
         const latLngs = [];
 
 
-        ordered.forEach(function (item) {
+        ordered.forEach(function (item, orderIndex) {
 
             const latLng = [
                 item.lat,
@@ -549,14 +573,34 @@ body.forced-dark .gpsmap-map {
             latLngs.push(latLng);
 
 
+            const number = orderIndex + 1;
+
+
             const popupText =
-                item.name +
+                number + "번. " + item.name +
                 (item.date
                     ? "<br>" + item.date.toLocaleString("ko-KR")
                     : "");
 
 
-            window.L.marker(latLng)
+            const numberIcon = window.L.divIcon({
+                className: "gpsmap-marker-icon",
+                html:
+                    '<div class="gpsmap-marker-number">' +
+                    number +
+                    "</div>",
+                iconSize: [28, 28],
+                iconAnchor: [14, 14],
+                popupAnchor: [0, -14]
+            });
+
+
+            window.L.marker(
+                latLng,
+                {
+                    icon: numberIcon
+                }
+            )
                 .addTo(mapInstance)
                 .bindPopup(popupText);
 
